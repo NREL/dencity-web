@@ -1,0 +1,8 @@
+MONGODB [WARNING] Please note that logging negatively impacts client-side performance. You should set your logging level no lower than :info in production.
+MONGODB admin['$cmd'].find({:ismaster=>1}).limit(-1)
+
+
+Started GET "/rails/info/properties" for 127.0.0.1 at Wed Dec 28 15:49:13 -0700 2011
+  Processing by Rails::InfoController#properties as HTML
+Rendered inline template (0.2ms)
+Completed 200 OK in 17ms (Views: 1.1ms)

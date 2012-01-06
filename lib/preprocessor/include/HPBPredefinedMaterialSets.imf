@@ -1,0 +1,3977 @@
+##def HEADER_INFO[]
+!  HPBPredefinedMaterials.imf
+!
+!  Use this material Macros for implementing multiple
+!  types of materials in an energy plus input file.
+!  Make sure to replace ' ' with _ in the input enumeration file
+!
+!  Modification History:  12-03-2003 Program created to autocreate this file
+!                                    by Nick Long
+!
+!----------------------------------------------------------
+!----------------------------------------------------------
+! This file contains the following window constructions
+!    HF-A1_STUCCO_1IN[]
+!    HF-A2_FACE_BRICK_4IN[]
+!    HF-A3_STEEL_SIDING_LW[]
+!    HF-A6_FINISH[]
+!    HF-A7_FACE_BRICK_4IN[]
+!    HF-B1_AIR_SPACE_RESISTANCE[]
+!    HF-B2_INSULATION_1IN[]
+!    HF-B3_INSULATION_2IN[]
+!    HF-B4_INSULATION_3IN[]
+!    HF-B5_INSULATION_1IN[]
+!    HF-B6_INSULATION_2IN[]
+!    HF-B7_WOOD_1IN[]
+!    HF-B8_WOOD_2.5IN[]
+!    HF-B9_WOOD_4IN[]
+!    HF-B10_WOOD_2IN[]
+!    HF-B11_WOOD_3IN[]
+!    HF-B12_INSULATION_3IN[]
+!    HF-C1_CLAY_TILE_4IN[]
+!    HF-C2_CONCRETE_BLOCK_LW_4IN[]
+!    HF-C3_CONCRETE_BLOCK_HW_4IN[]
+!    HF-C4_COMMON_BRICK_4IN[]
+!    HF-C5_CONCRETE_HW_4IN[]
+!    HF-C6_CLAY_TILE_8IN[]
+!    HF-C7_CONCRETE_BLOCK_LW_8IN[]
+!    HF-C8_CONCRETE_BLOCK_HW_8IN[]
+!    HF-C9_COMMON_BRICK_8IN[]
+!    HF-C10_CONCRETE_HW_8IN[]
+!    HF-C11_CONCRETE_HW_12IN[]
+!    HF-C12_CONCRETE_HW_2IN[]
+!    HF-C13_CONCRETE_HW_6IN[]
+!    HF-C14_CONCRETE_LW_4IN[]
+!    HF-C15_CONCRETE_LW_6IN[]
+!    HF-C16_CONCRETE_LW_8IN[]
+!    HF-E1_3/4IN_PLAS-3/4IN_GYPS[]
+!    HF-E2_SLAG_OR_STONE_1/2IN[]
+!    HF-E3_FELT_AND_MEMB._3/4IN[]
+!    HF-E4_CEILING_AIR_SPACE[]
+!    HF-E5_ACOUSTIC_TILE[]
+!    AC01_Acoustic_Tile_3/8_in[]
+!    AC02_Acoustic_Tile_1/2_in[]
+!    AC03_Acoustic_Tile_3/4_in[]
+!    AS01_Ac.Tile_Al._or_Steel_Sid[]
+!    AB01_Asb._Cement_1/8_in_Brd[]
+!    AB02_Asb._Cement_1/4_in_Brd[]
+!    AB03_Asb._Cement_Shingle[]
+!    AB04_Asb._Cement_1/4_in_Lapped_Siding[]
+!    AV01_Asb._Cement_Asb.-Vinyl_Tile[]
+!    AR01_Asphalt_Roofing_Roll[]
+!    AR02_Asphalt_Shingle_and_Siding[]
+!    AR03_Asphalt_Tile[]
+!    BK01_Brick_4_in_Common[]
+!    BK02_Brick_8_in_Common[]
+!    BK03_Brick12_in_Common[]
+!    BK04_Brick_3_in_Face[]
+!    BK05_Brick_4_in_Face[]
+!    BP01_Bldg_Paper_Permeable_Felt[]
+!    BP02_Bldg_Paper_2-Layer_Seal[]
+!    BP03_Bldg_Paper_Plastic_Film_Seal[]
+!    BR01_Bldg_Paper_Built-up_Roof.[]
+!    CP01_Carpet_With_Fibrous_Pad[]
+!    CP02_Carpet_With_Rubber_Pad[]
+!    CM01_Cement_1_in_Mortar[]
+!    CM02_Cement_1.75_in_Mortar[]
+!    CM03_Cement_1_in_Plast_with[]
+!    CT01_Clay_Tile_hol._3_in_1_Cell[]
+!    CT02_Clay_Tile_Hol._4_in_1_Cell[]
+!    CT03_Clay_Tile_Hol._6_in_2_Cell[]
+!    CT04_Clay_Tile_Hol._8_in_2_Cell[]
+!    CT05_Clay_Tile_Hol.10_in_2_Cell[]
+!    CT06_Clay_Tile_Hol.12_in_3_Cell[]
+!    CT11_Clay_Tile_Paver_3/8_in[]
+!    CC01_CC_HW_Dr._140_lbs_5/4_in[]
+!    CC02_CC_HW_Dr._140_lbs_2_in[]
+!    CC03_CC_HW_Dr._140_lbs_4_in[]
+!    CC04_CC_HW_Dr._140_lbs_6_in[]
+!    CC05_CC_HW_Dr._140_lbs_8_in[]
+!    CC06_CC_HW_Dr._140_lbs10_in[]
+!    CC07_CC_HW_Dr._140_lbs12_in[]
+!    CC11_CC_HW_Und_140_lbs_3/4_in[]
+!    CC12_CC_HW_Und_140_lbs_1_3/8_in[]
+!    CC13_CC_HW_Und_140_lbs_3_1/4_in[]
+!    CC14_CC_HW_Und_140_lbs_4_in[]
+!    CC15_CC_HW_Und_140_lbs_6_in[]
+!    CC16_CC_HW_Und_140_lbs_8_in[]
+!    CC21_CC_LW_80_lbs_3/4_in[]
+!    CC22_CC_LW_80_lbs_1.25_in[]
+!    CC23_CC_LW_80_lbs_2_in[]
+!    CC24_CC_LW_80_lbs_4_in[]
+!    CC25_CC_LW_80_lbs_6_in[]
+!    CC26_CC_LW_80_lbs_8_in[]
+!    CC31_CC_LW_30_lbs_3/4_in[]
+!    CC32_CC_LW_30_lbs_1.25_in[]
+!    CC33_CC_LW_30_lbs_2_in[]
+!    CC34_CC_LW_30_lbs_4_in[]
+!    CC35_CC_LW_30_lbs_6_in[]
+!    CC36_CC_LW_30_lbs_8_in[]
+!    CB01_CC_Blk_4_in_HW_Hol.[]
+!    CB02_CC_Blk_4_in_HW_CC_Fill[]
+!    CB03_CC_Blk_4_in_HW_Perl_Fill[]
+!    CB04_CC_Blk_4_in_HW_Part_Fil_CC[]
+!    CB05_CC_Blk_4_in_HW_CC_and_Perl[]
+!    CB06_CC_Blk_6_in_HW_Hol.[]
+!    CB07_CC_Blk_6_in_HW_CC_Fill[]
+!    CB08_CC_Blk_6_in_HW_Perl_Fill[]
+!    CB09_CC_Blk_6_in_HW_Part_Fll_CC[]
+!    CB10_CC_Blk_6_in_HW_CC_and_Perl[]
+!    CB11_CC_Blk_8_in_HW_Hol.[]
+!    CB12_CC_Blk_8_in_HW_CC_Fill[]
+!    CB13_CC_Blk_8_in_HW_Perl_Fill[]
+!    CB14_CC_Blk_8_in_HW_Part_Fll_CC[]
+!    CB15_CC_Blk_8_in_HW_CC_and_Perl[]
+!    CB16_CC_Blk_12_in_HWHol.[]
+!    CB17_CC_Blk_12_in_HW_CC_Fill[]
+!    CB18_CC_Blk_12_in_HW_Part_Fl_CC[]
+!    CB21_CC_Blk_4_in_MW_Hol.[]
+!    CB22_CC_Blk_4_in_MW_CC_Fill[]
+!    CB23_CC_Blk_4_in_MW_Perl_Fill[]
+!    CB24_CC_Blk_4_in_MW_Part_Fil_CC[]
+!    CB25_CC_Blk_4_in_MW_CC_and_Perl[]
+!    CB26_CC_Blk_6_in_MW_Hol.[]
+!    CB27_CC_Blk_6_in_MW_CC_Fill[]
+!    CB28_CC_Blk_6_in_MW_Perl_Fill[]
+!    CB29_CC_Blk_6_in_MW_Part_Fil_CC[]
+!    CB30_CC_Blk_6_in_MW_CC_and_Perl[]
+!    CB31_CC_Blk_8_in_MW_Hol.[]
+!    CB32_CC_Blk_8_in_MW_CC_Fill[]
+!    CB33_CC_Blk_8_in_MW_Perl_Fill[]
+!    CB34_CC_Blk_8_in_MW_Part_Fil_CC[]
+!    CB35_CC_Blk_8_in_MW_CC_and_Perl[]
+!    CB36_CC_Blk_12_in_MW_Hol.[]
+!    CB37_CC_Blk_12_in_MW_CC_Fill[]
+!    CB38_CC_Blk_12_in_MW_Part_Fl_CC[]
+!    CB41_CC_Blk_4_in_LW_Hol.[]
+!    CB42_CC_Blk_4_in_LW_CC_Fill[]
+!    CB43_CC_Blk_4_in_LW_Perl_Fill[]
+!    CB44_CC_Blk_4_in_LW_Part_Fil_CC[]
+!    CB45_CC_Blk_4_in_LW_CC_and_Perl[]
+!    CB46_CC_Blk_6_in_LW_Hol.[]
+!    CB47_CC_Blk_6_in_LW_CC_Fill[]
+!    CB48_CC_Blk_6_in_LW_Perl_Fill[]
+!    CB49_CC_Blk_6_in_LW_Part_Fil_CC[]
+!    CB50_CC_Blk_6_in_LW_CC_and_Perl[]
+!    CB51_CC_Blk_8_in_LW_Hol.[]
+!    CB52_CC_Blk_8_in_LW_CC_Fill[]
+!    CB53_CC_Blk_8_in_LW_Perl_Fill[]
+!    CB54_CC_Blk_8_in_LW_Part_Fil_CC[]
+!    CB55_CC_Blk_8_in_LW_CC_and_Perl[]
+!    CB56_CC_Blk_12_in_LW_Hol.[]
+!    CB57_CC_Blk_12_in_LW_CC_Fill[]
+!    CB58_CC_Blk_12_in_LW_Part_Fl_CC[]
+!    GL01_1/4in_Glass_Wool[]
+!    GP01_Gyps_or_Plast_Brd_1/2_in[]
+!    GP02_Gyps_or_Plast_Brd_5/8_in[]
+!    GP03_Gyps_or_Plast_Brd_3/4_in[]
+!    GP04_Gyps_Plast_3/4_in_LW=MAT[]
+!    GP05_Gyps_Plast_1_in_LW=MAT[]
+!    GP06_Gyps_Plast_3/4_Sand=MAT[]
+!    GP07_Gyps_Plast_1_in_Sand=MAT[]
+!    HB01_Hd_Brd_3/4_Med_Dens_Siding[]
+!    HB02_Hd_Brd_3/4_Med_Dens_Others[]
+!    HB03_Hd_Brd_3/4_HighDensStd_Tmp[]
+!    HB04_Hd_Brd_3/4_HDensServ_Tmp[]
+!    LT01_Hd_Brd_3/4_Linoleum_Tile[]
+!    PB01_Part_Brd_Low_Dens_3/4_in[]
+!    PB02_Part_Brd_Med_Dens_3/4_in[]
+!    PB03_Part_Brd_High_Dens_3/4_in[]
+!    PB04_Part_Brd_Underlay_5/8_in[]
+!    PW01_Plywood1/4_in[]
+!    PW02_Plywood3/8_in[]
+!    PW03_Plywood1/2_in[]
+!    PW04_Plywood5/8_in[]
+!    PW05_Plywood3/4_in[]
+!    PW06_Plywood1_in[]
+!    RG01_Rf_Gravl/Slag1/2_in[]
+!    RG02_Rf_Gravl/Slag1_in[]
+!    RT01_Rf_Gravl/Slag_Rubber_Tile[]
+!    SL01_Rf_Gravl/Slag_Slate_1/2[]
+!    ST01_Rf_Gravl/Slag_Stone_1[]
+!    SC01_Rf_Gravl/Slag_Stuc_1[]
+!    TZ01_Rf_Gravl/Slag_Ter._1[]
+!    WD01_Wood_Soft_3/4_in[]
+!    WD02_Wood_Soft_1.5_in[]
+!    WD03_Wood_Soft_2.5_in[]
+!    WD04_Wood_Soft_3.5_in[]
+!    WD05_Wood_Soft_4_in[]
+!    WD11_Wood_Hard_3/4_in[]
+!    WD12_Wood_Hard_1_in[]
+!    WS01_Wood_Shingle_For_Wall[]
+!    WS02_Wood_Shingle_For_Roof[]
+!    IN01_Min.Wool/Fib_Batt_R-7[]
+!    IN02_Min.Wool/Fib_Batt_R-11[]
+!    IN03_Min.Wool/Fib_Batt_R-19[]
+!    IN04_Min.Wool/Fib_Batt_R-24[]
+!    IN05_Min.Wool/Fib_Batt_R-30[]
+!    IN11_Min.Wool/Fib_Fil_3.5_in_R-11[]
+!    IN12_Min.Wool/Fib_Fil_3.5_in_R-19[]
+!    IN13_Cellulose_Fill_3.5_in_R-13[]
+!    IN14_Cellulose_Fill_3.5_in_R-20[]
+!    IN21_Pref._Min.Brd_7/8_in_R-3[]
+!    IN22_Pref._Min.Brd_1_in_R-3.5[]
+!    IN23_Pref._Min.Brd_2_in_R-6.9[]
+!    IN24_Pref._Min.Brd_3_in_R-10.3[]
+!    IN31_Polyst._Expanded_1/2_in[]
+!    IN32_Polyst._Expanded_3/4_in[]
+!    IN33_Polyst._Expanded_1_in[]
+!    IN34_Polyst._Expanded_1.25_in[]
+!    IN35_Polyst._Expanded_2_in[]
+!    IN36_Polyst._Expanded_3_in[]
+!    IN37_Polyst._Expanded_4_in[]
+!    IN41_Polyuret._Expanded_1/2_in[]
+!    IN42_Polyuret._Expanded_3/4_in[]
+!    IN43_Polyuret._Expanded_1_in[]
+!    IN44_Polyuret._Expanded_1.25_in[]
+!    IN45_Polyuret._Expanded_2_in[]
+!    IN46_Polyuret._Expanded_3_in[]
+!    IN47_Polyuret._Expanded_4_in[]
+!    IN51_Urea_Formald._3.5_in_R-19[]
+!    IN52_Urea_Formald._5.5_in_R-30[]
+!    IN61_Ins_Brd_Sheathing_1/2_in[]
+!    IN62_Ins_Brd_Sheathing_3/4_in[]
+!    IN63_Ins_Brd_Shingle_Bcker_3/8[]
+!    IN64_Ins_Brd_Nail_Base_Sh._1/2[]
+!    IN71_Roof_Ins_Preformed_1/2_in[]
+!    IN72_Roof_Ins_Preformed_1_in[]
+!    IN73_Roof_Ins_Preformed_1.5_in[]
+!    IN74_Roof_Ins_Preformed_2_in[]
+!    IN75_Roof_Ins_Preformed_2.5_in[]
+!    IN76_Roof_Ins_Preformed_3_in[]
+!    AL01_Inside_Surface_Air_Film[]
+!    AL02_Inside_Surface_Air_Film[]
+!    AL03_Inside_Surface_Air_Film[]
+!    AL11_Air_Layer_3/4_in_or_less_Vertical_Walls[]
+!    AL12_Air_Layer_3/4_in_or_less_Slope_45_o[]
+!    AL13_Air_Layer_3/4_in_or_less_Horizontal_Roofs[]
+!    AL21_Air_Layer_3/4_in_to_4_ines_Vertical_Walls[]
+!    AL22_Air_Layer_3/4_in_to_4_ines_Slope_45_o[]
+!    AL23_Air_Layer_3/4_in_to_4_ines_Horizontal_Roofs[]
+!    AL31_Air_Layer_4_ines_or_More_Vertical_Walls[]
+!    AL32_Air_Layer_4_ines_or_More_Slope_45_o[]
+!    AL33_Air_Layer_4_ines_or_More_Horizontal_Roofs[]
+##enddef
+
+##def HF-A1_STUCCO_1IN[]
+!***********************************************************************************************************
+ 
+!  VERSION,
+!    2.2;                    !- Version Identifier
+ 
+Material,
+  HF-A1,                   !- Name
+  Smooth,                  !- Roughness
+  2.5300000E-02,           !- Thickness {m}
+  0.6918000,               !- Conductivity {W/m-K}
+  1858.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.9200000,               !- Solar Absorptance
+  0.9200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-A2_FACE_BRICK_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-A2,                   !- Name
+  Smooth,                  !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.331800,                !- Conductivity {W/m-K}
+  2082.000,                !- Density {kg/m3}
+  920.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.9300000,               !- Solar Absorptance
+  0.9300000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-A3_STEEL_SIDING_LW[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-A3,                   !- Name
+  Smooth,                  !- Roughness
+  1.5000000E-03,           !- Thickness {m}
+  44.96960,                !- Conductivity {W/m-K}
+  7689.000,                !- Density {kg/m3}
+  418.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-A6_FINISH[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-A6,                   !- Name
+  MediumSmooth,            !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  0.4151000,               !- Conductivity {W/m-K}
+  1249.000,                !- Density {kg/m3}
+  1088.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-A7_FACE_BRICK_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-A7,                   !- Name
+  Rough,                   !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.331800,                !- Conductivity {W/m-K}
+  2002.000,                !- Density {kg/m3}
+  920.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.9300000,               !- Solar Absorptance
+  0.9300000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B1_AIR_SPACE_RESISTANCE[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  HF-B1,                   !- Name
+  0.1603000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def HF-B2_INSULATION_1IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B2,                   !- Name
+  VeryRough,               !- Roughness
+  2.5300000E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  32.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B3_INSULATION_2IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B3,                   !- Name
+  VeryRough,               !- Roughness
+  5.0900001E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  32.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B4_INSULATION_3IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B4,                   !- Name
+  VeryRough,               !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  32.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B5_INSULATION_1IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B5,                   !- Name
+  VeryRough,               !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  91.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B6_INSULATION_2IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B6,                   !- Name
+  VeryRough,               !- Roughness
+  5.0900001E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  91.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B7_WOOD_1IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B7,                   !- Name
+  MediumSmooth,            !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.1211000,               !- Conductivity {W/m-K}
+  593.0000,                !- Density {kg/m3}
+  2510.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B8_WOOD_2.5IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B8,                   !- Name
+  MediumSmooth,            !- Roughness
+  6.3500002E-02,           !- Thickness {m}
+  0.1211000,               !- Conductivity {W/m-K}
+  593.0000,                !- Density {kg/m3}
+  2510.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B9_WOOD_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B9,                   !- Name
+  MediumSmooth,            !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.1211000,               !- Conductivity {W/m-K}
+  593.0000,                !- Density {kg/m3}
+  2510.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B10_WOOD_2IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B10,                  !- Name
+  MediumSmooth,            !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  0.1211000,               !- Conductivity {W/m-K}
+  593.0000,                !- Density {kg/m3}
+  2510.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B11_WOOD_3IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B11,                  !- Name
+  MediumSmooth,            !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  0.1211000,               !- Conductivity {W/m-K}
+  593.0000,                !- Density {kg/m3}
+  2510.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-B12_INSULATION_3IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-B12,                  !- Name
+  VeryRough,               !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  4.3200001E-02,           !- Conductivity {W/m-K}
+  91.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C1_CLAY_TILE_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C1,                   !- Name
+  Smooth,                  !- Roughness
+  0.1015000,               !- Thickness {m}
+  0.5708000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.8200000,               !- Solar Absorptance
+  0.8200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C2_CONCRETE_BLOCK_LW_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C2,                   !- Name
+  MediumRough,             !- Roughness
+  0.1015000,               !- Thickness {m}
+  0.3805000,               !- Conductivity {W/m-K}
+  609.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C3_CONCRETE_BLOCK_HW_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C3,                   !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.8129000,               !- Conductivity {W/m-K}
+  977.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C4_COMMON_BRICK_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C4,                   !- Name
+  Rough,                   !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.7264000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7600000,               !- Solar Absorptance
+  0.7600000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C5_CONCRETE_HW_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C5,                   !- Name
+  MediumRough,             !- Roughness
+  0.1015000,               !- Thickness {m}
+  1.729600,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C6_CLAY_TILE_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C6,                   !- Name
+  Smooth,                  !- Roughness
+  0.2033000,               !- Thickness {m}
+  0.5708000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.8200000,               !- Solar Absorptance
+  0.8200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C7_CONCRETE_BLOCK_LW_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C7,                   !- Name
+  Rough,                   !- Roughness
+  0.2033000,               !- Thickness {m}
+  0.5708000,               !- Conductivity {W/m-K}
+  609.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C8_CONCRETE_BLOCK_HW_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C8,                   !- Name
+  Rough,                   !- Roughness
+  0.2033000,               !- Thickness {m}
+  1.037800,                !- Conductivity {W/m-K}
+  977.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C9_COMMON_BRICK_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C9,                   !- Name
+  Rough,                   !- Roughness
+  0.2033000,               !- Thickness {m}
+  0.7264000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7200000,               !- Solar Absorptance
+  0.7200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C10_CONCRETE_HW_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C10,                  !- Name
+  MediumRough,             !- Roughness
+  0.2033000,               !- Thickness {m}
+  1.729600,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C11_CONCRETE_HW_12IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C11,                  !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  1.729600,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C12_CONCRETE_HW_2IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C12,                  !- Name
+  MediumRough,             !- Roughness
+  5.0900001E-02,           !- Thickness {m}
+  1.729600,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C13_CONCRETE_HW_6IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C13,                  !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  1.729600,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C14_CONCRETE_LW_4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C14,                  !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.1730000,               !- Conductivity {W/m-K}
+  641.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C15_CONCRETE_LW_6IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C15,                  !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.1730000,               !- Conductivity {W/m-K}
+  641.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-C16_CONCRETE_LW_8IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-C16,                  !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.1730000,               !- Conductivity {W/m-K}
+  641.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-E1_3/4IN_PLAS-3/4IN_GYPS[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-E1,                   !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.7264000,               !- Conductivity {W/m-K}
+  1602.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.9200000,               !- Solar Absorptance
+  0.9200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-E2_SLAG_OR_STONE_1/2IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-E2,                   !- Name
+  Rough,                   !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  1.435600,                !- Conductivity {W/m-K}
+  881.0000,                !- Density {kg/m3}
+  1674.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5500000,               !- Solar Absorptance
+  0.5500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-E3_FELT_AND_MEMB._3/4IN[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-E3,                   !- Name
+  Rough,                   !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  0.1903000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  1674.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HF-E4_CEILING_AIR_SPACE[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  HF-E4,                   !- Name
+  0.1762000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def HF-E5_ACOUSTIC_TILE[]
+!***********************************************************************************************************
+ 
+Material,
+  HF-E5,                   !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  6.0500000E-02,           !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.3200000,               !- Solar Absorptance
+  0.3200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AC01_Acoustic_Tile_3/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  AC01,                    !- Name
+  MediumSmooth,            !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  5.7000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1339.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.3200000,               !- Solar Absorptance
+  0.3200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AC02_Acoustic_Tile_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  AC02,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  5.7000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1339.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AC03_Acoustic_Tile_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  AC03,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  5.7000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1339.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AS01_Ac.Tile_Al._or_Steel_Sid[]
+!***********************************************************************************************************
+ 
+Material,
+  AS01,                    !- Name
+  Smooth,                  !- Roughness
+  1.5000000E-03,           !- Thickness {m}
+  44.97000,                !- Conductivity {W/m-K}
+  7690.000,                !- Density {kg/m3}
+  418.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AB01_Asb._Cement_1/8_in_Brd[]
+!***********************************************************************************************************
+ 
+Material,
+  AB01,                    !- Name
+  MediumRough,             !- Roughness
+  3.1999999E-03,           !- Thickness {m}
+  0.5970000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AB02_Asb._Cement_1/4_in_Brd[]
+!***********************************************************************************************************
+ 
+Material,
+  AB02,                    !- Name
+  MediumRough,             !- Roughness
+  6.3000000E-03,           !- Thickness {m}
+  0.5970000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AB03_Asb._Cement_Shingle[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AB03,                    !- Name
+  VeryRough,               !- Roughness
+  3.7000000E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AB04_Asb._Cement_1/4_in_Lapped_Siding[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AB04,                    !- Name
+  VeryRough,               !- Roughness
+  3.7000000E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AV01_Asb._Cement_Asb.-Vinyl_Tile[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AV01,                    !- Name
+  VeryRough,               !- Roughness
+  8.9999996E-03,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AR01_Asphalt_Roofing_Roll[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AR01,                    !- Name
+  VeryRough,               !- Roughness
+  2.6000001E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.8000000,               !- Solar Absorptance
+  0.8000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AR02_Asphalt_Shingle_and_Siding[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AR02,                    !- Name
+  VeryRough,               !- Roughness
+  7.8000002E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AR03_Asphalt_Tile[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  AR03,                    !- Name
+  Rough,                   !- Roughness
+  8.9999996E-03,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BK01_Brick_4_in_Common[]
+!***********************************************************************************************************
+ 
+Material,
+  BK01,                    !- Name
+  Rough,                   !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7600000,               !- Solar Absorptance
+  0.7600000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BK02_Brick_8_in_Common[]
+!***********************************************************************************************************
+ 
+Material,
+  BK02,                    !- Name
+  Rough,                   !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7200000,               !- Solar Absorptance
+  0.7200000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BK03_Brick12_in_Common[]
+!***********************************************************************************************************
+ 
+Material,
+  BK03,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BK04_Brick_3_in_Face[]
+!***********************************************************************************************************
+ 
+Material,
+  BK04,                    !- Name
+  MediumRough,             !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2083.000,                !- Density {kg/m3}
+  920.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BK05_Brick_4_in_Face[]
+!***********************************************************************************************************
+ 
+Material,
+  BK05,                    !- Name
+  Rough,                   !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2083.000,                !- Density {kg/m3}
+  920.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6000000,               !- Solar Absorptance
+  0.6000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BP01_Bldg_Paper_Permeable_Felt[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  BP01,                    !- Name
+  Rough,                   !- Roughness
+  1.1000000E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BP02_Bldg_Paper_2-Layer_Seal[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  BP02,                    !- Name
+  Rough,                   !- Roughness
+  2.1000000E-02,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BP03_Bldg_Paper_Plastic_Film_Seal[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  BP03,                    !- Name
+  Rough,                   !- Roughness
+  2.0000001E-03,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def BR01_Bldg_Paper_Built-up_Roof.[]
+!***********************************************************************************************************
+ 
+Material,
+  BR01,                    !- Name
+  VeryRough,               !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  0.1620000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  1464.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CP01_Carpet_With_Fibrous_Pad[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  CP01,                    !- Name
+  Rough,                   !- Roughness
+  0.3670000,               !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CP02_Carpet_With_Rubber_Pad[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  CP02,                    !- Name
+  Rough,                   !- Roughness
+  0.2170000,               !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CM01_Cement_1_in_Mortar[]
+!***********************************************************************************************************
+ 
+Material,
+  CM01,                    !- Name
+  MediumRough,             !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1858.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5400000,               !- Solar Absorptance
+  0.5400000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CM02_Cement_1.75_in_Mortar[]
+!***********************************************************************************************************
+ 
+Material,
+  CM02,                    !- Name
+  MediumRough,             !- Roughness
+  4.4399999E-02,           !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1858.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5400000,               !- Solar Absorptance
+  0.5400000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CM03_Cement_1_in_Plast_with[]
+!***********************************************************************************************************
+ 
+Material,
+  CM03,                    !- Name
+  Smooth,                  !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  1858.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT01_Clay_Tile_hol._3_in_1_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT01,                    !- Name
+  MediumSmooth,            !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  0.5405000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT02_Clay_Tile_Hol._4_in_1_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT02,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.5190000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT03_Clay_Tile_Hol._6_in_2_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT03,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.5710000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT04_Clay_Tile_Hol._8_in_2_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT04,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.6230000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT05_Clay_Tile_Hol.10_in_2_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT05,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.2540000,               !- Thickness {m}
+  0.6480000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT06_Clay_Tile_Hol.12_in_3_Cell[]
+!***********************************************************************************************************
+ 
+Material,
+  CT06,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.6920000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CT11_Clay_Tile_Paver_3/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CT11,                    !- Name
+  MediumSmooth,            !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  1922.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC01_CC_HW_Dr._140_lbs_5/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC01,                    !- Name
+  Rough,                   !- Roughness
+  3.1800002E-02,           !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC02_CC_HW_Dr._140_lbs_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC02,                    !- Name
+  MediumRough,             !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC03_CC_HW_Dr._140_lbs_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC03,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC04_CC_HW_Dr._140_lbs_6_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC04,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC05_CC_HW_Dr._140_lbs_8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC05,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC06_CC_HW_Dr._140_lbs10_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC06,                    !- Name
+  MediumRough,             !- Roughness
+  0.2540000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC07_CC_HW_Dr._140_lbs12_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC07,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC11_CC_HW_Und_140_lbs_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC11,                    !- Name
+  MediumRough,             !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC12_CC_HW_Und_140_lbs_1_3/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC12,                    !- Name
+  MediumRough,             !- Roughness
+  3.4899998E-02,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC13_CC_HW_Und_140_lbs_3_1/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC13,                    !- Name
+  MediumRough,             !- Roughness
+  8.2500003E-02,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC14_CC_HW_Und_140_lbs_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC14,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC15_CC_HW_Und_140_lbs_6_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC15,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC16_CC_HW_Und_140_lbs_8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC16,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC21_CC_LW_80_lbs_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC21,                    !- Name
+  MediumRough,             !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC22_CC_LW_80_lbs_1.25_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC22,                    !- Name
+  MediumRough,             !- Roughness
+  3.1800002E-02,           !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC23_CC_LW_80_lbs_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC23,                    !- Name
+  MediumRough,             !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC24_CC_LW_80_lbs_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC24,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC25_CC_LW_80_lbs_6_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC25,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC26_CC_LW_80_lbs_8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC26,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1282.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC31_CC_LW_30_lbs_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC31,                    !- Name
+  MediumRough,             !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC32_CC_LW_30_lbs_1.25_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC32,                    !- Name
+  MediumRough,             !- Roughness
+  3.1800002E-02,           !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC33_CC_LW_30_lbs_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC33,                    !- Name
+  MediumRough,             !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC34_CC_LW_30_lbs_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC34,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC35_CC_LW_30_lbs_6_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC35,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CC36_CC_LW_30_lbs_8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  CC36,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.1300000,               !- Conductivity {W/m-K}
+  481.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB01_CC_Blk_4_in_HW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB01,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.8120000,               !- Conductivity {W/m-K}
+  1618.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB02_CC_Blk_4_in_HW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB02,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB03_CC_Blk_4_in_HW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB03,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.5190000,               !- Conductivity {W/m-K}
+  1650.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB04_CC_Blk_4_in_HW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB04,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  1.011000,                !- Conductivity {W/m-K}
+  1826.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB05_CC_Blk_4_in_HW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB05,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.8250000,               !- Conductivity {W/m-K}
+  1842.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB06_CC_Blk_6_in_HW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB06,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.9610000,               !- Conductivity {W/m-K}
+  1362.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB07_CC_Blk_6_in_HW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB07,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB08_CC_Blk_6_in_HW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB08,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.3840000,               !- Conductivity {W/m-K}
+  1410.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB09_CC_Blk_6_in_HW_Part_Fll_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB09,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  1.058000,                !- Conductivity {W/m-K}
+  1666.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB10_CC_Blk_6_in_HW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB10,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.7330000,               !- Conductivity {W/m-K}
+  1666.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB11_CC_Blk_8_in_HW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB11,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  1.048000,                !- Conductivity {W/m-K}
+  1105.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB12_CC_Blk_8_in_HW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB12,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB13_CC_Blk_8_in_HW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB13,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.3930000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB14_CC_Blk_8_in_HW_Part_Fll_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB14,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  1.167000,                !- Conductivity {W/m-K}
+  1490.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB15_CC_Blk_8_in_HW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB15,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.7200000,               !- Conductivity {W/m-K}
+  1490.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB16_CC_Blk_12_in_HWHol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB16,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  1.350000,                !- Conductivity {W/m-K}
+  1218.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB17_CC_Blk_12_in_HW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB17,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  1.310000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB18_CC_Blk_12_in_HW_Part_Fl_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB18,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  1.344000,                !- Conductivity {W/m-K}
+  1570.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB21_CC_Blk_4_in_MW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB21,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.5190000,               !- Conductivity {W/m-K}
+  1218.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB22_CC_Blk_4_in_MW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB22,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.7710000,               !- Conductivity {W/m-K}
+  1842.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB23_CC_Blk_4_in_MW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB23,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.2620000,               !- Conductivity {W/m-K}
+  1250.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB24_CC_Blk_4_in_MW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB24,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.5720000,               !- Conductivity {W/m-K}
+  1426.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB25_CC_Blk_4_in_MW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB25,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.4310000,               !- Conductivity {W/m-K}
+  1442.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB26_CC_Blk_6_in_MW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB26,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.6180000,               !- Conductivity {W/m-K}
+  1041.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB27_CC_Blk_6_in_MW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB27,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.7680000,               !- Conductivity {W/m-K}
+  1906.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB28_CC_Blk_6_in_MW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB28,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.2020000,               !- Conductivity {W/m-K}
+  1073.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB29_CC_Blk_6_in_MW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB29,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.6380000,               !- Conductivity {W/m-K}
+  1330.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB30_CC_Blk_6_in_MW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB30,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.3910000,               !- Conductivity {W/m-K}
+  1346.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB31_CC_Blk_8_in_MW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB31,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.6700000,               !- Conductivity {W/m-K}
+  849.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB32_CC_Blk_8_in_MW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB32,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.8570000,               !- Conductivity {W/m-K}
+  1970.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB33_CC_Blk_8_in_MW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB33,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.1970000,               !- Conductivity {W/m-K}
+  897.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB34_CC_Blk_8_in_MW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB34,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.7520000,               !- Conductivity {W/m-K}
+  1218.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB35_CC_Blk_8_in_MW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB35,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.4170000,               !- Conductivity {W/m-K}
+  1234.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB36_CC_Blk_12_in_MW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB36,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.8580000,               !- Conductivity {W/m-K}
+  929.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB37_CC_Blk_12_in_MW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB37,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.8330000,               !- Conductivity {W/m-K}
+  1938.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB38_CC_Blk_12_in_MW_Part_Fl_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB38,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.8510000,               !- Conductivity {W/m-K}
+  1266.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB41_CC_Blk_4_in_LW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB41,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.3840000,               !- Conductivity {W/m-K}
+  1041.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB42_CC_Blk_4_in_LW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB42,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.6390000,               !- Conductivity {W/m-K}
+  1666.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB43_CC_Blk_4_in_LW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB43,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.2200000,               !- Conductivity {W/m-K}
+  1073.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB44_CC_Blk_4_in_LW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB44,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.4860000,               !- Conductivity {W/m-K}
+  1250.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB45_CC_Blk_4_in_LW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB45,                    !- Name
+  MediumRough,             !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.3600000,               !- Conductivity {W/m-K}
+  1266.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB46_CC_Blk_6_in_LW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB46,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.4800000,               !- Conductivity {W/m-K}
+  881.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB47_CC_Blk_6_in_LW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB47,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.6610000,               !- Conductivity {W/m-K}
+  1762.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB48_CC_Blk_6_in_LW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB48,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.1700000,               !- Conductivity {W/m-K}
+  913.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB49_CC_Blk_6_in_LW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB49,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.5520000,               !- Conductivity {W/m-K}
+  1169.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB50_CC_Blk_6_in_LW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB50,                    !- Name
+  MediumRough,             !- Roughness
+  0.1524000,               !- Thickness {m}
+  0.3340000,               !- Conductivity {W/m-K}
+  1185.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB51_CC_Blk_8_in_LW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB51,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.5760000,               !- Conductivity {W/m-K}
+  721.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB52_CC_Blk_8_in_LW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB52,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.7540000,               !- Conductivity {W/m-K}
+  1842.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB53_CC_Blk_8_in_LW_Perl_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB53,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.1670000,               !- Conductivity {W/m-K}
+  769.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB54_CC_Blk_8_in_LW_Part_Fil_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB54,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.6650000,               !- Conductivity {W/m-K}
+  1089.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB55_CC_Blk_8_in_LW_CC_and_Perl[]
+!***********************************************************************************************************
+ 
+Material,
+  CB55,                    !- Name
+  MediumRough,             !- Roughness
+  0.2032000,               !- Thickness {m}
+  0.3620000,               !- Conductivity {W/m-K}
+  1105.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB56_CC_Blk_12_in_LW_Hol.[]
+!***********************************************************************************************************
+ 
+Material,
+  CB56,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.7620000,               !- Conductivity {W/m-K}
+  785.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB57_CC_Blk_12_in_LW_CC_Fill[]
+!***********************************************************************************************************
+ 
+Material,
+  CB57,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.7250000,               !- Conductivity {W/m-K}
+  1810.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def CB58_CC_Blk_12_in_LW_Part_Fl_CC[]
+!***********************************************************************************************************
+ 
+Material,
+  CB58,                    !- Name
+  MediumRough,             !- Roughness
+  0.3048000,               !- Thickness {m}
+  0.7390000,               !- Conductivity {W/m-K}
+  1121.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.2000000,               !- Solar Absorptance
+  0.2000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GL01_1/4in_Glass_Wool[]
+!***********************************************************************************************************
+ 
+Material,
+  GL01,                    !- Name
+  Rough,                   !- Roughness
+  6.3399998E-03,           !- Thickness {m}
+  3.7999999E-02,           !- Conductivity {W/m-K}
+  53.00000,                !- Density {kg/m3}
+  3849.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP01_Gyps_or_Plast_Brd_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  GP01,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  0.1600000,               !- Conductivity {W/m-K}
+  801.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP02_Gyps_or_Plast_Brd_5/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  GP02,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.5900001E-02,           !- Thickness {m}
+  0.1600000,               !- Conductivity {W/m-K}
+  801.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP03_Gyps_or_Plast_Brd_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  GP03,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1600000,               !- Conductivity {W/m-K}
+  801.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP04_Gyps_Plast_3/4_in_LW=MAT[]
+!***********************************************************************************************************
+ 
+Material,
+  GP04,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.2300000,               !- Conductivity {W/m-K}
+  721.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP05_Gyps_Plast_1_in_LW=MAT[]
+!***********************************************************************************************************
+ 
+Material,
+  GP05,                    !- Name
+  Smooth,                  !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.2300000,               !- Conductivity {W/m-K}
+  721.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP06_Gyps_Plast_3/4_Sand=MAT[]
+!***********************************************************************************************************
+ 
+Material,
+  GP06,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.8190000,               !- Conductivity {W/m-K}
+  1682.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def GP07_Gyps_Plast_1_in_Sand=MAT[]
+!***********************************************************************************************************
+ 
+Material,
+  GP07,                    !- Name
+  Smooth,                  !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.8190000,               !- Conductivity {W/m-K}
+  1682.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HB01_Hd_Brd_3/4_Med_Dens_Siding[]
+!***********************************************************************************************************
+ 
+Material,
+  HB01,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  9.3999997E-02,           !- Conductivity {W/m-K}
+  641.0000,                !- Density {kg/m3}
+  1171.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HB02_Hd_Brd_3/4_Med_Dens_Others[]
+!***********************************************************************************************************
+ 
+Material,
+  HB02,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1050000,               !- Conductivity {W/m-K}
+  801.0000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HB03_Hd_Brd_3/4_HighDensStd_Tmp[]
+!***********************************************************************************************************
+ 
+Material,
+  HB03,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1180000,               !- Conductivity {W/m-K}
+  881.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def HB04_Hd_Brd_3/4_HDensServ_Tmp[]
+!***********************************************************************************************************
+ 
+Material,
+  HB04,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1440000,               !- Conductivity {W/m-K}
+  1009.000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def LT01_Hd_Brd_3/4_Linoleum_Tile[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  LT01,                    !- Name
+  Smooth,                  !- Roughness
+  8.9999996E-03,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PB01_Part_Brd_Low_Dens_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PB01,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  7.8000002E-02,           !- Conductivity {W/m-K}
+  1202.000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PB02_Part_Brd_Med_Dens_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PB02,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  1.355000,                !- Conductivity {W/m-K}
+  1202.000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PB03_Part_Brd_High_Dens_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PB03,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  1.701000,                !- Conductivity {W/m-K}
+  1202.000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PB04_Part_Brd_Underlay_5/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PB04,                    !- Name
+  MediumRough,             !- Roughness
+  1.5900001E-02,           !- Thickness {m}
+  0.3110000,               !- Conductivity {W/m-K}
+  1202.000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7000000,               !- Solar Absorptance
+  0.7000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW01_Plywood1/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW01,                    !- Name
+  MediumSmooth,            !- Roughness
+  6.3999998E-03,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW02_Plywood3/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW02,                    !- Name
+  MediumSmooth,            !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW03_Plywood1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW03,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW04_Plywood5/8_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW04,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.5900001E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW05_Plywood3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW05,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def PW06_Plywood1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  PW06,                    !- Name
+  MediumSmooth,            !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  545.0000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def RG01_Rf_Gravl/Slag1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  RG01,                    !- Name
+  Rough,                   !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  1.442000,                !- Conductivity {W/m-K}
+  881.0000,                !- Density {kg/m3}
+  1674.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def RG02_Rf_Gravl/Slag1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  RG02,                    !- Name
+  Rough,                   !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  1.442000,                !- Conductivity {W/m-K}
+  881.0000,                !- Density {kg/m3}
+  1674.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def RT01_Rf_Gravl/Slag_Rubber_Tile[]
+!***********************************************************************************************************
+ 
+Material:NoMass,
+  RT01,                    !- Name
+  Rough,                   !- Roughness
+  8.9999996E-03,           !- Thermal Resistance {m2-K/W}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def SL01_Rf_Gravl/Slag_Slate_1/2[]
+!***********************************************************************************************************
+ 
+Material,
+  SL01,                    !- Name
+  Rough,                   !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  1.442000,                !- Conductivity {W/m-K}
+  1602.000,                !- Density {kg/m3}
+  1464.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def ST01_Rf_Gravl/Slag_Stone_1[]
+!***********************************************************************************************************
+ 
+Material,
+  ST01,                    !- Name
+  MediumRough,             !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def SC01_Rf_Gravl/Slag_Stuc_1[]
+!***********************************************************************************************************
+ 
+Material,
+  SC01,                    !- Name
+  MediumRough,             !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.7210000,               !- Conductivity {W/m-K}
+  2659.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def TZ01_Rf_Gravl/Slag_Ter._1[]
+!***********************************************************************************************************
+ 
+Material,
+  TZ01,                    !- Name
+  MediumRough,             !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  1.802000,                !- Conductivity {W/m-K}
+  2243.000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.6500000,               !- Solar Absorptance
+  0.6500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD01_Wood_Soft_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD01,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD02_Wood_Soft_1.5_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD02,                    !- Name
+  MediumSmooth,            !- Roughness
+  3.8100000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD03_Wood_Soft_2.5_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD03,                    !- Name
+  MediumSmooth,            !- Roughness
+  6.3500002E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD04_Wood_Soft_3.5_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD04,                    !- Name
+  MediumSmooth,            !- Roughness
+  8.8900000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD05_Wood_Soft_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD05,                    !- Name
+  MediumSmooth,            !- Roughness
+  0.1016000,               !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD11_Wood_Hard_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD11,                    !- Name
+  MediumSmooth,            !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  0.1580000,               !- Conductivity {W/m-K}
+  721.0000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WD12_Wood_Hard_1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  WD12,                    !- Name
+  MediumSmooth,            !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  0.1580000,               !- Conductivity {W/m-K}
+  721.0000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WS01_Wood_Shingle_For_Wall[]
+!***********************************************************************************************************
+ 
+Material,
+  WS01,                    !- Name
+  VeryRough,               !- Roughness
+  1.7800000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def WS02_Wood_Shingle_For_Roof[]
+!***********************************************************************************************************
+ 
+Material,
+  WS02,                    !- Name
+  VeryRough,               !- Roughness
+  1.7800000E-02,           !- Thickness {m}
+  0.1150000,               !- Conductivity {W/m-K}
+  513.0000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7800000,               !- Solar Absorptance
+  0.7800000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN01_Min.Wool/Fib_Batt_R-7[]
+!***********************************************************************************************************
+ 
+Material,
+  IN01,                    !- Name
+  Rough,                   !- Roughness
+  5.7399999E-02,           !- Thickness {m}
+  4.3000001E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN02_Min.Wool/Fib_Batt_R-11[]
+!***********************************************************************************************************
+ 
+Material,
+  IN02,                    !- Name
+  Rough,                   !- Roughness
+  9.0099998E-02,           !- Thickness {m}
+  4.3000001E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN03_Min.Wool/Fib_Batt_R-19[]
+!***********************************************************************************************************
+ 
+Material,
+  IN03,                    !- Name
+  Rough,                   !- Roughness
+  0.1557000,               !- Thickness {m}
+  4.3000001E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN04_Min.Wool/Fib_Batt_R-24[]
+!***********************************************************************************************************
+ 
+Material,
+  IN04,                    !- Name
+  Rough,                   !- Roughness
+  0.2124000,               !- Thickness {m}
+  4.3000001E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN05_Min.Wool/Fib_Batt_R-30[]
+!***********************************************************************************************************
+ 
+Material,
+  IN05,                    !- Name
+  Rough,                   !- Roughness
+  0.2458000,               !- Thickness {m}
+  4.3000001E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN11_Min.Wool/Fib_Fil_3.5_in_R-11[]
+!***********************************************************************************************************
+ 
+Material,
+  IN11,                    !- Name
+  Rough,                   !- Roughness
+  8.8900000E-02,           !- Thickness {m}
+  4.6999998E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN12_Min.Wool/Fib_Fil_3.5_in_R-19[]
+!***********************************************************************************************************
+ 
+Material,
+  IN12,                    !- Name
+  Rough,                   !- Roughness
+  0.1397000,               !- Thickness {m}
+  4.6999998E-02,           !- Conductivity {W/m-K}
+  10.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN13_Cellulose_Fill_3.5_in_R-13[]
+!***********************************************************************************************************
+ 
+Material,
+  IN13,                    !- Name
+  Rough,                   !- Roughness
+  8.8900000E-02,           !- Thickness {m}
+  3.9000001E-02,           !- Conductivity {W/m-K}
+  48.00000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN14_Cellulose_Fill_3.5_in_R-20[]
+!***********************************************************************************************************
+ 
+Material,
+  IN14,                    !- Name
+  Rough,                   !- Roughness
+  0.1397000,               !- Thickness {m}
+  3.9000001E-02,           !- Conductivity {W/m-K}
+  48.00000,                !- Density {kg/m3}
+  1381.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN21_Pref._Min.Brd_7/8_in_R-3[]
+!***********************************************************************************************************
+ 
+Material,
+  IN21,                    !- Name
+  Smooth,                  !- Roughness
+  2.2200000E-02,           !- Thickness {m}
+  4.1999999E-02,           !- Conductivity {W/m-K}
+  240.0000,                !- Density {kg/m3}
+  711.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN22_Pref._Min.Brd_1_in_R-3.5[]
+!***********************************************************************************************************
+ 
+Material,
+  IN22,                    !- Name
+  Smooth,                  !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  4.1999999E-02,           !- Conductivity {W/m-K}
+  240.0000,                !- Density {kg/m3}
+  711.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN23_Pref._Min.Brd_2_in_R-6.9[]
+!***********************************************************************************************************
+ 
+Material,
+  IN23,                    !- Name
+  Smooth,                  !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  4.1999999E-02,           !- Conductivity {W/m-K}
+  240.0000,                !- Density {kg/m3}
+  711.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN24_Pref._Min.Brd_3_in_R-10.3[]
+!***********************************************************************************************************
+ 
+Material,
+  IN24,                    !- Name
+  Smooth,                  !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  4.1999999E-02,           !- Conductivity {W/m-K}
+  240.0000,                !- Density {kg/m3}
+  711.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN31_Polyst._Expanded_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN31,                    !- Name
+  Rough,                   !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN32_Polyst._Expanded_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN32,                    !- Name
+  Rough,                   !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN33_Polyst._Expanded_1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN33,                    !- Name
+  Rough,                   !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN34_Polyst._Expanded_1.25_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN34,                    !- Name
+  Rough,                   !- Roughness
+  3.1800002E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN35_Polyst._Expanded_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN35,                    !- Name
+  Rough,                   !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN36_Polyst._Expanded_3_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN36,                    !- Name
+  Rough,                   !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN37_Polyst._Expanded_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN37,                    !- Name
+  Rough,                   !- Roughness
+  0.1016000,               !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  29.00000,                !- Density {kg/m3}
+  1213.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN41_Polyuret._Expanded_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN41,                    !- Name
+  VeryRough,               !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN42_Polyuret._Expanded_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN42,                    !- Name
+  VeryRough,               !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN43_Polyuret._Expanded_1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN43,                    !- Name
+  VeryRough,               !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN44_Polyuret._Expanded_1.25_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN44,                    !- Name
+  VeryRough,               !- Roughness
+  3.1800002E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN45_Polyuret._Expanded_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN45,                    !- Name
+  VeryRough,               !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN46_Polyuret._Expanded_3_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN46,                    !- Name
+  VeryRough,               !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN47_Polyuret._Expanded_4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN47,                    !- Name
+  VeryRough,               !- Roughness
+  0.1016000,               !- Thickness {m}
+  2.3000000E-02,           !- Conductivity {W/m-K}
+  24.00000,                !- Density {kg/m3}
+  1590.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN51_Urea_Formald._3.5_in_R-19[]
+!***********************************************************************************************************
+ 
+Material,
+  IN51,                    !- Name
+  Rough,                   !- Roughness
+  8.8699996E-02,           !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  11.00000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN52_Urea_Formald._5.5_in_R-30[]
+!***********************************************************************************************************
+ 
+Material,
+  IN52,                    !- Name
+  Rough,                   !- Roughness
+  0.1396000,               !- Thickness {m}
+  3.5000000E-02,           !- Conductivity {W/m-K}
+  11.00000,                !- Density {kg/m3}
+  1255.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN61_Ins_Brd_Sheathing_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN61,                    !- Name
+  Smooth,                  !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  5.5000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN62_Ins_Brd_Sheathing_3/4_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN62,                    !- Name
+  Smooth,                  !- Roughness
+  1.9099999E-02,           !- Thickness {m}
+  5.5000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN63_Ins_Brd_Shingle_Bcker_3/8[]
+!***********************************************************************************************************
+ 
+Material,
+  IN63,                    !- Name
+  Smooth,                  !- Roughness
+  9.4999997E-03,           !- Thickness {m}
+  5.7000000E-02,           !- Conductivity {W/m-K}
+  288.0000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN64_Ins_Brd_Nail_Base_Sh._1/2[]
+!***********************************************************************************************************
+ 
+Material,
+  IN64,                    !- Name
+  Smooth,                  !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  6.3000001E-02,           !- Conductivity {W/m-K}
+  401.0000,                !- Density {kg/m3}
+  1297.000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN71_Roof_Ins_Preformed_1/2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN71,                    !- Name
+  Rough,                   !- Roughness
+  1.2700000E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN72_Roof_Ins_Preformed_1_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN72,                    !- Name
+  Rough,                   !- Roughness
+  2.5400000E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN73_Roof_Ins_Preformed_1.5_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN73,                    !- Name
+  Rough,                   !- Roughness
+  3.8100000E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN74_Roof_Ins_Preformed_2_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN74,                    !- Name
+  Rough,                   !- Roughness
+  5.0799999E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN75_Roof_Ins_Preformed_2.5_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN75,                    !- Name
+  Rough,                   !- Roughness
+  6.3500002E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def IN76_Roof_Ins_Preformed_3_in[]
+!***********************************************************************************************************
+ 
+Material,
+  IN76,                    !- Name
+  Rough,                   !- Roughness
+  7.6200001E-02,           !- Thickness {m}
+  5.2000001E-02,           !- Conductivity {W/m-K}
+  256.0000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.7500000,               !- Solar Absorptance
+  0.7500000;               !- Visible Absorptance
+ 
+##enddef
+
+##def AL01_Inside_Surface_Air_Film[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL01,                    !- Name
+  0.1198000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL02_Inside_Surface_Air_Film[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL02,                    !- Name
+  0.1220000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL03_Inside_Surface_Air_Film[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL03,                    !- Name
+  0.1340000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL11_Air_Layer_3/4_in_or_less_Vertical_Walls[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL11,                    !- Name
+  0.1590000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL12_Air_Layer_3/4_in_or_less_Slope_45_o[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL12,                    !- Name
+  0.1480000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL13_Air_Layer_3/4_in_or_less_Horizontal_Roofs[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL13,                    !- Name
+  0.1450000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL21_Air_Layer_3/4_in_to_4_ines_Vertical_Walls[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL21,                    !- Name
+  0.1570000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL22_Air_Layer_3/4_in_to_4_ines_Slope_45_o[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL22,                    !- Name
+  0.1530000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL23_Air_Layer_3/4_in_to_4_ines_Horizontal_Roofs[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL23,                    !- Name
+  0.1530000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL31_Air_Layer_4_ines_or_More_Vertical_Walls[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL31,                    !- Name
+  0.1620000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL32_Air_Layer_4_ines_or_More_Slope_45_o[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL32,                    !- Name
+  0.1570000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def AL33_Air_Layer_4_ines_or_More_Horizontal_Roofs[]
+!***********************************************************************************************************
+ 
+Material:AirGap,
+  AL33,                    !- Name
+  0.1620000;               !- Thermal Resistance {m2-K/W}
+ 
+##enddef
+
+##def unknown[]
+!***********************************************************************************************************
+ 
+Material,
+  Table_B-2_90.1_2001_HF-B6,  !- Name
+  VeryRough,               !- Roughness
+  5.0900001E-02,           !- Thickness {m}
+  5.3200001E-02,           !- Conductivity {W/m-K}
+  91.00000,                !- Density {kg/m3}
+  837.0000,                !- Specific Heat {J/kg-K}
+  0.9000000,               !- Thermal Absorptance
+  0.5000000,               !- Solar Absorptance
+  0.5000000;               !- Visible Absorptance
+ 
+##enddef
+

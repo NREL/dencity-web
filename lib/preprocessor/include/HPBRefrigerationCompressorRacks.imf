@@ -1,0 +1,141 @@
+##def LowTempRack[]
+
+
+Refrigeration:CompressorRack,
+  #{Name},  !- Name
+  #{HeatRejectionLocation}Outdoors,  !- Heat Rejection Location {Outdoors | Zone}
+  #{COP}1.5,  !- Design Compressor Rack COP {W/W}
+  #{CopCurveName},  !- Compressor Rack COP As Function Of Temperature Curve
+  #{FanPower}1025.0,  !- Design Condenser Fan Power {W}
+  #{FanCurveName},  !- Condenser Fan Power Function of Temperature Curve Name
+  #{CondenserType},  !- Condenser Type
+  #{DemandInletNode},  !- Water-Cooled Condenser Inlet Node Name
+  #{DemandOutletNode},  !- Water-Cooled Condenser Outlet Node Name
+  #{LoopFlowType}ConstantFlow,  !- Water-Cooled Loop Flow Type
+  ,  !- Water-Cooled Condenser Outlet Temperature Schedule Name
+  #{DesignFlowRate}0.003,  !- Water-Cooled Condenser Design Flow Rate
+  #{MaxFlowRate}0.006,  !- Water-Cooled Condenser Maximum Flow Rate
+  #{MaxOutletTemp}55.0,  !- Water-Cooled Condenser Maximum Water Outlet Temperature
+  #{MinInletTemp}10.0,  !- Water-Cooled Condenser Minimum Water Inlet Temperature
+  ,  !- Evaporative Condenser Availability Schedule Name
+  #{EvapEffectiveness}0.6,  !- Evaporative Condenser Effectiveness
+  #{EvapAirFlowRate}Autocalculate,  !- Evaporative Condenser Air Flow Rate
+  #{BasinHeaterCapacity}200.0,  !- Basin Heater Capacity {W/K}
+  #{BasinSetpointTemperature}2.0,  !- Basin Heater Setpoint Temperature {C}
+  #{EvapPumpPower}Autocalculate,  !- Design Evaporative Condenser Water Pump Power
+  ,  !- Evaporative Water Supply Tank Name
+  #{AirInletNodeName},  !- Condenser Air Inlet Node Name
+  Refrigeration,  !- End-Use Subcategory
+  #{CaseListName},  !- Refrigeration Case Name or CaseList Name
+  #{ZoneName};  !- Heat Rejection Zone Name
+
+Curve:Quadratic,
+  #{FanCurveName},  !- Name
+  0.0,  !- Coefficient1 Constant
+  0.0286,  !- Coefficient2 x
+  0.0,  !- Coefficient3 x**2
+  0.0,  !- Minimum Value of x
+  35.0;  !- Maximum Value of x
+
+Curve:Quadratic,
+  #{CopCurveName},  !- Name
+  1.7603,  !- Coefficient1 Constant
+  -0.0377,  !- Coefficient2 x
+  0.0004,  !- Coefficient3 x**2
+  10.0,  !- Minimum Value of x
+  35.0;  !- Maximum Value of x
+
+
+##enddef
+
+##def MediumTempRack[]
+
+
+Refrigeration:CompressorRack,
+  #{Name},  !- Name
+  #{HeatRejectionLocation}Outdoors,  !- Heat Rejection Location {Outdoors | Zone}
+  #{COP}1.7,  !- Design Compressor Rack COP {W/W}
+  #{CopCurveName},  !- Compressor Rack COP As Function Of Temperature Curve
+  #{FanPower}1025.0,  !- Design Condenser Fan Power {W}
+  #{FanCurveName},  !- Condenser Fan Power Function of Temperature Curve Name
+  #{CondenserType},  !- Condenser Type
+  #{DemandInletNode},  !- Water-Cooled Condenser Inlet Node Name
+  #{DemandOutletNode},  !- Water-Cooled Condenser Outlet Node Name
+  #{LoopFlowType}ConstantFlow,  !- Water-Cooled Loop Flow Type
+  ,  !- Water-Cooled Condenser Outlet Temperature Schedule Name
+  #{DesignFlowRate}0.003,  !- Water-Cooled Condenser Design Flow Rate
+  #{MaxFlowRate}0.006,  !- Water-Cooled Condenser Maximum Flow Rate
+  #{MaxOutletTemp}55.0,  !- Water-Cooled Condenser Maximum Water Outlet Temperature
+  #{MinInletTemp}10.0,  !- Water-Cooled Condenser Minimum Water Inlet Temperature
+  ,  !- Evaporative Condenser Availability Schedule Name
+  #{EvapEffectiveness}0.6,  !- Evaporative Condenser Effectiveness
+  #{EvapAirFlowRate}Autocalculate,  !- Evaporative Condenser Air Flow Rate
+  #{BasinHeaterCapacity}200.0,  !- Basin Heater Capacity {W/K}
+  #{BasinSetpointTemperature}2.0,  !- Basin Heater Setpoint Temperature {C}
+  #{EvapPumpPower}Autocalculate,  !- Design Evaporative Condenser Water Pump Power
+  ,  !- Evaporative Water Supply Tank Name
+  #{AirInletNodeName},  !- Condenser Air Inlet Node Name
+  Refrigeration,  !- End-Use Subcategory
+  #{CaseListName},  !- Refrigeration Case Name or CaseList Name
+  #{ZoneName};  !- Heat Rejection Zone Name
+
+Curve:Quadratic,
+  #{FanCurveName},  !- Name
+  0.3,  !- Coefficient1 Constant
+  0.02,  !- Coefficient2 x
+  0.0,  !- Coefficient3 x**2
+  10.0,  !- Minimum Value of x
+  35.0;  !- Maximum Value of x
+
+Curve:Quadratic,
+  #{CopCurveName},  !- Name
+  1.7603,  !- Coefficient1 Constant
+  -0.0377,  !- Coefficient2 x
+  0.0004,  !- Coefficient3 x**2
+  10.0,  !- Minimum Value of x
+  35.0;  !- Maximum Value of x
+
+
+##enddef
+
+##def SelfContainedMediumTempRack[]
+
+
+Refrigeration:CompressorRack,
+  #{Name},  !- Name
+  #{HeatRejectionLocation}Outdoors,  !- Heat Rejection Location {Outdoors | Zone}
+  #{COP}2.0,  !- Design Compressor Rack COP {W/W}
+  #{CopCurveName},  !- Compressor Rack COP As Function Of Temperature Curve
+  #{FanPower}175.0,  !- Design Condenser Fan Power {W}
+  ,  !- Condenser Fan Power Function of Temperature Curve Name
+  #{CondenserType},  !- Condenser Type
+  #{DemandInletNode},  !- Water-Cooled Condenser Inlet Node Name
+  #{DemandOutletNode},  !- Water-Cooled Condenser Outlet Node Name
+  #{LoopFlowType}ConstantFlow,  !- Water-Cooled Loop Flow Type
+  ,  !- Water-Cooled Condenser Outlet Temperature Schedule Name
+  #{DesignFlowRate}0.003,  !- Water-Cooled Condenser Design Flow Rate
+  #{MaxFlowRate}0.006,  !- Water-Cooled Condenser Maximum Flow Rate
+  #{MaxOutletTemp}55.0,  !- Water-Cooled Condenser Maximum Water Outlet Temperature
+  #{MinInletTemp}10.0,  !- Water-Cooled Condenser Minimum Water Inlet Temperature
+  ,  !- Evaporative Condenser Availability Schedule Name
+  #{EvapEffectiveness}0.6,  !- Evaporative Condenser Effectiveness
+  #{EvapAirFlowRate}Autocalculate,  !- Evaporative Condenser Air Flow Rate
+  #{BasinHeaterCapacity}200.0,  !- Basin Heater Capacity {W/K}
+  #{BasinSetpointTemperature}2.0,  !- Basin Heater Setpoint Temperature {C}
+  #{EvapPumpPower}Autocalculate,  !- Design Evaporative Condenser Water Pump Power
+  ,  !- Evaporative Water Supply Tank Name
+  #{AirInletNodeName},  !- Condenser Air Inlet Node Name
+  Refrigeration,  !- End-Use Subcategory
+  #{CaseListName},  !- Refrigeration Case Name or CaseList Name
+  #{ZoneName};  !- Heat Rejection Zone Name
+
+Curve:Quadratic,
+  #{CopCurveName},  !- Name
+  1.0,  !- Coefficient1 Constant
+  0.0,  !- Coefficient2 x
+  0.0,  !- Coefficient3 x**2
+  0.0,  !- Minimum Value of x
+  50.0;  !- Maximum Value of x
+
+
+##enddef

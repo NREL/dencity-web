@@ -1,0 +1,1741 @@
+##def HEADER_INFO[]
+!  HPBSolarCollectorSets.imf
+!
+!  Use these Solar Collector Macros for implementing
+!  simple collector modules in an EnergyPlus input file.
+!  Make sure to replace ' ' with _ in the input enumeration file
+!
+!  Data has been reproduced with permission from:
+!    "Directory of SRCC Certified Solar Collector Ratings" (June 11, 2003)
+!    Copyright (c) 2003 by the Solar Rating and Certification Corporation
+!  For more information, contact:
+!  Data has been reproduced with permission from:
+!  Data has been reproduced with permission from:
+!    Solar Rating and Certification Corporation
+!    c/o FSEC, 1679 Clearlake Road
+!    Cocoa, FL 32922-5703 USA
+!    Tel: (321) 638-1537
+!    Fax: (321) 638-1010
+!    srcc@fsec.ucf.edu
+!    www.solar-rating.org
+!
+!  Modification History:  02/19/2004 10:08:12 Autocreated File by Nick Long
+!
+!----------------------------------------------------------
+!----------------------------------------------------------
+! This file contains the following PV constructions
+!   ACR_Solar_International_Fireball_2001[]
+!   Alternate_Energy_Technologies_AE-21[]
+!   Alternate_Energy_Technologies_AE-21E[]
+!   Alternate_Energy_Technologies_AE-24[]
+!   Alternate_Energy_Technologies_AE-24E[]
+!   Alternate_Energy_Technologies_AE-26[]
+!   Alternate_Energy_Technologies_AE-26E[]
+!   Alternate_Energy_Technologies_AE-28[]
+!   Alternate_Energy_Technologies_AE-28E[]
+!   Alternate_Energy_Technologies_AE-32[]
+!   Alternate_Energy_Technologies_AE-32E[]
+!   Alternate_Energy_Technologies_AE-40[]
+!   Alternate_Energy_Technologies_AE-40E[]
+!   Alternate_Energy_Technologies_MSC-21[]
+!   Alternate_Energy_Technologies_MSC-21E[]
+!   Alternate_Energy_Technologies_MSC-24[]
+!   Alternate_Energy_Technologies_MSC-24E[]
+!   Alternate_Energy_Technologies_MSC-26[]
+!   Alternate_Energy_Technologies_MSC-26E[]
+!   Alternate_Energy_Technologies_MSC-28[]
+!   Alternate_Energy_Technologies_MSC-28E[]
+!   Alternate_Energy_Technologies_MSC-32[]
+!   Alternate_Energy_Technologies_MSC-32E[]
+!   Alternate_Energy_Technologies_MSC-40[]
+!   Alternate_Energy_Technologies_MSC-40E[]
+!   Alternate_Energy_Technologies_ST-21E[]
+!   Alternate_Energy_Technologies_ST-40E[]
+!   Heliocol_USA_HC-30[]
+!   Heliocol_USA_HC-40[]
+!   Heliocol_USA_HC-50[]
+!   Heliodyne_Gobi_308[]
+!   Heliodyne_Gobi_3366[]
+!   Heliodyne_Gobi_408[]
+!   Heliodyne_Gobi_410[]
+!   Heliodyne_Mojave_408[]
+!   Heliodyne_Mojave_410[]
+!   R&R_Solar_Supply_EPI-308CU3'x7'[]
+!   R&R_Solar_Supply_EPI-308CU3'x8'[]
+!   R&R_Solar_Supply_EPI-308CU4'x8'[]
+!   R&R_Solar_Supply_EPI-308SS3'x7'[]
+!   R&R_Solar_Supply_EPI-308SS3'x8'[]
+!   R&R_Solar_Supply_EPI-308SS4'x8'[]
+!   R&R_Solar_Supply_Sunpro_21[]
+!   R&R_Solar_Supply_Sunpro_24[]
+!   R&R_Solar_Supply_Sunpro_32[]
+!   R&R_Solar_Supply_Sunpro_40[]
+!   Radco_Products_308C-HP[]
+!   Radco_Products_308P-HP[]
+!   Radco_Products_408C-HP[]
+!   Radco_Products_408P-HP[]
+!   Radco_Products_410C-HP[]
+!   Radco_Products_410P-HP[]
+!   Radco_Products_412C-HP[]
+!   Radco_Products_412P-HP[]
+!   Sealed_Air_Corporation_FP-48[]
+!   Sealed_Air_Corporation_FS-48[]
+!   Sealed_Air_Corporation_FW-48[]
+!   Solahart_Industries_Pty_Ltd_J[]
+!   Solahart_Industries_Pty_Ltd_K[]
+!   Solahart_Industries_Pty_Ltd_L[]
+!   Solahart_Industries_Pty_Ltd_M[]
+!   Sun_Trapper_Solar_Systems_STG-24[]
+!   SunEarth_EC-20[]
+!   SunEarth_EC-21[]
+!   SunEarth_EC-24[]
+!   SunEarth_EC-32[]
+!   SunEarth_EC-40[]
+!   SunEarth_EP-20[]
+!   SunEarth_EP-21[]
+!   SunEarth_EP-24[]
+!   SunEarth_EP-32[]
+!   SunEarth_EP-40[]
+!   SunEarth_IC-24[]
+!   SunEarth_IC-32[]
+!   SunEarth_IC-40[]
+!   SunEarth_IP-24[]
+!   SunEarth_IP-32[]
+!   SunEarth_IP-40[]
+!   SunEarth_SC-24[]
+!   SunEarth_SC-32[]
+!   SunEarth_SC-40[]
+!   SunEarth_SP-24[]
+!   SunEarth_SP-32[]
+!   SunEarth_SP-40[]
+!   SunEarth_SSC-21[]
+!   SunEarth_SSC-24[]
+!   SunEarth_SSC-32[]
+!   SunEarth_SSC-40[]
+!   SunEarth_SSP-21[]
+!   SunEarth_SSP-24[]
+!   SunEarth_SSP-32[]
+!   SunEarth_SSP-40[]
+!   Sunsiaray_Solar_Manufacturing_NC-32[]
+!   Thermo_Technologies_TMA-600-20[]
+!   Thermo_Technologies_TMA-600-30[]
+##enddef
+
+##def ACR_Solar_International_Fireball_2001[]
+!***********************************************************************************************************
+ 
+!  VERSION,
+!    2.2;                    !- Version Identifier
+ 
+SolarCollectorPerformance:FlatPlate,
+  ACR Solar International Fireball 2001,  !- Name
+  1.865,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000316,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.605,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.837,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  0.00165,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1944,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0186;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-21,  !- Name
+  1.9307,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-21E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-21E,  !- Name
+  1.926,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-24,  !- Name
+  2.2116,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-24E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-24E,  !- Name
+  2.212,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-26[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-26,  !- Name
+  2.3549,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-26E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-26E,  !- Name
+  2.355,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-28[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-28,  !- Name
+  2.5987,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-28E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-28E,  !- Name
+  2.599,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-32,  !- Name
+  2.9646,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-32E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-32E,  !- Name
+  2.965,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-40,  !- Name
+  3.6962,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_AE-40E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies AE-40E,  !- Name
+  3.696,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-21,  !- Name
+  1.9974,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-21E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-21E,  !- Name
+  1.999,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-24,  !- Name
+  2.2761,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-24E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-24E,  !- Name
+  2.265,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-26[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-26,  !- Name
+  2.4155,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-26E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-26E,  !- Name
+  2.405,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-28[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-28,  !- Name
+  2.6632,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-28E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-28E,  !- Name
+  2.652,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.264,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-32,  !- Name
+  3.0348,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-32E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-32E,  !- Name
+  3.023,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-40,  !- Name
+  3.9158,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000388,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.691,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.396,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00193,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1939,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0055;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_MSC-40E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies MSC-40E,  !- Name
+  3.764,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.638,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2645,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0297,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0248,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0861;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_ST-21E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies ST-21E,  !- Name
+  1.967,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.665,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.716,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01854,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0476,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1212;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Alternate_Energy_Technologies_ST-40E[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Alternate Energy Technologies ST-40E,  !- Name
+  3.575,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000385,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.665,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.716,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01854,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0476,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1212;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliocol_USA_HC-30[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliocol USA HC-30,      !- Name
+  2.70339,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0001890,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.873,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -20.62,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.043,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0316,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0104;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliocol_USA_HC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliocol USA HC-40,      !- Name
+  3.78103,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0001890,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.873,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -20.62,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.043,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0316,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0104;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliocol_USA_HC-50[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliocol USA HC-50,      !- Name
+  4.52423,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0001890,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.873,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -20.62,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.043,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0316,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0104;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Gobi_308[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Gobi 308,      !- Name
+  2.23814,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.721,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.322,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0247,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.09,                   !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Gobi_3366[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Gobi 3366,     !- Name
+  2.489,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.722,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.276,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.025,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.2646,                 !- Coefficient 2 of Incident Angle Modifier
+  0.1656;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Gobi_408[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Gobi 408,      !- Name
+  2.99601,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000577,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.725,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2,                    !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.022,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.09,                   !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Gobi_410[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Gobi 410,      !- Name
+  3.74387,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.725,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2,                    !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.022,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.09,                   !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Mojave_408[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Mojave 408,    !- Name
+  2.9996,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000550,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.719,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -5.31,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01,                   !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.09,                   !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Heliodyne_Mojave_410[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Heliodyne Mojave 410,    !- Name
+  3.72667,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.719,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -5.31,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01,                   !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.09,                   !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308CU3'x7'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308CU3'x7',  !- Name
+  1.901,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308CU3'x8'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308CU3'x8',  !- Name
+  2.169,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308CU4'x8'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308CU4'x8',  !- Name
+  2.918,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308SS3'x7'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308SS3'x7',  !- Name
+  1.901,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308SS3'x8'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308SS3'x8',  !- Name
+  2.169,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_EPI-308SS4'x8'[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply EPI-308SS4'x8',  !- Name
+  2.918,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_Sunpro_21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply Sunpro 21,  !- Name
+  1.9,                     !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_Sunpro_24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply Sunpro 24,  !- Name
+  2.169,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_Sunpro_32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply Sunpro 32,  !- Name
+  2.918,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def R&R_Solar_Supply_Sunpro_40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  R&R Solar Supply Sunpro 40,  !- Name
+  3.642,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000350,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.697,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.83,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01863,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1297,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_308C-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 308C-HP,  !- Name
+  2.201,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.772,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.38,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0102,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.052,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.1585;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_308P-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 308P-HP,  !- Name
+  2.200801,                !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.759,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -6.882,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.1112,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.123,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.103;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_408C-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 408C-HP,  !- Name
+  2.99957,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000561,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.774,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2,                    !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.009,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.052,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.1585;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_408P-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 408P-HP,  !- Name
+  2.99946,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000562,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.763,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -6.62,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01,                   !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.123,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.103;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_410C-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 410C-HP,  !- Name
+  3.7078,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.774,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2,                    !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.009,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.052,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.1585;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_410P-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 410P-HP,  !- Name
+  3.70784,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.763,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -6.62,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01,                   !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.123,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.103;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_412C-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 412C-HP,  !- Name
+  4.48999,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.774,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.2,                    !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.009,                  !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.052,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.1585;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Radco_Products_412P-HP[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Radco Products 412P-HP,  !- Name
+  4.48999,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000560,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.763,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -6.62,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01,                   !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.123,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.103;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Sealed_Air_Corporation_FP-48[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Sealed Air Corporation FP-48,  !- Name
+  4.359,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0003030,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.794,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -15.78,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0091,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.114,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0398;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Sealed_Air_Corporation_FS-48[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Sealed Air Corporation FS-48,  !- Name
+  4.404,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0002860,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.782,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -15.04,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0102,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.135,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.0339;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Sealed_Air_Corporation_FW-48[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Sealed Air Corporation FW-48,  !- Name
+  4.4031,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0002840,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.736,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -9.323,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0701,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0529,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0437;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Solahart_Industries_Pty_Ltd_J[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Solahart Industries Pty Ltd J,  !- Name
+  1.983,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000370,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.737,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.4193,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0503,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1395,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0127;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Solahart_Industries_Pty_Ltd_K[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Solahart Industries Pty Ltd K,  !- Name
+  1.983,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000370,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.731,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.0411,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.03245,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1798,                 !- Coefficient 2 of Incident Angle Modifier
+  0.0214;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Solahart_Industries_Pty_Ltd_L[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Solahart Industries Pty Ltd L,  !- Name
+  1.983,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000370,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.608,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -5.4707,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.0271,                 !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1718,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.058;                  !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Solahart_Industries_Pty_Ltd_M[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Solahart Industries Pty Ltd M,  !- Name
+  1.983,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000370,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.621,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.1009,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00598,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1194,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0121;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Sun_Trapper_Solar_Systems_STG-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Sun Trapper Solar Systems STG-24,  !- Name
+  2.315,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000430,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.7111,                  !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -6.91,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00853,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1014,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0475;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EC-20[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EC-20,          !- Name
+  1.831,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EC-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EC-21,          !- Name
+  1.9707,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EC-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EC-24,          !- Name
+  2.2899,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EC-32,          !- Name
+  3.0505,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EC-40,          !- Name
+  3.7957,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EP-20[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EP-20,          !- Name
+  1.831,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EP-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EP-21,          !- Name
+  1.9707,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EP-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EP-24,          !- Name
+  2.2899,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EP-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EP-32,          !- Name
+  3.0505,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_EP-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth EP-40,          !- Name
+  3.7957,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IC-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IC-24,          !- Name
+  2.3007,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IC-32,          !- Name
+  3.0623,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IC-40,          !- Name
+  3.8094,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IP-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IP-24,          !- Name
+  2.3007,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IP-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IP-32,          !- Name
+  3.0623,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_IP-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth IP-40,          !- Name
+  3.8094,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SC-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SC-24,          !- Name
+  2.2899,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SC-32,          !- Name
+  3.0505,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SC-40,          !- Name
+  3.7957,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SP-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SP-24,          !- Name
+  2.2899,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SP-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SP-32,          !- Name
+  3.0505,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SP-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SP-40,          !- Name
+  3.7957,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000320,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSC-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSC-21,         !- Name
+  1.8596,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSC-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSC-24,         !- Name
+  2.1585,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSC-32,         !- Name
+  2.9065,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSC-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSC-40,         !- Name
+  3.6285,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.702,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.2828,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00992,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.0707,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.1687;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSP-21[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSP-21,         !- Name
+  1.8596,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSP-24[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSP-24,         !- Name
+  2.1585,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSP-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSP-32,         !- Name
+  2.9065,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def SunEarth_SSP-40[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  SunEarth SSP-40,         !- Name
+  3.6285,                  !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000317,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.666,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -3.3563,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.01379,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  0.0045,                  !- Coefficient 2 of Incident Angle Modifier
+  -0.2088;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Sunsiaray_Solar_Manufacturing_NC-32[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Sunsiaray Solar Manufacturing NC-32,  !- Name
+  3.17718,                 !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0840500,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.508,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -4.84,                   !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  0,                       !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.072,                  !- Coefficient 2 of Incident Angle Modifier
+  0;                       !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Thermo_Technologies_TMA-600-20[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Thermo Technologies TMA-600-20,  !- Name
+  3.06,                    !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000758,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.525,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -0.886,                  !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00738,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1441,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0948;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+
+##def Thermo_Technologies_TMA-600-30[]
+!***********************************************************************************************************
+ 
+SolarCollectorPerformance:FlatPlate,
+  Thermo Technologies TMA-600-30,  !- Name
+  4.581,                   !- Gross Area {m2}
+  WATER,                   !- Test Fluid
+  0.0000758,               !- Test Flow Rate {m3/s}
+  INLET,                   !- Test Correlation Type
+  0.525,                   !- Coefficient 1 of Efficiency Equation {dimensionless}
+  -0.8858,                 !- Coefficient 2 of Efficiency Equation {W/m2-K}
+  -0.00736,                !- Coefficient 3 of Efficiency Equation {W/m2-K2}
+  -0.1441,                 !- Coefficient 2 of Incident Angle Modifier
+  -0.0948;                 !- Coefficient 3 of Incident Angle Modifier
+ 
+##enddef
+

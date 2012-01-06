@@ -1,0 +1,447 @@
+##def LennoxTGA120S2B[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.42415,  !- Coefficient1 Constant 
+  0.04426,  !- Coefficient2 x 
+  -0.00042,  !- Coefficient3 x**2 
+  0.00333,  !- Coefficient4 y 
+  -0.00008,  !- Coefficient5 y**2 
+  -0.00021,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.77136,  !- Coefficient1 Constant 
+  0.34053,  !- Coefficient2 x 
+  -0.11088,  !- Coefficient3 x**2 
+  0.75918,  !- Minimum Value of x 
+  1.13877;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  1.23649,  !- Coefficient1 Constant 
+  -0.02431,  !- Coefficient2 x 
+  0.00057,  !- Coefficient3 x**2 
+  -0.01434,  !- Coefficient4 y 
+  0.00063,  !- Coefficient5 y**2 
+  -0.00038,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.20550,  !- Coefficient1 Constant 
+  -0.32953,  !- Coefficient2 x 
+  0.12308,  !- Coefficient3 x**2 
+  0.75918,  !- Minimum Value of x 
+  1.13877;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.77100,  !- Coefficient1 Constant 
+  0.22900,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultUnitaryPackage[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.766956,  !- Coefficient1 Constant 
+  0.0107756,  !- Coefficient2 x 
+  -0.0000414703,  !- Coefficient3 x**2 
+  0.00134961,  !- Coefficient4 y 
+  -0.000261144,  !- Coefficient5 y**2 
+  0.000457488,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.8,  !- Coefficient1 Constant 
+  0.2,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.297145,  !- Coefficient1 Constant 
+  0.0430933,  !- Coefficient2 x 
+  -0.000748766,  !- Coefficient3 x**2 
+  0.00597727,  !- Coefficient4 y 
+  0.000482112,  !- Coefficient5 y**2 
+  -0.000956448,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.156,  !- Coefficient1 Constant 
+  -0.1816,  !- Coefficient2 x 
+  0.0256,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultUnitaryPackageHeatPump[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.766956,  !- Coefficient1 Constant 
+  0.0107756,  !- Coefficient2 x 
+  -0.0000414703,  !- Coefficient3 x**2 
+  0.00134961,  !- Coefficient4 y 
+  -0.000261144,  !- Coefficient5 y**2 
+  0.000457488,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.8,  !- Coefficient1 Constant 
+  0.2,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.297145,  !- Coefficient1 Constant 
+  0.0430933,  !- Coefficient2 x 
+  -0.000748766,  !- Coefficient3 x**2 
+  0.00597727,  !- Coefficient4 y 
+  0.000482112,  !- Coefficient5 y**2 
+  -0.000956448,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.156,  !- Coefficient1 Constant 
+  -0.1816,  !- Coefficient2 x 
+  0.0256,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultWindowAC[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.942587793,  !- Coefficient1 Constant 
+  0.009543347,  !- Coefficient2 x 
+  0.0018423,  !- Coefficient3 x**2 
+  -0.011042676,  !- Coefficient4 y 
+  0.000005249,  !- Coefficient5 y**2 
+  -0.000009720,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.718954,  !- Coefficient1 Constant 
+  0.435436,  !- Coefficient2 x 
+  -0.154193,  !- Coefficient3 x**2 
+  0.75,  !- Minimum Value of x 
+  1.25;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.342414409,  !- Coefficient1 Constant 
+  0.034885008,  !- Coefficient2 x 
+  -0.000623700,  !- Coefficient3 x**2 
+  0.004977216,  !- Coefficient4 y 
+  0.000437951,  !- Coefficient5 y**2 
+  -0.000728028,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.1552,  !- Coefficient1 Constant 
+  -0.1808,  !- Coefficient2 x 
+  0.0256,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultPTAC[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.942587793,  !- Coefficient1 Constant 
+  0.009543347,  !- Coefficient2 x 
+  0.000683770,  !- Coefficient3 x**2 
+  -0.011042676,  !- Coefficient4 y 
+  0.000005249,  !- Coefficient5 y**2 
+  -0.000009720,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.8,  !- Coefficient1 Constant 
+  0.2,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.342414409,  !- Coefficient1 Constant 
+  0.034885008,  !- Coefficient2 x 
+   -0.000623700,  !- Coefficient3 x**2 
+  0.004977216,  !- Coefficient4 y 
+  0.000437951,  !- Coefficient5 y**2 
+  -0.000728028,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.1552,  !- Coefficient1 Constant 
+  -0.1808,  !- Coefficient2 x 
+  0.0256,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.85,  !- Coefficient1 Constant 
+  0.15,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultPTHP[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.942587793,  !- Coefficient1 Constant 
+  0.009543347,  !- Coefficient2 x 
+  0.0018423,  !- Coefficient3 x**2 
+  -0.011042676,  !- Coefficient4 y 
+  0.000005249,  !- Coefficient5 y**2 
+  -0.000009720,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.718954,  !- Coefficient1 Constant 
+  0.435436,  !- Coefficient2 x 
+  -0.154193,  !- Coefficient3 x**2 
+  0.75,  !- Minimum Value of x 
+  1.25;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.342414409,  !- Coefficient1 Constant 
+  0.034885008,  !- Coefficient2 x 
+  -0.000623700,  !- Coefficient3 x**2 
+  0.004977216,  !- Coefficient4 y 
+  0.000437951,  !- Coefficient5 y**2 
+  -0.000728028,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.1552,  !- Coefficient1 Constant 
+  -0.1808,  !- Coefficient2 x 
+  0.0256,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def LennoxSGA120H4B[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  8.74575920E-01,  !- Coefficient1 Constant 
+  -5.64045974E-03,  !- Coefficient2 x 
+  1.29604463E-03,  !- Coefficient3 x**2 
+  5.42748012E-03,  !- Coefficient4 y 
+  -6.94727005E-05,  !- Coefficient5 y**2 
+  -5.30076988E-04,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.7394,  !- Coefficient1 Constant 
+  0.3805,  !- Coefficient2 x 
+  -0.12,  !- Coefficient3 x**2 
+  0.75,  !- Minimum Value of x 
+  1.25;  !- Maximum Value of x 
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  6.36981025E-01,  !- Coefficient1 Constant 
+  9.68123982E-03,  !- Coefficient2 x 
+  -5.29301158E-04,  !- Coefficient3 x**2 
+  -2.00058487E-03,  !- Coefficient4 y 
+  5.74039980E-04,  !- Coefficient5 y**2 
+  -3.70049694E-04,  !- Coefficient6 x*y 
+  17.00000,  !- Minimum Value of x 
+  22.00000,  !- Maximum Value of x 
+  13.00000,  !- Minimum Value of y 
+  46.00000;  !- Maximum Value of y 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.2487,  !- Coefficient1 Constant 
+  -0.373,  !- Coefficient2 x 
+  0.1243,  !- Coefficient3 x**2 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def LennoxLGEMeasured[]
+
+
+Curve:Biquadratic,
+  #{CapFuncTempCurve},  !- Name 
+  0.52357,  !- Coefficient1 Constant 
+  0.03478,  !- Coefficient2 x 
+  0,  !- Coefficient3 x**2 
+  -0.001915,  !- Coefficient4 y 
+  -0.00010838,  !- Coefficient5 y**2 
+  0,  !- Coefficient6 wb*edb 
+  11.1,  !- Minimum Value of x
+  29.4,  !- Maximum Value of x
+  10.0,  !- Minimum Value of y
+  50.3;  !- Maximum Value of y
+
+Curve:Quadratic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.7685,  !- Coefficient1 Constant 
+  0.2315,  !- Coefficient2 x 
+  0,  !- Coefficient3 x**2 
+  0.776,  !- Minimum Value of x
+  1.197;  !- Maximum Value of x
+
+Curve:Biquadratic,
+  #{EirFuncTempCurve},  !- Name 
+  0.9847,  !- Coefficient1 Constant 
+  -0.04285,  !- Coefficient2 x 
+  0.0013562,  !- Coefficient3 x**2 
+  0.009934,  !- Coefficient4 y 
+  0.0006398,  !- Coefficient5 y**2 
+  -0.0011690,  !- Coefficient6 x*y 
+  11.1,  !- Minimum Value of x
+  29.4,  !- Maximum Value of x
+  10.0,  !- Minimum Value of y
+  50.3;  !- Maximum Value of y
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.192,  !-  Coefficient1 Constant 
+  -0.1917, !- Coefficient2 ff 
+  0,  !- Coefficient3 x**2 
+  0.776,  !- Minimum Value of x 
+  1.197;  !- Maximum Value of x
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.9,  !- Coefficient1 Constant 
+  0.1,  !- Coefficient2 x 
+  0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef

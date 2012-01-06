@@ -1,0 +1,97 @@
+##def DefaultUnitaryPackageHeatPump[]
+
+
+Curve:Cubic,
+  #{CapFuncTempCurve},  !- Name 
+  0.758746,  !- Coefficient1 Constant 
+  0.027626,  !- Coefficient2 x 
+  0.000148716,  !- Coefficient3 x**2 
+  0.0000034992,  !- Coefficient4 x**3 
+  -20.0,  !- Minimum Value of x 
+  20.0;  !- Maximum Value of x 
+
+Curve:Cubic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.84,  !- Coefficient1 Constant 
+  0.16,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Coefficient4 x**3 
+  0.5,  !- Minimum Value of x 
+  1.5;  !- Maximum Value of x 
+
+Curve:Cubic,
+  #{EirFuncTempCurve},  !- Name 
+  1.19248,  !- Coefficient1 Constant 
+  -0.0300438,  !- Coefficient2 x 
+  0.00103745,  !- Coefficient3 x**2 
+  -0.000023328,  !- Coefficient4 x**3 
+  -20.0,  !- Minimum Value of x 
+  20.0;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.3824,  !- Coefficient1 Constant 
+  -0.4336,  !- Coefficient2 x 
+  0.0512,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coefficient1 Constant 
+  0.25,  !- Coefficient2 x 
+  0.0,  !- Coefficient3 x**2 
+  0.0,  !- Minimum Value of x 
+  1.0;  !- Maximum Value of x 
+
+
+##enddef
+
+##def DefaultPTHP[]
+
+
+Curve:Cubic,
+  #{CapFuncTempCurve},  !- Name 
+  0.758746,  !- Coeff 1 constant 
+  0.027626,  !- coeff 2 x 
+  0.000148716,  !- coeff 3 x**2 
+  0.0000034992,  !- coeff 4 x**3 
+  -20.0,  !- min value of x 
+  20.0;  !- max value of x 
+
+Curve:Cubic,
+  #{CapFuncFlowFracCurve},  !- Name 
+  0.84,  !- Coeff 1 constant 
+  0.16,  !- coeff 2 x 
+  0.0,  !- coeff 3 x**2 
+  0.0,  !- coeff 4 x**3 
+  0.5,  !- min value of x 
+  1.5;  !- max value of x 
+
+Curve:Cubic,
+  #{EirFuncTempCurve},  !- Name 
+  1.19248,  !- Coeff 1 constant 
+  -0.0300438,  !- coeff 2 x 
+  0.00103745,  !- coeff 3 x**2 
+  -0.000023328,  !- coeff 4 x**3 
+  -20.0,  !- min value of x 
+  20.0;  !- max value of x 
+
+Curve:Quadratic,
+  #{EirFuncFlowFracCurve},  !- Name 
+  1.3824,  !- Coeff 1 constant 
+  -0.4336,  !- coeff 2 x 
+  0.0512,  !- coeff 3 x**2 
+  0.0,  !- min value of x 
+  1.0;  !- max value of x 
+
+Curve:Quadratic,
+  #{PlrCurve},  !- Name 
+  0.75,  !- Coeff 1 constant 
+  0.25,  !- coeff 2 x 
+  0.0,  !- coeff 3 x**2 
+  0.0,  !- min value of x 
+  1.0;  !- max value of x 
+
+
+##enddef

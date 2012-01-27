@@ -1,4 +1,6 @@
 Bemscape::Application.routes.draw do
+  resources :edifices
+
   resources :buildings
 
   resources :users

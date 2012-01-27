@@ -41,6 +41,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chronic (0.6.6)
+    crack (0.3.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.4)
@@ -101,6 +102,7 @@ DEPENDENCIES
   bson_ext (~> 1.4)
   cancan
   capistrano
+  crack
   fastercsv
   mongoid (= 2.2.4)
   rails (= 3.0.7)

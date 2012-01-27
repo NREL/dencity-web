@@ -9,6 +9,7 @@ gem 'cancan'
 gem 'mongoid', "2.2.4"
 gem 'bson_ext', "~> 1.4"
 gem 'fastercsv'
+gem 'crack'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

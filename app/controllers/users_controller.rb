@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @users = User.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.generate_api_key!
 
     respond_to do |format|
       if @user.save

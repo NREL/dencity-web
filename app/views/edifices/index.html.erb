@@ -1,0 +1,21 @@
+<h1>Listing edifices</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @edifices.each do |edifice| %>
+  <tr>
+    <td><%= link_to 'Show', edifice %></td>
+    <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>
+    <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Edifice', new_edifice_path %>

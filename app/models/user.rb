@@ -1,12 +1,15 @@
 class User
   include Mongoid::Document
   field :username, :type => String
+  field :email, :type => String
   field :api_key, :type => String
   
   # Indexes
 
-  # Relationships  
-  #has_many :buildings
+  # Relationships
+  references_many :edifices
+  
+  #has_many :edifices
   
   # Class Methods
   def generate_api_key!

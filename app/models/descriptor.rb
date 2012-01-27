@@ -7,7 +7,7 @@ class Descriptor
   field :category, :type => String  #handles flattening out nesting
 
   # Indexes
-  index :name,           :unique => true
+  #index :name,           :unique => true
   
   # Relationships
   references_many :edifices

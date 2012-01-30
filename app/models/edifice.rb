@@ -13,13 +13,28 @@ class Edifice
   accepts_nested_attributes_for :descriptor_values
   
   #Class Methods
-  def save_descriptor_and_value(name, valuetype, value, units, category=nil)
+  def cleanup_name(name)
     
-    #create/update descriptor (use category name if provided)
-    if category == "Report"
-      category = nil
-    end
-    descriptor = category.nil? ? Descriptor.find_or_create_by(:name => name) : Descriptor.find_or_create_by(:name => name, :category => category)
+    #look for camel case: downcase and replace spaces by underscores
+    newname = name.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    tr(" ", "_").
+    tr(".", "_").
+    downcase
+
+    return newname
+  end
+  
+  #save parsed out descriptor and value from xml file
+  def save_descriptor_and_value(name, valuetype, value, units)
+    
+    #clean-up descriptor name
+    newname = self.cleanup_name(name)
+    
+    #create/update descriptor 
+    descriptor = Descriptor.find_or_create_by(:name => newname)
     logger.info("created descriptor #{descriptor._id}")
    
     if !descriptor.units.nil?
@@ -32,15 +47,14 @@ class Edifice
     end
  
     descriptor.save
-    #logger.info("descriptor saved, id is #{descriptor._id}")
 
     #save value           
     self.descriptor_values.find_or_create_by(:descriptor_id => descriptor._id)
-    self.set_value_from_descriptor_id(descriptor._id, value)
+    self.set_value_from_descriptor(descriptor, value)
               
   end
   
-  def process_descriptor_data(data, category_name=nil)
+  def process_descriptor_data(data, nested_name=nil)
     #takes a snippet of xml-parsed data, in hash / array format
     
     #parse variables
@@ -51,38 +65,39 @@ class Edifice
     
     thekeys = data.keys
     
-    logger.info("HEY keys are: #{thekeys.inspect}, size: #{thekeys.size}, class: #{data.class}")
+    logger.info("keys are: #{thekeys.inspect}, size: #{thekeys.size}, class: #{data.class}")
 
     #should have Attribute keys only here?
     thekeys.each do |key1|
       if key1 == "Attribute"
         #get inner data and process
         innerdata = data[key1]
-        logger.info("class:#{innerdata.class}")
         
-        #sometimes this is a hash? (only 1 descriptor)
+        #sometimes this is a hash (only 1 descriptor)
         if innerdata.class.to_s === "Hash"
           #2nd level
           keys2 = innerdata.keys
           logger.info("2nd-level keys are: #{keys2.inspect}, size: #{keys2.size}")
+          
+          #get attributes
+          value2 = keys2.include?("Value") ? data[key1]['Value'] : nil
+          name2 = keys2.include?("Name") ? data[key1]['Name'] : nil
+          name2 = keys2.include?("DisplayName") ? data[key1]['DisplayName'] : name2
+          #append name to nested_name to keep path (underscore separated)
+          if !nested_name.nil? and nested_name != 'Report'
+            name2 = nested_name + '_' + name2
+          end
+         
           if keys2.include?("ValueType") and data[key1]['ValueType'] == 'AttributeVector'
             #send to processing
-            value2 = keys2.include?("Value") ? data[key1]['Value'] : nil
-            name2 = keys2.include?("Name") ? data[key1]['Name'] : nil
             logger.info("sending data to process_data function:  #{value2}")
-            #append name to category_name to keep path (comma separated)
-            if !category_name.nil? and category_name != 'Report'
-              name2 = category_name + ', ' + name2
-            end
             self.process_descriptor_data(value2, name2)            
           else
             #simple value
             logger.info("save descriptor and value")
-            valueType2 = keys2.include?("ValueType") ? data[key1]['ValueType'] : nil
-            value2 = keys2.include?("Value") ? data[key1]['Value'] : nil
-            name2 = keys2.include?("Name") ? data[key1]['Name'] : nil
+            valuetype2 = keys2.include?("ValueType") ? data[key1]['ValueType'] : nil
             units2 = keys2.include?("Units") ? data[key1]['Units'] : nil            
-            self.save_descriptor_and_value(name2, valuetype2, value2, units2, category_name)            
+            self.save_descriptor_and_value(name2, valuetype2, value2, units2)            
           end
 
         #sometimes this is an array (array of hash - multiple descriptors to save)
@@ -93,29 +108,29 @@ class Edifice
             keys2 = temp.keys
             logger.info("2nd-level array element keys are: #{keys2.inspect}, size: #{keys2.size}")
             
+            #get attributes
+            value2 = keys2.include?("Value") ? d['Value'] : nil
+            name2 = keys2.include?("Name") ? d['Name'] : nil
+            #append name to nested_name to keep path (underscore separated)
+            if !nested_name.nil? and nested_name != 'Report'
+              name2 = nested_name + '_' + name2
+            end           
+            
             if keys2.include?("ValueType") and d['ValueType'] == 'AttributeVector'
               #send to processing
-              value2 = keys2.include?("Value") ? d['Value'] : nil
-              name2 = keys2.include?("Name") ? d['Name'] : nil
               logger.info("sending data to process_data function:  #{value2}")
-              #append name to category_name to keep path (comma separated)
-              if !category_name.nil? and category_name != 'Report'
-                name2 = category_name + ', ' + name2
-              end
               self.process_descriptor_data(value2, name2)            
             else
               #simple value
               logger.info("save descriptor and value")
-              valueType2 = keys2.include?("ValueType") ? d['ValueType'] : nil
-              value2 = keys2.include?("Value") ? d['Value'] : nil
-              name2 = keys2.include?("Name") ? d['Name'] : nil
+              valuetype2 = keys2.include?("ValueType") ? d['ValueType'] : nil
               units2 = keys2.include?("Units") ? d['Units'] : nil              
-              self.save_descriptor_and_value(name2, valuetype2, value2, units2, category_name)            
+              self.save_descriptor_and_value(name2, valuetype2, value2, units2)            
             end
           end  
           
         else
-          #no more levels?
+          #no more levels
           logger.info("no level2 info")
         end    
       end
@@ -123,10 +138,10 @@ class Edifice
 
   end
   
-  def get_value_from_descriptor_id(descriptor_id)
+  def get_value_from_descriptor(descriptor)
     ret = nil
     self.descriptor_values.each do |dv|
-      if dv.descriptor_id == descriptor_id
+      if dv.descriptor_id == descriptor._id
         ret = dv[:value]
         return ret
       end
@@ -134,11 +149,14 @@ class Edifice
     
   end
   
-  def set_value_from_descriptor_id(descriptor_id, value)
+  def set_value_from_descriptor(descriptor, value)
     self.descriptor_values.each do |dv|
-      if dv.descriptor_id == descriptor_id
+      if dv.descriptor_id == descriptor._id
+        #old way
         dv[:value] = value
         dv.save!
+        #new way
+        dv[descriptor.name] = value        
       end
     end
     self.save!

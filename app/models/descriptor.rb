@@ -4,7 +4,7 @@ class Descriptor
   field :name, :type => String
   field :value_type, :type => String
   field :units, :type => String
-  field :category, :type => String  #handles flattening out nesting
+  #field :category, :type => String  #handles flattening out nesting
 
   # Indexes
   #index :name,           :unique => true

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+=begin  
   before_filter :authorize
 
   protected
@@ -21,5 +22,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+=end
+ 
 end

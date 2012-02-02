@@ -1,3 +1,4 @@
+=begin
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
@@ -82,3 +83,4 @@ class UsersController < ApplicationController
     end
   end
 end
+=end

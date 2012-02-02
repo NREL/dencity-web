@@ -8,6 +8,20 @@
 </head>
 <body>
 
+<div id="user_nav">
+  <% if user_signed_in? %>
+    Welcome <%= current_user.email %>.
+    <%=link_to "My Account", edit_user_registration_path %> | <%= link_to "Sign out", logout_path %>
+  <% else %>
+    <%= link_to "Sign up", register_path %> or
+    <%= link_to "Sign in", login_path %>
+  <% end %>
+</div>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+
 <%= yield %>
 
 </body>

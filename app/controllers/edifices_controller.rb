@@ -1,6 +1,7 @@
 class EdificesController < ApplicationController
   
   require 'crack' # for xml and json
+  before_filter :authenticate_user!, :except => [:show, :index]
   
   # GET /edifices
   # GET /edifices.xml 
@@ -78,7 +79,7 @@ class EdificesController < ApplicationController
     thename = "Building" + Time.now.strftime("%Y%m%d-%H%M%S")
     #logger.info("the name is: #{thename}")
     bld = Edifice.find_or_create_by(:name => thename)
-    bld.user_id = @apiuser._id
+    bld.user_id = current_user.id
   
     #create descriptors and values
     bld.process_descriptor_data(data)

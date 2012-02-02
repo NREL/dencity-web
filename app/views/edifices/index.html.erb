@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+    <th>Name</th>
+    <th>User</th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +11,8 @@
 
 <% @edifices.each do |edifice| %>
   <tr>
+    <td><%= edifice.name %></td>
+    <td><% theuser = User.find(edifice.user_id) %><%= theuser.email %></td>
     <td><%= link_to 'Show', edifice %></td>
     <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>
     <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>

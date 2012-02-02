@@ -1,11 +1,18 @@
 Bemscape::Application.routes.draw do
+  devise_for :users do
+    get "/logout" => "devise/sessions#destroy"
+    get "/login" => "devise/sessions#new"
+    get "/register" => "devise/registrations#new"
+    
+  end
+
+  resources :api_keys, :only => [:create, :destroy]
+
   resources :edifices
 
   resources :buildings
 
-  resources :users
-
-  root :to => 'users#index'
+  root :to => 'edifices#index'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

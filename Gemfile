@@ -2,12 +2,13 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-gem 'whenever'
+gem 'whenever', '0.7.0'
 gem 'cancan'
 
 # Gems for mongo access
 gem 'mongoid', "2.2.4"
 gem 'bson_ext', "~> 1.4"
+
 gem 'fastercsv'
 gem 'crack'
 gem 'devise', "~> 1.5.3"

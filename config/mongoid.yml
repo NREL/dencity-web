@@ -22,7 +22,7 @@ production:
   port: <%= ENV['MONGO_PORT'] %>
   username: <%= ENV['MONGO_BEMSCAPE_USERNAME'] %>
   password: <%= ENV['MONGO_BEMSCAPE_PASSWORD'] %>
-  database: <%= ENV['MONGO_BEMSCAPE_DATABASE'] %>
+  database: bemscape_test
   # slaves:
   #   - host: slave1.local
   #     port: 27018

@@ -115,4 +115,4 @@ DEPENDENCIES
   fastercsv
   mongoid (= 2.2.4)
   rails (= 3.0.7)
-  whenever
+  whenever (= 0.7.0)

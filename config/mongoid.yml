@@ -16,6 +16,7 @@ test:
   database: bemscape_test
 
 # set these environment variables on your prod server
+#E-WATTS
 production:
   host: <%= ENV['MONGO_HOST'] %>
   port: <%= ENV['MONGO_PORT'] %>

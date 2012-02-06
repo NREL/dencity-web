@@ -12,7 +12,7 @@ Bemscape::Application.routes.draw do
 
   resources :buildings
 
-  root :to => 'edifices#index'
+  root :to => 'edifices#home', :as => :home
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

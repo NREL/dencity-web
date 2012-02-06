@@ -1,7 +1,7 @@
 class EdificesController < ApplicationController
   
   require 'crack' # for xml and json
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :home]
   
   def home
     

@@ -1,10 +1,10 @@
 class Edifice
   include Mongoid::Document
   
-  field :name,    :type => String
+  field :unique_name,    :type => String
   
   # Indexes
-  index :name,    :unique => true
+  index :unique_name,    :unique => true
   
   # Relationships
   referenced_in :descriptor
@@ -27,8 +27,34 @@ class Edifice
     return newname
   end
   
+  def get_value_from_descriptor(descriptor)
+    ret = nil
+    self.descriptor_values.each do |dv|
+      if dv.descriptor_id == descriptor._id
+        ret = dv[:value]
+        return ret
+      end
+    end
+    
+  end
+  
+  def set_value_from_descriptor(descriptor, value)
+    self.descriptor_values.each do |dv|
+      if dv.descriptor_id == descriptor._id
+        #old way
+        dv[:value] = value
+        dv.save!
+        #new way
+        dv[descriptor.name] = value        
+      end
+    end
+    self.save!
+  end
+  
+  #API METHODS-- VERSION 1!  
+  
   #save parsed out descriptor and value from xml file
-  def save_descriptor_and_value(name, valuetype, value, units)
+  def save_descriptor_and_value_v1(name, valuetype, value, units)
     
     #clean-up descriptor name
     newname = self.cleanup_name(name)
@@ -51,10 +77,14 @@ class Edifice
     #save value           
     self.descriptor_values.find_or_create_by(:descriptor_id => descriptor._id)
     self.set_value_from_descriptor(descriptor, value)
+    
+    #also save it straight to the building just to see which way is best
+    self[newname]= value
+    
               
   end
   
-  def process_descriptor_data(data, nested_name=nil)
+  def process_descriptor_data_v1(data, nested_name=nil)
     #takes a snippet of xml-parsed data, in hash / array format
     
     #parse variables
@@ -91,13 +121,13 @@ class Edifice
           if keys2.include?("ValueType") and data[key1]['ValueType'] == 'AttributeVector'
             #send to processing
             logger.info("sending data to process_data function:  #{value2}")
-            self.process_descriptor_data(value2, name2)            
+            self.process_descriptor_data_v1(value2, name2)            
           else
             #simple value
             logger.info("save descriptor and value")
             valuetype2 = keys2.include?("ValueType") ? data[key1]['ValueType'] : nil
             units2 = keys2.include?("Units") ? data[key1]['Units'] : nil            
-            self.save_descriptor_and_value(name2, valuetype2, value2, units2)            
+            self.save_descriptor_and_value_v1(name2, valuetype2, value2, units2)            
           end
 
         #sometimes this is an array (array of hash - multiple descriptors to save)
@@ -119,13 +149,13 @@ class Edifice
             if keys2.include?("ValueType") and d['ValueType'] == 'AttributeVector'
               #send to processing
               logger.info("sending data to process_data function:  #{value2}")
-              self.process_descriptor_data(value2, name2)            
+              self.process_descriptor_data_v1(value2, name2)            
             else
               #simple value
               logger.info("save descriptor and value")
               valuetype2 = keys2.include?("ValueType") ? d['ValueType'] : nil
               units2 = keys2.include?("Units") ? d['Units'] : nil              
-              self.save_descriptor_and_value(name2, valuetype2, value2, units2)            
+              self.save_descriptor_and_value_v1(name2, valuetype2, value2, units2)            
             end
           end  
           
@@ -138,28 +168,6 @@ class Edifice
 
   end
   
-  def get_value_from_descriptor(descriptor)
-    ret = nil
-    self.descriptor_values.each do |dv|
-      if dv.descriptor_id == descriptor._id
-        ret = dv[:value]
-        return ret
-      end
-    end
-    
-  end
-  
-  def set_value_from_descriptor(descriptor, value)
-    self.descriptor_values.each do |dv|
-      if dv.descriptor_id == descriptor._id
-        #old way
-        dv[:value] = value
-        dv.save!
-        #new way
-        dv[descriptor.name] = value        
-      end
-    end
-    self.save!
-  end
+
   
 end

@@ -1,5 +1,30 @@
-<p id="notice"><%= notice %></p>
+<h1>Building: <%= @edifice.unique_name %> </h1>
+<br/><br/>
+<p> <b>Record ID: </b> <%= @edifice._id %></p>
+<p> <b>Unique Name: </b> <%= @edifice.unique_name %> </p>
+<p> <b>User: </b> <% theuser = User.find(@edifice.user_id) %><%= theuser.email %> ( <%= @edifice.user_id %>) </p>
+
+<h2> Descriptors </h2>
+<br/><br/>
+<% @descriptors.each do |d| %>
+
+  <% if !@edifice[d.name].nil? %>
+    <p> <b><%= d.name %>: </b> <%= @edifice[d.name] %> </p>
+  <% end %>
+
+<% end %>
 
 
-<%= link_to 'Edit', edit_edifice_path(@edifice) %> |
-<%= link_to 'Back', edifices_path %>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <%#= link_to 'Edit', edit_edifice_path(@edifice) %> | -->
+<%= link_to 'Back to All Buildings', edifices_path %>

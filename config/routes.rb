@@ -9,8 +9,19 @@ Bemscape::Application.routes.draw do
   resources :api_keys, :only => [:create, :destroy]
 
   resources :edifices
-
+  
+  resources :apis do
+    post :submit_building_v1
+  end
+  
   root :to => 'edifices#home'
+
+  #API - current version
+  match "/api/submit_building" => "apis#submit_building_v1"
+  
+  #API - version1
+  match "/api/v1/submit_building" => "apis#submit_building_v1"
+ 
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

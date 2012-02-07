@@ -1,5 +1,5 @@
-<h1>Listing edifices</h1>
-
+<h1>Simulated Buildings</h1>
+<br/><br/>
 <table>
   <tr>
     <th>Name</th>
@@ -11,10 +11,10 @@
 
 <% @edifices.each do |edifice| %>
   <tr>
-    <td><%= edifice.name %></td>
+    <td><%= edifice.unique_name %></td>
     <td><% theuser = User.find(edifice.user_id) %><%= theuser.email %></td>
     <td><%= link_to 'Show', edifice %></td>
-    <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>
+    <td><%#= link_to 'Edit', edit_edifice_path(edifice) %></td>
     <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Edifice', new_edifice_path %>
+<%#= link_to 'New Building', new_edifice_path %>

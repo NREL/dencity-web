@@ -23,7 +23,8 @@ class ApisController < ApplicationController
       elsif thefile.respond_to?(:path)
         xml_contents = File.read(thefile.path)
       else
-        xml_contents = 'bad'
+        #assume it is straight xml
+        xml_contents = params[:xmlfile]
       end
     end
     
@@ -32,7 +33,7 @@ class ApisController < ApplicationController
     
     #now parse the file
     #KAF: check on this, but is max 4-levels of nesting?
-    data = Crack::XML.parse(xml_contents)
+    data = Crack::XML.parse(xml_contents)   
     logger.info("the parsed contents are: #{data.inspect}")
 
     #initialize some variables to do the parsing

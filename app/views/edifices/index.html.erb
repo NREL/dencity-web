@@ -12,7 +12,7 @@
 <% @edifices.each do |edifice| %>
   <tr>
     <td><%= edifice.unique_name %></td>
-    <td><% theuser = User.find(edifice.user_id) %><%= theuser.email %></td>
+    <td><% if !edifice[:user_id].nil? %><% theuser = User.find(edifice.user_id) %><%= theuser.email %><% end %></td>
     <td><%= link_to 'Show', edifice %></td>
     <% if can? :manage, edifice %>
       <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>

@@ -1,7 +1,10 @@
 class ApisController < ApplicationController
 
   require 'crack' # for xml and json
+  #devise
   before_filter :authenticate_user!
+  #cancan
+  before_filter { unauthorized! if cannot? :read, :api }
   
   #####***********API Version 1*************#####
   

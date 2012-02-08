@@ -14,12 +14,16 @@
     <td><%= edifice.unique_name %></td>
     <td><% theuser = User.find(edifice.user_id) %><%= theuser.email %></td>
     <td><%= link_to 'Show', edifice %></td>
-    <td><%#= link_to 'Edit', edit_edifice_path(edifice) %></td>
-    <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can? :manage, edifice %>
+      <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>
+      <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%#= link_to 'New Building', new_edifice_path %>
+<% if can? :manage, Edifice %>
+  <%= link_to 'New Building', new_edifice_path %>
+<% end %>

@@ -1,6 +1,24 @@
-<h1>Editing user</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<h2><%= @user == current_user ? "Your Account Settings" : "Admin: Edit User" %></h2>
+ 
+<%= form_for(@user, :html => { :method => :put }) do |f| %>
+	<%#= error_messages(@user,"Could not update user") %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+ 
+  <div>API Key<br />
+<%= @user.authentication_token.blank? ? "No API Key" : @user.authentication_token %>
+<p><%= link_to "Generate API Key", api_keys_path(:user => @user, :came_from => 'user_edit'), :method => :post, :confirm => "Are you sure?"  %>
+<%= link_to "Delete API Key", api_key_path(:user => @user, :came_from => 'user_edit'), :method => :delete, :confirm => "Are you sure?"  %></p>
+ </div>
+ 
+	<p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i></p>
+	<p><%= f.password_field :password %></p>
+ 
+	<p><%= f.label :password_confirmation %></p>
+	<p><%= f.password_field :password_confirmation %></p>
+ 
+	<p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i></p>
+	<p><%= f.password_field :current_password %></p>
+ 
+  <p><%= f.submit "Update" %></p>
+<% end %>
+<%= link_to "Back", :back %>

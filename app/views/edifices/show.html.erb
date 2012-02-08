@@ -2,7 +2,7 @@
 <br/><br/>
 <p> <b>Record ID: </b> <%= @edifice._id %></p>
 <p> <b>Unique Name: </b> <%= @edifice.unique_name %> </p>
-<p> <b>User: </b> <% theuser = User.find(@edifice.user_id) %><%= theuser.email %> ( <%= @edifice.user_id %>) </p>
+<p> <b>User: </b> <% theuser = User.find(@edifice.user_id) %><%= theuser.email %> (<%= @edifice.user_id %>) </p>
 
 <h2> Descriptors </h2>
 <br/><br/>
@@ -26,5 +26,5 @@
 
 
 
-<!-- <%#= link_to 'Edit', edit_edifice_path(@edifice) %> | -->
+<% if can? :update, @edifice %> <%= link_to 'Edit', edit_edifice_path(@edifice) %> | <% end %>
 <%= link_to 'Back to All Buildings', edifices_path %>

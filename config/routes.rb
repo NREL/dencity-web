@@ -1,10 +1,11 @@
 Bemscape::Application.routes.draw do
-  devise_for :users do
+  devise_for :users , :path_prefix => 'd' do
     get "/logout" => "devise/sessions#destroy"
     get "/login" => "devise/sessions#new"
     get "/register" => "devise/registrations#new"
     
   end
+  resources :users
 
   resources :api_keys, :only => [:create, :destroy]
 

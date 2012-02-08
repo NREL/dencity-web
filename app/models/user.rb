@@ -31,7 +31,12 @@ class User
   field :api_key, :type => String
   field :role, :type => String
   
+  #possible roles
+  #admin
+  
   attr_accessible :email, :password, :password_confirmation
+  
+
   
   # Indexes
 
@@ -39,28 +44,11 @@ class User
   references_many :edifices
   
   # Class Methods
-=begin
-#OLD METHOD. Can probably delete KAF
-  def generate_api_key!
-    self.update_attribute(:api_key, secure_digest(Time.now, (1..10).map{ rand.to_s }))
-  end
-  
-  def self.authenticate(api_key)
-    user = nil
-    user = User.where("api_key" => api_key).first
-    if user.nil?
-      logger.info("Invalid API Key: does not match any registered users")
+  def admin?
+    if self.role == 'admin'
+      return true
     else
-      logger.info("API Key belongs to USER: #{user.username}")
+      return false
     end
-    return user    
   end
-  
-  protected
- 
-    def secure_digest(*args)
-      Digest::SHA1.hexdigest(args.flatten.join('--'))
-    end
-=end 
-
 end

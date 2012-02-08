@@ -1,7 +1,11 @@
 class EdificesController < ApplicationController
   
   require 'crack' # for xml and json
+  #devise
   before_filter :authenticate_user!, :except => [:show, :index, :home]
+  #cancan
+  load_and_authorize_resource
+  skip_before_filter :authorize, :only => [:home]
   
   def home
     

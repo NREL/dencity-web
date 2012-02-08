@@ -1,5 +1,9 @@
-=begin
 class UsersController < ApplicationController
+  #devise
+  before_filter :authenticate_user!
+  #cancan
+  load_and_authorize_resource
+  
   # GET /users
   # GET /users.xml
   def index
@@ -42,10 +46,9 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    @user.generate_api_key!
 
     respond_to do |format|
-      if @user.save
+      if @user.save!
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
@@ -58,10 +61,17 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    
     @user = User.find(params[:id])
+    
+    if params[:user][:password].blank?
+      [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
+    else
+      @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password])
+    end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.errors[:base].empty? and @user.update_attributes(params[:user])
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -83,4 +93,3 @@ class UsersController < ApplicationController
     end
   end
 end
-=end

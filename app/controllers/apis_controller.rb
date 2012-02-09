@@ -8,7 +8,6 @@ class ApisController < ApplicationController
   
   #####***********API Version 1*************#####
   
-  #POST /api/v1/submit_building
   #POST /api/v1/submit_building.xml
   def submit_building_v1
     @edifice = 1
@@ -64,7 +63,7 @@ class ApisController < ApplicationController
     end
   end
 
-  #POST /api/v1/retrieve_building
+
   #POST /api/v1/retrieve_building.xml
   def retrieve_building_v1
     
@@ -118,6 +117,18 @@ class ApisController < ApplicationController
     respond_to do |format|
       format.xml  { render :xml => retval.to_xml}
     end
+  end
+  
+  #POST /api/v1/get_descriptors.xml
+  
+  def list_descriptors_v1
+    
+    descriptors = Descriptor.find(:all)
+    
+    respond_to do |format|
+      format.xml  { render :xml => descriptors.to_xml}
+    end
+    
   end
 
 end

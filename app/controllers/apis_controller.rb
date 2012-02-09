@@ -50,6 +50,8 @@ class ApisController < ApplicationController
   
     #create descriptors and values
     bld.process_descriptor_data_v1(data)
+    
+    #TODO: put in a check here in case the bld gets saved without any attributes (in case the xml is badly formulated or something)
  
     respond_to do |format|
       if bld.save
@@ -62,11 +64,60 @@ class ApisController < ApplicationController
     end
   end
 
-  #GET /api/v1/retrieve
-  #GET /api/v1/retrieve.xml
-  #def retrieve_v1
+  #POST /api/v1/retrieve_building
+  #POST /api/v1/retrieve_building.xml
+  def retrieve_building_v1
     
-  #end
+    #look at params hash for a descriptor and a value
+    #retrieve 1 building matching the value
+    #if none match, retrieve closest building (up or down)
+    descriptor = params[:descriptor] ? params[:descriptor] : nil
+    value = params[:value] ? params[:value] : nil
+     
+    if !descriptor.nil? and !value.nil? 
+      #see what the descriptor's valuetype is (string vs float)
+      d = Descriptor.where('name' => descriptor).first
+      if d.value_type == "String"
+        #find exact match
+        res = Edifice.where(descriptor => value).limit(1).first
+        retval = !res.nil? ? res : 'No results match your search'      
+      else
+        #find closest match (in either direction)
+        #query with this info (upper and lower bounds, pick closest)
+        res1 = Edifice.where(descriptor => {"$gte" => value}).limit(1).first
+        res2 = Edifice.where(descriptor => {"$lte" => value}).limit(1).first
+   
+        diff1 = !res1.nil? ? (res1[descriptor].to_f - value.to_f) : nil
+        diff2 = !res2.nil? ? (value.to_f - res2[:descriptor].to_f) : nil
+        
+        #which one to pick?
+        if !diff1.nil? and !diff2.nil?
+          if diff1 < diff2
+            #return diff1
+            retval = res1
+          else
+            #return diff2
+            retval = res2
+          end
+        elsif !diff1.nil?
+          #return res1
+          retval = res1
+        elsif !diff2.nil?
+          #return res2
+          retval = res2
+        else
+          #no results
+          retval = 'No results match your search'
+        end  
+      end
+    else
+      #return NO results
+      retval = 'No results match your search'
+    end
   
+    respond_to do |format|
+      format.xml  { render :xml => retval.to_xml}
+    end
+  end
 
 end

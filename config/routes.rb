@@ -13,16 +13,20 @@ Bemscape::Application.routes.draw do
   
   resources :apis do
     post :submit_building_v1
+    post :retrieve_building_v1
   end
   
   root :to => 'edifices#home'
 
-  #API - current version
+  #API - current version (will change when new version is released)
   match "/api/submit_building" => "apis#submit_building_v1"
+  match "/api/retrieve_building" => "apis#retrieve_building_v1"
   
   #API - version1
   match "/api/v1/submit_building" => "apis#submit_building_v1"
- 
+  match "/api/v1/retrieve_building" => "apis#retrieve_building_v1"
+  
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

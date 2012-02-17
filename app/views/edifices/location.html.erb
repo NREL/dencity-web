@@ -1,0 +1,22 @@
+<h1>Location Services</h1>
+
+<%= form_tag do |f| %>
+  <fieldset>
+  <ol>
+  <li>
+    <%= label_tag('Address') %>
+    <%= text_field_tag('location', @search_string) %>
+  </li>
+  </ol>
+  
+  </fieldset>
+
+  <%= hidden_field_tag('submitted', true) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<%= link_to 'Back', edifices_path %>
+<br>
+
+<%= @debug %>

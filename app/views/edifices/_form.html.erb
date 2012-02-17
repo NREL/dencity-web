@@ -10,6 +10,15 @@
       </ul>
     </div>
   <% end %>
+  
+  <fieldset>
+  <ol>
+  <li>
+    <%= label_tag('Address') %>
+    <%= text_field_tag('edifice[name]', @edifice.unique_name) %>
+  </li>
+  
+  </fieldset>
 
   <div class="actions">
     <%= f.submit %>

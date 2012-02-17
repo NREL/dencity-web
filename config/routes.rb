@@ -9,12 +9,16 @@ Bemscape::Application.routes.draw do
 
   resources :api_keys, :only => [:create, :destroy]
 
-  resources :edifices
+  match "/edifices/location" => "edifices#location"
+  resources :edifices do
+    get :location
+  end
   
   resources :apis do
     post :submit_building_v1
     post :retrieve_building_v1
     post :list_descriptors_v1
+    post :submit_preprocessor_v1
   end
   
   root :to => 'edifices#home'
@@ -28,6 +32,9 @@ Bemscape::Application.routes.draw do
   match "/api/v1/submit_building" => "apis#submit_building_v1"
   match "/api/v1/retrieve_building" => "apis#retrieve_building_v1"
   match "/api/v1/list_descriptors" => "apis#list_descriptors_v1"
+  
+  #API - preprocessor
+  match "/api/preprocessor/submit" => "apis#submit_preprocessor_v1"
   
   
   # The priority is based upon order of creation:

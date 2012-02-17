@@ -27,3 +27,5 @@
 <% if can? :manage, Edifice %>
   <%= link_to 'New Building', new_edifice_path %>
 <% end %>
+
+curl --form api_key=PUT_KEY_HERE --form xmlfile=@NAME_OF_XML_FILE_HERE -X POST http://bemscape.development.nrel.gov/api/submit_building.xml

@@ -1,7 +1,13 @@
 class Edifice
   include Mongoid::Document
+  include Geocoder::Model::Mongoid
   
   field :unique_name,    :type => String
+  field :coordinates,    :type => Array
+  field :weather_coordinates, :type => Array
+  field :address
+  
+  reverse_geocoded_by     :coordinates
   
   # Indexes
   index :unique_name,    :unique => true
@@ -17,12 +23,12 @@ class Edifice
     
     #look for camel case: downcase and replace spaces by underscores
     newname = name.gsub(/::/, '/').
-    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-    gsub(/([a-z\d])([A-Z])/,'\1_\2').
-    tr("-", "_").
-    tr(" ", "_").
-    tr(".", "_").
-    downcase
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("-", "_").
+      tr(" ", "_").
+      tr(".", "_").
+      downcase
 
     return newname
   end

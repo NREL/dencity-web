@@ -1,7 +1,7 @@
 <h1>Welcome to BEMscape</h1>
 
 <p><%= link_to "All Buildings", edifices_path %></p>
-
+  
 <% if can? :manage, :users %>
     <p><%= link_to "Manage Users", users_path %></p>
 <% end %>

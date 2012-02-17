@@ -93,4 +93,31 @@ class EdificesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def location
+    loc = params[:location]
+    @debug = "Parameters: #{loc}\n\n"
+    if loc.nil?
+      @search_string = "enter location"
+    else
+      @search_string = loc
+    end
+
+    @debug += Geocoder.coordinates(loc).to_s + "\n\n\n\n"
+    
+    @submitted = params[:submitted]
+    if @submitted
+      edis = Edifice.near(loc, 50)
+      
+      edis.each do |edi|
+        puts "*************************** #{edi}"
+        @debug += edi.inspect + "\n\n\n\n"
+      end
+      
+      if edis.size == 0
+        @debug = Geocoder.search(loc).inspect
+      end
+    end
+    
+  end
 end

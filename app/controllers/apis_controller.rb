@@ -62,6 +62,34 @@ class ApisController < ApplicationController
       end
     end
   end
+  
+  def submit_preprocessor_v1
+    thefile = nil
+    xml_contents = nil
+
+    #get file and read it in (expecting file parameter named :xmlfile)
+    if params[:xmlfile]
+      thefile = params[:xmlfile]
+      if thefile.respond_to?(:read)
+        xml_contents = thefile.read
+      elsif thefile.respond_to?(:path)
+        xml_contents = File.read(thefile.path)
+      else
+        #assume it is straight xml
+        xml_contents = params[:xmlfile]
+      end
+    end
+    
+    logger.info("the file is: #{thefile}")    
+    logger.info("xml contents are: #{xml_contents}")
+    
+    # persist off and preprocess
+    
+    # return the generated IDF
+    
+    
+    
+  end
 
 
   #POST /api/v1/retrieve_building.xml

@@ -157,7 +157,7 @@ class EdificesController < ApplicationController
       
       row = []
       
-      FasterCSV.open("#{RAILS_ROOT}/tmpdata/#{@filename}", "w") do |csv|
+      FasterCSV.open("#{RAILS_ROOT}/public/tmpdata/#{@filename}", "w") do |csv|
         #first get header row
         cnt = 0
         keys.each do |key|
@@ -184,7 +184,7 @@ class EdificesController < ApplicationController
   
   def download
     ed = Edifice.find(:first)
-    @file ="#{RAILS_ROOT}/tmpdata/#{params[:file]}"
+    @file ="#{RAILS_ROOT}/public/tmpdata/#{params[:file]}"
     logger.info(@file)
     send_file(@file, :disposition => 'attachment', :type => 'text/csv')
   end

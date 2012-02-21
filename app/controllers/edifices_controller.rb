@@ -22,7 +22,7 @@ class EdificesController < ApplicationController
       page = params[:page] 
     end
     
-    @edifices =Edifice.page(page).per(2)
+    @edifices = Edifice.order_by("created_at", :desc).page(page).per(50)
     
     respond_to do |format|
       format.html # index.html.erb

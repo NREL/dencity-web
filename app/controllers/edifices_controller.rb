@@ -142,43 +142,43 @@ class EdificesController < ApplicationController
       #only get new buildings (temp)
       time = Time.parse(@startdate)
       @edifices = Edifice.where("created_at" => {"$gt" => time})
-      
-      if @edifices.size != 0
     
-        thedate = Time.now
-        thedate = thedate.strftime("%Y%m%d_%H%M%S")
-        @filename = "datafile_#{thedate}.csv"
+    end
+    
+    if @edifices.size != 0    
+      thedate = Time.now
+      thedate = thedate.strftime("%Y%m%d_%H%M%S")
+      @filename = "datafile_#{thedate}.csv"
+      
+      attributes = @edifices[0].attributes
+      keys = attributes.keys
+      #remove "descriptor_values"
+      keys.delete_if {|x| x == "descriptor_values"}
+      
+      row = []
+      
+      FasterCSV.open("#{RAILS_ROOT}/tmpdata/#{@filename}", "w") do |csv|
+        #first get header row
+        cnt = 0
+        keys.each do |key|
+          row[cnt] = key
+          cnt += 1
+        end
+        csv << row
         
-        attributes = @edifices[0].attributes
-        keys = attributes.keys
-        #remove "descriptor_values"
-        keys.delete_if {|x| x == "descriptor_values"}
-        
-        row = []
-        
-        FasterCSV.open("#{RAILS_ROOT}/tmpdata/#{@filename}", "w") do |csv|
-          #first get header row
+        #now get data
+        @edifices.each do |bld|
           cnt = 0
           keys.each do |key|
-            row[cnt] = key
+            row[cnt] =  bld[key]
             cnt += 1
           end
           csv << row
-          
-          #now get data
-          @edifices.each do |bld|
-            cnt = 0
-            keys.each do |key|
-              row[cnt] =  bld[key]
-              cnt += 1
-            end
-            csv << row
-          end           
-        end
-      else
-        #no data
-        @filename = 'No Data'
+        end           
       end
+    else
+      #no data
+      @filename = 'No Data'
     end
   end
   

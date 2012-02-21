@@ -1,4 +1,5 @@
 Bemscape::Application.routes.draw do
+
   devise_for :users , :path_prefix => 'd' do
     get "/logout" => "devise/sessions#destroy"
     get "/login" => "devise/sessions#new"
@@ -6,12 +7,15 @@ Bemscape::Application.routes.draw do
     
   end
   resources :users
+  resources :inputs
 
   resources :api_keys, :only => [:create, :destroy]
 
   match "/edifices/location" => "edifices#location"
   resources :edifices do
-    get :location
+    get :location, :on => :collection
+    get :get_data, :on => :collection
+    get :download, :on => :collection
   end
   
   resources :apis do
@@ -22,6 +26,8 @@ Bemscape::Application.routes.draw do
   end
   
   root :to => 'edifices#home'
+  
+  match "get_data" => "edifices#get_data"
 
   #API - current version (will change when new version is released)
   match "/api/submit_building" => "apis#submit_building_v1"

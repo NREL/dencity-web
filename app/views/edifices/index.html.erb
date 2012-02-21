@@ -1,5 +1,10 @@
 <h1>Simulated Buildings</h1>
 <br/><br/>
+<div class="digg_pagination">
+  <%= paginate @edifices %>
+</div>
+
+<br/>
 <table>
   <tr>
     <th>Name</th>
@@ -9,9 +14,9 @@
     <th></th>
   </tr>
 
-<% @edifices.each do |edifice| %>
+<% @edifices.each_with_index do |edifice, index| %>
   <tr>
-    <td><%= edifice.unique_name %></td>
+    <td><%= index+1 %>. <%= edifice.unique_name %></td>
     <td><% if !edifice[:user_id].nil? %><% theuser = User.find(edifice.user_id) %><%= theuser.email %><% end %></td>
     <td><%= link_to 'Show', edifice %></td>
     <% if can? :manage, edifice %>
@@ -28,4 +33,3 @@
   <%= link_to 'New Building', new_edifice_path %>
 <% end %>
 
-curl --form api_key=PUT_KEY_HERE --form xmlfile=@NAME_OF_XML_FILE_HERE -X POST http://bemscape.development.nrel.gov/api/submit_building.xml

@@ -1,6 +1,7 @@
 class EdificesController < ApplicationController
   
   require 'crack' # for xml and json
+  
   #devise
   before_filter :authenticate_user!, :except => [:show, :index, :home]
   #cancan
@@ -14,8 +15,15 @@ class EdificesController < ApplicationController
   # GET /edifices
   # GET /edifices.xml 
   def index
-    @edifices = Edifice.all
-
+    
+    if params[:page].nil?
+      page = 1
+    else
+      page = params[:page] 
+    end
+    
+    @edifices =Edifice.page(page).per(2)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @edifices }
@@ -54,6 +62,7 @@ class EdificesController < ApplicationController
   # POST /edifices.xml
   def create
    @edifice = Edifice.new(params[:edifice])
+   @edifice.created_at = Time.now
    
    respond_to do |format|
       if @edifice.save
@@ -118,6 +127,68 @@ class EdificesController < ApplicationController
         @debug = Geocoder.search(loc).inspect
       end
     end
-    
   end
+  
+  #get all data and return a csv file
+  def get_data
+    
+    @startdate = params[:startdate]
+    
+    if @startdate.nil?
+      #find all buildings
+      @edifices = Edifice.find(:all)
+    
+    else    
+      #only get new buildings (temp)
+      time = Time.parse(@startdate)
+      @edifices = Edifice.where("created_at" => {"$gt" => time})
+      
+      if @edifices.size != 0
+    
+        thedate = Time.now
+        thedate = thedate.strftime("%Y%m%d_%H%M%S")
+        @filename = "datafile_#{thedate}.csv"
+        
+        attributes = @edifices[0].attributes
+        keys = attributes.keys
+        #remove "descriptor_values"
+        keys.delete_if {|x| x == "descriptor_values"}
+        
+        row = []
+        
+        FasterCSV.open("#{RAILS_ROOT}/tmpdata/#{@filename}", "w") do |csv|
+          #first get header row
+          cnt = 0
+          keys.each do |key|
+            row[cnt] = key
+            cnt += 1
+          end
+          csv << row
+          
+          #now get data
+          @edifices.each do |bld|
+            cnt = 0
+            keys.each do |key|
+              row[cnt] =  bld[key]
+              cnt += 1
+            end
+            csv << row
+          end           
+        end
+      else
+        #no data
+        @filename = 'No Data'
+      end
+    end
+  end
+  
+  def download
+    ed = Edifice.find(:first)
+    @file ="#{RAILS_ROOT}/tmpdata/#{params[:file]}"
+    logger.info(@file)
+    send_file(@file, :disposition => 'attachment', :type => 'text/csv')
+  end
+
+  
+  
 end

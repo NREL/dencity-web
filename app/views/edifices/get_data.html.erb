@@ -1,0 +1,15 @@
+<h1> Get Edifice Data </h1>
+
+<%= form_tag('/get_data') do |f| %>
+   
+  <%= label_tag('startdate', 'Start Date') %> (YYYY-MM-DD)
+  <%= text_field_tag('startdate', @startdate) %>  
+  <%= submit_tag("Get Data") %>
+<% end %>
+
+<br /><br/>
+<% if @filename == 'No Data' %>
+    There is no data to download
+<% else %>
+  <% if @startdate.nil? %> All Data<% else %> Data starting from <%= @startdate %><% end %>: <%= link_to 'Download Data .csv file', :action=>'download', :file => @filename %>
+<% end %>

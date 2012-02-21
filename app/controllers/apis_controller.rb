@@ -42,13 +42,18 @@ class ApisController < ApplicationController
     name2 = nil
 
     #for now create a random building name
-    thename = "Building" + Time.now.strftime("%Y%m%d-%H%M%S")
+    thetime = Time.now
+    thename = "Building" + thetime.strftime("%Y%m%d-%H%M%S")
     #logger.info("the name is: #{thename}")
     bld = Edifice.find_or_create_by(:unique_name => thename)
     bld.user_id = current_user.id
+    bld.created_at = thetime
   
     #create descriptors and values
     bld.process_descriptor_data_v1(data)
+    
+    #extract lat/lng and store as coordinates
+    bld.get_coordinates_v1()
     
     #TODO: put in a check here in case the bld gets saved without any attributes (in case the xml is badly formulated or something)
  

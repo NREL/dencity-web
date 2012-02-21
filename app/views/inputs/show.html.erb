@@ -1,0 +1,12 @@
+<h1>Building Inputs (<%= @input._id %>) </h1>
+
+<p id="notice"><%= notice %></p>
+
+<% @keys.each do |key| %>
+
+<p><b><%= key %></b>: <%= @input[key] %></p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_input_path(@input) %> |
+<%= link_to 'Back', inputs_path %>

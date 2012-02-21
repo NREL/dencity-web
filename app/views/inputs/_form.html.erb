@@ -1,0 +1,76 @@
+<%= form_for(@input) do |f| %>
+  <% if @input.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@input.errors.count, "error") %> prohibited this input from being saved:</h2>
+
+      <ul>
+      <% @input.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p><%= f.label :climate_zone, "Climate Zone" %><br/>
+<%= f.select(:climate_zone, grouped_options_for_select(@climate_zones), :include_blank => true) %></p>
+
+  <p><%= f.label :building_type, "Building Type" %><br/>
+<%= f.select(:building_type, options_for_select(@building_types), :include_blank => true) %></p>
+  
+  <p><%= f.label :north_facade_orientation, "North Facade Orientation" %><br/>
+<%= f.text_field :north_facade_orientation,  :size => 10 %></p>
+  
+  <fieldset>
+    <legend>Window-to-Wall Ratio by Facade</legend>
+    
+    <p><%= f.label :wwr_north, "North" %><br/>
+    <%= f.text_field :wwr_north, :size => 10 %></p>
+    
+    <p><%= f.label :wwr_south, "South" %><br/>
+    <%= f.text_field :wwr_south, :size => 10 %></p>
+        
+    <p><%= f.label :wwr_east, "East" %><br/>
+    <%= f.text_field :wwr_east, :size => 10 %></p>
+            
+    <p><%= f.label :wwr_west, "West" %><br/>
+    <%= f.text_field :wwr_west, :size => 10 %></p>
+    
+  </fieldset>
+  
+  <fieldset>
+    <legend>Floor-to-Sill Height by Facade</legend>
+    
+    <p><%= f.label :height_north, "North" %><br/>
+    <%= f.text_field :height_north, :size => 10 %> ft</p>
+    
+    <p><%= f.label :height_south, "South" %><br/>
+    <%= f.text_field :height_south, :size => 10 %> ft</p>
+        
+    <p><%= f.label :height_east, "East" %><br/>
+    <%= f.text_field :height_east, :size => 10 %> ft</p>
+            
+    <p><%= f.label :height_west, "West" %><br/>
+    <%= f.text_field :height_west, :size => 10 %> ft</p>  
+  </fieldset>
+  
+  <fieldset>
+    <legend>R-value</legend>
+  
+    <p><%= f.label :wall_rvalue, "Wall" %><br/>
+    <%= f.text_field :wall_rvalue, :size => 10 %> ft&sup2;&middot;&deg;F&middot;h/Btu </p>
+            
+    <p><%= f.label :roof_rvalue, "Roof" %><br/>
+    <%= f.text_field :roof_rvalue, :size => 10 %> ft&sup2;&middot;&deg;F&middot;h/Btu </p>  
+  
+  </fieldset>
+  
+  <p><%= f.label :lighting_power_density, "Lighting Power Density" %><br/>
+  <%= f.text_field :lighting_power_density, :size => 10 %> W/ft&sup2;</p>
+            
+  <p><%= f.label :exterior_lighting_power, "Exterior Lighting Power" %><br/>
+  <%= f.text_field :exterior_lighting_power, :size => 10 %> W</p>  
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

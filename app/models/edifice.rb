@@ -6,6 +6,7 @@ class Edifice
   field :coordinates,    :type => Array
   field :weather_coordinates, :type => Array
   field :address
+  field :created_at,    :type => Time
   
   reverse_geocoded_by     :coordinates
   
@@ -85,9 +86,23 @@ class Edifice
     self.set_value_from_descriptor(descriptor, value)
     
     #also save it straight to the building just to see which way is best
-    self[newname]= value
-    
+    self[newname]= value    
               
+  end
+  
+  #store coordinates from latitude/longitude descriptors
+  def get_coordinates_v1()
+    #only do this if coordinates are nil
+    if self.coordinates.nil?
+      #do we have latitude and longitude?
+      if !self["latitude"].nil? and !self["longitude"].nil?
+        lat = self["latitude"].to_f
+        lng = self["longitude"].to_f
+        #THIS IS HOW MONGO STORES IT:  LNG, LAT  (backwards)
+        self.coordinates = [lng, lat]
+        self.save
+      end
+    end
   end
   
   def process_descriptor_data_v1(data, nested_name=nil)

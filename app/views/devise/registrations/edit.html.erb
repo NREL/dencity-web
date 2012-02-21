@@ -21,6 +21,9 @@
 <%= resource.authentication_token.blank? ? "No API Key" : resource.authentication_token %>
 <p><%= link_to "Generate API Key", api_keys_path(:user => resource), :method => :post, :confirm => "Are you sure?"  %>
 <%= link_to "Delete API Key", api_key_path(resource, :user => resource), :method => :delete, :confirm => "Are you sure?"  %></p>
+<p> To post a building via the API:  <br/>
+curl --form api_key=PUT_KEY_HERE --form xmlfile=@NAME_OF_XML_FILE_HERE -X POST <%= root_url %>api/submit_building.xml
+</p>
  </div>
   
   <br/>

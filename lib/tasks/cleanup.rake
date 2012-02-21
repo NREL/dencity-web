@@ -29,3 +29,12 @@ task :get_coordinates => :environment do
   end
 
 end
+
+desc 'delete tmp files in /public/tmpdata'
+task :delete_tmpdata => :environment do
+  
+  Dir.glob("#{RAILS_ROOT}/public/tmpdata/*.csv") do |file|
+    File.delete(file)
+  end
+
+end

@@ -1,0 +1,42 @@
+<h1>Search Results</h1>
+<br><br>
+<h2> By Location </h2>
+<p>The following buildings are the closest in proximity to the address you entered.</p>
+
+<% if @edis.size > 0 %>
+  <table cellpadding="5px">
+    <tr>
+      <th>Building</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Timestamp</th>
+    </tr>
+  
+  <% @edis.each_with_index do |edifice, index| %>
+    <tr>
+      <td><%= index+1 %>. <%= link_to edifice.unique_name, edifice %></td>
+      <td><%= edifice['latitude'] %></td>
+      <td><%= edifice['longitude'] %></td>
+      <td> <% if !edifice.created_at.nil? %><%= edifice.created_at.strftime("%Y-%m-%d %H:%M") %><% end %></td>
+    </tr>
+  <% end %>
+  
+  </table>
+<% else %>
+  
+  <div style="padding-left:20px;">
+    <p> There are no buildings near the addressed you entered. </p>
+    <p> Location:  <%= @input.address %> </p>
+    <p> Coordinates:  <% if !@coords.nil? %><%= @coords[0] %>, <%= @coords[1] %><% end %> </p>
+  </div>
+<% end %>
+
+<br/><br/>
+
+<h2> By Input Parameter </h2>
+
+<p> Coming Soon </p>
+
+<br/><br/>
+
+<%= link_to 'Search Again', inputs_path %>

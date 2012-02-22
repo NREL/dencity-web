@@ -1,4 +1,62 @@
 class InputsController < ApplicationController
+
+  # GET /inputs/inputs
+  # GET /inputs/inputs.xml
+  def inputs
+    @input = Input.new
+    
+    @building_types = get_building_types()
+    @climate_zones = get_climate_zones()
+
+  end
+  
+  # POST /inputs/process_inputs
+  # POST /inputs/process_inputs.xml
+  def process_inputs
+    @input = Input.new(params[:input])
+    @input.created_at = Time.now
+    
+    #get lat/lng from address
+    loc = @input.address
+    @coords = Geocoder.coordinates(loc)
+   
+    @debug = "Parameters: #{loc}\n\n"
+    @debug += "Coordinates: #{Geocoder.coordinates(loc).to_s}"
+     
+    @edis = Edifice.near(loc, 50)
+        
+    if @edis.size == 0
+      @debug = Geocoder.search(loc).inspect
+    end
+    
+    #convert units
+    if !@input.wall_u_factor.nil?
+      @input.convert('wall_u_factor', 'u-IP', 'u-SI')
+    end
+    if !@input.attic_u_factor.nil?
+      @input.convert('attic_u_factor', 'u-IP', 'u-SI')
+    end   
+    if !@input.lighting_power_density.nil?
+      @input.convert('lighting_power_density', 'W/ft2', 'W/m2')
+    end
+    if !@input.height_north.nil?
+      @input.convert('height_north', 'ft', 'm')
+    end
+    if !@input.height_south.nil?
+      @input.convert('height_south', 'ft', 'm')
+    end
+    if !@input.height_east.nil?
+      @input.convert('height_east', 'ft', 'm')
+    end
+    if !@input.height_west.nil?
+      @input.convert('height_west', 'ft', 'm')
+    end
+    
+    @input.save
+    
+  end
+
+=begin
   # GET /inputs
   # GET /inputs.xml
   def index
@@ -23,6 +81,11 @@ class InputsController < ApplicationController
     end
   end
 
+  # GET /inputs/1/edit
+  def edit
+    @input = Input.find(params[:id])
+  end
+
   # GET /inputs/new
   # GET /inputs/new.xml
   def new
@@ -36,10 +99,6 @@ class InputsController < ApplicationController
     end
   end
 
-  # GET /inputs/1/edit
-  def edit
-    @input = Input.find(params[:id])
-  end
 
   # POST /inputs
   # POST /inputs.xml
@@ -85,7 +144,7 @@ class InputsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+=end 
   
   private
   def get_climate_zones

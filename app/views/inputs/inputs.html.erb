@@ -1,5 +1,10 @@
+<h1>Building Parameters</h1>
+<br/>
+<p>Enter your building's parameters to retrieve estimated results.</p>
+
 <div id="input-form">
-  <%= form_for(@input) do |f| %>
+  
+  <%= form_for(@input, :url => results_path) do |f| %>
     <% if @input.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@input.errors.count, "error") %> prohibited this input from being saved:</h2>
@@ -70,8 +75,8 @@
       <p><%= f.label :wall_u_factor, "Wall" %>:
       <%= f.text_field :wall_u_factor, :size => 10 %> Btu/ft&sup2;&middot;&deg;F&middot;h </p>
               
-      <p><%= f.label :roof_u_factor, "Roof" %>:
-      <%= f.text_field :roof_u_factor, :size => 10 %> Btu/ft&sup2;&middot;&deg;F&middot;h </p>  
+      <p><%= f.label :attic_u_factor, "Attic" %>:
+      <%= f.text_field :attic_u_factor, :size => 10 %> Btu/ft&sup2;&middot;&deg;F&middot;h </p>  
     
     </fieldset>
     <fieldset>

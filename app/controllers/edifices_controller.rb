@@ -112,7 +112,7 @@ class EdificesController < ApplicationController
       @search_string = loc
     end
 
-    @debug += Geocoder.coordinates(loc).to_s + "\n\n\n\n"
+    @debug += "Coordinates: "+ Geocoder.coordinates(loc).to_s + "\n\n\n\n"
     
     @submitted = params[:submitted]
     if @submitted
@@ -186,7 +186,9 @@ class EdificesController < ApplicationController
     ed = Edifice.find(:first)
     @file ="#{RAILS_ROOT}/public/tmpdata/#{params[:file]}"
     logger.info(@file)
-    send_file(@file, :disposition => 'attachment', :type => 'text/csv')
+    #try send_data here
+    #send_file(@file, :disposition => 'attachment', :type => 'text/csv')
+    send_data(@file, :disposition => 'attachment', :type => 'text/csv', :filename => 'bemscape_data.csv')
   end
 
   

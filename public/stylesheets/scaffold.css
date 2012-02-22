@@ -10,6 +10,11 @@
 /* content */
 #content-bem {float:left;margin:0;margin-right:0px;padding:30px 20px 50px 20px; display:inline;width:1080px;}
 
+#input-form {width:80%;}
+#input-form fieldset {padding:20px;}
+#input-form .left {float:left; width:49%;}
+#input-form .right {float:right; width:49%;}
+
 /*RAILS styles */
 pre {
   background-color: #eee;

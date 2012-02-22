@@ -1,7 +1,13 @@
 <h1>Welcome to BEMscape</h1>
+<br>
+<p><%= link_to "View All Buildings", edifices_path %></p>
+<p><%= link_to "Search for your Building", inputs_path %></p>
 
-<p><%= link_to "All Buildings", edifices_path %></p>
+
   
 <% if can? :manage, :users %>
+  <br>
+  <h2> Admin Links </h2>
+  <br>
     <p><%= link_to "Manage Users", users_path %></p>
 <% end %>

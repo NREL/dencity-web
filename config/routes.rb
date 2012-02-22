@@ -7,7 +7,10 @@ Bemscape::Application.routes.draw do
     
   end
   resources :users
-  resources :inputs
+  resources :inputs, :except => [:new, :edit, :update, :create, :show, :index, :destroy] do
+    get :inputs, :on => :collection
+    post :process_inputs, :on => :collection
+  end
 
   resources :api_keys, :only => [:create, :destroy]
 
@@ -42,6 +45,9 @@ Bemscape::Application.routes.draw do
   #API - preprocessor
   match "/api/preprocessor/submit" => "apis#submit_preprocessor_v1"
   
+  #input form
+  match "inputs" => "inputs#inputs"
+  match "results" => "inputs#process_inputs"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

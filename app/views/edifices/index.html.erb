@@ -15,10 +15,11 @@
     <th></th>
     <th></th>
   </tr>
+  <% cnt = (@page.to_i-1)* @per %>
 
 <% @edifices.each_with_index do |edifice, index| %>
   <tr>
-    <td><%= index+1 %>. <%= link_to edifice.unique_name, edifice %></td>
+    <td><%= cnt+index+1 %>. <%= link_to edifice.unique_name, edifice %></td>
     <td><% if !edifice[:user_id].nil? %><% theuser = User.find(edifice.user_id) %><%= theuser.email %><% end %></td>
     <td> <% if !edifice.created_at.nil? %><%= edifice.created_at.strftime("%Y-%m-%d %H:%M") %><% end %></td>
     <% if can? :manage, edifice %>

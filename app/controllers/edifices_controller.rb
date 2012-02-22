@@ -17,12 +17,14 @@ class EdificesController < ApplicationController
   def index
     
     if params[:page].nil?
-      page = 1
+      @page = 1
     else
-      page = params[:page] 
+      @page = params[:page] 
     end
     
-    @edifices = Edifice.order_by("created_at", :desc).page(page).per(50)
+    @per = 50
+    
+    @edifices = Edifice.order_by("created_at", :desc).page(@page).per(@per)
     
     respond_to do |format|
       format.html # index.html.erb

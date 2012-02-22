@@ -2,7 +2,7 @@
 /* header styles */
 #nrelheader-bem-home {width:100%;background-color:#fff;}
 #top-subheader-bem{ width:100%;height:67px; position:relative; top:-1px; background-image:url(/images/bem_scape_banner_1.png); background-repeat:no-repeat;}
-#top-login-bem{padding-left:800px; padding-top: 5px;}
+#top-login-bem{padding-left:750px; padding-top: 5px;}
 .top-text-bem {font-weight:bold; color: #000;}
 #top-login-bem a{font-weight:bold; color:#000; text-decoration:none;}
 #top-login-bem a:hover{font-weight:bold; color:#C60; background-color:transparent; text-decoration:none;}

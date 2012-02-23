@@ -2,6 +2,22 @@
 <br><br>
 <h2> Statistics </h2>
 
+<h3> Regression Coefficients </h3>
+  <table cellpadding="5px">
+    <tr>
+      <th>Variable</th>
+      <th>Coeff</th>
+    </tr>
+    
+    <% @lm.each do |l| %>
+      <tr>
+        <td><%= l[0] %><td>
+        <td><%= l[1] %><td>
+      </tr>
+    <% end %>
+  </table>
+
+
 <h3> General Statistics </h3>  
   <table cellpadding="5px">
     <tr>
@@ -38,11 +54,16 @@
 
 <h3> Diagnostic Plots </h3>
   <table cellpadding="5px">
+    <% cnt = 0 %>
     <% @images.each do |image| %>
       <% next if image[:group] != "general" %>
-      <tr>
-        <td><%= lightbox_image_tag(image[:relpath_tn], image[:relpath], {:class=>"images"}, :title => "#{image[:name]}") %>
-      </tr>
+
+      <% cnt += 1 %>
+      <% if (cnt-1) % 4 == 0 %><tr><% end %>
+        <td><%= image[:name] %> <br/>
+        <%= lightbox_image_tag(image[:relpath_tn], image[:relpath], {:class=>"images"}, :title => "#{image[:name]}") %>
+        </td>
+      <% if cnt % 4 == 0 %></tr><% end %>
     <% end %>
   </table>
 <h3> Variable Plots </h3>
@@ -58,7 +79,6 @@
         </td>
       <% if cnt % 4 == 0 %></tr><% end %>
     <% end %>
-    
   </table>
 
 <h2> By Location </h2>

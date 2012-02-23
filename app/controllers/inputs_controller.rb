@@ -57,11 +57,11 @@ class InputsController < ApplicationController
     
     @input.save
     
-    #do some rstuff
+    #use R to do statistics
     @r = Rserve::Simpler.new
 
     var_array = [
-                  {:short_name => "tdv", :var_name => "time_dependent_valuation", :dataarr => []},
+                  {:short_name => "tdv", :output => true, :var_name => "time_dependent_valuation", :dataarr => []},
                   {:short_name => "heating", :var_name => "site_energy_use_heating", :dataarr => []},
                   {:short_name => "cooling", :var_name => "site_energy_use_cooling", :dataarr => []},
                   {:short_name => "lpd", :var_name => "lighting_power_density", :dataarr => []},
@@ -69,7 +69,8 @@ class InputsController < ApplicationController
                   {:short_name => "wall_u_factor", :var_name => "wall_u_factor", :dataarr => []},
                   {:short_name => "attic_u_factor", :var_name => "attic_u_factor", :dataarr => []},
                   {:short_name => "wwr_west", :var_name => "west_facade_window_to_wall_ratio", :dataarr => []},
-                  {:short_name => "wwr_south", :var_name => "south_facade_window_to_wall_ratio", :dataarr => []}
+                  {:short_name => "wwr_south", :var_name => "south_facade_window_to_wall_ratio", :dataarr => []},
+                  {:short_name => "sill_height_south", :var_name => "south_facade_sill_height", :dataarr => []}                  
                 ]
     
     
@@ -85,7 +86,7 @@ class InputsController < ApplicationController
     end
     
     datafr = Rserve::DataFrame.new(hash)
-    datafr_summary = @r.converse("summary(df, x=df2)", :df => datafr).in_groups(var_array.size)
+    datafr_summary = @r.converse("summary(df)", :df => datafr).in_groups(var_array.size)
     @reply = []
     datafr.colnames.zip(datafr_summary) do |name, data|
       #deconstruct the data result
@@ -103,17 +104,20 @@ class InputsController < ApplicationController
     #correlations
     @corr_summary = @r.converse("cor(df)", :df => datafr).to_a
 
-    #regressions    
-    #@lm = @r.converse("lm(tdv ~ lpd + building_ufactor, data=df)", :df => datafr)
-    #puts @lm.class
-    #@lm_summary = @r.converse("summary(fit)", :fit => @lm)
-    #puts @lm_summary.inspect
+    #regressions
+    lm_string = "lm(tdv ~ #{var_array.map{ |val| val[:short_name] if val[:output] != true }.join(" + ")}, data=df)"
+    @lm = @r.converse(lm_string, :df => datafr)
+    @lm_summary = @r.converse("summary(fit)", :fit => @lm)
+    @lm = var_array.map{ |val| val[:short_name]}.zip(@lm[0])
+    @lm[0][0] = "intercept"
+    
+    puts @lm_summary.inspect
     
     image = {:group => "general", :name => "fit_diagnostics"}.merge(get_image_tempfiles)
     @images << image
     @r.command( :df => datafr ) do 
       %Q{
-        png("#{image[:fullpath]}", width = 1600, height = 1600)
+        png("#{image[:fullpath]}", width = 1024, height = 1024)
         fit <- lm(tdv ~ lpd + building_ufactor + wall_u_factor, data=df)
         layout(matrix(c(1,2,3,4),2,2)) 
         plot(fit, lwd=2, density=4)
@@ -130,7 +134,7 @@ class InputsController < ApplicationController
     @images << image
     @r.command( :df => datafr ) do 
       %Q{
-        png("#{image[:fullpath]}", width = 1600, height = 1600)
+        png("#{image[:fullpath]}", width = 1024, height = 1024)
         plot(df, lwd=2, density=4)
         dev.off()
       }
@@ -148,7 +152,7 @@ class InputsController < ApplicationController
         if plot == 1      
           @r.command( :df => datafr ) do 
             %Q{
-              png("#{image[:fullpath]}", width = 1200, height = 1200)
+              png("#{image[:fullpath]}", width = 800, height = 800)
               hist(df$"#{var[:short_name]}", lwd=4, density=10)
               dev.off()
             }
@@ -156,7 +160,7 @@ class InputsController < ApplicationController
         elsif plot == 2
           @r.command(:group => "variable", :df => datafr ) do 
             %Q{
-              png("#{image[:fullpath]}", width = 1200, height = 1200)
+              png("#{image[:fullpath]}", width = 800, height = 800)
               boxplot(df$"#{var[:short_name]}", lwd=4, density=10)
               dev.off()
             }

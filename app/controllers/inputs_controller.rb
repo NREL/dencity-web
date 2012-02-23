@@ -58,14 +58,8 @@ class InputsController < ApplicationController
     @input.save
     
     #do some rstuff
-    
-    
-    
     @r = Rserve::Simpler.new
 
-    # convert with hash.to_dataframe or Rserve::DataFrame.new(hash)
-    # get temp file
-    
     var_array = [
                   {:short_name => "tdv", :var_name => "time_dependent_valuation", :dataarr => []},
                   {:short_name => "heating", :var_name => "site_energy_use_heating", :dataarr => []},
@@ -84,7 +78,6 @@ class InputsController < ApplicationController
         var[:dataarr] << edi["#{var[:var_name]}"].to_f
       end
     end
-    puts var_array.size
     
     hash = OrderedHash.new
     var_array.each do |var|
@@ -92,7 +85,7 @@ class InputsController < ApplicationController
     end
     
     datafr = Rserve::DataFrame.new(hash)
-    datafr_summary = @r.converse("summary(df)", :df => datafr).in_groups(var_array.size)
+    datafr_summary = @r.converse("summary(df, x=df2)", :df => datafr).in_groups(var_array.size)
     @reply = []
     datafr.colnames.zip(datafr_summary) do |name, data|
       #deconstruct the data result
@@ -121,7 +114,7 @@ class InputsController < ApplicationController
     @r.command( :df => datafr ) do 
       %Q{
         png("#{image[:fullpath]}", width = 1600, height = 1600)
-        fit <- lm(tdv ~ lpd + I(building_ufactor^2) + lpd, data=df)
+        fit <- lm(tdv ~ lpd + building_ufactor + wall_u_factor, data=df)
         layout(matrix(c(1,2,3,4),2,2)) 
         plot(fit, lwd=2, density=4)
         dev.off()

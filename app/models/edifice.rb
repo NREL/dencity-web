@@ -57,6 +57,7 @@ class Edifice
     end
     self.save!
   end
+
   
   #API METHODS-- VERSION 1!  
   

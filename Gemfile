@@ -5,6 +5,9 @@ gem 'rails', '3.0.7'
 gem 'whenever', '0.7.0'
 gem 'cancan'
 
+gem 'rserve-simpler'
+gem 'orderedhash'
+gem 'rmagick' #needs libmagick9-dev and imagemagick on syste
 
 # Gems for mongo access
 gem 'mongoid', "2.2.4"

@@ -38,8 +38,6 @@ class Input
     end
     
     self[attribute] = self[attribute] * factor
-    
-    
   end
   
   

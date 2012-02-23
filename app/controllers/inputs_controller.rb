@@ -1,4 +1,7 @@
 class InputsController < ApplicationController
+  require 'rserve/simpler'
+  require 'orderedhash'
+  require 'RMagick'
 
   # GET /inputs/inputs
   # GET /inputs/inputs.xml
@@ -54,6 +57,124 @@ class InputsController < ApplicationController
     
     @input.save
     
+    #do some rstuff
+    
+    
+    
+    @r = Rserve::Simpler.new
+
+    # convert with hash.to_dataframe or Rserve::DataFrame.new(hash)
+    # get temp file
+    
+    var_array = [
+                  {:short_name => "tdv", :var_name => "time_dependent_valuation", :dataarr => []},
+                  {:short_name => "heating", :var_name => "site_energy_use_heating", :dataarr => []},
+                  {:short_name => "cooling", :var_name => "site_energy_use_cooling", :dataarr => []},
+                  {:short_name => "lpd", :var_name => "lighting_power_density", :dataarr => []},
+                  {:short_name => "building_ufactor", :var_name => "building_u_factor", :dataarr => []},
+                  {:short_name => "wall_u_factor", :var_name => "wall_u_factor", :dataarr => []},
+                  {:short_name => "attic_u_factor", :var_name => "attic_u_factor", :dataarr => []},
+                  {:short_name => "wwr_west", :var_name => "west_facade_window_to_wall_ratio", :dataarr => []},
+                  {:short_name => "wwr_south", :var_name => "south_facade_window_to_wall_ratio", :dataarr => []}
+                ]
+    
+    
+    @edis.each do |edi|
+      var_array.each do |var|
+        var[:dataarr] << edi["#{var[:var_name]}"].to_f
+      end
+    end
+    puts var_array.size
+    
+    hash = OrderedHash.new
+    var_array.each do |var|
+      hash[var[:short_name]] = var[:dataarr]
+    end
+    
+    datafr = Rserve::DataFrame.new(hash)
+    datafr_summary = @r.converse("summary(df)", :df => datafr).in_groups(var_array.size)
+    @reply = []
+    datafr.colnames.zip(datafr_summary) do |name, data|
+      #deconstruct the data result
+      store_data = {}
+      data.each do |datum|
+        store_data[datum[0..6].rstrip.downcase.gsub(".","").gsub(" ","")] =
+          datum[8..datum.size].rstrip
+      end
+      @reply << {:name => "#{name}", :data => store_data }
+    end
+
+    # array of images for analysis
+    @images = []
+    
+    #correlations
+    @corr_summary = @r.converse("cor(df)", :df => datafr).to_a
+
+    #regressions    
+    #@lm = @r.converse("lm(tdv ~ lpd + building_ufactor, data=df)", :df => datafr)
+    #puts @lm.class
+    #@lm_summary = @r.converse("summary(fit)", :fit => @lm)
+    #puts @lm_summary.inspect
+    
+    image = {:group => "general", :name => "fit_diagnostics"}.merge(get_image_tempfiles)
+    @images << image
+    @r.command( :df => datafr ) do 
+      %Q{
+        png("#{image[:fullpath]}", width = 1600, height = 1600)
+        fit <- lm(tdv ~ lpd + I(building_ufactor^2) + lpd, data=df)
+        layout(matrix(c(1,2,3,4),2,2)) 
+        plot(fit, lwd=2, density=4)
+        dev.off()
+      }
+    end
+    img_orig = Magick::Image.read(image[:fullpath]).first
+    img = img_orig.resize_to_fill(200,200)
+    img.write(image[:fullpath_tn])
+    
+    
+    #standard plots for all data sets
+    image = {:group => "general", :name => "all_dim"}.merge(get_image_tempfiles)
+    @images << image
+    @r.command( :df => datafr ) do 
+      %Q{
+        png("#{image[:fullpath]}", width = 1600, height = 1600)
+        plot(df, lwd=2, density=4)
+        dev.off()
+      }
+    end
+    img_orig = Magick::Image.read(image[:fullpath]).first
+    img = img_orig.resize_to_fill(200,200)
+    img.write(image[:fullpath_tn])
+  
+    var_array.each do |var|
+      (1..2).each do |plot|
+        #create generic plots
+        image = {:group => "variable", :name => var[:short_name]}.merge(get_image_tempfiles)
+        @images << image
+      
+        if plot == 1      
+          @r.command( :df => datafr ) do 
+            %Q{
+              png("#{image[:fullpath]}", width = 1200, height = 1200)
+              hist(df$"#{var[:short_name]}", lwd=4, density=10)
+              dev.off()
+            }
+          end
+        elsif plot == 2
+          @r.command(:group => "variable", :df => datafr ) do 
+            %Q{
+              png("#{image[:fullpath]}", width = 1200, height = 1200)
+              boxplot(df$"#{var[:short_name]}", lwd=4, density=10)
+              dev.off()
+            }
+          end
+        end
+        
+        img_orig = Magick::Image.read(image[:fullpath]).first
+        img = img_orig.resize_to_fill(200,200)
+        img.write(image[:fullpath_tn])
+      end
+    end
   end
 
 =begin
@@ -209,5 +330,16 @@ class InputsController < ApplicationController
       'Large Hotel',
       'Midrise Apartment']
     
+  end
+  
+  def get_image_tempfiles
+    image = {}
+    Dir.mkdir("#{Rails.root}/public/images/R") if not File.exists?("#{Rails.root}/public/images/R")
+    image[:fullpath] = Tempfile.new("images/R/", Rails.root.join('public')).path + '.png'
+    image[:fullpath_tn] = Tempfile.new("images/R/", Rails.root.join('public')).path + '.png'
+    image[:relpath] = image[:fullpath].gsub("#{Rails.root}/public", "")
+    image[:relpath_tn] = image[:fullpath_tn].gsub("#{Rails.root}/public", "")
+    
+    image
   end
 end

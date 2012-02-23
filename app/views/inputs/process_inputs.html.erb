@@ -1,5 +1,66 @@
 <h1>Search Results</h1>
 <br><br>
+<h2> Statistics </h2>
+
+<h3> General Statistics </h3>  
+  <table cellpadding="5px">
+    <tr>
+      <th>Name</th>
+      <th>Min</th>
+      <th>1st Qu</th>
+      <th>Median</th>
+      <th>Mean</th>
+      <th>3rd Qu</th>
+      <th>Max</th>
+    </tr>
+    <% @reply.each do |rep| %>
+      <tr>
+        <td><%= rep[:name] %></td>
+        <td><%= rep[:data]["min"] %></td>
+        <td><%= rep[:data]["1stqu"] %></td>
+        <td><%= rep[:data]["median"] %></td>
+        <td><%= rep[:data]["mean"] %></td>
+        <td><%= rep[:data]["3rdqu"] %></td>
+        <td><%= rep[:data]["max"] %></td>
+      </tr>
+    <% end %>
+  </table>
+<h3> Correlation Matrix </h3>  
+  <table cellpadding="5px">
+    <% @corr_summary.each do |col| %>
+      <tr>
+      <% col.each do |row| %>
+        <td><%= row %></td>
+      <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+<h3> Diagnostic Plots </h3>
+  <table cellpadding="5px">
+    <% @images.each do |image| %>
+      <% next if image[:group] != "general" %>
+      <tr>
+        <td><%= lightbox_image_tag(image[:relpath_tn], image[:relpath], {:class=>"images"}, :title => "#{image[:name]}") %>
+      </tr>
+    <% end %>
+  </table>
+<h3> Variable Plots </h3>
+  <table cellpadding="5px">
+    <% cnt = 0 %>
+    <% @images.each do |image| %>
+      <% next if image[:group] != "variable" %>
+
+      <% cnt += 1 %>
+      <% if (cnt-1) % 4 == 0 %><tr><% end %>
+        <td><%= image[:name] %> <br/>
+        <%= lightbox_image_tag(image[:relpath_tn], image[:relpath], {:class=>"images"}, :title => "#{image[:name]}") %>
+        </td>
+      <% if cnt % 4 == 0 %></tr><% end %>
+    <% end %>
+    
+  </table>
+
 <h2> By Location </h2>
 <p>The following buildings are the closest in proximity to the address you entered.</p>
 

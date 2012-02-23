@@ -9,7 +9,7 @@
 development:
   identity_map_enabled: true
   host: localhost
-  database: bemscape_development
+  database: bemscape_test
 
 test:
   host: localhost

@@ -1,5 +1,8 @@
 <h1>Search Results</h1>
 <br><br>
+<h2> Geocode Info </h2>
+  <p><a href="http://maps.google.com/maps?q=<%= @coords[0] %>,<%= @coords[1] %>">http://maps.google.com/maps?q=<%= @coords[0] %>,<%= @coords[1] %></a><br/></p>
+  
 <h2> Statistics </h2>
 
 <h3> Regression Coefficients </h3>
@@ -16,7 +19,10 @@
       </tr>
     <% end %>
   </table>
-
+  
+<h3> Nearest Neighbors </h3>
+<%= @nn.inspect %>
+<%= @nn2.inspect %>
 
 <h3> General Statistics </h3>  
   <table cellpadding="5px">

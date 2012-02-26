@@ -22,7 +22,7 @@ class InputsController < ApplicationController
     #get lat/lng from address
     loc = @input.address
     @coords = Geocoder.coordinates(loc)
-   
+    
     @debug = "Parameters: #{loc}\n\n"
     @debug += "Coordinates: #{Geocoder.coordinates(loc).to_s}"
      
@@ -59,7 +59,14 @@ class InputsController < ApplicationController
     
     #use R to do statistics
     @r = Rserve::Simpler.new
+    #on first run make sure that you can have the web app write to
+    #'lib = "/usr/local/lib/R/site-library"' ... one option is to run
+    #the webserver the first time as sudo.  Or you can chmod the whol
+    #/usr/local/lib/R dir and sub-dirs as 777. I did the latter.
 
+    @r.converse("if (!'RANN' %in% as.vector(installed.packages()[,1])) install.packages('RANN', repos='http://lib.stat.cmu.edu/R/CRAN')")
+    @r.convert("library(RANN)")
+  
     var_array = [
                   {:short_name => "tdv", :output => true, :var_name => "time_dependent_valuation", :dataarr => []},
                   {:short_name => "heating", :var_name => "site_energy_use_heating", :dataarr => []},
@@ -70,22 +77,31 @@ class InputsController < ApplicationController
                   {:short_name => "attic_u_factor", :var_name => "attic_u_factor", :dataarr => []},
                   {:short_name => "wwr_west", :var_name => "west_facade_window_to_wall_ratio", :dataarr => []},
                   {:short_name => "wwr_south", :var_name => "south_facade_window_to_wall_ratio", :dataarr => []},
-                  {:short_name => "sill_height_south", :var_name => "south_facade_sill_height", :dataarr => []}                  
+                  {:short_name => "sill_height_south", :var_name => "south_facade_sill_height", :dataarr => []}
                 ]
-    
     
     @edis.each do |edi|
       var_array.each do |var|
         var[:dataarr] << edi["#{var[:var_name]}"].to_f
       end
     end
+    nn_var_array = Array.new(var_array)
+    nn_var_array << nn_var_array.shift
     
     hash = OrderedHash.new
     var_array.each do |var|
       hash[var[:short_name]] = var[:dataarr]
     end
     
+    nn_hash = OrderedHash.new
+    nn_var_array.each do |var|
+      nn_hash[var[:short_name]] = var[:dataarr]
+    end
+    
+    puts hash.inspect
+    puts nn_hash.inspect
     datafr = Rserve::DataFrame.new(hash)
+    datafr_nn = Rserve::DataFrame.new(nn_hash)
     datafr_summary = @r.converse("summary(df)", :df => datafr).in_groups(var_array.size)
     @reply = []
     datafr.colnames.zip(datafr_summary) do |name, data|
@@ -97,36 +113,41 @@ class InputsController < ApplicationController
       end
       @reply << {:name => "#{name}", :data => store_data }
     end
-
+  
     # array of images for analysis
     @images = []
     
     #correlations
     @corr_summary = @r.converse("cor(df)", :df => datafr).to_a
-
+  
     #regressions
     lm_string = "lm(tdv ~ #{var_array.map{ |val| val[:short_name] if val[:output] != true }.join(" + ")}, data=df)"
     @lm = @r.converse(lm_string, :df => datafr)
     @lm_summary = @r.converse("summary(fit)", :fit => @lm)
     @lm = var_array.map{ |val| val[:short_name]}.zip(@lm[0])
     @lm[0][0] = "intercept"
+
+    #nearest neighbors
+    @nn = @r.converse("nn(df)", :df => datafr_nn)
     
-    puts @lm_summary.inspect
+    # nn2 seems like a better algorithm as it doesn't require as
+    # many records as it does approximate nearest neighbors
+    #@nn = @r.converse("nn2(df)", :df => datafr)
     
-    image = {:group => "general", :name => "fit_diagnostics"}.merge(get_image_tempfiles)
-    @images << image
-    @r.command( :df => datafr ) do 
-      %Q{
-        png("#{image[:fullpath]}", width = 1024, height = 1024)
-        fit <- lm(tdv ~ lpd + building_ufactor + wall_u_factor, data=df)
-        layout(matrix(c(1,2,3,4),2,2)) 
-        plot(fit, lwd=2, density=4)
-        dev.off()
-      }
-    end
-    img_orig = Magick::Image.read(image[:fullpath]).first
-    img = img_orig.resize_to_fill(200,200)
-    img.write(image[:fullpath_tn])
+    #image = {:group => "general", :name => "fit_diagnostics"}.merge(get_image_tempfiles)
+    #@images << image
+    #@r.command( :df => datafr) do 
+    #  %Q{
+    #    png("#{image[:fullpath]}", width = 1024, height = 1024)
+    #    fit <- "#{lm_string}"
+    #    layout(matrix(c(1,2,3,4),2,2)) 
+    #    plot(fit, lwd=2, density=4)
+    #    dev.off()
+    #  }
+    #end
+    #img_orig = Magick::Image.read(image[:fullpath]).first
+    #img = img_orig.resize_to_fill(200,200)
+    #img.write(image[:fullpath_tn])
     
     
     #standard plots for all data sets

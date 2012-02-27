@@ -11,6 +11,7 @@ gem 'rmagick' #needs libmagick9-dev and imagemagick on syste
 
 # Gems for mongo access
 gem 'mongoid', "2.2.4"
+gem 'mongoid_grid'
 gem 'bson_ext', "~> 1.4"
 
 gem 'fastercsv'

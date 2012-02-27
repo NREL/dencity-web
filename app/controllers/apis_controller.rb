@@ -56,6 +56,9 @@ class ApisController < ApplicationController
     bld.get_coordinates_v1()
     
     #TODO: put in a check here in case the bld gets saved without any attributes (in case the xml is badly formulated or something)
+    
+    # Strip off the input payload and save into the database (as a zip????)
+    #bld.file_osm = File.open('the file')
  
     respond_to do |format|
       if bld.save

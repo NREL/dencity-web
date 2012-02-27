@@ -1,12 +1,17 @@
+require 'mongoid_grid'
+
 class Edifice
   include Mongoid::Document
+  include Mongoid::Grid  
   include Geocoder::Model::Mongoid
+
   
   field :unique_name,    :type => String
   field :coordinates,    :type => Array
   field :weather_coordinates, :type => Array
   field :address
   field :created_at,    :type => Time
+  attachment :file_osm
   
   reverse_geocoded_by     :coordinates
   

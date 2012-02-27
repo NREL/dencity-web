@@ -21,15 +21,27 @@ class InputsController < ApplicationController
     
     #get lat/lng from address
     loc = @input.address
-    @coords = Geocoder.coordinates(loc)
+    @geo = Geocoder.search(loc)
+    if @geo
+      @coords = @geo[0].coordinates
+      @zipcode = @geo[0].postal_code
+      @cec_cz = []
+      if @zipcode && @zipcode != ""
+        ziploc = Location.where(:zipcode => @zipcode)
+        ziploc.each do |zipl|
+          @cec_cz << zipl.cec2009_cz
+        end
+      end
+        
+    end
     
     @debug = "Parameters: #{loc}\n\n"
-    @debug += "Coordinates: #{Geocoder.coordinates(loc).to_s}"
+    @debug += "Coordinates: #{@coords.inspect}"
      
     @edis = Edifice.near(loc, 50)
         
     if @edis.size == 0
-      @debug = Geocoder.search(loc).inspect
+      @debug += @geo[0].inspect
     end
     
     #convert units
@@ -98,8 +110,6 @@ class InputsController < ApplicationController
       nn_hash[var[:short_name]] = var[:dataarr]
     end
     
-    puts hash.inspect
-    puts nn_hash.inspect
     datafr = Rserve::DataFrame.new(hash)
     datafr_nn = Rserve::DataFrame.new(nn_hash)
     datafr_summary = @r.converse("summary(df)", :df => datafr).in_groups(var_array.size)

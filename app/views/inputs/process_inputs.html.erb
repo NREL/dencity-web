@@ -2,7 +2,8 @@
 <br><br>
 <h2> Geocode Info </h2>
   <p><a href="http://maps.google.com/maps?q=<%= @coords[0] %>,<%= @coords[1] %>">http://maps.google.com/maps?q=<%= @coords[0] %>,<%= @coords[1] %></a><br/></p>
-  
+  <p>Zip Code: <%= @zipcode %>  </p>
+  <p>CEC Climate Zone: <%= @cec_cz.join(",") %> </p>
 <h2> Statistics </h2>
 
 <h3> Regression Coefficients </h3>

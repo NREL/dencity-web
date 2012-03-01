@@ -16,12 +16,12 @@ test:
   database: bemscape_test
 
 # set these environment variables on your prod server
-#E-WATTS
+# e-watts (on e-demeter) and rordev (on devmongo1-1.development.nrel.gov)
 production:
   host: <%= ENV['MONGO_HOST'] %>
   port: <%= ENV['MONGO_PORT'] %>
-  username: <%= ENV['MONGO_BEMSCAPE_USERNAME'] %>
-  password: <%= ENV['MONGO_BEMSCAPE_PASSWORD'] %>
+#  username: <%= ENV['MONGO_BEMSCAPE_USERNAME'] %>
+#  password: <%= ENV['MONGO_BEMSCAPE_PASSWORD'] %>
   database: bemscape_test
   # slaves:
   #   - host: slave1.local

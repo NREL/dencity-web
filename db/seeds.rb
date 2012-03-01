@@ -4,12 +4,6 @@
 # Generate default users and keys
 
 # Populate the climate zone data
-m = Edifice.find_or_create_by(:unique_name => "00000")
-m.file_osm = File.open('/var/www/rails/bemscape/Gemfile')
-m.save
-
-exit
-
 require 'fastercsv'
 
 FasterCSV.foreach('./db/rawdata/cec_climate_and_zips.csv') do |row|

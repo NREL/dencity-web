@@ -34,11 +34,11 @@ namespace :deploy do
   end
   
   task :finalize_update, :except => { :no_release => true } do
-    run "#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/"
-    run "#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/"
-    run "#{try_sudo} mkdir #{Rails.root}/public/images/R/"
-    run "#{try_sudo} chgrp apache #{Rails.root}/public/images/R/"
-    run "#{try_sudo} chmod g+w #{Rails.root}/public/images/R/"
+    run "#{try_sudo} chgrp apache #{latest_release}/public/tmpdata/"
+    run "#{try_sudo} chmod g+w #{latest_release}/public/tmpdata/"
+    run "#{try_sudo} mkdir #{latest_release}/public/images/R/"
+    run "#{try_sudo} chgrp apache #{latest_release}/public/images/R/"
+    run "#{try_sudo} chmod g+w #{latest_release}/public/images/R/"
   end
   
   

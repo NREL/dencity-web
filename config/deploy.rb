@@ -32,10 +32,10 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
     
     # Set permissions that need write privileges by apache
-    run "#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/"
-    run "#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/"
-    run "#{try_sudo} chgrp apache #{Rails.root}/public/images/R/"
-    run "#{try_sudo} chmod g+w #{Rails.root}/public/images/R/"
+    #run "#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/"
+    #run "#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/"
+    #run "#{try_sudo} chgrp apache #{Rails.root}/public/images/R/"
+    #run "#{try_sudo} chmod g+w #{Rails.root}/public/images/R/"
   end
   
   

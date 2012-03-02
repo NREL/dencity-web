@@ -13,6 +13,8 @@ class ApisController < ApplicationController
     @edifice = 1
     thefile = nil
     xml_contents = nil
+    inputfile = nil
+    inputfile_contents = nil
 
     #get file and read it in (expecting file parameter named :xmlfile)
     if params[:xmlfile]
@@ -27,13 +29,28 @@ class ApisController < ApplicationController
       end
     end
     
-    logger.info("the file is: #{thefile}")    
-    logger.info("xml contents are: #{xml_contents}")
+    #if params[:inputfile]
+    #  inputfile = params[:inputfile]
+    #  if inputfile.respond_to?(:read)
+    #    inputfile_contents = inputfile.read
+    #  elsif inputfile.respond_to?(:path)
+    #    inputfile_contents = File.read(inputfile.path)
+    #  else
+    #    #assume that is is IDF?????
+    #    inputfile_contents = params[inputfile]
+    #  end
+    #end
+    
+    logger.error("the file is: #{thefile}")    
+    logger.error("xml contents are: #{xml_contents}")
+    
+    #logger.error("the input file is: #{inputfile}")    
+    #logger.error("input file contents are: #{inputfile_contents}")
     
     #now parse the file
     #KAF: check on this, but is max 4-levels of nesting?
     data = Crack::XML.parse(xml_contents)   
-    logger.info("the parsed contents are: #{data.inspect}")
+    logger.error("the parsed contents are: #{data.inspect}")
 
     #initialize some variables to do the parsing
     valuetype2 = nil
@@ -58,7 +75,8 @@ class ApisController < ApplicationController
     #TODO: put in a check here in case the bld gets saved without any attributes (in case the xml is badly formulated or something)
     
     # Strip off the input payload and save into the database (as a zip????)
-    #bld.file_osm = File.open('the file')
+    #bld.file_osm = inputfile_contents
+   
  
     respond_to do |format|
       if bld.save

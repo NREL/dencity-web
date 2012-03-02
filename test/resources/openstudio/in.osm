@@ -1,0 +1,1339 @@
+
+
+OS:AirLoopHVAC,
+  PSZ-AC:3,                 ! Name
+  ,                         ! Controller List Name
+  ,                         ! Availability Manager List Name
+  AUTOSIZE,                 ! Design Supply Air Flow Rate {m3/s}
+  ,                         ! Branch List Name
+  ,                         ! Connector List Name
+  {cc78b6cc-ab47-4da5-b688-305a8f6ea2d6},  ! Supply Side Inlet Node Name
+  {b7476d95-6790-4cc0-8c9a-8a96221983cb},  ! Demand Side Outlet Node Name
+  {895e62e3-3644-4e46-b839-8afc78b634c1},  ! Demand Side Inlet Node Names
+  {5e407d5d-fe1f-4595-8da2-d7ec64ef9fc9};  ! Supply Side Outlet Node Names
+
+OS:Node,
+  PSZ-AC:3 Supply Equipment Inlet Node,  ! Name
+  {cc78b6cc-ab47-4da5-b688-305a8f6ea2d6},  ! Inlet Port
+  {5285e001-9a42-467f-bc0c-9f4951f5b56d};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:3 Supply Equipment Outlet Node,  ! Name
+  {31041850-e736-4395-8b40-3282ddd054b7},  ! Inlet Port
+  {5e407d5d-fe1f-4595-8da2-d7ec64ef9fc9};  ! Outlet Port
+
+OS:Connection,
+  {cc78b6cc-ab47-4da5-b688-305a8f6ea2d6},  ! Name
+  PSZ-AC:3,                 ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:3 Supply Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {5e407d5d-fe1f-4595-8da2-d7ec64ef9fc9},  ! Name
+  PSZ-AC:3 Supply Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3,                 ! Target Object
+  9;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:3 Zone Equipment Inlet Node,  ! Name
+  {895e62e3-3644-4e46-b839-8afc78b634c1},  ! Inlet Port
+  {319960e1-9a2b-4858-8e09-be5534a16ad7};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:3 Zone Equipment Outlet Node,  ! Name
+  {d0714f45-25bb-48b7-8dc7-0617169f52b1},  ! Inlet Port
+  {b7476d95-6790-4cc0-8c9a-8a96221983cb};  ! Outlet Port
+
+OS:Connection,
+  {895e62e3-3644-4e46-b839-8afc78b634c1},  ! Name
+  PSZ-AC:3,                 ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:3 Zone Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {b7476d95-6790-4cc0-8c9a-8a96221983cb},  ! Name
+  PSZ-AC:3 Zone Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3,                 ! Target Object
+  7;                        ! Inlet Port
+
+OS:AirLoopHVAC:ZoneSplitter,
+  {0a6c5198-358f-40ec-872c-656b0488f145},  ! Name
+  {319960e1-9a2b-4858-8e09-be5534a16ad7},  ! Inlet Node Name
+  {fb3159f0-6dbd-4876-9c75-004853195fe0};  ! Outlet Node Name 1
+
+OS:AirLoopHVAC:ZoneMixer,
+  {83d679e9-8bae-431a-8ec8-b1d32a4e4f48},  ! Name
+  {d0714f45-25bb-48b7-8dc7-0617169f52b1},  ! Outlet Node Name
+  {ef7c8cf2-ad82-420b-876b-6176bb1778e0};  ! Inlet Node Name 1
+
+OS:Connection,
+  {319960e1-9a2b-4858-8e09-be5534a16ad7},  ! Name
+  PSZ-AC:3 Zone Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  {0a6c5198-358f-40ec-872c-656b0488f145},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {d0714f45-25bb-48b7-8dc7-0617169f52b1},  ! Name
+  {83d679e9-8bae-431a-8ec8-b1d32a4e4f48},  ! Source Object
+  1,                        ! Outlet Port
+  PSZ-AC:3 Zone Equipment Outlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Sizing:System,
+  PSZ-AC:3,                 ! AirLoop Name
+  Sensible,                 ! Type of Load to Size On
+  Autosize,                 ! Design Outdoor Air Flow Rate {m3/s}
+  1,                        ! Minimum System Air Flow Ratio
+  7,                        ! Preheat Design Temperature {C}
+  0.0080000000000000002,    ! Preheat Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Precool Design Temperature {C}
+  0.0080000000000000002,    ! Precool Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Central Cooling Design Supply Air Temperature {C}
+  40,                       ! Central Heating Design Supply Air Temperature {C}
+  NonCoincident,            ! Sizing Option
+  No,                       ! 100% Outdoor Air in Cooling
+  No,                       ! 100% Outdoor Air in Heating
+  0.0085000000000000006,    ! Central Cooling Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  0.0080000000000000002,    ! Central Heating Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  DesignDay,                ! Cooling Design Air Flow Method
+  0,                        ! Cooling Design Air Flow Rate {m3/s}
+  DesignDay,                ! Heating Design Air Flow Method
+  0,                        ! Heating Design Air Flow Rate {m3/s}
+  ZoneSum;                  ! System Outdoor Air Method
+
+OS:Controller:OutdoorAir,
+  PSZ-AC:3_OA_Controller,   ! Name
+  ,                         ! Relief Air Outlet Node Name
+  ,                         ! Return Air Node Name
+  ,                         ! Mixed Air Node Name
+  ,                         ! Actuator Node Name
+  Autosize,                 ! Minimum Outdoor Air Flow Rate {m3/s}
+  Autosize,                 ! Maximum Outdoor Air Flow Rate {m3/s}
+  NoEconomizer,             ! Economizer Control Type
+  ModulateFlow,             ! Economizer Control Action Type
+  -100,                     ! Economizer Maximum Limit Dry-Bulb Temperature {C}
+  64000,                    ! Economizer Maximum Limit Enthalpy {J/kg}
+  100,                      ! Economizer Maximum Limit Dewpoint Temperature {C}
+  ,                         ! Electronic Enthalpy Limit Curve Name
+  -100,                     ! Economizer Minimum Limit Dry-Bulb Temperature {C}
+  NoLockout,                ! Lockout Type
+  FixedMinimum,             ! Minimum Limit Type
+  ,                         ! Minimum Outdoor Air Schedule Name
+  ,                         ! Minimum Fraction of Outdoor Air Schedule Name
+  ,                         ! Maximum Fraction of Outdoor Air Schedule Name
+  ,                         ! Mechanical Ventilation Controller Name
+  ,                         ! Time of Day Economizer Control Schedule Name
+  ,                         ! High Humidity Control
+  ,                         ! Humidistat Control Zone Name
+  ,                         ! High Humidity Outdoor Air Flow Ratio
+  ,                         ! Control High Indoor Humidity Based on Outdoor Humidity Ratio
+  ;                         ! Heat Recovery Bypass Control Type
+
+OS:AirLoopHVAC:OutdoorAirSystem,
+  PSZ-AC:3_OA,              ! Name
+  PSZ-AC:3_OA_Controller,   ! Controller Name
+  ,                         ! Outdoor Air Equipment List Name
+  ,                         ! Availability Manager List Name
+  {dd4805db-516c-42e8-8a36-d5e48de0bf6c},  ! Mixed Air Node Name
+  {fbacb153-25f8-449a-b61e-1e1470d11c6c},  ! Outdoor Air Stream Node Name
+  {40403b32-2ca6-4d3f-80cb-d4c08708006d},  ! Relief Air Stream Node Name
+  {5285e001-9a42-467f-bc0c-9f4951f5b56d};  ! Return Air Stream Node Name
+
+OS:Node,
+  PSZ-AC:3_OAInlet Node,    ! Name
+  ,                         ! Inlet Port
+  {fbacb153-25f8-449a-b61e-1e1470d11c6c};  ! Outlet Port
+
+OS:Connection,
+  {fbacb153-25f8-449a-b61e-1e1470d11c6c},  ! Name
+  PSZ-AC:3_OAInlet Node,    ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3_OA,              ! Target Object
+  5;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:3_OARelief Node,   ! Name
+  {40403b32-2ca6-4d3f-80cb-d4c08708006d},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {40403b32-2ca6-4d3f-80cb-d4c08708006d},  ! Name
+  PSZ-AC:3_OA,              ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:3_OARelief Node,   ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {5285e001-9a42-467f-bc0c-9f4951f5b56d},  ! Name
+  PSZ-AC:3 Supply Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3_OA,              ! Target Object
+  7;                        ! Inlet Port
+
+OS:Schedule:Compact,
+  ALWAYS_ON,                ! Name
+  On/Off,                   ! Schedule Type Limits Name
+  Through: 12/31,           ! Field 1
+  For: AllDays,             ! Field 2
+  Until: 24:00,             ! Field 3
+  1;                        ! Field 4
+
+OS:ScheduleTypeLimits,
+  On/Off,                   ! Name
+  0,                        ! Lower Limit Value {BasedOnField A3}
+  1,                        ! Upper Limit Value {BasedOnField A3}
+  DISCRETE;                 ! Numeric Type
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 1,      ! Name
+  0.97121230000000003,      ! Coefficient1 Constant
+  -0.015275502,             ! Coefficient2 x
+  0.0014434524000000002,    ! Coefficient3 x**2
+  -0.00039321000000000001,  ! Coefficient4 y
+  -6.8363999999999986e-006,  ! Coefficient5 y**2
+  -0.00029059560000000003,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 2,      ! Name
+  0.28687132999999998,      ! Coefficient1 Constant
+  0.023902164,              ! Coefficient2 x
+  -0.00081064800000000008,  ! Coefficient3 x**2
+  0.013458546,              ! Coefficient4 y
+  0.0003389364,             ! Coefficient5 y**2
+  -0.00048700439999999995,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Cubic,
+  Curve:Cubic 1,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Cubic,
+  Curve:Cubic 2,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Quadratic,
+  Curve:Quadratic 1,        ! Name
+  0.90949555999999998,      ! Coefficient1 Constant
+  0.098647730000000003,     ! Coefficient2 x
+  -0.0081948799999999999,   ! Coefficient3 x**2
+  0,                        ! Minimum Value of x {BasedOnField A2}
+  1,                        ! Maximum Value of x {BasedOnField A2}
+  0.69999999999999996,      ! Minimum Curve Output {BasedOnField A3}
+  1;                        ! Maximum Curve Output {BasedOnField A3}
+
+OS:Coil:Cooling:DX:SingleSpeed,
+  PSZ-AC:3_CoolC DXCoil,    ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  Autosize,                 ! Rated Total Cooling Capacity {W}
+  Autosize,                 ! Rated Sensible Heat Ratio
+  3.66668442928701,         ! Rated COP {W/W}
+  Autosize,                 ! Rated Air Flow Rate {m3/s}
+  773.29999999999995,       ! Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+  {01dfbd58-a773-458a-8ee6-18381c9b755e},  ! Air Inlet Node Name
+  {95edb4cb-de5b-48b6-ace5-e88f90f58f14},  ! Air Outlet Node Name
+  Curve:Biquadratic 1,      ! Total Cooling Capacity Function of Temperature Curve Name
+  Curve:Cubic 1,            ! Total Cooling Capacity Function of Flow Fraction Curve Name
+  Curve:Biquadratic 2,      ! Energy Input Ratio Function of Temperature Curve Name
+  Curve:Cubic 2,            ! Energy Input Ratio Function of Flow Fraction Curve Name
+  Curve:Quadratic 1,        ! Part Load Fraction Correlation Curve Name
+  ,                         ! Nominal Time for Condensate Removal to Begin {s}
+  ,                         ! Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
+  ,                         ! Maximum Cycling Rate {cycles/hr}
+  ,                         ! Latent Capacity Time Constant {s}
+  ,                         ! Condenser Air Inlet Node Name
+  AirCooled,                ! Condenser Type
+  0,                        ! Evaporative Condenser Effectiveness {dimensionless}
+  Autosize,                 ! Evaporative Condenser Air Flow Rate {m3/s}
+  Autosize,                 ! Evaporative Condenser Pump Rated Power Consumption {W}
+  0,                        ! Crankcase Heater Capacity {W}
+  0,                        ! Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
+  ,                         ! Supply Water Storage Tank Name
+  ,                         ! Condensate Collection Water Storage Tank Name
+  0,                        ! Basin Heater Capacity {W/K}
+  10,                       ! Basin Heater Setpoint Temperature {C}
+  ;                         ! Basin Heater Operating Schedule Name
+
+OS:Node,
+  PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  ! Name
+  {dd4805db-516c-42e8-8a36-d5e48de0bf6c},  ! Inlet Port
+  {01dfbd58-a773-458a-8ee6-18381c9b755e};  ! Outlet Port
+
+OS:Connection,
+  {dd4805db-516c-42e8-8a36-d5e48de0bf6c},  ! Name
+  PSZ-AC:3_OA,              ! Source Object
+  4,                        ! Outlet Port
+  PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {01dfbd58-a773-458a-8ee6-18381c9b755e},  ! Name
+  PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3_CoolC DXCoil,    ! Target Object
+  7;                        ! Inlet Port
+
+OS:Coil:Heating:Gas,
+  PSZ-AC:3_HeatC,           ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  0.80000000000000004,      ! Gas Burner Efficiency
+  AutoSize,                 ! Nominal Capacity {W}
+  {8fdf0c39-7dbc-4fef-8bb8-68e301191a6a},  ! Air Inlet Node Name
+  {c453f3ae-ca84-4153-9576-4f0569a95e0e},  ! Air Outlet Node Name
+  ,                         ! Temperature Setpoint Node Name
+  0,                        ! Parasitic Electric Load {W}
+  ,                         ! Part Load Fraction Correlation Curve Name
+  0;                        ! Parasitic Gas Load {W}
+
+OS:Node,
+  PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  ! Name
+  {95edb4cb-de5b-48b6-ace5-e88f90f58f14},  ! Inlet Port
+  {8fdf0c39-7dbc-4fef-8bb8-68e301191a6a};  ! Outlet Port
+
+OS:Connection,
+  {95edb4cb-de5b-48b6-ace5-e88f90f58f14},  ! Name
+  PSZ-AC:3_CoolC DXCoil,    ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {8fdf0c39-7dbc-4fef-8bb8-68e301191a6a},  ! Name
+  PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3_HeatC,           ! Target Object
+  4;                        ! Inlet Port
+
+OS:Schedule:Compact,
+  HVACOperationSchd,        ! Name
+  On/Off,                   ! Schedule Type Limits Name
+  Through: 12/31,           ! Field 1
+  For: Weekdays SummerDesignDay,  ! Field 2
+  Until: 06:00,             ! Field 3
+  0.0,                      ! Field 4
+  Until: 22:00,             ! Field 5
+  1.0,                      ! Field 6
+  Until: 24:00,             ! Field 7
+  0.0,                      ! Field 8
+  For: Saturday WinterDesignDay,  ! Field 9
+  Until: 06:00,             ! Field 10
+  0.0,                      ! Field 11
+  Until: 18:00,             ! Field 12
+  1.0,                      ! Field 13
+  Until: 24:00,             ! Field 14
+  0.0,                      ! Field 15
+  For: AllOtherDays,        ! Field 16
+  Until: 24:00,             ! Field 17
+  0.0;                      ! Field 18
+
+OS:Fan:ConstantVolume,
+  PSZ-AC:3_Fan,             ! Name
+  HVACOperationSchd,        ! Availability Schedule Name
+  0.53625,                  ! Fan Efficiency
+  622,                      ! Pressure Rise {Pa}
+  AutoSize,                 ! Maximum Flow Rate {m3/s}
+  0.82499999999999996,      ! Motor Efficiency
+  1,                        ! Motor In Airstream Fraction
+  {753ecd8b-7c2f-43d2-858d-a57ff341ec61},  ! Air Inlet Node Name
+  {31041850-e736-4395-8b40-3282ddd054b7},  ! Air Outlet Node Name
+  Fan Energy;               ! End-Use Subcategory
+
+OS:Node,
+  PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  ! Name
+  {c453f3ae-ca84-4153-9576-4f0569a95e0e},  ! Inlet Port
+  {753ecd8b-7c2f-43d2-858d-a57ff341ec61};  ! Outlet Port
+
+OS:Connection,
+  {c453f3ae-ca84-4153-9576-4f0569a95e0e},  ! Name
+  PSZ-AC:3_HeatC,           ! Source Object
+  5,                        ! Outlet Port
+  PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {753ecd8b-7c2f-43d2-858d-a57ff341ec61},  ! Name
+  PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:3_Fan,             ! Target Object
+  7;                        ! Inlet Port
+
+OS:Connection,
+  {31041850-e736-4395-8b40-3282ddd054b7},  ! Name
+  PSZ-AC:3_Fan,             ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:3 Supply Equipment Outlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:AirTerminal:SingleDuct:Uncontrolled,
+  Perimeter_ZN_2 Direct Air,  ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  {fb3159f0-6dbd-4876-9c75-004853195fe0},  ! Inlet Air Node Name
+  {fee7f261-5308-454e-b416-ee6b0902ed29},  ! Zone Supply Air Node Name
+  AUTOSIZE;                 ! Maximum Air Flow Rate {m3/s}
+
+OS:ThermalZone,
+  Perimeter_ZN_2 Thermal Zone,  ! Name
+  1,                        ! Multiplier
+  ,                         ! Ceiling Height {m}
+  ,                         ! Volume {m3}
+  ,                         ! Floor Area {m2}
+  ,                         ! Zone Inside Convection Algorithm
+  ,                         ! Zone Outside Convection Algorithm
+  ,                         ! Zone Conditioning Equipment List Name
+  {fb30c650-04f6-44ab-8855-4690f34463f3},  ! Zone Air Inlet Node or NodeList Name
+  {cdc261ee-2d0b-43d0-9923-fa66da009a64},  ! Zone Air Exhaust Node or NodeList Name
+  {cc08f91d-f7b0-4335-bd46-dcc17cf3c2af},  ! Zone Air Node Name
+  {a912223c-900c-47ad-9ac3-28c42e0ffa2b},  ! Zone Return Air Node Name
+  ,                         ! Primary Daylighting Control Name
+  ,                         ! Fraction of Zone Controlled by Primary Daylighting Control
+  ,                         ! Secondary Daylighting Control Name
+  ,                         ! Fraction of Zone Controlled by Secondary Daylighting Control
+  ,                         ! Illuminance Map Name
+  ,                         ! Group Rendering Name
+  {fadcb69c-432f-4a86-b34a-bf23b71dd1c9},  ! Thermostat Name
+  No;                       ! Use Ideal Air Loads
+
+OS:Node,
+  {ba98381a-517d-4fcc-9a35-e7c4b6fd96a9},  ! Name
+  {cc08f91d-f7b0-4335-bd46-dcc17cf3c2af},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {cc08f91d-f7b0-4335-bd46-dcc17cf3c2af},  ! Name
+  Perimeter_ZN_2 Thermal Zone,  ! Source Object
+  10,                       ! Outlet Port
+  {ba98381a-517d-4fcc-9a35-e7c4b6fd96a9},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Node,
+  {5db2bbfc-2179-4a5e-8e43-ac8299d432ee},  ! Name
+  {cdc261ee-2d0b-43d0-9923-fa66da009a64},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {cdc261ee-2d0b-43d0-9923-fa66da009a64},  ! Name
+  Perimeter_ZN_2 Thermal Zone,  ! Source Object
+  9,                        ! Outlet Port
+  {5db2bbfc-2179-4a5e-8e43-ac8299d432ee},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Sizing:Zone,
+  Perimeter_ZN_2 Thermal Zone,  ! Zone or ZoneList Name
+  14,                       ! Zone Cooling Design Supply Air Temperature {C}
+  40,                       ! Zone Heating Design Supply Air Temperature {C}
+  0.0085000000000000006,    ! Zone Cooling Design Supply Air Humidity Ratio {kg-H2O/kg-air}
+  0.0080000000000000002,    ! Zone Heating Design Supply Air Humidity Ratio {kg-H2O/kg-air}
+  ,                         ! Zone Heating Sizing Factor
+  ,                         ! Zone Cooling Sizing Factor
+  DesignDay,                ! Cooling Design Air Flow Method
+  ,                         ! Cooling Design Air Flow Rate {m3/s}
+  ,                         ! Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                         ! Cooling Minimum Air Flow {m3/s}
+  ,                         ! Cooling Minimum Air Flow Fraction
+  DesignDay,                ! Heating Design Air Flow Method
+  ,                         ! Heating Design Air Flow Rate {m3/s}
+  ,                         ! Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                         ! Heating Maximum Air Flow {m3/s}
+  ,                         ! Heating Maximum Air Flow Fraction
+  ,                         ! Design Zone Air Distribution Effectiveness in Cooling Mode
+  ;                         ! Design Zone Air Distribution Effectiveness in Heating Mode
+
+OS:Space,
+  Perimeter_ZN_2,           ! Name
+  ,                         ! Space Type Name
+  ,                         ! Default Construction Set Name
+  ,                         ! Default Schedule Set Name
+  0,                        ! Direction of Relative North {deg}
+  0,                        ! X Origin {m}
+  0,                        ! Y Origin {m}
+  0,                        ! Z Origin {m}
+  ,                         ! Building Story Name
+  Perimeter_ZN_2 Thermal Zone,  ! Thermal Zone Name
+  Yes,                      ! Part of Total Floor Area
+  SZ DSOA Perimeter_ZN_2;   ! Design Specification Outdoor Air Object Name
+
+OS:ThermostatSetpoint:DualSetpoint,
+  {fadcb69c-432f-4a86-b34a-bf23b71dd1c9},  ! Name
+  HTGSETP_SCH,              ! Heating Setpoint Temperature Schedule Name
+  CLGSETP_SCH;              ! Cooling Setpoint Temperature Schedule Name
+
+OS:Schedule:Compact,
+  HTGSETP_SCH,              ! Name
+  Temperature,              ! Schedule Type Limits Name
+  Through: 12/31,           ! Field 1
+  For: Weekdays,            ! Field 2
+  Until: 06:00,             ! Field 3
+  15.6,                     ! Field 4
+  Until: 22:00,             ! Field 5
+  21.0,                     ! Field 6
+  Until: 24:00,             ! Field 7
+  15.6,                     ! Field 8
+  For: Saturday,            ! Field 9
+  Until: 06:00,             ! Field 10
+  15.6,                     ! Field 11
+  Until: 18:00,             ! Field 12
+  21.0,                     ! Field 13
+  Until: 24:00,             ! Field 14
+  15.6,                     ! Field 15
+  For: WinterDesignDay,     ! Field 16
+  Until: 24:00,             ! Field 17
+  21.0,                     ! Field 18
+  For: AllOtherDays,        ! Field 19
+  Until: 24:00,             ! Field 20
+  15.6;                     ! Field 21
+
+OS:ScheduleTypeLimits,
+  Temperature,              ! Name
+  -60,                      ! Lower Limit Value {BasedOnField A3}
+  200,                      ! Upper Limit Value {BasedOnField A3}
+  CONTINUOUS;               ! Numeric Type
+
+OS:Schedule:Compact,
+  CLGSETP_SCH,              ! Name
+  Temperature,              ! Schedule Type Limits Name
+  Through: 12/31,           ! Field 1
+  For: Weekdays SummerDesignDay,  ! Field 2
+  Until: 06:00,             ! Field 3
+  26.7,                     ! Field 4
+  Until: 22:00,             ! Field 5
+  24.0,                     ! Field 6
+  Until: 24:00,             ! Field 7
+  26.7,                     ! Field 8
+  For: Saturday,            ! Field 9
+  Until: 06:00,             ! Field 10
+  26.7,                     ! Field 11
+  Until: 18:00,             ! Field 12
+  24.0,                     ! Field 13
+  Until: 24:00,             ! Field 14
+  26.7,                     ! Field 15
+  For: AllOtherDays,        ! Field 16
+  Until: 24:00,             ! Field 17
+  26.7;                     ! Field 18
+
+OS:Node,
+  Perimeter_ZN_2 Inlet Nodes,  ! Name
+  {fee7f261-5308-454e-b416-ee6b0902ed29},  ! Inlet Port
+  {fb30c650-04f6-44ab-8855-4690f34463f3};  ! Outlet Port
+
+OS:Connection,
+  {fb30c650-04f6-44ab-8855-4690f34463f3},  ! Name
+  Perimeter_ZN_2 Inlet Nodes,  ! Source Object
+  2,                        ! Outlet Port
+  Perimeter_ZN_2 Thermal Zone,  ! Target Object
+  8;                        ! Inlet Port
+
+OS:Node,
+  Perimeter_ZN_2 Return Air Node Name,  ! Name
+  {a912223c-900c-47ad-9ac3-28c42e0ffa2b},  ! Inlet Port
+  {ef7c8cf2-ad82-420b-876b-6176bb1778e0};  ! Outlet Port
+
+OS:Connection,
+  {a912223c-900c-47ad-9ac3-28c42e0ffa2b},  ! Name
+  Perimeter_ZN_2 Thermal Zone,  ! Source Object
+  11,                       ! Outlet Port
+  Perimeter_ZN_2 Return Air Node Name,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {ef7c8cf2-ad82-420b-876b-6176bb1778e0},  ! Name
+  Perimeter_ZN_2 Return Air Node Name,  ! Source Object
+  2,                        ! Outlet Port
+  {83d679e9-8bae-431a-8ec8-b1d32a4e4f48},  ! Target Object
+  2;                        ! Inlet Port
+
+OS:Connection,
+  {fb3159f0-6dbd-4876-9c75-004853195fe0},  ! Name
+  {0a6c5198-358f-40ec-872c-656b0488f145},  ! Source Object
+  2,                        ! Outlet Port
+  Perimeter_ZN_2 Direct Air,  ! Target Object
+  2;                        ! Inlet Port
+
+OS:Connection,
+  {fee7f261-5308-454e-b416-ee6b0902ed29},  ! Name
+  Perimeter_ZN_2 Direct Air,  ! Source Object
+  3,                        ! Outlet Port
+  Perimeter_ZN_2 Inlet Nodes,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:AirLoopHVAC,
+  PSZ-AC:2,                 ! Name
+  ,                         ! Controller List Name
+  ,                         ! Availability Manager List Name
+  AUTOSIZE,                 ! Design Supply Air Flow Rate {m3/s}
+  ,                         ! Branch List Name
+  ,                         ! Connector List Name
+  {090ad27a-2881-465c-bdee-87fcf5873680},  ! Supply Side Inlet Node Name
+  {25397522-4694-464a-a280-03be0a8ec313},  ! Demand Side Outlet Node Name
+  {5f6935c6-ef06-4e49-9b67-2c8ee0f3e6e9},  ! Demand Side Inlet Node Names
+  {e7002b87-926f-4980-84c1-7ab75cc03243};  ! Supply Side Outlet Node Names
+
+OS:Node,
+  PSZ-AC:2 Supply Equipment Inlet Node,  ! Name
+  {090ad27a-2881-465c-bdee-87fcf5873680},  ! Inlet Port
+  {6058ce4a-0ac0-4ebc-b513-cd082576dd9c};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:2 Supply Equipment Outlet Node,  ! Name
+  {dfc2f818-a221-473b-8a5b-b63d0375821e},  ! Inlet Port
+  {e7002b87-926f-4980-84c1-7ab75cc03243};  ! Outlet Port
+
+OS:Connection,
+  {090ad27a-2881-465c-bdee-87fcf5873680},  ! Name
+  PSZ-AC:2,                 ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:2 Supply Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {e7002b87-926f-4980-84c1-7ab75cc03243},  ! Name
+  PSZ-AC:2 Supply Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2,                 ! Target Object
+  9;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:2 Zone Equipment Inlet Node,  ! Name
+  {5f6935c6-ef06-4e49-9b67-2c8ee0f3e6e9},  ! Inlet Port
+  {25bbb2e9-7fa5-40b1-8a2a-b5d02b24bb38};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:2 Zone Equipment Outlet Node,  ! Name
+  {843bee2e-122d-4381-a1bf-5dc231f2f18e},  ! Inlet Port
+  {25397522-4694-464a-a280-03be0a8ec313};  ! Outlet Port
+
+OS:Connection,
+  {5f6935c6-ef06-4e49-9b67-2c8ee0f3e6e9},  ! Name
+  PSZ-AC:2,                 ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:2 Zone Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {25397522-4694-464a-a280-03be0a8ec313},  ! Name
+  PSZ-AC:2 Zone Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2,                 ! Target Object
+  7;                        ! Inlet Port
+
+OS:AirLoopHVAC:ZoneSplitter,
+  {d7cef199-0da9-47ca-9ffe-590d1fa98068},  ! Name
+  {25bbb2e9-7fa5-40b1-8a2a-b5d02b24bb38},  ! Inlet Node Name
+  {86775aa4-8fab-44d2-a03c-fa1ac32b568b};  ! Outlet Node Name 1
+
+OS:AirLoopHVAC:ZoneMixer,
+  {25aef737-eaaa-4525-add0-388295d0fd45},  ! Name
+  {843bee2e-122d-4381-a1bf-5dc231f2f18e},  ! Outlet Node Name
+  {c13dfd02-3b3b-4e90-96aa-1d67f9b330c4};  ! Inlet Node Name 1
+
+OS:Connection,
+  {25bbb2e9-7fa5-40b1-8a2a-b5d02b24bb38},  ! Name
+  PSZ-AC:2 Zone Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  {d7cef199-0da9-47ca-9ffe-590d1fa98068},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {843bee2e-122d-4381-a1bf-5dc231f2f18e},  ! Name
+  {25aef737-eaaa-4525-add0-388295d0fd45},  ! Source Object
+  1,                        ! Outlet Port
+  PSZ-AC:2 Zone Equipment Outlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Sizing:System,
+  PSZ-AC:2,                 ! AirLoop Name
+  Sensible,                 ! Type of Load to Size On
+  Autosize,                 ! Design Outdoor Air Flow Rate {m3/s}
+  1,                        ! Minimum System Air Flow Ratio
+  7,                        ! Preheat Design Temperature {C}
+  0.0080000000000000002,    ! Preheat Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Precool Design Temperature {C}
+  0.0080000000000000002,    ! Precool Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Central Cooling Design Supply Air Temperature {C}
+  40,                       ! Central Heating Design Supply Air Temperature {C}
+  NonCoincident,            ! Sizing Option
+  No,                       ! 100% Outdoor Air in Cooling
+  No,                       ! 100% Outdoor Air in Heating
+  0.0085000000000000006,    ! Central Cooling Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  0.0080000000000000002,    ! Central Heating Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  DesignDay,                ! Cooling Design Air Flow Method
+  0,                        ! Cooling Design Air Flow Rate {m3/s}
+  DesignDay,                ! Heating Design Air Flow Method
+  0,                        ! Heating Design Air Flow Rate {m3/s}
+  ZoneSum;                  ! System Outdoor Air Method
+
+OS:Controller:OutdoorAir,
+  PSZ-AC:2_OA_Controller,   ! Name
+  ,                         ! Relief Air Outlet Node Name
+  ,                         ! Return Air Node Name
+  ,                         ! Mixed Air Node Name
+  ,                         ! Actuator Node Name
+  Autosize,                 ! Minimum Outdoor Air Flow Rate {m3/s}
+  Autosize,                 ! Maximum Outdoor Air Flow Rate {m3/s}
+  NoEconomizer,             ! Economizer Control Type
+  ModulateFlow,             ! Economizer Control Action Type
+  -100,                     ! Economizer Maximum Limit Dry-Bulb Temperature {C}
+  64000,                    ! Economizer Maximum Limit Enthalpy {J/kg}
+  100,                      ! Economizer Maximum Limit Dewpoint Temperature {C}
+  ,                         ! Electronic Enthalpy Limit Curve Name
+  -100,                     ! Economizer Minimum Limit Dry-Bulb Temperature {C}
+  NoLockout,                ! Lockout Type
+  FixedMinimum,             ! Minimum Limit Type
+  ,                         ! Minimum Outdoor Air Schedule Name
+  ,                         ! Minimum Fraction of Outdoor Air Schedule Name
+  ,                         ! Maximum Fraction of Outdoor Air Schedule Name
+  ,                         ! Mechanical Ventilation Controller Name
+  ,                         ! Time of Day Economizer Control Schedule Name
+  ,                         ! High Humidity Control
+  ,                         ! Humidistat Control Zone Name
+  ,                         ! High Humidity Outdoor Air Flow Ratio
+  ,                         ! Control High Indoor Humidity Based on Outdoor Humidity Ratio
+  ;                         ! Heat Recovery Bypass Control Type
+
+OS:AirLoopHVAC:OutdoorAirSystem,
+  PSZ-AC:2_OA,              ! Name
+  PSZ-AC:2_OA_Controller,   ! Controller Name
+  ,                         ! Outdoor Air Equipment List Name
+  ,                         ! Availability Manager List Name
+  {6c709968-83c2-49df-98de-c05e2ace4ea7},  ! Mixed Air Node Name
+  {9f93f855-8ffa-4f05-9159-42565dc00732},  ! Outdoor Air Stream Node Name
+  {bf40182c-c0cc-434b-b741-514f077c29da},  ! Relief Air Stream Node Name
+  {6058ce4a-0ac0-4ebc-b513-cd082576dd9c};  ! Return Air Stream Node Name
+
+OS:Node,
+  PSZ-AC:2_OAInlet Node,    ! Name
+  ,                         ! Inlet Port
+  {9f93f855-8ffa-4f05-9159-42565dc00732};  ! Outlet Port
+
+OS:Connection,
+  {9f93f855-8ffa-4f05-9159-42565dc00732},  ! Name
+  PSZ-AC:2_OAInlet Node,    ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2_OA,              ! Target Object
+  5;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:2_OARelief Node,   ! Name
+  {bf40182c-c0cc-434b-b741-514f077c29da},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {bf40182c-c0cc-434b-b741-514f077c29da},  ! Name
+  PSZ-AC:2_OA,              ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:2_OARelief Node,   ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {6058ce4a-0ac0-4ebc-b513-cd082576dd9c},  ! Name
+  PSZ-AC:2 Supply Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2_OA,              ! Target Object
+  7;                        ! Inlet Port
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 3,      ! Name
+  0.97121230000000003,      ! Coefficient1 Constant
+  -0.015275502,             ! Coefficient2 x
+  0.0014434524000000002,    ! Coefficient3 x**2
+  -0.00039321000000000001,  ! Coefficient4 y
+  -6.8363999999999986e-006,  ! Coefficient5 y**2
+  -0.00029059560000000003,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 4,      ! Name
+  0.28687132999999998,      ! Coefficient1 Constant
+  0.023902164,              ! Coefficient2 x
+  -0.00081064800000000008,  ! Coefficient3 x**2
+  0.013458546,              ! Coefficient4 y
+  0.0003389364,             ! Coefficient5 y**2
+  -0.00048700439999999995,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Cubic,
+  Curve:Cubic 3,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Cubic,
+  Curve:Cubic 4,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Quadratic,
+  Curve:Quadratic 2,        ! Name
+  0.90949555999999998,      ! Coefficient1 Constant
+  0.098647730000000003,     ! Coefficient2 x
+  -0.0081948799999999999,   ! Coefficient3 x**2
+  0,                        ! Minimum Value of x {BasedOnField A2}
+  1,                        ! Maximum Value of x {BasedOnField A2}
+  0.69999999999999996,      ! Minimum Curve Output {BasedOnField A3}
+  1;                        ! Maximum Curve Output {BasedOnField A3}
+
+OS:Coil:Cooling:DX:SingleSpeed,
+  PSZ-AC:2_CoolC DXCoil,    ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  Autosize,                 ! Rated Total Cooling Capacity {W}
+  Autosize,                 ! Rated Sensible Heat Ratio
+  3.66668442928701,         ! Rated COP {W/W}
+  Autosize,                 ! Rated Air Flow Rate {m3/s}
+  773.29999999999995,       ! Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+  {d6978b48-e6d3-43f6-881a-a11809724f0f},  ! Air Inlet Node Name
+  {7a90e271-70fa-481a-923c-b27a403d09ae},  ! Air Outlet Node Name
+  Curve:Biquadratic 3,      ! Total Cooling Capacity Function of Temperature Curve Name
+  Curve:Cubic 3,            ! Total Cooling Capacity Function of Flow Fraction Curve Name
+  Curve:Biquadratic 4,      ! Energy Input Ratio Function of Temperature Curve Name
+  Curve:Cubic 4,            ! Energy Input Ratio Function of Flow Fraction Curve Name
+  Curve:Quadratic 2,        ! Part Load Fraction Correlation Curve Name
+  ,                         ! Nominal Time for Condensate Removal to Begin {s}
+  ,                         ! Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
+  ,                         ! Maximum Cycling Rate {cycles/hr}
+  ,                         ! Latent Capacity Time Constant {s}
+  ,                         ! Condenser Air Inlet Node Name
+  AirCooled,                ! Condenser Type
+  0,                        ! Evaporative Condenser Effectiveness {dimensionless}
+  Autosize,                 ! Evaporative Condenser Air Flow Rate {m3/s}
+  Autosize,                 ! Evaporative Condenser Pump Rated Power Consumption {W}
+  0,                        ! Crankcase Heater Capacity {W}
+  0,                        ! Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
+  ,                         ! Supply Water Storage Tank Name
+  ,                         ! Condensate Collection Water Storage Tank Name
+  0,                        ! Basin Heater Capacity {W/K}
+  10,                       ! Basin Heater Setpoint Temperature {C}
+  ;                         ! Basin Heater Operating Schedule Name
+
+OS:Node,
+  PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  ! Name
+  {6c709968-83c2-49df-98de-c05e2ace4ea7},  ! Inlet Port
+  {d6978b48-e6d3-43f6-881a-a11809724f0f};  ! Outlet Port
+
+OS:Connection,
+  {6c709968-83c2-49df-98de-c05e2ace4ea7},  ! Name
+  PSZ-AC:2_OA,              ! Source Object
+  4,                        ! Outlet Port
+  PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {d6978b48-e6d3-43f6-881a-a11809724f0f},  ! Name
+  PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2_CoolC DXCoil,    ! Target Object
+  7;                        ! Inlet Port
+
+OS:Coil:Heating:Gas,
+  PSZ-AC:2_HeatC,           ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  0.80000000000000004,      ! Gas Burner Efficiency
+  AutoSize,                 ! Nominal Capacity {W}
+  {122306fe-c692-4937-916a-dd526f7118c3},  ! Air Inlet Node Name
+  {e266659a-6bfe-4251-95dd-dd371aae3c77},  ! Air Outlet Node Name
+  ,                         ! Temperature Setpoint Node Name
+  0,                        ! Parasitic Electric Load {W}
+  ,                         ! Part Load Fraction Correlation Curve Name
+  0;                        ! Parasitic Gas Load {W}
+
+OS:Node,
+  PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  ! Name
+  {7a90e271-70fa-481a-923c-b27a403d09ae},  ! Inlet Port
+  {122306fe-c692-4937-916a-dd526f7118c3};  ! Outlet Port
+
+OS:Connection,
+  {7a90e271-70fa-481a-923c-b27a403d09ae},  ! Name
+  PSZ-AC:2_CoolC DXCoil,    ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {122306fe-c692-4937-916a-dd526f7118c3},  ! Name
+  PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2_HeatC,           ! Target Object
+  4;                        ! Inlet Port
+
+OS:Fan:ConstantVolume,
+  PSZ-AC:2_Fan,             ! Name
+  HVACOperationSchd,        ! Availability Schedule Name
+  0.53625,                  ! Fan Efficiency
+  622,                      ! Pressure Rise {Pa}
+  AutoSize,                 ! Maximum Flow Rate {m3/s}
+  0.82499999999999996,      ! Motor Efficiency
+  1,                        ! Motor In Airstream Fraction
+  {cae7c5ba-8ae7-4440-b6f0-3c172e9740cd},  ! Air Inlet Node Name
+  {dfc2f818-a221-473b-8a5b-b63d0375821e},  ! Air Outlet Node Name
+  Fan Energy;               ! End-Use Subcategory
+
+OS:Node,
+  PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  ! Name
+  {e266659a-6bfe-4251-95dd-dd371aae3c77},  ! Inlet Port
+  {cae7c5ba-8ae7-4440-b6f0-3c172e9740cd};  ! Outlet Port
+
+OS:Connection,
+  {e266659a-6bfe-4251-95dd-dd371aae3c77},  ! Name
+  PSZ-AC:2_HeatC,           ! Source Object
+  5,                        ! Outlet Port
+  PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {cae7c5ba-8ae7-4440-b6f0-3c172e9740cd},  ! Name
+  PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:2_Fan,             ! Target Object
+  7;                        ! Inlet Port
+
+OS:Connection,
+  {dfc2f818-a221-473b-8a5b-b63d0375821e},  ! Name
+  PSZ-AC:2_Fan,             ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:2 Supply Equipment Outlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:AirTerminal:SingleDuct:Uncontrolled,
+  Perimeter_ZN_1 Direct Air,  ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  {86775aa4-8fab-44d2-a03c-fa1ac32b568b},  ! Inlet Air Node Name
+  {c55375a7-afa6-4676-bea0-a23f647d89b3},  ! Zone Supply Air Node Name
+  AUTOSIZE;                 ! Maximum Air Flow Rate {m3/s}
+
+OS:ThermalZone,
+  Perimeter_ZN_1 Thermal Zone,  ! Name
+  1,                        ! Multiplier
+  ,                         ! Ceiling Height {m}
+  ,                         ! Volume {m3}
+  ,                         ! Floor Area {m2}
+  ,                         ! Zone Inside Convection Algorithm
+  ,                         ! Zone Outside Convection Algorithm
+  ,                         ! Zone Conditioning Equipment List Name
+  {71949637-733c-419e-81c0-99f5f4a273f6},  ! Zone Air Inlet Node or NodeList Name
+  {6d67a705-9953-4a08-8cd2-7150f829a057},  ! Zone Air Exhaust Node or NodeList Name
+  {64636cb0-a5e6-4451-a856-3774cf72961c},  ! Zone Air Node Name
+  {893f6688-0971-4cbc-8c2d-074365f9ca09},  ! Zone Return Air Node Name
+  ,                         ! Primary Daylighting Control Name
+  ,                         ! Fraction of Zone Controlled by Primary Daylighting Control
+  ,                         ! Secondary Daylighting Control Name
+  ,                         ! Fraction of Zone Controlled by Secondary Daylighting Control
+  ,                         ! Illuminance Map Name
+  ,                         ! Group Rendering Name
+  {e57d3b18-6361-41bf-a2de-20505efbdab9},  ! Thermostat Name
+  No;                       ! Use Ideal Air Loads
+
+OS:Node,
+  {762f0747-0c5f-40eb-946e-2a3f33ec9185},  ! Name
+  {64636cb0-a5e6-4451-a856-3774cf72961c},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {64636cb0-a5e6-4451-a856-3774cf72961c},  ! Name
+  Perimeter_ZN_1 Thermal Zone,  ! Source Object
+  10,                       ! Outlet Port
+  {762f0747-0c5f-40eb-946e-2a3f33ec9185},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Node,
+  {03d99a38-194d-48ef-ae0e-9eeb87271711},  ! Name
+  {6d67a705-9953-4a08-8cd2-7150f829a057},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {6d67a705-9953-4a08-8cd2-7150f829a057},  ! Name
+  Perimeter_ZN_1 Thermal Zone,  ! Source Object
+  9,                        ! Outlet Port
+  {03d99a38-194d-48ef-ae0e-9eeb87271711},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Sizing:Zone,
+  Perimeter_ZN_1 Thermal Zone,  ! Zone or ZoneList Name
+  14,                       ! Zone Cooling Design Supply Air Temperature {C}
+  40,                       ! Zone Heating Design Supply Air Temperature {C}
+  0.0085000000000000006,    ! Zone Cooling Design Supply Air Humidity Ratio {kg-H2O/kg-air}
+  0.0080000000000000002,    ! Zone Heating Design Supply Air Humidity Ratio {kg-H2O/kg-air}
+  ,                         ! Zone Heating Sizing Factor
+  ,                         ! Zone Cooling Sizing Factor
+  DesignDay,                ! Cooling Design Air Flow Method
+  ,                         ! Cooling Design Air Flow Rate {m3/s}
+  ,                         ! Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                         ! Cooling Minimum Air Flow {m3/s}
+  ,                         ! Cooling Minimum Air Flow Fraction
+  DesignDay,                ! Heating Design Air Flow Method
+  ,                         ! Heating Design Air Flow Rate {m3/s}
+  ,                         ! Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                         ! Heating Maximum Air Flow {m3/s}
+  ,                         ! Heating Maximum Air Flow Fraction
+  ,                         ! Design Zone Air Distribution Effectiveness in Cooling Mode
+  ;                         ! Design Zone Air Distribution Effectiveness in Heating Mode
+
+OS:Space,
+  Perimeter_ZN_1,           ! Name
+  ,                         ! Space Type Name
+  ,                         ! Default Construction Set Name
+  ,                         ! Default Schedule Set Name
+  0,                        ! Direction of Relative North {deg}
+  0,                        ! X Origin {m}
+  0,                        ! Y Origin {m}
+  0,                        ! Z Origin {m}
+  ,                         ! Building Story Name
+  Perimeter_ZN_1 Thermal Zone,  ! Thermal Zone Name
+  Yes,                      ! Part of Total Floor Area
+  SZ DSOA Perimeter_ZN_1;   ! Design Specification Outdoor Air Object Name
+
+OS:ThermostatSetpoint:DualSetpoint,
+  {e57d3b18-6361-41bf-a2de-20505efbdab9},  ! Name
+  HTGSETP_SCH,              ! Heating Setpoint Temperature Schedule Name
+  CLGSETP_SCH;              ! Cooling Setpoint Temperature Schedule Name
+
+OS:Node,
+  Perimeter_ZN_1 Inlet Nodes,  ! Name
+  {c55375a7-afa6-4676-bea0-a23f647d89b3},  ! Inlet Port
+  {71949637-733c-419e-81c0-99f5f4a273f6};  ! Outlet Port
+
+OS:Connection,
+  {71949637-733c-419e-81c0-99f5f4a273f6},  ! Name
+  Perimeter_ZN_1 Inlet Nodes,  ! Source Object
+  2,                        ! Outlet Port
+  Perimeter_ZN_1 Thermal Zone,  ! Target Object
+  8;                        ! Inlet Port
+
+OS:Node,
+  Perimeter_ZN_1 Return Air Node Name,  ! Name
+  {893f6688-0971-4cbc-8c2d-074365f9ca09},  ! Inlet Port
+  {c13dfd02-3b3b-4e90-96aa-1d67f9b330c4};  ! Outlet Port
+
+OS:Connection,
+  {893f6688-0971-4cbc-8c2d-074365f9ca09},  ! Name
+  Perimeter_ZN_1 Thermal Zone,  ! Source Object
+  11,                       ! Outlet Port
+  Perimeter_ZN_1 Return Air Node Name,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {c13dfd02-3b3b-4e90-96aa-1d67f9b330c4},  ! Name
+  Perimeter_ZN_1 Return Air Node Name,  ! Source Object
+  2,                        ! Outlet Port
+  {25aef737-eaaa-4525-add0-388295d0fd45},  ! Target Object
+  2;                        ! Inlet Port
+
+OS:Connection,
+  {86775aa4-8fab-44d2-a03c-fa1ac32b568b},  ! Name
+  {d7cef199-0da9-47ca-9ffe-590d1fa98068},  ! Source Object
+  2,                        ! Outlet Port
+  Perimeter_ZN_1 Direct Air,  ! Target Object
+  2;                        ! Inlet Port
+
+OS:Connection,
+  {c55375a7-afa6-4676-bea0-a23f647d89b3},  ! Name
+  Perimeter_ZN_1 Direct Air,  ! Source Object
+  3,                        ! Outlet Port
+  Perimeter_ZN_1 Inlet Nodes,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:AirLoopHVAC,
+  PSZ-AC:1,                 ! Name
+  ,                         ! Controller List Name
+  ,                         ! Availability Manager List Name
+  AUTOSIZE,                 ! Design Supply Air Flow Rate {m3/s}
+  ,                         ! Branch List Name
+  ,                         ! Connector List Name
+  {08406c10-9fe8-4b6c-b7c0-d9f6f17cf727},  ! Supply Side Inlet Node Name
+  {ece53c00-bc22-42c1-bda9-3ba7f6eff136},  ! Demand Side Outlet Node Name
+  {ac9d3856-52b3-4d61-9220-ac5cf7169caa},  ! Demand Side Inlet Node Names
+  {1078ca29-6e3a-4688-a3f6-c0547b485f92};  ! Supply Side Outlet Node Names
+
+OS:Node,
+  PSZ-AC:1 Supply Equipment Inlet Node,  ! Name
+  {08406c10-9fe8-4b6c-b7c0-d9f6f17cf727},  ! Inlet Port
+  {0c17fc31-6f3a-4d3d-b5c0-c5de5087adb7};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:1 Supply Equipment Outlet Node,  ! Name
+  {2e789df5-bf83-410a-8695-5d72114efaf4},  ! Inlet Port
+  {1078ca29-6e3a-4688-a3f6-c0547b485f92};  ! Outlet Port
+
+OS:Connection,
+  {08406c10-9fe8-4b6c-b7c0-d9f6f17cf727},  ! Name
+  PSZ-AC:1,                 ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:1 Supply Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {1078ca29-6e3a-4688-a3f6-c0547b485f92},  ! Name
+  PSZ-AC:1 Supply Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:1,                 ! Target Object
+  9;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:1 Zone Equipment Inlet Node,  ! Name
+  {ac9d3856-52b3-4d61-9220-ac5cf7169caa},  ! Inlet Port
+  {cca7c913-7689-4c88-ad5a-e66efb50c077};  ! Outlet Port
+
+OS:Node,
+  PSZ-AC:1 Zone Equipment Outlet Node,  ! Name
+  {3bb6c941-0a47-45b5-b060-e5f0bace69b1},  ! Inlet Port
+  {ece53c00-bc22-42c1-bda9-3ba7f6eff136};  ! Outlet Port
+
+OS:Connection,
+  {ac9d3856-52b3-4d61-9220-ac5cf7169caa},  ! Name
+  PSZ-AC:1,                 ! Source Object
+  8,                        ! Outlet Port
+  PSZ-AC:1 Zone Equipment Inlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {ece53c00-bc22-42c1-bda9-3ba7f6eff136},  ! Name
+  PSZ-AC:1 Zone Equipment Outlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:1,                 ! Target Object
+  7;                        ! Inlet Port
+
+OS:AirLoopHVAC:ZoneSplitter,
+  {facc21e5-a3fd-4fe2-ae0a-83ac7e12136d},  ! Name
+  {cca7c913-7689-4c88-ad5a-e66efb50c077},  ! Inlet Node Name
+  {6d640dd2-22ec-4d54-8571-60419eddf0e5};  ! Outlet Node Name 1
+
+OS:AirLoopHVAC:ZoneMixer,
+  {207716b5-6e5c-4e4e-978a-4413eb508b17},  ! Name
+  {3bb6c941-0a47-45b5-b060-e5f0bace69b1},  ! Outlet Node Name
+  {b9f7508c-80c1-4af9-90b6-135d0e56398d};  ! Inlet Node Name 1
+
+OS:Connection,
+  {cca7c913-7689-4c88-ad5a-e66efb50c077},  ! Name
+  PSZ-AC:1 Zone Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  {facc21e5-a3fd-4fe2-ae0a-83ac7e12136d},  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {3bb6c941-0a47-45b5-b060-e5f0bace69b1},  ! Name
+  {207716b5-6e5c-4e4e-978a-4413eb508b17},  ! Source Object
+  1,                        ! Outlet Port
+  PSZ-AC:1 Zone Equipment Outlet Node,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Sizing:System,
+  PSZ-AC:1,                 ! AirLoop Name
+  Sensible,                 ! Type of Load to Size On
+  Autosize,                 ! Design Outdoor Air Flow Rate {m3/s}
+  1,                        ! Minimum System Air Flow Ratio
+  7,                        ! Preheat Design Temperature {C}
+  0.0080000000000000002,    ! Preheat Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Precool Design Temperature {C}
+  0.0080000000000000002,    ! Precool Design Humidity Ratio {kg-H2O/kg-Air}
+  12.800000000000001,       ! Central Cooling Design Supply Air Temperature {C}
+  40,                       ! Central Heating Design Supply Air Temperature {C}
+  NonCoincident,            ! Sizing Option
+  No,                       ! 100% Outdoor Air in Cooling
+  No,                       ! 100% Outdoor Air in Heating
+  0.0085000000000000006,    ! Central Cooling Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  0.0080000000000000002,    ! Central Heating Design Supply Air Humidity Ratio {kg-H2O/kg-Air}
+  DesignDay,                ! Cooling Design Air Flow Method
+  0,                        ! Cooling Design Air Flow Rate {m3/s}
+  DesignDay,                ! Heating Design Air Flow Method
+  0,                        ! Heating Design Air Flow Rate {m3/s}
+  ZoneSum;                  ! System Outdoor Air Method
+
+OS:Controller:OutdoorAir,
+  PSZ-AC:1_OA_Controller,   ! Name
+  ,                         ! Relief Air Outlet Node Name
+  ,                         ! Return Air Node Name
+  ,                         ! Mixed Air Node Name
+  ,                         ! Actuator Node Name
+  Autosize,                 ! Minimum Outdoor Air Flow Rate {m3/s}
+  Autosize,                 ! Maximum Outdoor Air Flow Rate {m3/s}
+  NoEconomizer,             ! Economizer Control Type
+  ModulateFlow,             ! Economizer Control Action Type
+  -100,                     ! Economizer Maximum Limit Dry-Bulb Temperature {C}
+  64000,                    ! Economizer Maximum Limit Enthalpy {J/kg}
+  100,                      ! Economizer Maximum Limit Dewpoint Temperature {C}
+  ,                         ! Electronic Enthalpy Limit Curve Name
+  -100,                     ! Economizer Minimum Limit Dry-Bulb Temperature {C}
+  NoLockout,                ! Lockout Type
+  FixedMinimum,             ! Minimum Limit Type
+  ,                         ! Minimum Outdoor Air Schedule Name
+  ,                         ! Minimum Fraction of Outdoor Air Schedule Name
+  ,                         ! Maximum Fraction of Outdoor Air Schedule Name
+  ,                         ! Mechanical Ventilation Controller Name
+  ,                         ! Time of Day Economizer Control Schedule Name
+  ,                         ! High Humidity Control
+  ,                         ! Humidistat Control Zone Name
+  ,                         ! High Humidity Outdoor Air Flow Ratio
+  ,                         ! Control High Indoor Humidity Based on Outdoor Humidity Ratio
+  ;                         ! Heat Recovery Bypass Control Type
+
+OS:AirLoopHVAC:OutdoorAirSystem,
+  PSZ-AC:1_OA,              ! Name
+  PSZ-AC:1_OA_Controller,   ! Controller Name
+  ,                         ! Outdoor Air Equipment List Name
+  ,                         ! Availability Manager List Name
+  {7b5bd705-11c5-49fe-9d46-e24d39bd0729},  ! Mixed Air Node Name
+  {8158b8a0-4853-4fa1-9e12-da8a684cc929},  ! Outdoor Air Stream Node Name
+  {a39d1bfe-ff2a-4aee-b86a-8e01b8dcf4b5},  ! Relief Air Stream Node Name
+  {0c17fc31-6f3a-4d3d-b5c0-c5de5087adb7};  ! Return Air Stream Node Name
+
+OS:Node,
+  PSZ-AC:1_OAInlet Node,    ! Name
+  ,                         ! Inlet Port
+  {8158b8a0-4853-4fa1-9e12-da8a684cc929};  ! Outlet Port
+
+OS:Connection,
+  {8158b8a0-4853-4fa1-9e12-da8a684cc929},  ! Name
+  PSZ-AC:1_OAInlet Node,    ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:1_OA,              ! Target Object
+  5;                        ! Inlet Port
+
+OS:Node,
+  PSZ-AC:1_OARelief Node,   ! Name
+  {a39d1bfe-ff2a-4aee-b86a-8e01b8dcf4b5},  ! Inlet Port
+  ;                         ! Outlet Port
+
+OS:Connection,
+  {a39d1bfe-ff2a-4aee-b86a-8e01b8dcf4b5},  ! Name
+  PSZ-AC:1_OA,              ! Source Object
+  6,                        ! Outlet Port
+  PSZ-AC:1_OARelief Node,   ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connection,
+  {0c17fc31-6f3a-4d3d-b5c0-c5de5087adb7},  ! Name
+  PSZ-AC:1 Supply Equipment Inlet Node,  ! Source Object
+  2,                        ! Outlet Port
+  PSZ-AC:1_OA,              ! Target Object
+  7;                        ! Inlet Port
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 5,      ! Name
+  0.97121230000000003,      ! Coefficient1 Constant
+  -0.015275502,             ! Coefficient2 x
+  0.0014434524000000002,    ! Coefficient3 x**2
+  -0.00039321000000000001,  ! Coefficient4 y
+  -6.8363999999999986e-006,  ! Coefficient5 y**2
+  -0.00029059560000000003,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Biquadratic,
+  Curve:Biquadratic 6,      ! Name
+  0.28687132999999998,      ! Coefficient1 Constant
+  0.023902164,              ! Coefficient2 x
+  -0.00081064800000000008,  ! Coefficient3 x**2
+  0.013458546,              ! Coefficient4 y
+  0.0003389364,             ! Coefficient5 y**2
+  -0.00048700439999999995,  ! Coefficient6 x*y
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100,                      ! Maximum Value of x {BasedOnField A2}
+  -100,                     ! Minimum Value of y {BasedOnField A3}
+  100;                      ! Maximum Value of y {BasedOnField A3}
+
+OS:Curve:Cubic,
+  Curve:Cubic 5,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Cubic,
+  Curve:Cubic 6,            ! Name
+  1,                        ! Coefficient1 Constant
+  0,                        ! Coefficient2 x
+  0,                        ! Coefficient3 x**2
+  0,                        ! Coefficient4 x**3
+  -100,                     ! Minimum Value of x {BasedOnField A2}
+  100;                      ! Maximum Value of x {BasedOnField A2}
+
+OS:Curve:Quadratic,
+  Curve:Quadratic 3,        ! Name
+  0.90949555999999998,      ! Coefficient1 Constant
+  0.098647730000000003,     ! Coefficient2 x
+  -0.0081948799999999999,   ! Coefficient3 x**2
+  0,                        ! Minimum Value of x {BasedOnField A2}
+  1,                        ! Maximum Value of x {BasedOnField A2}
+  0.69999999999999996,      ! Minimum Curve Output {BasedOnField A3}
+  1;                        ! Maximum Curve Output {BasedOnField A3}
+
+OS:Coil:Cooling:DX:SingleSpeed,
+  PSZ-AC:1_CoolC DXCoil,    ! Name
+  ALWAYS_ON,                ! Availability Schedule Name
+  Autosize,                 ! Rated Total Cooling Capacity {W}
+  Autosize,                 ! Rated Sensible Heat Ratio
+  3.66668442928701,         ! Rated COP {W/W}
+  Autosize,                 ! Rated Air Flow Rate {m3/s}
+  773.29999999999995,       ! Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+  {0b7f06d6-c5c2-4065-9290-d941b4b333ab},  ! Air Inlet Node Name
+  {248a65df-ac2f-4d17-8d6a-7a5f7fd59a9c},  ! Air Outlet Node Name
+  Curve:Biquadratic 5,      ! Total Cooling Capacity Function of Temperature Curve Name
+  Curve:Cubic 5,            ! Total Cooling Capacity Function of Flow Fraction Curve Name
+  Curve:Biquadratic 6,      ! Energy Input Ratio Function of Temperature Curve Name
+  Curve:Cubic 6,            ! Energy Input Ratio Function of Flow Fraction Curve Name
+  Curve:Quadratic 3,        ! Part Load Fraction Correlation Curve Name
+  ,                         ! Nominal Time for Condensate Removal to Begin {s}
+  ,                         ! Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
+  ,                         ! Maximum Cycling Rate {cycles/hr}
+  ,                         ! Latent Capacity Time Constant {s}
+  ,                         ! Condenser Air Inlet Node Name
+  AirCooled,                ! Condenser Type
+  0,                        ! Evaporative Condenser Effectiveness {dimensionless}
+  Autosize,                 ! Evaporative Condenser Air Flow Rate {m3/s}
+  Autosize,                 ! Evaporative Condenser Pump Rated Power Consumption {W}
+  0,                        ! Crankcase Heater Capacity {W}
+  0,                        ! Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
+  ,                         ! Supply Water Storage Tank Name
+  ,                         ! Condensate Collection Water Storage Tank Name
+  0,                        ! Basin Heater Capacity {W/K}
+  10,                       ! Basin Heater Setpoint Temperature {C}
+  ;                         ! Basin Heater Operating Schedule Name
+
+OS:Node,
+  PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  ! Name
+  {7b5bd705-11c5-49fe-9d46-e24d39bd0729},  ! Inlet Port
+  {0b7f06d6-c5c2-4065-9290-d941b4b333ab};  ! Outlet Port
+
+OS:Connection,
+  {7b5bd705-11c5-49fe-9d46-e24d39bd0729},  ! Name
+  PSZ-AC:1_OA,              ! Source Object
+  4,                        ! Outlet Port
+  PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  ! Target Object
+  1;                        ! Inlet Port
+
+OS:Connectio

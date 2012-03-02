@@ -15,17 +15,11 @@ set :app_server, :passenger
 
 default_run_options[:pty] = true  #needed because of the no tty for sudo
 
-#e-watts DEV server (running in production mode)
-role :web, "e-watts.nrel.gov"                          # Your HTTP server, Apache/etc
-role :app, "e-watts.nrel.gov"                          # This may be the same as your `Web` server
-role :db,  "e-watts.nrel.gov", :primary => true        # This is where Rails migrations will run
-role :db,  "e-watts.nrel.gov"
-
-#rorsrv PROD server
-#role :web, "rorsrv-prod-01.nrel.gov"                          # Your HTTP server, Apache/etc
-#role :app, "rorsrv-prod-01.nrel.gov"                          # This may be the same as your `Web` server
-#role :db,  "rorsrv-prod-01.nrel.gov", :primary => true # This is where Rails migrations will run
-#role :db,  "rorsrv-prod-01.nrel.gov"
+#rordev test server (ip = 10.10.40.43)
+role :web, "10.10.40.43"                          # Your HTTP server, Apache/etc
+role :app, "10.10.40.43"                          # This may be the same as your `Web` server
+role :db,  "10.10.40.43", :primary => true        # This is where Rails migrations will run
+role :db,  "10.10.40.43"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -38,7 +32,12 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
   
+  # Set permissions that need write privileges by apache
   system("#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/")
+  system("#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/")
+  system("#{try_sudo} chgrp apache #{Rails.root}/public/images/R/")
+  system("#{try_sudo} chmod g+w #{Rails.root}/public/images/R/")
+  
 end
 
 namespace :rake do

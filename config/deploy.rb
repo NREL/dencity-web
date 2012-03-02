@@ -30,14 +30,17 @@ namespace :deploy do
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    
+    # Set permissions that need write privileges by apache
+    run "#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/"
+    run "#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/"
+    run "#{try_sudo} chgrp apache #{Rails.root}/public/images/R/"
+    run "#{try_sudo} chmod g+w #{Rails.root}/public/images/R/"
   end
   
-  # Set permissions that need write privileges by apache
-  system("#{try_sudo} chgrp apache #{Rails.root}/public/tmpdata/")
-  system("#{try_sudo} chmod g+w #{Rails.root}/public/tmpdata/")
-  system("#{try_sudo} chgrp apache #{Rails.root}/public/images/R/")
-  system("#{try_sudo} chmod g+w #{Rails.root}/public/images/R/")
   
+  
+
 end
 
 namespace :rake do

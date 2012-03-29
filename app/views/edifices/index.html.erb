@@ -1,6 +1,16 @@
 <h1>Simulated Buildings</h1>
 <br/><br/>
 
+<div id="search-box">
+<%= form_tag({}, {:method => :get}) do %>
+
+    <%= label_tag('uuid', 'Search for a building by UUID: ') %>
+    <%= text_field_tag('uuid', @uuid, :maxlength => 50) %>
+    <%= submit_tag('Search') %>
+
+<% end %>
+</div>
+
 <div class="digg_pagination">
   <%= paginate @edifices %>
 </div>

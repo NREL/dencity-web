@@ -7,7 +7,7 @@ gem 'cancan'
 
 gem 'rserve-simpler'
 gem 'orderedhash'
-gem 'rmagick' #needs libmagick9-dev and imagemagick on syste
+gem 'rmagick' #needs libmagick9-dev and imagemagick on system
 
 # Gems for mongo access
 gem 'mongoid', "2.2.4"

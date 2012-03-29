@@ -31,7 +31,7 @@
     <div id="top-subheader-bem">
       <div id="top-login-bem">
       <% if user_signed_in? %>
-        <p class="top-text-bem">Welcome <%=link_to current_user.email, edit_user_registration_path %> | <%= link_to "Sign out", logout_path %></p>
+        <p class="top-text-bem"><%=link_to current_user.email, edit_user_registration_path %> | <%= link_to "Sign out", logout_path %></p>
       <% else %>        
         <p class="top-text-bem">Welcome Guest! &nbsp;&nbsp;  <%= link_to "Register", register_path %> | <%= link_to "Log in", login_path %></p>
       <% end %>

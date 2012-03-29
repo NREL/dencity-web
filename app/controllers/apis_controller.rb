@@ -8,13 +8,98 @@ class ApisController < ApplicationController
   
   #####***********API Version 1*************#####
   
+  #PUT /api/v1/update_building.xml
+  def update_building_v1
+    thefile = nil
+    xml_contents = nil    
+    
+    #get file and read it in (expecting file parameter named :xmlfile)
+    if params[:xmlfile]
+      thefile = params[:xmlfile]
+      if thefile.respond_to?(:read)
+        xml_contents = thefile.read
+      elsif thefile.respond_to?(:path)
+        xml_contents = File.read(thefile.path)
+      else
+        #assume it is straight xml
+        xml_contents = params[:xmlfile]
+      end
+    else
+      xml_contents = request.raw_post
+    end
+    
+    if !xml_contents.blank?
+          
+      #set error code to 411
+      error_code = :length_required
+
+      #now parse the file
+      data = Crack::XML.parse(xml_contents)   
+      
+      #see if building already exists (by UUID), return 406 if can't find UUID in xml
+      the_uuid = get_uuid_from_xml_v1(data)
+      if the_uuid == -1
+        error_code = :not_acceptable
+      else
+
+        if !Edifice.where(:uuid => the_uuid).exists?
+          #building doesn't exists, return 409
+          error_code = :conflict          
+        else
+          #for now create a random building name (added random number at the end to make sure it's unique)
+          bld = Edifice.where(:uuid => the_uuid).first
+          thetime = Time.now
+          #KAF:not checking that this is the same userID that submitted the building
+          #bld.user_id = current_user.id
+          bld.updated_at = thetime
+        
+          #create descriptors and values
+          bld.process_descriptor_data_v1(data)
+          
+          #extract lat/lng and store as coordinates
+          bld.get_coordinates_v1()
+          
+          if bld.save
+            error_code = :created
+          else
+            error_code = :not_acceptable
+          end
+   
+        end 
+      end
+    else
+      #blank parameters, set to error code 411
+      error_code = :length_required
+    end   
+
+    respond_to do |format|
+      #display differently based on error_code
+      if error_code == :created  #201
+        format.xml { render :xml => 'SUCCESS: The building was updated.', :status => error_code}
+      elsif error_code == :length_required   #411
+        format.xml { render :xml => 'ERROR: The request is missing parameters or parameters are blank.', :status => error_code}
+      elsif error_code == :not_acceptable  #406
+        format.xml { render :xml => 'ERROR: Cannot find unique identifier (UUID) in xml file.', :status => error_code}
+      elsif error_code == :conflict #409
+        format.xml {render :xml => 'ERROR:  A building with this UUID does not exist in the database.  To create a new building, use the submit_building POST action.', :status => error_code}
+      elsif error_code == :bad_request #400
+        format.xml {render :xml => 'ERROR:  Unknown Error.', :status => error_code}
+      end  
+    end        
+    
+  end
+  
+  
+  
   #POST /api/v1/submit_building.xml
   def submit_building_v1
-    @edifice = 1
+
     thefile = nil
     xml_contents = nil
     inputfile = nil
     inputfile_contents = nil
+    #default error_code is 400 : bad_request
+    error_code = :bad_request
 
     #get file and read it in (expecting file parameter named :xmlfile)
     if params[:xmlfile]
@@ -30,8 +115,9 @@ class ApisController < ApplicationController
     else
       xml_contents = request.raw_post
     end
-
+    
     if !xml_contents.blank?
+      
       #if params[:inputfile]
       #  inputfile = params[:inputfile]
       #  if inputfile.respond_to?(:read)
@@ -42,59 +128,73 @@ class ApisController < ApplicationController
       #    #assume that is is IDF?????
       #    inputfile_contents = params[inputfile]
       #  end
-      #end
+      #end      
       
-      logger.error("the file is: #{thefile}")    
-      puts "xml contents are: #{xml_contents}"
-      logger.error("xml contents are: #{xml_contents}")
+      #set error code to 411
+      error_code = :length_required
+      
+      #logger.error("the file is: #{thefile}")    
+      #logger.error("xml contents are: #{xml_contents}")
       
       #logger.error("the input file is: #{inputfile}")    
       #logger.error("input file contents are: #{inputfile_contents}")
       
       #now parse the file
-      #KAF: check on this, but is max 4-levels of nesting?
       data = Crack::XML.parse(xml_contents)   
-      logger.error("the parsed contents are: #{data.inspect}")
-  
-      #initialize some variables to do the parsing
-      valuetype2 = nil
-      units2 = nil
-      value2 = nil
-      name2 = nil
-  
-      #for now create a random building name
-      thetime = Time.now
-      thename = "Building" + thetime.strftime("%Y%m%d-%H%M%S")
-      #logger.info("the name is: #{thename}")
-      bld = Edifice.find_or_create_by(:unique_name => thename)
-      bld.user_id = current_user.id
-      bld.created_at = thetime
-    
-      #create descriptors and values
-      bld.process_descriptor_data_v1(data)
+      #logger.error("the parsed contents are: #{data.inspect}")
       
-      #extract lat/lng and store as coordinates
-      bld.get_coordinates_v1()
-      
-      #TODO: put in a check here in case the bld gets saved without any attributes (in case the xml is badly formulated or something)
-      
-      # Strip off the input payload and save into the database (as a zip????)
-      #bld.file_osm = inputfile_contents
-    end   
- 
-    respond_to do |format|
-      if !xml_contents.blank?
-        if bld.save
-          format.html { redirect_to(@edifice, :notice => 'Building was successfully created.') }
-          format.xml  { render :xml => 'The building was successfully uploaded.', :status => :created}
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @edifice.errors, :status => :unprocessable_entity }
-        end
+      #see if building already exists (by UUID), return 406 if can't find UUID in xml
+      the_uuid = get_uuid_from_xml_v1(data)
+      if the_uuid == -1
+        error_code = :not_acceptable
       else
-          format.html { render :action => "new"}
-          format.xml  { render :xml => 'No data sent to API', :status => :unprocessable_entity }
+
+        if Edifice.where(:uuid => the_uuid).exists?
+          #building already exists, return 409
+          error_code = :conflict          
+        else
+          #for now create a random building name (added random number at the end to make sure it's unique)
+          thetime = Time.now
+          thename = "Building" + thetime.strftime("%Y%m%d-%H%M%S") + "-#{rand(1000)}"
+          bld = Edifice.find_or_create_by(:uuid => the_uuid)
+          bld.unique_name = thename
+          bld.user_id = current_user.id
+          bld.created_at = thetime
+        
+          #create descriptors and values
+          bld.process_descriptor_data_v1(data)
+          
+          #extract lat/lng and store as coordinates
+          bld.get_coordinates_v1()
+          
+          if bld.save
+            error_code = :created
+          else
+            error_code = :not_acceptable
+          end
+          
+          # Strip off the input payload and save into the database (as a zip????)
+          #bld.file_osm = inputfile_contents      
+        end 
       end
+    else
+      #blank parameters, set to error code 411
+      error_code = :length_required
+    end   
+
+    respond_to do |format|
+      #display differently based on error_code
+      if error_code == :created  #201
+        format.xml { render :xml => 'SUCCESS: The building was uploaded.', :status => error_code}
+      elsif error_code == :length_required   #411
+        format.xml { render :xml => 'ERROR: The request is missing parameters or parameters are blank.', :status => error_code}
+      elsif error_code == :not_acceptable  #406
+        format.xml { render :xml => 'ERROR: Cannot find unique identifier (UUID) in xml file.', :status => error_code}
+      elsif error_code == :conflict #409
+        format.xml {render :xml => 'ERROR:  A building with this UUID already exists in the database.  To update, use the PUT action.', :status => error_code}
+      elsif error_code == :bad_request #400
+        format.xml {render :xml => 'ERROR:  Unknown Error.', :status => error_code}
+      end  
     end
   end
   
@@ -127,7 +227,7 @@ class ApisController < ApplicationController
   end
 
 
-  #POST /api/v1/retrieve_building.xml
+  #GET /api/v1/retrieve_building.xml
   def retrieve_building_v1
     
     #look at params hash for a descriptor and a value
@@ -182,8 +282,7 @@ class ApisController < ApplicationController
     end
   end
   
-  #POST /api/v1/get_descriptors.xml
-  
+  #GET /api/v1/get_descriptors.xml  
   def list_descriptors_v1
     
     descriptors = Descriptor.find(:all)
@@ -193,5 +292,30 @@ class ApisController < ApplicationController
     end
     
   end
-
+  
+  private
+  
+  def get_uuid_from_xml_v1(data)
+  
+    retval = -1
+    thekeys = data.keys
+    
+    thekeys.each do |key1|
+      if key1 == "Attribute"
+        #get inner data and process
+        innerdata = data[key1]      
+        keys2 = innerdata.keys
+        #if 1st pass, store UUID
+        name2 = keys2.include?("Name") ? data[key1]['Name'] : nil
+        if name2 == 'Report'
+          if keys2.include?("UUID")
+            retval =  data[key1]['UUID']
+          end
+        end
+      end
+    end
+    return retval
+    
+  end
 end
+

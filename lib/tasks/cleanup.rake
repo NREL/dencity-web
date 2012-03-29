@@ -38,3 +38,18 @@ task :delete_tmpdata => :environment do
   end
 
 end
+
+desc 'fix exponent problem for tdv and tdv intensity'
+task :fix_exponents => :environment do
+
+  edies = Edifice.find(:all)
+  edies.each do |edi|
+    if !edi['time_dependent_valuation'].nil?
+      edi['time_dependent_valuation'] = edi['time_dependent_valuation'].gsub('e ', 'e+')
+    end
+    if !edi['time_dependent_valuation_intensity'].nil?
+      edi['time_dependent_valuation_intensity'] = edi['time_dependent_valuation_intensity'].gsub('e ', 'e+')
+    end
+    edi.save
+  end      
+end

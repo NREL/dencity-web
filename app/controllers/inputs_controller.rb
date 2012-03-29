@@ -70,6 +70,11 @@ class InputsController < ApplicationController
     @input.save
     
     #use R to do statistics
+    #KAF:  had to do this in R to start rserve:
+      #library(Rserve)
+      #Rserve()
+    
+    
     @r = Rserve::Simpler.new
     #on first run make sure that you can have the web app write to
     #'lib = "/usr/local/lib/R/site-library"' ... one option is to run

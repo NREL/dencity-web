@@ -15,6 +15,8 @@
 #input-form .left {float:left; width:49%;}
 #input-form .right {float:right; width:49%;}
 
+#search-box {padding:10px 0 20px 0; font-weight:bold;}
+
 /*RAILS styles */
 pre {
   background-color: #eee;

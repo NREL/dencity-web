@@ -23,9 +23,10 @@ Bemscape::Application.routes.draw do
   
   resources :apis do
     post :submit_building_v1
-    post :retrieve_building_v1
-    post :list_descriptors_v1
+    get :retrieve_building_v1
+    get :list_descriptors_v1
     post :submit_preprocessor_v1
+    put :update_building_v1
   end
   
   root :to => 'edifices#home'
@@ -36,11 +37,13 @@ Bemscape::Application.routes.draw do
   match "/api/submit_building" => "apis#submit_building_v1"
   match "/api/retrieve_building" => "apis#retrieve_building_v1"
   match "/api/list_descriptors" => "apis#list_descriptors_v1"
+  match "/api/update_building" => "apis#update_building_v1"
   
   #API - version1
   match "/api/v1/submit_building" => "apis#submit_building_v1"
   match "/api/v1/retrieve_building" => "apis#retrieve_building_v1"
   match "/api/v1/list_descriptors" => "apis#list_descriptors_v1"
+  match "/api/v1/update_building" => "apis#update_building_v1"
   
   #API - preprocessor
   match "/api/preprocessor/submit" => "apis#submit_preprocessor_v1"

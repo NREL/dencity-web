@@ -15,16 +15,22 @@ class EdificesController < ApplicationController
   # GET /edifices
   # GET /edifices.xml 
   def index
-    
+       
     if params[:page].nil?
       @page = 1
     else
       @page = params[:page] 
     end
-    
     @per = 50
+    @uuid = ''
     
-    @edifices = Edifice.order_by("created_at", :desc).page(@page).per(@per)
+    if params[:uuid] and !params[:uuid].blank?
+      @uuid = params[:uuid]  
+      #only retrieve matching building
+      @edifices = Edifice.where("uuid" => @uuid).page(1)
+    else
+      @edifices = Edifice.order_by("created_at", :desc).page(@page).per(@per)
+    end
     
     respond_to do |format|
       format.html # index.html.erb

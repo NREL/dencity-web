@@ -41,14 +41,8 @@ namespace :deploy do
     run "#{try_sudo} chmod g+w #{latest_release}/public/images/R/"
   end
   
-  
-  
-
 end
 
-namespace :rake do
-  task :download_data do
-
-  end
-end
+#namespace :rake do
+#end
 

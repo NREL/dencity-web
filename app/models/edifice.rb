@@ -17,6 +17,7 @@ class Edifice
   
   # Indexes
   index :uuid, :unique => true
+  index :created_at
   
   reverse_geocoded_by     :coordinates
   

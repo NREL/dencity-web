@@ -35,7 +35,7 @@ task :add_uuids => :environment do
   edis = Edifice.find(:all)
   edis.each do |edi|
     if edi[:uuid].nil?
-      puts "uuid is nil for building #{edi._id}"
+      #puts "uuid is nil for building #{edi._id}"
       edi[:uuid] = edi.unique_name
       edi.save
     end

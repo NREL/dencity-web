@@ -30,6 +30,15 @@ task :get_coordinates => :environment do
 
 end
 
+desc 'backfill data: hardcode missing lat/lng/coords'
+task :add_missing_coordinates => :environment do
+  edies = Edifice.find(:all)
+  edies.each do |edi|
+    edi.add_missing_coordinates_v1()
+  end
+end
+
+
 desc 'add uuids to older records that do not have them'
 task :add_uuids => :environment do
   edis = Edifice.find(:all)

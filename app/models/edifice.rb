@@ -116,6 +116,30 @@ class Edifice
       end
     end
   end
+  
+  #this is probably not needed anymore: backfilling old data missing lat/lng
+  def add_missing_coordinates_v1()
+    #only do this if coordinates are nil
+    if self.coordinates.nil? or self.coordinates.blank?
+      #do we have latitude and longitude?
+      if !self["latitude"].nil? and !self["longitude"].nil?
+        lat = self["latitude"].to_f
+        lng = self["longitude"].to_f
+        #THIS IS HOW MONGO STORES IT:  LNG, LAT  (backwards)
+        self.coordinates = [lng, lat]
+        self.save
+      else
+        #rig it
+        puts "missing coords: #{self._id}"
+        self["latitude"] = 33.92
+        self["longitude"] = -118.4
+        lat = self["latitude"].to_f
+        lng = self["longitude"].to_f
+        self.coordinates = [lng, lat]
+        self.save
+      end
+    end
+  end
     
   def process_descriptor_data_v1(data, nested_name=nil)
     #takes a snippet of xml-parsed data, in hash / array format

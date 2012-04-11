@@ -15,10 +15,10 @@ class Edifice
   field :updated_at,          :type => Time
   attachment :file_osm
   
-  reverse_geocoded_by     :coordinates
-  
   # Indexes
   index :uuid, :unique => true
+  
+  reverse_geocoded_by     :coordinates
   
   # Relationships
   referenced_in :descriptor

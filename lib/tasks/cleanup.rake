@@ -30,6 +30,18 @@ task :get_coordinates => :environment do
 
 end
 
+desc 'add uuids to older records that do not have them'
+task :add_uuids => :environment do
+  edis = Edifice.find(:all)
+  edis.each do |edi|
+    if edi[:uuid].nil?
+      puts "uuid is nil for building #{edi._id}"
+      edi[:uuid] = edi.unique_name
+      edi.save
+    end
+  end
+end
+
 desc 'delete tmp files in /public/tmpdata'
 task :delete_tmpdata => :environment do
   

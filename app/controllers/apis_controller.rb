@@ -215,8 +215,8 @@ class ApisController < ApplicationController
       end
     end
     
-    logger.info("the file is: #{thefile}")    
-    logger.info("xml contents are: #{xml_contents}")
+    #logger.info("the file is: #{thefile}")    
+    #logger.info("xml contents are: #{xml_contents}")
     
     # persist off and preprocess
     

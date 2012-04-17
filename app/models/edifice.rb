@@ -80,7 +80,7 @@ class Edifice
     
     #create/update descriptor 
     descriptor = Descriptor.find_or_create_by(:name => newname)
-    logger.info("created descriptor #{descriptor._id}")
+    #logger.info("created descriptor #{descriptor._id}")
    
     if !descriptor.units.nil?
       #TODO compare units and convert if necessary

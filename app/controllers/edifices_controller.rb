@@ -127,7 +127,7 @@ class EdificesController < ApplicationController
       edis = Edifice.near(loc, 50)
       
       edis.each do |edi|
-        puts "*************************** #{edi}"
+        #puts "*************************** #{edi}"
         @debug += edi.inspect + "\n\n\n\n"
       end
       
@@ -193,7 +193,7 @@ class EdificesController < ApplicationController
   def download
     ed = Edifice.find(:first)
     @file ="#{RAILS_ROOT}/public/tmpdata/#{params[:file]}"
-    logger.info(@file)
+    #logger.info(@file)
     #try send_data here
     #send_file(@file, :disposition => 'attachment', :type => 'text/csv')
     send_data(@file, :disposition => 'attachment', :type => 'text/csv', :filename => 'bemscape_data.csv')

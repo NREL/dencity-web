@@ -1,4 +1,6 @@
 require 'mongoid_grid'
+require 'lib/overloads/float.rb'
+require 'lib/overloads/string.rb'
 
 class Edifice
   include Mongoid::Document
@@ -168,6 +170,13 @@ class Edifice
           
           #get attributes
           value2 = keys2.include?("Value") ? data[key1]['Value'] : nil
+          if !value2.nil?
+            newval = value2.to_s.to_value
+            if newval.class != String
+              value2 = newval
+            end
+          end
+            
           name2 = keys2.include?("Name") ? data[key1]['Name'] : nil
           name2 = keys2.include?("DisplayName") ? data[key1]['DisplayName'] : name2
           
@@ -206,6 +215,13 @@ class Edifice
             
             #get attributes
             value2 = keys2.include?("Value") ? d['Value'] : nil
+            if !value2.nil?
+              newval = value2.to_s.to_value
+              if newval.class != String
+                value2 = newval
+              end
+            end
+            
             name2 = keys2.include?("Name") ? d['Name'] : nil
             #append name to nested_name to keep path (underscore separated)
             if !nested_name.nil? and nested_name != 'Report'

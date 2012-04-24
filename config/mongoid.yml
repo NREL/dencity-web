@@ -9,7 +9,8 @@
 development:
   identity_map_enabled: true
   host: localhost
-  database: bemscape_development
+  port: 27017
+  database: bemscape_test
 
 test:
   host: localhost

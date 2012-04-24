@@ -1,3 +1,5 @@
+require 'lib/overloads/float.rb'
+require 'lib/overloads/string.rb'
 
 desc 'add created_at time to edifices'
 task :add_created_time => :environment do
@@ -73,4 +75,36 @@ task :fix_exponents => :environment do
     end
     edi.save
   end      
+end
+
+desc 'go through all the edifices and make the data strongly typed'
+task :type_data => :environment do
+  cnt = 0
+  edis = Edifice.find(:all)
+  edis.each do |edi|
+    cnt += 1
+    puts "... #{cnt} ..." if cnt % 1000 == 0
+    edi.attributes.each do |att|
+      if att.size == 2
+        newval = att[1].to_s.to_value
+        if newval.class != String
+          edi[att[0]] = newval
+        end
+      end
+    end
+  
+    edi.descriptor_values.each do |dv|
+      dv.attributes.each do |att|
+        if att.size ==2
+          #puts att[0]
+          newval = att[1].to_s.to_value
+          if newval.class != String
+            dv[att[0]] = newval
+          end
+        end
+      end
+      dv.save
+    end
+    edi.save
+  end
 end

@@ -42,7 +42,7 @@ class EdificesController < ApplicationController
   # GET /edifices/1.xml
   def show
     @edifice = Edifice.find(params[:id])
-    @descriptors = Descriptor.find(:all)
+    @descriptors = Descriptor.find(:all, :sort => [[:name, :asc]])
 
     respond_to do |format|
       format.html # show.html.erb

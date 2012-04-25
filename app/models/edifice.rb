@@ -6,7 +6,6 @@ class Edifice
   include Mongoid::Document
   include Mongoid::Grid  
   include Geocoder::Model::Mongoid
-
   
   field :unique_name,         :type => String
   field :coordinates,         :type => Array
@@ -20,6 +19,12 @@ class Edifice
   # Indexes
   index :uuid, :unique => true
   index :created_at
+  index :problem_uuid
+  index :seed_uuid
+  index "descriptor_values.descriptor_id"
+  index "descriptor_values.value"
+  
+  index :floor_area
   
   reverse_geocoded_by     :coordinates
   

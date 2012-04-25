@@ -81,11 +81,14 @@ desc 'go through all the edifices and make the data strongly typed'
 task :type_data => :environment do
   cnt = 0
   edis = Edifice.find(:all)
-  edis.each do |edi|
+  edi = Edifice.where(:uuid => "{d2a52d39-573f-4d9f-995b-de1f4123c09d}").first
+  
+ # edis.each do |edi|
     cnt += 1
     puts "... #{cnt} ..." if cnt % 1000 == 0
     edi.attributes.each do |att|
       if att.size == 2
+        puts att[0]
         newval = att[1].to_s.to_value
         if newval.class != String
           edi[att[0]] = newval
@@ -95,8 +98,8 @@ task :type_data => :environment do
   
     edi.descriptor_values.each do |dv|
       dv.attributes.each do |att|
-        if att.size ==2
-          #puts att[0]
+        if att.size == 2
+          puts att[0]
           newval = att[1].to_s.to_value
           if newval.class != String
             dv[att[0]] = newval
@@ -106,5 +109,5 @@ task :type_data => :environment do
       dv.save
     end
     edi.save
-  end
+  #end
 end

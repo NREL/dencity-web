@@ -14,7 +14,7 @@
 <% @descriptors.each do |d| %>
 
   <% if !@edifice[d.name].nil? %>
-    <p> <b><%= d.name %>: </b> <%= @edifice[d.name] %> </p>
+    <p> <b><%= d.name %>: </b> <%= @edifice[d.name] %>  <%= @edifice[d.name].class %> </p>
   <% end %>
 
 <% end %>

@@ -24,8 +24,9 @@ production:
 #  username: <%= ENV['MONGO_BEMSCAPE_USERNAME'] %>
 #  password: <%= ENV['MONGO_BEMSCAPE_PASSWORD'] %>
   database: bemscape_test
-  # slaves:
-  #   - host: slave1.local  
-  #     port: 27018
-  #   - host: slave2.local
-  #     port: 27019
+  hosts:
+    - - devmongo1-2.development.nrel.gov
+      - 27017
+    - - devmongo1-3.development.nrel.gov
+      - 27017
+  read_secondary: true

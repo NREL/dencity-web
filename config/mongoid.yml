@@ -8,10 +8,16 @@
 #
 development:
   identity_map_enabled: true
-  host: localhost
-  port: 27017
   database: bemscape_test
-
+  host: zerodev-128488.nrel.gov
+  port: 27018
+  #replica_set:
+  #  host: zerodev-128488.nrel.gov:27019
+  #  host: zerodev-128488.nrel.gov:27020
+  ##  - - zerodev-128488.nrel.gov
+  ##    - 27020
+  #read_secondary: true
+  #
 test:
   host: localhost
   database: bemscape_test
@@ -24,9 +30,9 @@ production:
 #  username: <%= ENV['MONGO_BEMSCAPE_USERNAME'] %>
 #  password: <%= ENV['MONGO_BEMSCAPE_PASSWORD'] %>
   database: bemscape_test
-  hosts:
-    - - devmongo1-2.development.nrel.gov
-      - 27017
-    - - devmongo1-3.development.nrel.gov
-      - 27017
-  read_secondary: true
+  #hosts:
+  #  - - devmongo1-2.development.nrel.gov
+  #    - 27017
+  #  - - devmongo1-3.development.nrel.gov
+  #    - 27017
+  #read_secondary: true

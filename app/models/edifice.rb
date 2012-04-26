@@ -21,6 +21,8 @@ class Edifice
   index :created_at
   index :problem_uuid
   index :seed_uuid
+  index :number_of_floors
+  index :dx_cooling_coil_rated_cop
   index "descriptor_values.descriptor_id"
   index "descriptor_values.value"
   

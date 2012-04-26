@@ -3,7 +3,8 @@
 <table>
   <tr>
     <th>Input</th>
-    <th>Timestamp</th>
+    <th>Created Timestamp</th>
+    <th>Updated Timestamp</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +14,7 @@
   <tr>
     <td><%= index %>. <%= input._id %></td>
     <td><%= input[:created_at] %></td>
+    <td><%= input[:updated_at] %></td>
     <td><%= link_to 'Show', input %></td>
     <td><%= link_to 'Edit', edit_input_path(input) %></td>
     <td><%= link_to 'Destroy', input, :confirm => 'Are you sure?', :method => :delete %></td>

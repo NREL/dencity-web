@@ -11,12 +11,13 @@ development:
   database: bemscape_test
   host: zerodev-128488.nrel.gov
   port: 27018
-  #replica_set:
-  #  host: zerodev-128488.nrel.gov:27019
-  #  host: zerodev-128488.nrel.gov:27020
-  ##  - - zerodev-128488.nrel.gov
-  ##    - 27020
-  #read_secondary: true
+  slaves:
+    - host: zerodev-128488.nrel.gov
+      port: 27019
+    - host: zerodev-128488.nrel.gov
+      port: 27020
+    
+  read_secondary: true
   #
 test:
   host: localhost
@@ -35,4 +36,4 @@ production:
       port: 27017
     - host: devmongo1-3.development.nrel.gov
       port: 27017
-  #read_secondary: true
+  read_secondary: true

@@ -4,6 +4,7 @@ require 'lib/overloads/string.rb'
 
 class Edifice
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::Grid  
   include Geocoder::Model::Mongoid
   
@@ -12,13 +13,14 @@ class Edifice
   field :uuid,                :type => String
   field :weather_coordinates, :type => Array
   field :address
-  field :created_at,          :type => Time
-  field :updated_at,          :type => Time
+  #field :created_at,          :type => Time
+  #field :updated_at,          :type => Time
   attachment :file_osm
   
   # Indexes
   index :uuid, :unique => true
   index :created_at
+  index :updated_at
   index :problem_uuid
   index :seed_uuid
   index :number_of_floors

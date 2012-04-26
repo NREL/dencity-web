@@ -29,7 +29,7 @@ class EdificesController < ApplicationController
       #only retrieve matching building
       @edifices = Edifice.where("uuid" => @uuid).page(1)
     else
-      @edifices = Edifice.order_by("created_at", :desc).page(@page).per(@per)
+      @edifices = Edifice.order_by("updated_at", :desc).page(@page).per(@per)
     end
     
     respond_to do |format|

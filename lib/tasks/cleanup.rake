@@ -80,9 +80,9 @@ end
 desc 'go through all the edifices and make the data strongly typed'
 task :type_data => :environment do
   cnt = 0
-  edis = Edifice.find(:all)
+  edis = Edifice.where({ 'processed_type_data' => {'$ne' => true } })
   #edi = Edifice.where(:uuid => "{d2a52d39-573f-4d9f-995b-de1f4123c09d}").first
-  
+  puts edis.size
   edis.each do |edi|
     cnt += 1
     puts "... #{cnt} ..." if cnt % 1000 == 0
@@ -108,6 +108,8 @@ task :type_data => :environment do
       end
       dv.save
     end
+    
+    edi["processed_type_data"] = true
     edi.save
   end
 end

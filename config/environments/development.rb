@@ -20,6 +20,13 @@ Bemscape::Application.configure do
   #KAF
   config.action_mailer.default_url_options = {:host => 'localhost:3000'}
 
+  # loggin
+  config.log_level = :error
+  # these two lines don't work with the 'old' version of mongoid... need to upgrade
+  #config.mongoid.logger = Logger.new(Rails.root.join("log/mongo.log"), 'weekly')
+  #config.mongoid.logger.level = :error
+
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 

@@ -32,8 +32,8 @@
   <tr>
     <td><%= cnt+index+1 %>. <%= link_to edifice.unique_name, edifice %></td>
     <td><% if !edifice[:user_id].nil? %><% theuser = User.find(edifice.user_id) %><%= theuser.email %><% end %></td>
-    <td> <% if !edifice.created_at.nil? %><%= edifice.created_at.strftime("%Y-%m-%d %H:%M") %><% end %></td>
-    <td> <% if !edifice.updated_at.nil? %><%= edifice.updated_at.strftime("%Y-%m-%d %H:%M") %><% end %></td>
+    <td> <% if !edifice.created_at.nil? %><%= edifice.created_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></td>
+    <td> <% if !edifice.updated_at.nil? %><%= edifice.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></td>
     <% if can? :manage, edifice %>
       <td><%= link_to 'Edit', edit_edifice_path(edifice) %></td>
       <td><%= link_to 'Destroy', edifice, :confirm => 'Are you sure?', :method => :delete %></td>

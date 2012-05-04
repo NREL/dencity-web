@@ -17,12 +17,12 @@
 <br />
 <p> The most recently added buildings are listed first.</p>
 <br/>
-<table cellpadding="5px">
+<table cellpadding="5px" class="pretty">
   <tr>
     <th>Name</th>
     <th>User</th>
-    <th>Created Timestamp</th>
-    <th>Updated Timestamp</th>
+    <th><%= sortable "created_at", "Created" %></th>
+    <th><%= sortable "updated_at", "Updated" %></th>
     <th></th>
     <th></th>
   </tr>

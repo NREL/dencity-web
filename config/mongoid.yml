@@ -6,6 +6,7 @@
 #  reconnect_time: 3
 #  use_object_ids: false
 #
+
 development:
   identity_map_enabled: true
   database: bemscape_test
@@ -18,7 +19,12 @@ development:
       port: 27020
     
   read_secondary: true
-  #
+  
+  
+#development:
+#  host: localhost
+#  database: bemscape_development
+  
 test:
   host: localhost
   database: bemscape_test

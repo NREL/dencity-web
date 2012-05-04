@@ -2,6 +2,8 @@ class EdificesController < ApplicationController
   
   require 'crack' # for xml and json
   
+  helper_method :sort_column, :sort_direction
+  
   #devise
   before_filter :authenticate_user!, :except => [:show, :index, :home]
   #cancan
@@ -24,12 +26,16 @@ class EdificesController < ApplicationController
     @per = 50
     @uuid = ''
     
+    logger.error("SORT: #{params[:sort]}, DIRECTION: #{params[:direction]}, PAGE: #{params[:page]}")
+    
     if params[:uuid] and !params[:uuid].blank?
       @uuid = params[:uuid]  
       #only retrieve matching building
       @edifices = Edifice.where("uuid" => @uuid).page(1)
     else
-      @edifices = Edifice.order_by("updated_at", :desc).page(@page).per(@per)
+           
+      #@edifices = Edifice.order_by("updated_at", :desc).page(@page).per(@per)
+      @edifices = Edifice.order_by(sort_column,sort_direction).page(@page).per(@per)
     end
     
     respond_to do |format|
@@ -199,6 +205,15 @@ class EdificesController < ApplicationController
     send_data(@file, :disposition => 'attachment', :type => 'text/csv', :filename => 'bemscape_data.csv')
   end
 
-  
+  private
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
+  end
+ 
+  def sort_column
+    Edifice.fields.keys.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+
   
 end

@@ -184,6 +184,16 @@ class Edifice
             newval = value2.to_s.to_value
             if newval.class != String
               value2 = newval
+            else
+              #check attributes with exponents in them: convert to floats
+              #[0-9]E-[0-9] or [0-9]E[0-9]
+              theindex = newval.index(/[0-9]E-[0-9]/)
+              theindex2 = newval.index(/[0-9]E[0-9]/)
+              if !theindex.nil? or !theindex2.nil?
+                #downcase from E to e and convert to float
+                newval = newval.gsub('E', 'e').to_f
+                value2 = newval
+              end
             end
           end
             
@@ -229,6 +239,16 @@ class Edifice
               newval = value2.to_s.to_value
               if newval.class != String
                 value2 = newval
+              else
+                #check attributes with exponents in them: convert to floats
+                #[0-9]E-[0-9] or [0-9]E[0-9]
+                theindex = newval.index(/[0-9]E-[0-9]/)
+                theindex2 = newval.index(/[0-9]E[0-9]/)
+                if !theindex.nil? or !theindex2.nil?
+                  #downcase from E to e and convert to float
+                  newval = newval.gsub('E', 'e').to_f
+                  value2 = newval
+                end            
               end
             end
             

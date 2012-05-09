@@ -77,39 +77,101 @@ task :fix_exponents => :environment do
   end      
 end
 
+desc 'add missing updated_at values'
+task :add_updated_at_dates => :environment do
+  cnt = 0
+  done_flag = 0
+  while done_flag != 1
+    edies = Edifice.where("updated_at" => "").limit(200)
+    puts "there are #{edies.size} matches"
+    if edies.size == 0
+      done_flag = 1
+    end
+    
+    edies.each do |edi|
+      cnt += 1
+      puts "... #{cnt} ..." if cnt % 100 == 0
+      if edi['updated_at'].nil?
+        puts "updated_at: #{edi['updated_at']}, created_at: #{edi['created_at']}"
+        edi['updated_at'] = edi['created_at']
+        edi.save
+      end
+    end
+  end
+end
+
 desc 'go through all the edifices and make the data strongly typed'
 task :type_data => :environment do
   cnt = 0
-  edis = Edifice.where({ 'processed_type_data' => {'$ne' => true } })
-  #edi = Edifice.where(:uuid => "{d2a52d39-573f-4d9f-995b-de1f4123c09d}").first
-  puts edis.size
-  edis.each do |edi|
-    cnt += 1
-    puts "... #{cnt} ..." if cnt % 1000 == 0
-    edi.attributes.each do |att|
-      if att.size == 2
-        #puts att[0]
-        newval = att[1].to_s.to_value
-        if newval.class != String
-          edi[att[0]] = newval
-        end
-      end
+  done_flag = 0
+  
+  #numToDo = Edifice.where({ 'processed_type_data' => {'$ne' => true } }).count
+  #puts "number to do: #{numToDo}"
+ 
+  #do this 1000 at a time so cursor doesn't time out
+  while done_flag != 1
+    edis = Edifice.where({ 'processed_type_data' => {'$ne' => true } }).limit(200)
+    puts "number of records returned: #{edis.size}"
+    
+    if edis.size == 0
+      done_flag = 1
     end
   
-    edi.descriptor_values.each do |dv|
-      dv.attributes.each do |att|
+    #edi = Edifice.where(:uuid => "{0b3d5270-22bf-4a02-ab21-1786fde698a1}").first
+    ##edi = Edifice.where(:uuid => "{d2a52d39-573f-4d9f-995b-de1f4123c09d}").first
+
+
+    edis.each do |edi|
+      cnt += 1
+      puts "... #{cnt} ..." if cnt % 100 == 0
+      edi.attributes.each do |att|
         if att.size == 2
-          #puts att[0]
+          #puts "att0: #{att[0]}, att1: #{att[1]}"
           newval = att[1].to_s.to_value
+          
           if newval.class != String
-            dv[att[0]] = newval
+            edi[att[0]] = newval
+          else
+            #check attributes with exponents in them: convert to floats
+            #[0-9]E-[0-9] or [0-9]E[0-9]
+            theindex = newval.index(/[0-9]E-[0-9]/)
+            theindex2 = newval.index(/[0-9]E[0-9]/)
+            if !theindex.nil? or !theindex2.nil?
+              #downcase from E to e and convert to float
+              newval = newval.gsub('E', 'e').to_f
+              #puts "newval: #{newval}"
+              edi[att[0]] = newval
+            end
           end
         end
       end
-      dv.save
+
+      edi.descriptor_values.each do |dv|
+        dv.attributes.each do |att|
+          if att.size == 2
+            #puts att[0]
+            newval = att[1].to_s.to_value
+            if newval.class != String
+              dv[att[0]] = newval
+            else
+              #check attributes with exponents in them: convert to floats
+              #[0-9]E-[0-9] or [0-9]E[0-9]
+              theindex = newval.index(/[0-9]E-[0-9]/)
+              theindex2 = newval.index(/[0-9]E[0-9]/)
+              if !theindex.nil? or !theindex2.nil?
+                #downcase from E to e and convert to float
+                newval = newval.gsub('E', 'e').to_f
+                #puts "newval: #{newval}"
+                dv[att[0]] = newval
+              end
+            end
+          end
+        end
+        dv.save
+      end
+      
+      edi["processed_type_data"] = true
+      edi.save
     end
-    
-    edi["processed_type_data"] = true
-    edi.save
-  end
+  end #end while loop
 end

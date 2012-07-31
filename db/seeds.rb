@@ -6,7 +6,11 @@
 # Populate the climate zone data
 require 'fastercsv'
 
+cnt = 0
 FasterCSV.foreach('./db/rawdata/cec_climate_and_zips.csv') do |row|
+  cnt += 1
+  next if cnt == 1
+  
   loc = Location.find_or_create_by(:zipcode => row[0])
   loc.state = 'CA'
   loc.county_name = row[1]
@@ -14,6 +18,15 @@ FasterCSV.foreach('./db/rawdata/cec_climate_and_zips.csv') do |row|
   loc.save!
 end
 
+cnt = 0
+FasterCSV.foreach('./db/rawdata/us_states.csv') do |row|
+  cnt += 1
+  next if cnt == 1 
+  
+  state = State.find_or_create_by(:name => row[0])
+  state.abbr = row[1]
+  state.save!
+end
 
 # Go through all the buildings and add a lat/long
 #edies = Edifice.find(:all)

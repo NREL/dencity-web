@@ -1,0 +1,21 @@
+<h1>Listing simulations</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @simulations.each do |simulation| %>
+  <tr>
+    <td><%= link_to 'Show', simulation %></td>
+    <td><%= link_to 'Edit', edit_simulation_path(simulation) %></td>
+    <td><%= link_to 'Destroy', simulation, :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => 'delete_post' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Simulation', new_simulation_path %>

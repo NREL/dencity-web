@@ -1,0 +1,176 @@
+!-Generator IDFEditor 1.38a
+!-Option SortedOrder
+
+!-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
+!-      Use '!' comments if they need to be retained when using the IDFEditor.
+
+
+!-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
+
+Version,
+    6.0;                     !- Version Identifier
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
+
+SimulationControl,
+    No,                      !- Do Zone Sizing Calculation
+    No,                      !- Do System Sizing Calculation
+    No,                      !- Do Plant Sizing Calculation
+    Yes,                     !- Run Simulation for Sizing Periods
+    Yes;                     !- Run Simulation for Weather File Run Periods
+
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
+
+Building,
+    AutoBuilt model,         !- Name
+    0.00,                    !- North Axis {deg}
+    City,                    !- Terrain
+    0.040,                   !- Loads Convergence Tolerance Value
+    0.200,                   !- Temperature Convergence Tolerance Value {deltaC}
+    FullInteriorAndExterior, !- Solar Distribution
+    25;                      !- Maximum Number of Warmup Days
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SHADOWCALCULATION ===========
+
+ShadowCalculation,
+    30;                      !- Calculation Frequency
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HEATBALANCEALGORITHM ===========
+
+HeatBalanceAlgorithm,
+    ConductionTransferFunction;  !- Algorithm
+
+
+!-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
+
+Timestep,
+    1;                       !- Number of Timesteps per Hour
+
+
+!-   ===========  ALL OBJECTS IN CLASS: CONVERGENCELIMITS ===========
+
+ConvergenceLimits,
+    5,                       !- Minimum System Timestep {minutes}
+    5;                       !- Maximum HVAC Iterations
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
+
+Site:Location,
+    CHICAGO_IL_USA TMY2-94846,  !- Name
+    41.78000,                !- Latitude {deg}
+    -87.75000,               !- Longitude {deg}
+    -6.000000,               !- Time Zone {hr}
+    190.0000;                !- Elevation {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZINGPERIOD:DESIGNDAY ===========
+
+! CHICAGO_IL_USA Heating 99.6%, MaxDB= -21.20 Wind Speed=   4.60 Wind Dir= 270.00
+SizingPeriod:DesignDay,
+    CHICAGO_IL_USA Heating 99.6% Conditions,  !- Name
+    -21.20000,               !- Maximum Dry-Bulb Temperature {C}
+    0,                       !- Daily Temperature Range {deltaC}
+    -21.20000,               !- Humidity Indicating Conditions at Maximum Dry-Bulb
+    99063.21,                !- Barometric Pressure {Pa}
+    4.600000,                !- Wind Speed {m/s}
+    270.0000,                !- Wind Direction {deg}
+    0,                       !- Sky Clearness
+    0,                       !- Rain Indicator
+    0,                       !- Snow Indicator
+    21,                      !- Day of Month
+    1,                       !- Month
+    WinterDesignDay,         !- Day Type
+    0,                       !- Daylight Saving Time Indicator
+    WetBulb;                 !- Humidity Indicating Type
+
+! CHICAGO_IL_USA Cooling (WB=>MDB) .4%, MDB=  31.00 WB=  25.10
+SizingPeriod:DesignDay,
+    CHICAGO_IL_USA Cooling .4% Conditions WB=>MDB,  !- Name
+    31.00000,                !- Maximum Dry-Bulb Temperature {C}
+    10.90000,                !- Daily Temperature Range {deltaC}
+    25.10000,                !- Humidity Indicating Conditions at Maximum Dry-Bulb
+    99063.21,                !- Barometric Pressure {Pa}
+    0,                       !- Wind Speed {m/s}
+    0,                       !- Wind Direction {deg}
+    1.000000,                !- Sky Clearness
+    0,                       !- Rain Indicator
+    0,                       !- Snow Indicator
+    21,                      !- Day of Month
+    7,                       !- Month
+    SummerDesignDay,         !- Day Type
+    0,                       !- Daylight Saving Time Indicator
+    WetBulb;                 !- Humidity Indicating Type
+
+
+!-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
+
+RunPeriod,
+    ConstructionSimulation,  !- Name
+    1,                       !- Begin Month
+    1,                       !- Begin Day of Month
+    12,                      !- End Month
+    31,                      !- End Day of Month
+    Sunday,                  !- Day of Week for Start Day
+    No,                      !- Use Weather File Holidays and Special Days
+    No,                      !- Use Weather File Daylight Saving Period
+    No,                      !- Apply Weekend Holiday Rule
+    Yes,                     !- Use Weather File Rain Indicators
+    Yes;                     !- Use Weather File Snow Indicators
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SITE:GROUNDTEMPERATURE:BUILDINGSURFACE ===========
+
+Site:GroundTemperature:BuildingSurface,
+    19.96,                   !- January Ground Temperature {C}
+    19.94,                   !- February Ground Temperature {C}
+    19.99,                   !- March Ground Temperature {C}
+    20.04,                   !- April Ground Temperature {C}
+    20.09,                   !- May Ground Temperature {C}
+    20.17,                   !- June Ground Temperature {C}
+    20.21,                   !- July Ground Temperature {C}
+    20.24,                   !- August Ground Temperature {C}
+    20.23,                   !- September Ground Temperature {C}
+    20.20,                   !- October Ground Temperature {C}
+    20.17,                   !- November Ground Temperature {C}
+    20.12;                   !- December Ground Temperature {C}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: MATERIAL:NOMASS ===========
+
+Material:NoMass,
+    MAT-AIR-WALL,            !- Name
+    Rough,                   !- Roughness
+    0.2079491,               !- Thermal Resistance {m2-K/W}
+    0.9,                     !- Thermal Absorptance
+    0.7;                     !- Solar Absorptance
+
+
+!-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
+
+Construction,
+    AIR-WALL,                !- Name
+    MAT-AIR-WALL;            !- Outside Layer
+
+
+!-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
+
+GlobalGeometryRules,
+    ULC,                     !- Starting Vertex Position
+    CCW,                     !- Vertex Entry Direction
+    Relative;                !- Coordinate System
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZING:PARAMETERS ===========
+
+Sizing:Parameters,
+    1.2,                     !- Heating Sizing Factor
+    2;                       !- Cooling Sizing Factor
+
+
+
+

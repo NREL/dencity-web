@@ -1,0 +1,35 @@
+<h2>Download Simulation File</h2>
+
+<div id="openstudio-content">
+  <p>Your simulation file was created.</p>
+  
+  
+    <%= form_tag({:action => 'download_sim'}, :multipart => true) do %>
+      <p>Select a Download Format:</p>
+      <%= radio_button_tag(:download_file, "idf") %>
+      <%= label_tag(:download_file_idf, "IDF File") %>
+      <%= radio_button_tag(:download_file, "osm", :checked => true) %>
+      <%= label_tag(:download_file_osm, "OSM File") %>
+      <%= radio_button_tag(:download_file, "epw") %>
+      <%= label_tag(:download_file_epw, "EPW File") %> <br>
+
+      <%= hidden_field_tag(:idf_filename, "#{@idf_filename}") %>
+      <%= hidden_field_tag(:os_filename, "#{@os_filename}") %>
+      <%= hidden_field_tag(:epw_filename, "#{@epw_filename}") %>
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag " Download File " %>
+    <% end %>
+    </br>
+  <%= link_to 'New Simulation', root_path %>
+  
+  
+  <%#= @idf_filename %><br>
+  <%#= @os_filename %><br>
+  <%#= @location %> <br>
+  <%#= @bcl_data.inspect %> <br>
+  <%#= @number_of_floors %> <br>
+  <%#= @fp_array.inspect %> <br>
+  
+  <%#= @os_model.inspect %>
+  
+</div>

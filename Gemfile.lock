@@ -103,6 +103,7 @@ GEM
     rserve-client (0.3.0)
     rserve-simpler (0.0.6)
       rserve-client (~> 0.3.0)
+    rubyzip (0.9.9)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -131,4 +132,5 @@ DEPENDENCIES
   rails (= 3.0.7)
   rmagick
   rserve-simpler
+  rubyzip
   whenever (= 0.7.0)

@@ -15,6 +15,8 @@ gem 'mongoid_grid'
 gem 'bson_ext', "~> 1.4"
 
 gem 'fastercsv'
+gem 'rubyzip'
+
 gem 'crack'
 gem 'devise', "~> 1.5.3"
 gem 'kaminari'

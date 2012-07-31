@@ -4,9 +4,10 @@ Bemscape::Application.routes.draw do
     get "/logout" => "devise/sessions#destroy"
     get "/login" => "devise/sessions#new"
     get "/register" => "devise/registrations#new"
-    
   end
+  
   resources :users
+  
   resources :inputs, :except => [:new, :edit, :update, :create, :show, :index, :destroy] do
     get :inputs, :on => :collection
     post :process_inputs, :on => :collection
@@ -27,6 +28,16 @@ Bemscape::Application.routes.draw do
     get :list_descriptors_v1
     post :submit_preprocessor_v1
     put :update_building_v1
+  end
+  
+  resources :simulations do
+    collection do
+      get :create_file_form
+      post :create_file_form
+      
+      post :create_file
+      post :download_sim
+    end
   end
   
   root :to => 'edifices#home'

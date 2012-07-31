@@ -1,7 +1,7 @@
 class SimulationsController < ApplicationController
-  require 'lib/openstudio/preprocessor/os_filemanager.rb'
-  require 'lib/openstudio/preprocessor/os_geometry.rb'
-  require 'lib/openstudio/preprocessor/os_bcl.rb'
+  require 'lib/openstudio/os_filemanager.rb'
+  require 'lib/openstudio/os_geometry.rb'
+  require 'lib/openstudio/os_bcl.rb'
 
   # GET /simulations
   # GET /simulations.xml

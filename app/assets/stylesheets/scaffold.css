@@ -1,7 +1,7 @@
 /*  BEMscape styles */
 /* header styles */
 #nrelheader-bem-home {width:100%;background-color:#fff;}
-#top-subheader-bem{ width:100%;height:67px; position:relative; top:-1px; background-image:url(/images/bem_scape_banner_1.png); background-repeat:no-repeat;}
+#top-subheader-bem{ width:100%;height:67px; position:relative; top:-1px; background-image:url(/assets/dencity_banner.png); background-repeat:no-repeat;}
 #top-login-bem{padding-left:750px; padding-top: 5px;}
 .top-text-bem {font-weight:bold; color: #000;}
 #top-login-bem a{font-weight:bold; color:#000; text-decoration:none;}
@@ -24,11 +24,11 @@
   background-position: right center;
 }
 .pretty th .asc { 
-  background-image: url(/images/up_arrow.gif); 
+  background-image: url(/assets/up_arrow.gif); 
 }
 
 .pretty th .desc { 
-  background-image: url(/images/down_arrow.gif); 
+  background-image: url(/assets/down_arrow.gif); 
 }
 
 

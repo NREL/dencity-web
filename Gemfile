@@ -1,34 +1,41 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+# Deployment modules
+gem 'capistrano'
+gem 'capistrano-ext'
 
-gem 'whenever', '0.7.0'
-gem 'cancan'
+gem 'rails', '3.2.7'
 
-gem 'rserve-simpler'
-gem 'orderedhash'
-gem 'rmagick' #needs libmagick9-dev and imagemagick on system
-
-# Gems for mongo access
-gem 'mongoid', "2.2.4"
+gem 'mongoid', '~> 2.4.11'
 gem 'mongoid_grid'
-gem 'bson_ext', "~> 1.4"
+gem 'bson_ext', '~> 1.5'
+gem 'execjs'
+gem 'therubyracer'
+gem 'jquery-rails', '>= 1.0.19'  #this includes rails.js and jquery_ujs
 
-gem 'fastercsv'
-gem 'rubyzip'
+group :assets do
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '~> 1.0.3'
+end
 
+gem 'whenever', '0.7.3'
+gem 'cancan'
 gem 'crack'
 gem 'devise', "~> 1.5.3"
 gem 'kaminari'
+gem 'geocoder'
+# gem 'lightbox' #todo figure out how to do this
 
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+# R modules
+gem 'rserve-simpler'
+gem 'orderedhash'
 
-group :production do
-  gem 'capistrano'
-end
+# Images
+gem 'rmagick' #needs libmagick9-dev and imagemagick on system
+
+# File I/O
+gem 'fastercsv'
+gem 'rubyzip'
+
 

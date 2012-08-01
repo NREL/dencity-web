@@ -4,6 +4,8 @@ require 'zip/zip'
 
 #this first method is really broken out just for debuggin purposes.
 def get_bcl_search_string(search_string, filter)
+  #test string
+  # http://bcl.nrel.gov/api/search/denver.xml?oauth_consumer_key=fM9SwvMbeWeDevZwKsgrBrXqQc5TvpSv
   apikey = "fM9SwvMbeWeDevZwKsgrBrXqQc5TvpSv"
   if filter == ""
     url = "http://bcl.nrel.gov/api/search/#{search_string.downcase}.xml?oauth_consumer_key=#{apikey}"
@@ -28,13 +30,13 @@ def get_bcl_search(search_string, filter)
           
   # Fill in the data
   cnt = 0
-  results = doc.elements.each('result/results/item') do |res|
+  results = doc.elements.each('results/result') do |res|
     data << []
 
-    res.elements.each('component/general/name') do |ele|
+    res.elements.each('component/name') do |ele|
       data[cnt] << [ ele.text ]
     end
-    res.elements.each('nid') do |ele|
+    res.elements.each('component/uid') do |ele|
       data[cnt] << [ ele.text ] 
     end
     
@@ -52,7 +54,11 @@ def get_bcl_component(node_id_arr, destination_file)
   
   # also note that this is changing in the next release and we will be adding the
   # need to submit your api key to download.
-  resp = Net::HTTP.post_form(URI.parse("http://bcl.nrel.gov/api/component/download"), {"nids" => node_id_arr})
+  apikey = "fM9SwvMbeWeDevZwKsgrBrXqQc5TvpSv"
+  url = "http://bcl.nrel.gov/api/component/download?oauth_consumer_key=#{apikey}&uids=#{node_id_arr}"
+  
+  resp = Net::HTTP.get_response(URI.parse(url))
+  
   # Write the response to a file in the local directory
   file = File.new("#{destination_file}", "wb")
   file.write(resp.body)
@@ -74,7 +80,7 @@ def extract_component(comp_zip_file, destination)
    }
   }
   
-  get_file = Pathname.glob(destination + '/bcl_download/**/*.epw')
+  get_file = Pathname.glob(destination + '/**/*.epw')
   path_to_comp_file = get_file[0]
   
   

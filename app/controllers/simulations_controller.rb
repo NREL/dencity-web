@@ -115,9 +115,9 @@ class SimulationsController < ApplicationController
         else
           searchforthis = @state
         end
+        
         #@bcl_search_string = get_bcl_search_string(searchforthis, "type:nrel_component%20filetype:epw%20tid:169")
-        #puts @bcl_search_string
-        @bcl_locations = get_bcl_search(searchforthis, "type:nrel_component%20filetype:epw%20tid:169")
+        @bcl_locations = get_bcl_search(searchforthis, "sm_component_type:%22Weather%20File")
         
         #check to see if city + state has returned anything.  if not, only search by state
         if @bcl_locations[0].blank?
@@ -139,6 +139,7 @@ class SimulationsController < ApplicationController
       comp_dest = File.dirname(@epw_filename) + '/' + File.basename(@epw_filename, File.extname(@epw_filename))
       epw_path_filename = extract_component(@epw_filename, comp_dest)
       
+      puts epw_path_filename
       @os_model = get_os_model()
       
       # set weather file

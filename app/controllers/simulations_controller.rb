@@ -3,6 +3,12 @@ class SimulationsController < ApplicationController
   require 'lib/openstudio/os_geometry.rb'
   require 'lib/openstudio/os_bcl.rb'
 
+  #devise
+  before_filter :authenticate_user!
+  
+  #cancan
+  load_and_authorize_resource 
+
   # GET /simulations
   # GET /simulations.xml
   def index

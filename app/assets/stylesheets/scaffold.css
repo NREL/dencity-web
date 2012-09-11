@@ -8,7 +8,7 @@
 #top-login-bem a:hover{font-weight:bold; color:#C60; background-color:transparent; text-decoration:none;}
 
 /* content */
-#content-bem {float:left;margin:0;margin-right:0px;padding:30px 20px 50px 20px; display:inline;width:1080px;}
+#content-bem {float:left;margin:0;margin-right:0px;padding:30px 20px 50px 20px; display:inline;width:1040px;}
 
 #input-form {width:80%;}
 #input-form fieldset {padding:20px;}
@@ -16,6 +16,9 @@
 #input-form .right {float:right; width:49%;}
 
 #search-box {padding:10px 0 20px 0; font-weight:bold;}
+
+p.home {font-size:130%; line-height:1.3em;}
+p.home-ctr {font-size:130%; line-height:1.3em; text-align:center;}
 
 /* sort arrows */
 .pretty th .current {

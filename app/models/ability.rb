@@ -25,6 +25,7 @@ class Ability
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
+   
     user ||=User.new
     if user.admin?
       can :manage, :all
@@ -34,12 +35,15 @@ class Ability
       can :read, :api
       can :manage, :apikey
     else
-      #authenticated users (otherwise they wouldn't get this far)
+      #unauthenticated users (otherwise they wouldn't get this far)
       can [:read, :home], Edifice
       can :read, :api
       can :manage, :apikey
+      
     end
-    
+    if !user[:email].nil?
+      can [:create_file_form, :download_sim], Simulation
+    end
     
   end
 end

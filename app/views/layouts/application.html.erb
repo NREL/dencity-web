@@ -48,9 +48,9 @@
         <% if flash[:message]%><p class="notice"><%= flash[:message] %></p><% end %>
       </div>
 
-
-      <%= yield %>
-    
+      <div id="main-container">
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>

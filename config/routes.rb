@@ -53,4 +53,30 @@ Dencity::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
+  root 'metas#index'
+
+  resources :structures
+
+  resources :metas, shallow: true do
+    collection do
+      post 'meta_upload'
+    end
+  end
+  match 'api/meta' => 'metas#meta', via: :post
+
+=begin
+  namespace :api do
+    namespace :v1 do
+      resources :structures do
+        post 'meta'
+        get 'meta'
+      end
+    end
+
+  end
+=end
+
+
 end

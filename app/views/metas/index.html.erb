@@ -1,0 +1,24 @@
+<h2>Metadata</h2>
+
+<p>The following lists all metadata fields currently added to the DenCity API</p>
+
+<table>
+  <tr>
+    <th>Machine Name</th>
+    <th>Display Name</th>
+    <th>Datatype</th>
+    <th>Units</th>
+    <th>User-Defined?</th>
+    <th>Description</th>
+  </tr>
+  <% @metas.each do |meta|  %>
+    <tr>
+      <td><%= meta.name %></td>
+      <td><%= meta.display_name %></td>
+      <td><%= meta.datatype %></td>
+      <td><%= meta.units %></td>
+      <td><%= meta.user_defined %></td>
+      <td><%= meta.description %></td>
+    </tr>
+  <% end %>
+</table>

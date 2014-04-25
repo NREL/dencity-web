@@ -4,7 +4,9 @@ source 'http://rubygems.org'
 gem 'rails', '4.1.0'
 
 # Use jdbcsqlite3 as the database for Active Record
-gem 'activerecord-jdbcsqlite3-adapter'
+#gem 'activerecord-jdbcsqlite3-adapter'
+# MongoDB Adapter
+gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -1,8 +1,8 @@
 <h2>Metadata</h2>
 
-<p>The following lists all metadata fields currently added to the DenCity API</p>
+<p>The following lists all metadata fields currently added to the DEnCity API</p>
 
-<table>
+<table class="tablesorter table table-striped">
   <tr>
     <th>Machine Name</th>
     <th>Display Name</th>
@@ -10,6 +10,7 @@
     <th>Units</th>
     <th>User-Defined?</th>
     <th>Description</th>
+    <th>Actions</th>
   </tr>
   <% @metas.each do |meta|  %>
     <tr>
@@ -19,6 +20,12 @@
       <td><%= meta.units %></td>
       <td><%= meta.user_defined %></td>
       <td><%= meta.description %></td>
+      <td><%= link_to 'Show', meta_path(meta) %> | <%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
+
+
+<br>
+
+<%#= link_to 'Add a New Metadata Field', new_meta_path %>

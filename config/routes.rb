@@ -64,7 +64,7 @@ Dencity::Application.routes.draw do
       post 'meta_upload'
     end
   end
-  match 'api/meta' => 'metas#meta', via: :post
+  match 'api/meta_upload' => 'metas#meta_upload', via: :post
 
 =begin
   namespace :api do

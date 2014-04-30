@@ -1,0 +1,21 @@
+<%= form_for(edit_meta_path(@meta)) do |f| %>
+  <% if @meta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meta.errors.count, "error") %> prohibited this meta from being saved:</h2>
+
+      <ul>
+      <% @meta.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

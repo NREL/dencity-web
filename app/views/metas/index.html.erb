@@ -14,13 +14,13 @@
   </tr>
   <% @metas.each do |meta|  %>
     <tr>
-      <td><%= meta.name %></td>
+      <td><%= link_to meta.name, meta_path(meta) %></td>
       <td><%= meta.display_name %></td>
       <td><%= meta.datatype %></td>
       <td><%= meta.units %></td>
       <td><%= meta.user_defined %></td>
       <td><%= meta.description %></td>
-      <td><%= link_to 'Show', meta_path(meta) %> | <%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>

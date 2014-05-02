@@ -1,4 +1,16 @@
-<p id="notice"><%= notice %></p>
+<h2>Metadata</h2>
+
+<h3><%= @meta.name %></h3>
+<table class="table table-striped">
+  <% @meta.attributes.keys.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <tr>
+        <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+        <td><%= @meta[key] %> </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_meta_path(@meta) %> |
 <%= link_to 'Back', metas_path %>

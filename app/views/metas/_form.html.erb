@@ -10,10 +10,31 @@
       </ul>
     </div>
   <% end %>
-
-
-
-
+  <fieldset>
+    <%= label(:meta, :name) %>
+    <%= text_field(:meta, :name, disabled:true) %>
+  </fieldset>
+  <fieldset>
+    <%= label(:meta, :display_name) %>
+    <%= text_field(:meta, :display_name) %>
+  </fieldset>
+  <fieldset>
+    <%= label(:meta, :description) %>
+    <%= text_area(:meta, :description) %>
+  </fieldset>
+  <fieldset>
+    <!-- TODO: link this to units in a drop-down -->
+    <%= label(:meta, :units) %>
+    <%= text_field(:meta, :units) %>
+  </fieldset>
+  <fieldset>
+    <%= label(:meta, :user_defined, "User Defined?") %>
+    <%= check_box(:meta, :user_defined) %>
+  </fieldset>
+  <fieldset>
+    <%= label(:meta, :datatype) %>
+    <%= select(:meta, :datatype, options_for_select(["string", "double", "integer", "boolean"])) %>
+  </fieldset>
 
   <div class="actions">
     <%= f.submit %>

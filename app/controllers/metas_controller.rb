@@ -159,9 +159,9 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meta_batch_params
-    params.permit(metadata: [:name, :display_name, :units, :datatype, :description, :user_defined, :validation])
+    params.permit(metadata: [:name, :display_name, :units, :datatype, :description, :user_defined])
   end
   def meta_params
-    params.require(:metadata).permit(:name, :display_name, :units, :datatype, :description, :user_defined, :validation)
+    params.require(:metadata).permit(:name, :display_name, :units, :datatype, :description, :user_defined)
   end
 end

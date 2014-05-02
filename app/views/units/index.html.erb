@@ -1,0 +1,29 @@
+<h1>Units</h1>
+
+<table class="tablesorter table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Machine Name</th>
+      <th>Type</th>
+      <th>Symbol</th></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @units.each do |unit| %>
+      <tr>
+        <td><%= link_to unit.name, unit %></td>
+        <td><%= unit.machine_name %></td>
+        <td><%= unit.type %></td>
+        <td><%= unit.symbol %></td>
+        <td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit', new_unit_path %>

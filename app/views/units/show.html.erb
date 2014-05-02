@@ -1,0 +1,16 @@
+<h2>Units</h2>
+<h3><%= @unit.name %></h3>
+<table class="table table-striped">
+  <% @unit.attributes.keys.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <tr>
+        <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+        <td><%= @unit[key] %> </td>
+      </tr>
+    <% end %>
+
+  <% end %>
+</table>
+
+<%= link_to 'Edit', edit_unit_path(@unit) %> |
+<%= link_to 'Back', units_path %>

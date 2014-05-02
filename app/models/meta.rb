@@ -1,6 +1,7 @@
 # Meta class
 class Meta
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   # Fields
   field :name, type: String

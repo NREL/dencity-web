@@ -66,23 +66,77 @@ class MetasController < ApplicationController
   end
 
   # POST /api/meta_upload.json
-  # Batch upload metadata fields
+  # upload metadata fields
   def meta_upload
 
     error = false
-    saved_metas = 0
+    error_message = ""
 
     # Add new metadata
     if params[:metadata]
       clean_params = meta_params
+      @meta = Meta.new(clean_params)
+
+      # TODO: ensure that user_defined is set to true if non-admin is using this action
+
+      # check for units machine name match
+      if @meta.units.nil?
+        error = true
+        error_message += "could not save #{@meta.name}, no units specified. If no units are applicable, set units to 'none'"
+      else
+        units = Unit.where(machine_name: @meta.units)
+        if units.count == 0
+          error = true
+          error_message += "could not save #{@meta.name}, no match found for units #{@meta.units}."
+        end
+      end
+      unless error
+        unless @meta.save!
+          error = true
+          error_message += "could not proccess #{@meta.errors}."
+        end
+      end
+    end
+
+    respond_to do |format|
+      logger.info("error flag was set to #{error}")
+      if !error
+        format.json { render json: "Created #{@meta.name}", status: :created, location: metas_url }
+      else
+        format.json { render json: error_message, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /api/meta_batch_upload.json
+  # Batch upload metadata fields (admin only)
+  def meta_batch_upload
+
+    error = false
+    error_message = ""
+    saved_metas = 0
+
+    # Add new metadata
+    if params[:metadata]
+      clean_params = meta_batch_params
       clean_params[:metadata].each do |meta|
         @meta = Meta.new(meta)
         # TODO: ensure that user_defined is set?
+
+        # check for units machine name match
+        unless @meta.units.nil?
+          units = Unit.where(machine_name: @meta.units)
+          if units.count == 0
+            error = true
+            error_message += "could not save #{@meta.name}, no match found for units #{@meta.units}."
+            next
+          end
+        end
         if @meta.save!
           saved_metas += 1
         else
           error = true
-          error_message += "could not proccess #{@meta.errors}"
+          error_message += "could not proccess #{@meta.errors}."
         end
       end
     end
@@ -96,7 +150,6 @@ class MetasController < ApplicationController
       end
     end
   end
-
 private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -105,7 +158,10 @@ private
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def meta_params
+  def meta_batch_params
     params.permit(metadata: [:name, :display_name, :units, :datatype, :description, :user_defined, :validation])
+  end
+  def meta_params
+    params.require(:metadata).permit(:name, :display_name, :units, :datatype, :description, :user_defined, :validation)
   end
 end

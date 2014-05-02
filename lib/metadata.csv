@@ -1,0 +1,27 @@
+name,display_name,description,units,datatype,user_defined
+total_electricity,Total Electricity,Total electricity usage,megajoules_per_square_meter,double,false
+total_natural_gas,Total Natural Gas,Total gas usage,megajoules_per_square_meter,double,false
+cooling_electricity_jan,Cooling Electricity Jan,Cooling electricity usage for January,joule,double,false
+cooling_electricity_feb,Cooling Electricity Feb,Cooling electricity usage for February,joule,double,false
+cooling_electricity_mar,Cooling Electricity Mar,Cooling electricity usage for March,joule,double,false
+cooling_electricity_apr,Cooling Electricity Apr,Cooling electricity usage for April,joule,double,false
+cooling_electricity_may,Cooling Electricity May,Cooling electricity usage for May,joule,double,false
+cooling_electricity_jun,Cooling Electricity Jun,Cooling electricity usage for June,joule,double,false
+cooling_electricity_jul,Cooling Electricity Jul,Cooling electricity usage for Juy,joule,double,false
+cooling_electricity_aug,Cooling Electricity Aug,Cooling electricity usage for August,joule,double,false
+cooling_electricity_sep,Cooling Electricity Sep,Cooling electricity usage for September,joule,double,false
+cooling_electricity_oct,Cooling Electricity Oct,Cooling electricity usage for October,joule,double,false
+cooling_electricity_nov,Cooling Electricity Nov,Cooling electricity usage for November,joule,double,false
+cooling_electricity_dec,Cooling Electricity Dec,Cooling electricity usage for December,joule,double,false
+heating_gas_jan,Heating Gas Jan,Heating gas for January,joule,double,false
+heating_gas_feb,Heating Gas Feb,Heating gas for February,joule,double,false
+heating_gas_mar,Heating Gas Mar,Heating gas for March,joule,double,false
+heating_gas_apr,Heating Gas Apr,Heating gas for April,joule,double,false
+heating_gas_may,Heating Gas May,Heating gas for May,joule,double,false
+heating_gas_jun,Heating Gas Jun,Heating gas for June,joule,double,false
+heating_gas_jul,Heating Gas Jul,Heating gas for July,joule,double,false
+heating_gas_aug,Heating Gas Aug,Heating gas for August,joule,double,false
+heating_gas_sep,Heating Gas Sep,Heating gas for September,joule,double,false
+heating_gas_oct,Heating Gas Oct,Heating gas for October,joule,double,false
+heating_gas_nov,Heating Gas Nov,Heating gas for November,joule,double,false
+heating_gas_dec,Heating Gas Dec,Heating gas for December,joule,double,false

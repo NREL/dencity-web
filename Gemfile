@@ -11,6 +11,9 @@ gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 # JSON parsing and conversion
 gem "multi_json"
 
+# XLSX parsing
+gem "roo"
+
 # HTTP requests
 gem "rest-client"
 

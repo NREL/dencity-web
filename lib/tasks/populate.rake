@@ -20,6 +20,7 @@ namespace :populate do
 
     Meta.delete_all
     puts "importing metadata from metadata.csv"
+    # metadata.csv = real data, metadata_test.csv = test data
     CSV.foreach("#{Rails.root}/lib/metadata_test.csv",{:headers => true, :header_converters => :symbol}) do |r|
 
      # check on units match first, don't save if it doesn't match anything
@@ -28,6 +29,8 @@ namespace :populate do
         if units.count == 0
           puts "No match for units #{r[:units]}, metadata #{r[:name]} was not saved"
           next
+        elsif !units.first.allowable
+          puts "Units #{r[:units]} are not allowable, metadata #{r[:name]} was not saved"
         end
       end
 
@@ -53,7 +56,7 @@ namespace :populate do
       json_object = {}
       row.headers.each do |header|
         if header == 'user_defined'
-          json_object[header] = row[header] == 'true' ? true : false
+          json_object[header] = row[header] == 'true' || row[header] == 'TRUE' ? true : false
           next
         end
         json_object[header] = row[header]
@@ -106,6 +109,9 @@ namespace :populate do
   task :units => :environment do
     require 'roo'
 
+    puts "Deleting and reimporting units"
+    Unit.delete_all
+
     mapping_file = Rails.root.join("lib/project_haystack_units.xlsx")
 
     puts "opening #{mapping_file}"
@@ -123,6 +129,7 @@ namespace :populate do
       unit.name = row[2]
       unit.symbol = row[3]
       unit.symbol_alt = row[4] unless row[4].nil?
+      unit.allowable = row[6] == 'TRUE' || row[6] == 'true' ? true : false
       unit.save!
     end
 

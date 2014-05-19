@@ -8,6 +8,7 @@ class Unit
   field :type, :type => String
   field :symbol, :type => String
   field :symbol_alt, :type => String
+  field :allowable, :type => Boolean
 
   field :mapped, :type => Array #list of NREL specific units that mapped to this unit definition
 

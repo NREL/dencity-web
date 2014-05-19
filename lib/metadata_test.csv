@@ -1,4 +1,5 @@
 name,display_name,description,units,datatype,user_defined
 total_electricity,Total Electricity,Total electricity usage,megajoules_per_square_meter,double,false
 total_natural_gas,Total Natural Gas,Total gas usage,megajoules_per_square_meter,double,false
-bad_data_example, Bad Data Example, An example of bad data that should not get saved,bad_units,double, false
+bad_units_example, Bad Data Example, An example of bad data that should not get saved,bad_units,double,false
+unallowed_units_example, Units Not Allowed, An example of data with units that are not accepted by the app,inch,double,false

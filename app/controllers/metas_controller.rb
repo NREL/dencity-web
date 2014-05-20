@@ -88,7 +88,7 @@ class MetasController < ApplicationController
         error = true
         error_message += "could not save #{@meta.name}, no unit specified. If no units are applicable, set unit to 'none'"
       else
-        units = Unit.where(machine_name: @meta.units)
+        units = Unit.where(name: @meta.units)
         if units.count == 0
           error = true
           error_message += "could not save #{@meta.name}, no match found for unit #{@meta.units}."
@@ -138,7 +138,7 @@ class MetasController < ApplicationController
           error_message += "could not save #{@meta.name}, no units specified. If no units are applicable, set units to 'none'"
           next
         else
-          units = Unit.where(machine_name: @meta.unit)
+          units = Unit.where(name: @meta.unit)
           if units.count == 0
             error = true
             error_message += "could not save #{@meta.name}, no match found for units #{@meta.unit}."

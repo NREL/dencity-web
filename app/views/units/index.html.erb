@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Machine Name</th>
+      <th>Display Name</th>
       <th>Type</th>
       <th>Symbol</th></th>
       <th>Actions</th>
@@ -15,7 +15,7 @@
     <% @units.each do |unit| %>
       <tr>
         <td><%= link_to unit.name, unit %></td>
-        <td><%= unit.machine_name %></td>
+        <td><%= unit.display_name %></td>
         <td><%= unit.type %></td>
         <td><%= unit.symbol %></td>
         <td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -28,7 +28,7 @@ namespace :populate do
         puts "No unit specified. If no units are applicable, set unit to 'none', metadata #{r[:name]} was not saved"
         next
       else
-        units = Unit.where(machine_name: r[:unit])
+        units = Unit.where(name: r[:unit])
         if units.count == 0
           puts "No match for unit #{r[:unit]}, metadata #{r[:name]} was not saved"
           next
@@ -128,9 +128,9 @@ namespace :populate do
       next if row_cnt <= 1
 
       puts row.inspect
-      unit = Unit.find_or_create_by(:machine_name => row[1])
+      unit = Unit.find_or_create_by(:name => row[1])
       unit.type = row[0]
-      unit.name = row[2]
+      unit.display_name = row[2]
       unit.symbol = row[3]
       unit.symbol_alt = row[4] unless row[4].nil?
       unit.allowable = row[6] == 'TRUE' || row[6] == 'true' ? true : false
@@ -144,7 +144,7 @@ namespace :populate do
       row_cnt += 1
       next if row_cnt <= 1
 
-      unit = Unit.where(:machine_name => row[3])
+      unit = Unit.where(:name => row[3])
 
       if unit.count == 0
         raise("no nrel_unit found in database for machine_name: '#{row[3]}' and map of #{row[0]}")
@@ -166,7 +166,7 @@ namespace :populate do
     end
 
     # map a special case of "" to undefined
-    u = Unit.where(:machine_name => "undefined").first
+    u = Unit.where(:name => "undefined").first
     u.mapped << ""
     u.save!
   end

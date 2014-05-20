@@ -20,6 +20,9 @@ class Unit
   def self.get_unit_hash(machine_name)
 
     unit = Unit.where(:machine_name => machine_name).first
+  end
 
+  def name_and_symbol
+    self.name + ' ( ' + self.symbol + ' )'
   end
 end

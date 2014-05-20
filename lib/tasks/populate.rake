@@ -9,7 +9,7 @@ namespace :populate do
     CSV.open("#{Rails.root}/lib/metadata_export.csv", "wb") do |csv|
     csv << [name, display_name, description, units, datatype, user_defined]
        metas.each do |meta|
-        csv << [meta.name, meta.display_name, meta.description, meta.units, meta.datatype, meta.user_defined]
+        csv << [meta.name, meta.display_name, meta.description, meta.unit.machine_name, meta.datatype, meta.user_defined]
       end
      end
   end
@@ -24,13 +24,17 @@ namespace :populate do
     CSV.foreach("#{Rails.root}/lib/metadata_test.csv",{:headers => true, :header_converters => :symbol}) do |r|
 
      # check on units match first, don't save if it doesn't match anything
-      unless r[:units].nil?
-        units = Unit.where(machine_name: r[:units])
+      if r[:unit].nil?
+        puts "No unit specified. If no units are applicable, set unit to 'none', metadata #{r[:name]} was not saved"
+        next
+      else
+        units = Unit.where(machine_name: r[:unit])
         if units.count == 0
-          puts "No match for units #{r[:units]}, metadata #{r[:name]} was not saved"
+          puts "No match for unit #{r[:unit]}, metadata #{r[:name]} was not saved"
           next
         elsif !units.first.allowable
-          puts "Units #{r[:units]} are not allowable, metadata #{r[:name]} was not saved"
+          puts "Unit #{r[:unit]} is not allowable, metadata #{r[:name]} was not saved"
+          next
         end
       end
 
@@ -38,7 +42,7 @@ namespace :populate do
       m.name = r[:name]
       m.display_name = r[:display_name]
       m.description = r[:description]
-      m.units = r[:units]
+      m.unit = units.first
       m.datatype = r[:datatype]
       m.user_defined = r[:user_defined] == 'true' ? true : false
       m.save!

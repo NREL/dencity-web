@@ -6,7 +6,7 @@
     <% unless key == "created_at" or key == "updated_at" %>
       <tr>
         <th> <%= key == "_id" ? "ID" : key.humanize%></th>
-        <td><% if key == "units" %><%= link_to @meta.units, unit_path(Unit.where(machine_name: @meta.units).first) %><% else %><%= @meta[key] %><% end %></td>
+        <td><% if key == "unit_id" %><%= link_to @meta.unit.symbol, unit_path(@meta.unit) %><% else %><%= @meta[key] %><% end %></td>
       </tr>
     <% end %>
   <% end %>

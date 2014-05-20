@@ -19,10 +19,14 @@ class MetasController < ApplicationController
   # GET /metas/new
   def new
     @meta = Meta.new
+    @allowed_units = get_allowable_units
   end
 
   # GET /metas/1/edit
   def edit
+
+    @allowed_units = get_allowable_units
+
   end
 
   # POST /metas
@@ -82,12 +86,17 @@ class MetasController < ApplicationController
       # check for units machine name match
       if @meta.units.nil?
         error = true
-        error_message += "could not save #{@meta.name}, no units specified. If no units are applicable, set units to 'none'"
+        error_message += "could not save #{@meta.name}, no unit specified. If no units are applicable, set unit to 'none'"
       else
         units = Unit.where(machine_name: @meta.units)
         if units.count == 0
           error = true
-          error_message += "could not save #{@meta.name}, no match found for units #{@meta.units}."
+          error_message += "could not save #{@meta.name}, no match found for unit #{@meta.units}."
+        elsif !units.first.allowable
+          puts "could not save #{@meta.name}, unit #{r[:unit]} is not allowable."
+          next
+        else
+          @meta.units = units.first
         end
       end
       unless error
@@ -124,15 +133,22 @@ class MetasController < ApplicationController
         # TODO: ensure that user_defined is set?
 
         # check for units machine name match
-        unless @meta.units.nil?
-          units = Unit.where(machine_name: @meta.units)
+        if @meta.unit.nil?
+          error = true
+          error_message += "could not save #{@meta.name}, no units specified. If no units are applicable, set units to 'none'"
+          next
+        else
+          units = Unit.where(machine_name: @meta.unit)
           if units.count == 0
             error = true
-            error_message += "could not save #{@meta.name}, no match found for units #{@meta.units}."
+            error_message += "could not save #{@meta.name}, no match found for units #{@meta.unit}."
             next
           elsif !units.first.allowable
             error = true
-            error_message += "could not save #{@meta.name}, units #{@meta.units} are not allowable."
+            error_message += "could not save #{@meta.name}, units #{@meta.unit} are not allowable."
+            next
+          else
+            @meta.unit = units.first
           end
         end
         if @meta.save!
@@ -162,9 +178,13 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meta_batch_params
-    params.permit(metadata: [:name, :display_name, :units, :datatype, :description, :user_defined])
+    params.permit(metadata: [:name, :display_name, :unit, :datatype, :description, :user_defined])
   end
   def meta_params
-    params.require(:meta).permit(:name, :display_name, :units, :datatype, :description, :user_defined)
+    params.require(:meta).permit(:name, :display_name, :unit, :datatype, :description, :user_defined)
+  end
+
+  def get_allowable_units
+    Unit.where(allowable: true)
   end
 end

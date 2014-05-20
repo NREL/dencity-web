@@ -24,7 +24,7 @@
   </fieldset>
   <fieldset>
     <!-- TODO: link this to units in a drop-down -->
-    <%= f.text_field :units, control_col: "col-sm-4" %>
+    <%= f.select :unit, options_from_collection_for_select(@allowed_units, :id, :name_and_symbol, @meta.unit.id), control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
     <%= f.form_group :user_defined do %>

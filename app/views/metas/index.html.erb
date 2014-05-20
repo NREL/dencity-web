@@ -17,7 +17,7 @@
       <td><%= link_to meta.name, meta_path(meta) %></td>
       <td><%= meta.display_name %></td>
       <td><%= meta.datatype %></td>
-      <td><%= link_to meta.units, unit_path(Unit.where(machine_name: meta.units).first) %></td>
+      <td><%= link_to meta.unit.symbol, unit_path(meta.unit) %></td>
       <td><%= meta.user_defined %></td>
       <td><%= meta.description %></td>
       <td><%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td>

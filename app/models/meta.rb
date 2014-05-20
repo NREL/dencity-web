@@ -8,7 +8,6 @@ class Meta
   field :display_name, type: String
   field :description, type: String
   field :datatype, type: String
-  field :units, type: String
   field :user_defined, type: Boolean
 
   #Validation
@@ -16,5 +15,7 @@ class Meta
 
   # Indexes
   index({ id: 1 }, unique: true)
+
+  belongs_to :unit
 
 end

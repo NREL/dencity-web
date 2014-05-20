@@ -1,3 +1,7 @@
+/*
+ *= require rails_bootstrap_forms
+ */
+
 
 $sansFontFamily: 'PT Sans', sans-serif;
 $baseFontSize: 15px;
@@ -493,4 +497,13 @@ h2.header-large {
   padding:20px;
   margin-top:10px;
   border: 3px solid green;
+}
+
+.edit-name {
+  padding-bottom:20px;
+  padding-left:10px;
+}
+
+.edit-link {
+  font-size: 60%;
 }

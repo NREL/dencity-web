@@ -1,5 +1,5 @@
 <h2>Units</h2>
-<h3><%= @unit.name %></h3>
+<h3 class="edit-name"><%= @unit.name %> <%= link_to "[ edit ]", edit_unit_path(@unit), class: "edit-link" %></h3>
 <table class="table table-striped">
   <% @unit.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>
@@ -12,5 +12,3 @@
   <% end %>
 </table>
 
-<%= link_to 'Edit', edit_unit_path(@unit) %> |
-<%= link_to 'Back', units_path %>

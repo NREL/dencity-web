@@ -1,16 +1,13 @@
 <h2>Metadata</h2>
 
-<h3><%= @meta.name %></h3>
+<h3 class="edit-name"><%= @meta.name %> <%= link_to "[ edit ]", edit_meta_path(@meta), class: "edit-link" %></h3>
 <table class="table table-striped">
   <% @meta.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>
       <tr>
         <th> <%= key == "_id" ? "ID" : key.humanize%></th>
-        <td><%= @meta[key] %> </td>
+        <td><% if key == "units" %><%= link_to @meta.units, unit_path(Unit.where(machine_name: @meta.units).first) %><% else %><%= @meta[key] %><% end %></td>
       </tr>
     <% end %>
   <% end %>
 </table>
-
-<%= link_to 'Edit', edit_meta_path(@meta) %> |
-<%= link_to 'Back', metas_path %>

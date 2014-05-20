@@ -93,7 +93,7 @@ namespace :populate do
       end
       json_object[header] = row[header]
     end
-    json_request = JSON.generate({'metadata' => json_object})
+    json_request = JSON.generate({'meta' => json_object})
     begin
       response = RestClient.post "http://localhost:3000/api/meta_upload", json_request, :content_type => :json, :accept => :json
       if response.code == 201

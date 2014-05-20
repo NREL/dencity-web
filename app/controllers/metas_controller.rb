@@ -73,7 +73,7 @@ class MetasController < ApplicationController
     error_message = ""
 
     # Add new metadata
-    if params[:metadata]
+    if params[:meta]
       clean_params = meta_params
       @meta = Meta.new(clean_params)
 
@@ -165,6 +165,6 @@ private
     params.permit(metadata: [:name, :display_name, :units, :datatype, :description, :user_defined])
   end
   def meta_params
-    params.require(:metadata).permit(:name, :display_name, :units, :datatype, :description, :user_defined)
+    params.require(:meta).permit(:name, :display_name, :units, :datatype, :description, :user_defined)
   end
 end

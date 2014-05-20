@@ -1,4 +1,4 @@
-# Meta class
+# Unit class
 class Unit
   include Mongoid::Document
   include Mongoid::Timestamps

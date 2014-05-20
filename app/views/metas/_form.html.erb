@@ -1,4 +1,4 @@
-<%= form_for(edit_meta_path(@meta)) do |f| %>
+<%= bootstrap_form_for(@meta, layout: :horizontal) do |f| %>
   <% if @meta.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@meta.errors.count, "error") %> prohibited this meta from being saved:</h2>
@@ -11,32 +11,29 @@
     </div>
   <% end %>
   <fieldset>
-    <%= label(:meta, :name) %>
-    <%= text_field(:meta, :name, disabled:true) %>
+    <%= f.text_field :name, disabled: true, control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
-    <%= label(:meta, :display_name) %>
-    <%= text_field(:meta, :display_name) %>
+    <%= f.text_field :display_name, control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
-    <%= label(:meta, :description) %>
-    <%= text_area(:meta, :description) %>
+    <%= f.text_area :description, control_col: "col-sm-4" %>
+  </fieldset>
+  <fieldset>
+    <%= f.select(:datatype, options_for_select(["string", "double", "integer", "boolean"]), control_col: "col-sm-4") %>
   </fieldset>
   <fieldset>
     <!-- TODO: link this to units in a drop-down -->
-    <%= label(:meta, :units) %>
-    <%= text_field(:meta, :units) %>
+    <%= f.text_field :units, control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
-    <%= label(:meta, :user_defined, "User Defined?") %>
-    <%= check_box(:meta, :user_defined) %>
-  </fieldset>
-  <fieldset>
-    <%= label(:meta, :datatype) %>
-    <%= select(:meta, :datatype, options_for_select(["string", "double", "integer", "boolean"])) %>
+    <%= f.form_group :user_defined do %>
+      <%= f.check_box :user_defined, label: "User-defined metadata", control_col: "col-sm-4" %>
+    <% end %>
   </fieldset>
 
-  <div class="actions">
+  <%= f.form_group do %>
     <%= f.submit %>
-  </div>
+  <% end %>
+
 <% end %>

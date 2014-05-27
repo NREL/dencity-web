@@ -19,14 +19,10 @@ class MetasController < ApplicationController
   # GET /metas/new
   def new
     @meta = Meta.new
-    @allowed_units = get_allowable_units
   end
 
   # GET /metas/1/edit
   def edit
-
-    @allowed_units = get_allowable_units
-
   end
 
   # POST /metas
@@ -184,7 +180,4 @@ private
     params.require(:meta).permit(:name, :display_name, :unit, :datatype, :description, :user_defined)
   end
 
-  def get_allowable_units
-    Unit.where(allowable: true)
-  end
 end

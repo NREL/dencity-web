@@ -18,4 +18,8 @@ class Meta
 
   belongs_to :unit
 
+  def self.get_allowable_units
+    Unit.where(allowable: true)
+  end
+
 end

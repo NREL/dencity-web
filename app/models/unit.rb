@@ -25,4 +25,8 @@ class Unit
   def name_and_symbol
     self.name + ' ( ' + self.symbol + ' )'
   end
+
+  def self.get_types
+    Unit.all.distinct(:type)
+  end
 end

@@ -17,7 +17,7 @@
     <%= f.text_field :display_name, control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
-    <%= f.text_field :type, control_col: "col-sm-4" %>
+    <%= f.select :type, options_for_select(Unit.get_types, selected: @unit.type), control_col: "col-sm-4" %>
   </fieldset>
   <fieldset>
     <%= f.text_field :symbol, control_col: "col-sm-4" %>

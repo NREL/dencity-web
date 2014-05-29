@@ -44,6 +44,7 @@ class User
   # optionally set the integer attribute to store the roles in,
   # :roles_mask is the default
   roles_attribute :roles_mask
+  field :roles_mask, type: Integer
 
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!

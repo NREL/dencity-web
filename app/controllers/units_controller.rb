@@ -1,4 +1,5 @@
 class UnitsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
   # GET /units

@@ -14,6 +14,11 @@ gem "multi_json"
 # XLSX parsing
 gem "roo"
 
+# user auth & permissions
+gem 'devise'
+gem 'cancan'
+gem 'role_model'
+
 # HTTP requests
 gem "rest-client"
 

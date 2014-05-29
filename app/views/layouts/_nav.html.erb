@@ -9,6 +9,19 @@
         <li<%= active_nav('Metadata') %>><%= link_to 'Metadata', metas_path %></li>
         <li<%= active_nav('Units') %>><%= link_to 'Units', units_path %></li>
       </ul>
+
+      <% if user_signed_in? %>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to 'Sign out', logout_path %></li>
+        </ul>
+        <p class="navbar-text navbar-right">Welcome, <%= link_to current_user.email, user_path(current_user), class: "navbar-link" %></p>
+      <% else %>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Sign in", login_path %></li>
+        </ul>
+      <% end %>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

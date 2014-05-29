@@ -38,12 +38,15 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    bcrypt (3.1.7)
+    bcrypt (3.1.7-java)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     bootstrap_form (2.1.1)
     bson (2.2.3)
     bson (2.2.3-java)
     builder (3.2.2)
+    cancan (1.6.10)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -52,6 +55,12 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     connection_pool (2.0.0)
+    devise (3.2.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
     hike (1.2.3)
@@ -80,6 +89,7 @@ GEM
     nokogiri (1.6.2.1-java)
     optionable (0.2.0)
     origin (2.1.1)
+    orm_adapter (0.5.0)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -104,6 +114,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    role_model (0.8.1)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -147,6 +158,8 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   java
@@ -154,13 +167,16 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   bootstrap_form
+  cancan
   coffee-rails (~> 4.0.0)
+  devise
   jbuilder (~> 1.2)
   jquery-rails
   mongoid!
   multi_json
   rails (= 4.1.0)
   rest-client
+  role_model
   roo
   sass-rails (~> 4.0.0)
   sdoc

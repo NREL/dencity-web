@@ -1,0 +1,17 @@
+<h2>Forgot your password?</h2>
+
+<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, layout: :horizontal) do |f| %>
+  <%= devise_error_messages! %>
+
+  <fieldset>
+    <%= f.email_field :email, autofocus: true, control_col: "col-sm-4" %>
+  </fieldset>
+
+  <%= f.form_group do %>
+    <%= f.submit "Send me reset password instructions", class: "btn btn-small btn-primary" %>
+  <% end %>
+
+  <%= f.form_group do %>
+    <%= render "devise/shared/links" %>
+  <% end %>
+<% end %>

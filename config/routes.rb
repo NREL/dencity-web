@@ -1,6 +1,7 @@
 Dencity::Application.routes.draw do
   devise_for :users
   resources :users
+  get '/admin' => 'users#admin'
 
   devise_scope :user do
     get '/login' => 'devise/sessions#new'

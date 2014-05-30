@@ -1,18 +1,18 @@
-<h2>Structures</h2>
+<h2>Buildings</h2>
 
 <table class="tablesorter table table-striped">
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Display Name</th>
+    <% if can? :update, Structure %><th>Actions</th><% end %>
+  </tr>
   </thead>
-
   <tbody>
     <% @structures.each do |structure| %>
       <tr>
-        <td><%= link_to 'Show', structure %></td>
-        <td><%= link_to 'Edit', edit_structure_path(structure) %></td>
-        <td><%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to @structure.name, structure %></td>
+        <% if can? :update, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>
@@ -20,4 +20,8 @@
 
 <br>
 
-<%= link_to 'New Structure', new_structure_path %>
+<% if can? :create, Structure %>
+  <div class="row-fluid">
+    <%= link_to 'Add a Building', new_structure_path, class: 'btn btn-small btn-primary' %>
+  </div>
+<% end %>

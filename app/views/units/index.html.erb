@@ -7,7 +7,7 @@
       <th>Display Name</th>
       <th>Type</th>
       <th>Symbol</th></th>
-      <th>Actions</th>
+      <% if can? :update, Unit %><th>Actions</th><% end %>
     </tr>
   </thead>
 
@@ -18,12 +18,15 @@
         <td><%= unit.display_name %></td>
         <td><%= unit.type %></td>
         <td><%= unit.symbol %></td>
-        <td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :update, unit %><td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Unit', new_unit_path %>
+<% if can? :create, Unit %>
+  <div class="row-fluid">
+    <%= link_to 'Add a Unit', new_unit_path, class: 'btn btn-small btn-primary' %>
+  </div>
+<% end %>

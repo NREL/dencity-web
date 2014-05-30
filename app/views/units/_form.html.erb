@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(@unit, layout: :horizontal) do |f| %>
   <% if @unit.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@unit.errors.count, "error") %> prohibited this unit from being saved:</h2>
+      <h2><%= pluralize(@unit.errors.count, 'error') %> prohibited this unit from being saved:</h2>
 
       <ul>
       <% @unit.errors.full_messages.each do |message| %>
@@ -11,26 +11,26 @@
     </div>
   <% end %>
   <fieldset>
-    <%= f.text_field :name, disabled:true, control_col: "col-sm-4" %>
+    <%= f.text_field :name, disabled:true, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.text_field :display_name, control_col: "col-sm-4" %>
+    <%= f.text_field :display_name, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.select :type, options_for_select(Unit.get_types, selected: @unit.type), control_col: "col-sm-4" %>
+    <%= f.select :type, options_for_select(Unit.get_types, selected: @unit.type), control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.text_field :symbol, control_col: "col-sm-4" %>
+    <%= f.text_field :symbol, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.text_field :symbol_alt, label: "Alternative Symbols", control_col: "col-sm-4" %>
+    <%= f.text_field :symbol_alt, label: 'Alternative Symbols', control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
     <%= f.form_group :allowable do %>
-      <%= f.check_box :allowable, label: "Allow metadata with this unit" %>
+      <%= f.check_box :allowable, label: 'Allow metadata with this unit' %>
     <% end %>
   </fieldset>
   <%= f.form_group do %>
-    <%= f.submit "Update", class: "btn btn-small btn-primary" %>
+    <%= f.submit 'Update', class: 'btn btn-small btn-primary' %>
   <% end %>
 <% end %>

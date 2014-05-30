@@ -10,7 +10,7 @@
     <th>Units</th>
     <th>User-Defined?</th>
     <th>Description</th>
-    <th>Actions</th>
+    <% if can? :update, Meta %><th>Actions</th><% end %>
   </tr>
   <% @metas.each do |meta|  %>
     <tr>
@@ -20,7 +20,7 @@
       <td><%= link_to meta.unit.symbol, unit_path(meta.unit) %></td>
       <td><%= meta.user_defined %></td>
       <td><%= meta.description %></td>
-      <td><%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if can? :update, meta %><td><%= link_to 'Edit', edit_meta_path(meta) %> <%#= link_to 'Destroy', meta, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
     </tr>
   <% end %>
 </table>

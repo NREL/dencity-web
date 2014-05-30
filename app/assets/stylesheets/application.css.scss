@@ -79,6 +79,11 @@ a {
   }
 }
 
+a.btn {
+  &:visited {
+    color:#fff;
+  }
+}
 a.sitename {
   font-family: 'PT Sans Caption', sans-serif;
   color: #0079c2;

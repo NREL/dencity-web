@@ -1,6 +1,6 @@
 <h2>Metadata</h2>
 
-<h3 class="edit-name"><%= @meta.name %> <%= link_to "[ edit ]", edit_meta_path(@meta), class: "edit-link" %></h3>
+<h3 class="edit-name"><%= @meta.name %> <% if can? :update, @meta %><%= link_to "[ edit ]", edit_meta_path(@meta), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <% @meta.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>

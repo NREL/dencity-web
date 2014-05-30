@@ -21,17 +21,5 @@ Dencity::Application.routes.draw do
   match 'api/meta_batch_upload' => 'metas#meta_batch_upload', via: :post
 
   resources :units
-=begin
-  namespace :api do
-    namespace :v1 do
-      resources :structures do
-        post 'meta'
-        get 'meta'
-      end
-    end
-
-  end
-=end
-
 
 end

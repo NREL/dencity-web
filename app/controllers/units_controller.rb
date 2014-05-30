@@ -1,11 +1,13 @@
 class UnitsController < ApplicationController
+  require 'will_paginate/array'
   load_and_authorize_resource
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
   # GET /units
   # GET /units.json
   def index
-    @units = Unit.all
+    per_page = 30
+    @units = Unit.all.paginate(:per_page => per_page, :page => params[:page])
   end
 
   # GET /units/1

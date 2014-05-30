@@ -1,4 +1,4 @@
-<h1>Users</h1>
+<h2>Users<% if can? :create, User %> <%= link_to "[ add user ]", new_user_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
@@ -24,4 +24,3 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>

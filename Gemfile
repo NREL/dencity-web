@@ -19,6 +19,9 @@ gem 'devise'
 gem 'cancan'
 gem 'role_model'
 
+# pagination
+gem 'will_paginate', '~> 3.0'
+
 # HTTP requests
 gem "rest-client"
 

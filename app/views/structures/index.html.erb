@@ -1,4 +1,4 @@
-<h2>Buildings</h2>
+<h2>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
@@ -17,11 +17,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<% if can? :create, Structure %>
-  <div class="row-fluid">
-    <%= link_to 'Add a Building', new_structure_path, class: 'btn btn-small btn-primary' %>
-  </div>
-<% end %>

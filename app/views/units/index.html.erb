@@ -1,4 +1,4 @@
-<h1>Units</h1>
+<h2>Units <% if can? :create, Unit %><%= link_to "[ add new unit ]", new_unit_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
@@ -24,9 +24,10 @@
   </tbody>
 </table>
 
-<br>
-<% if can? :create, Unit %>
-  <div class="row-fluid">
-    <%= link_to 'Add a Unit', new_unit_path, class: 'btn btn-small btn-primary' %>
+<div class="row-fluid">
+  <div class="pad-20">
+    <%= will_paginate @units %>
   </div>
-<% end %>
+</div>
+
+

@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(@meta, layout: :horizontal) do |f| %>
   <% if @meta.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@meta.errors.count, "error") %> prohibited this meta from being saved:</h2>
+      <h2><%= pluralize(@meta.errors.count, 'error') %> prohibited this meta from being saved:</h2>
 
       <ul>
       <% @meta.errors.full_messages.each do |message| %>
@@ -11,28 +11,34 @@
     </div>
   <% end %>
   <fieldset>
-    <%= f.text_field :name, disabled: true, control_col: "col-sm-4" %>
+    <%= f.text_field :name, disabled: true, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.text_field :display_name, control_col: "col-sm-4" %>
+    <%= f.text_field :display_name, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.text_area :description, control_col: "col-sm-4" %>
+    <%= f.text_area :description, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%= f.select(:datatype, options_for_select(["string", "double", "integer", "boolean"]), control_col: "col-sm-4") %>
+    <%= f.select(:datatype, options_for_select(['string', 'double', 'integer', 'boolean']), control_col: 'col-sm-4') %>
   </fieldset>
   <fieldset>
-    <%= f.select :unit, options_from_collection_for_select(Meta.get_allowable_units, :id, :name_and_symbol, @meta.unit.id), control_col: "col-sm-4" %>
+    <% if @meta.unit.nil? %>
+      <% unit_id = nil %>
+    <% else %>
+      <% unit_id = @meta.unit.id %>
+    <% end %>
+
+    <%= f.select :unit, options_from_collection_for_select(Meta.get_allowable_units, :id, :name_and_symbol, unit_id), control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
     <%= f.form_group :user_defined do %>
-      <%= f.check_box :user_defined, label: "User-defined metadata", control_col: "col-sm-4" %>
+      <%= f.check_box :user_defined, label: 'User-defined metadata', control_col: 'col-sm-4' %>
     <% end %>
   </fieldset>
 
   <%= f.form_group do %>
-    <%= f.submit "Update", class: "btn btn-small btn-primary" %>
+    <%= f.submit 'Update', class: 'btn btn-small btn-primary' %>
   <% end %>
 
 <% end %>

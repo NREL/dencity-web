@@ -21,7 +21,7 @@ namespace :populate do
     Meta.delete_all
     puts "importing metadata from metadata.csv"
     # metadata.csv = real data, metadata_test.csv = test data
-    CSV.foreach("#{Rails.root}/lib/metadata_test.csv",{:headers => true, :header_converters => :symbol}) do |r|
+    CSV.foreach("#{Rails.root}/lib/metadata.csv",{:headers => true, :header_converters => :symbol}) do |r|
 
      # check on units match first, don't save if it doesn't match anything
       if r[:unit].nil?

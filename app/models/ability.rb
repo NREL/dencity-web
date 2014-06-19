@@ -44,10 +44,11 @@ class Ability
       can [:read, :create, :update], Structure
       # an editor can only view the annual report
       can :read, AnnualReport
-    elsif user_signed_in? :authenticated
+    elsif user.encrypted_password
       can [:read, :create], [Meta, Structure]
       can [:update, :destroy], Structure, :user_id => user.id
       can :read, Unit
+
     else
       can :read, [Structure, Meta, Unit]
     end

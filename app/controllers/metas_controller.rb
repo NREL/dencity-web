@@ -91,7 +91,6 @@ class MetasController < ApplicationController
           error_message += "could not save #{@meta.name}, no match found for unit #{@meta.units}."
         elsif !units.first.allowable
           puts "could not save #{@meta.name}, unit #{r[:unit]} is not allowable."
-          next
         else
           @meta.units = units.first
         end

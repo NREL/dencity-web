@@ -41,7 +41,7 @@ namespace :populate do
       m = Meta.new
       m.name = r[:name]
       m.display_name = r[:display_name]
-      m.short_name = r[:short_name]
+      m.short_name = r[:short_name  ]
       m.description = r[:description]
       m.unit = units.first
       m.datatype = r[:datatype]

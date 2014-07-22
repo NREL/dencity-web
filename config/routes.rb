@@ -1,4 +1,12 @@
 Dencity::Application.routes.draw do
+  resources :attachments
+
+  resources :measure_instances
+
+  resources :measure_descriptions
+
+  resources :provenances
+
   devise_for :users
   resources :users
   get '/admin' => 'users#admin'

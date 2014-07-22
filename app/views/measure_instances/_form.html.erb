@@ -1,0 +1,17 @@
+<%= form_for(@measure_instance) do |f| %>
+  <% if @measure_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@measure_instance.errors.count, "error") %> prohibited this measure_instance from being saved:</h2>
+
+      <ul>
+      <% @measure_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<h1>Listing measure_descriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @measure_descriptions.each do |measure_description| %>
+      <tr>
+        <td><%= link_to 'Show', measure_description %></td>
+        <td><%= link_to 'Edit', edit_measure_description_path(measure_description) %></td>
+        <td><%= link_to 'Destroy', measure_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Measure description', new_measure_description_path %>

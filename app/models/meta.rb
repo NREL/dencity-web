@@ -6,6 +6,7 @@ class Meta
   # Fields
   field :name, type: String
   field :display_name, type: String
+  field :short_name, type: String
   field :description, type: String
   field :datatype, type: String
   field :user_defined, type: Boolean

@@ -3,16 +3,17 @@ class Provenance
   include Mongoid::Timestamps
 
   # Fields
-  field :name, type: String
+  field :analysis_name, type: String
   field :category, type: String
 
   # Validation
-  validates_presence_of :name, :category
+  validates_presence_of :analysis_name, :category
 
   # Relations
   belongs_to :user
   has_many :structures
 
-  CATEGORIES = ['sample_lhs', 'sample_sobol', 'sample_random']
-
+  def self.get_categories
+    categories = ['sample_lhs', 'sample_sobol', 'sample_random']
+  end
 end

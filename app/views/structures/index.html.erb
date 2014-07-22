@@ -10,7 +10,7 @@
   <tbody>
     <% @structures.each do |structure| %>
       <tr>
-        <td><%= link_to @structure.name, structure %></td>
+        <td><%= link_to structure.name, structure %></td>
         <% if can? :update, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>

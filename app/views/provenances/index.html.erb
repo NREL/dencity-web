@@ -1,23 +1,18 @@
-<h1>Listing provenances</h1>
+<h2>Provenances <% if can? :create, Provenance %><%= link_to "[ add new provenance ]", new_provenance_path, class: "edit-link" %><% end %></h2>
 
-<table>
+<table class="tablesorter table table-striped">
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <% if can? :update, Provenance %><th>Actions</th><% end %>
+  </tr>
   </thead>
-
   <tbody>
-    <% @provenances.each do |provenance| %>
-      <tr>
-        <td><%= link_to 'Show', provenance %></td>
-        <td><%= link_to 'Edit', edit_provenance_path(provenance) %></td>
-        <td><%= link_to 'Destroy', provenance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @provenances.each do |prov| %>
+    <tr>
+      <td><%= link_to prov.analysis_name, prov %></td>
+      <% if can? :update, prov %><td><%= link_to 'Edit', edit_provenance_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Provenance', new_provenance_path %>

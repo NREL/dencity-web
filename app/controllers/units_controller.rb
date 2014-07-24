@@ -1,6 +1,6 @@
 class UnitsController < ApplicationController
   require 'will_paginate/array'
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :unit_params
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
   # GET /units

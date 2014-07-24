@@ -1,4 +1,5 @@
 class ProvenancesController < ApplicationController
+  load_and_authorize_resource param_method: :provenance_params
   before_action :set_provenance, only: [:show, :edit, :update, :destroy]
 
   # GET /provenances

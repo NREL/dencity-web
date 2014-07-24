@@ -11,9 +11,20 @@
     </div>
   <% end %>
 
+  <fieldset>
+    <%= f.text_field :name, control_col: 'col-sm-4' %>
+  </fieldset>
 
+  <fieldset>
+    <%= f.text_field :other_field, control_col: 'col-sm-4' %>
+  </fieldset>
+
+  <fieldset>
+    <%#= f.select :provenance_id,options_from_collection_for_select(Provenance.all, :id, :analysis_name), control_col: 'col-sm-4' %>
+  </fieldset>
 
   <%= f.form_group do %>
-    <%= f.submit 'Submit', class: 'btn btn-small btn-primary' %>
+    <%= f.submit 'Update', class: 'btn btn-small btn-primary' %>
   <% end %>
 <% end %>
+

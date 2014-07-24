@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :user_params
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users

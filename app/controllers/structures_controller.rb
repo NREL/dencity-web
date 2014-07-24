@@ -1,5 +1,5 @@
 class StructuresController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :structure_params
   before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
   # GET /structures
@@ -71,6 +71,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def structure_params
-    params[:structure]
+    params.require(:structure).permit(:name, :other_field, provenance_attributes: [:id])
   end
 end

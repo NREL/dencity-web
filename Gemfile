@@ -16,7 +16,7 @@ gem "roo"
 
 # user auth & permissions
 gem 'devise'
-gem 'cancan'
+gem 'cancancan', '~> 1.9'
 gem 'role_model'
 
 # pagination

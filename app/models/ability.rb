@@ -32,25 +32,24 @@ class Ability
     # Define abilities for the passed in user here.
     user ||= User.new # guest user (not logged in)
                         # a signed-in user can do everything
+    # admin
     if user.has_role? :admin
       # an admin can do everything
       can :manage, :all
+    # editor TODO: define this role
     elsif user.has_role? :editor
-      # an editor can do everything to documents and reports
       can :manage, [Meta, Unit]
-      # but can only read, create and update charts (ie they cannot
-      # be destroyed or have any other actions from the charts_controller.rb
-      # executed)
       can [:read, :create, :update], Structure
-      # an editor can only view the annual report
-      can :read, AnnualReport
+    # authenticated user
     elsif user.encrypted_password
       can [:read, :create], [Meta, Structure]
       can :manage, Structure, :user_id => user.id
       can :manage, Provenance, :user_id => user.id
       can :manage, Attachment, :user_id => user.id
       can :manage, MeasureInstance, :user_id => user.id
+      can [:read, :update], User, :id => user.id
       can :read, Unit
+    # unauthenticated
     else
       can :read, [Meta, Unit]
     end

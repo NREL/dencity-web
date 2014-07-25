@@ -13,7 +13,7 @@
       <tr>
         <td><%= link_to structure.name, structure %></td>
         <% if can? :manage, :all %><td><%= structure.user.email %></td><% end %>
-        <% if can? :manage, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+        <td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,4 +1,4 @@
-<h2>Units <% if can? :create, Unit %><%= link_to "[ add new unit ]", new_unit_path, class: "edit-link" %><% end %></h2>
+<h2>Units <% if can? :manage, Unit %><%= link_to "[ add new unit ]", new_unit_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
@@ -7,7 +7,7 @@
       <th>Display Name</th>
       <th>Type</th>
       <th>Symbol</th></th>
-      <% if can? :update, Unit %><th>Actions</th><% end %>
+      <% if can? :manage, Unit %><th>Actions</th><% end %>
     </tr>
   </thead>
 
@@ -18,7 +18,7 @@
         <td><%= unit.display_name %></td>
         <td><%= unit.type %></td>
         <td><%= unit.symbol %></td>
-        <% if can? :update, unit %><td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+        <% if can? :manage, unit %><td><%= link_to 'Edit', edit_unit_path(unit) %> | <%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>

@@ -70,6 +70,6 @@ class ProvenancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def provenance_params
-      params.require(:provenance).permit(:analysis_name, :category)
+      params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [], analysis_information: {})
     end
 end

@@ -1,6 +1,6 @@
 <h2>Provenance</h2>
 
-<h3 class="edit-name"><%= @provenance.analysis_name %> <% if can? :update, @provenance %><%= link_to "[ edit ]", edit_provenance_path(@provenance), class: "edit-link" %><% end %></h3>
+<h3 class="edit-name"><%= @provenance.name %> <% if can? :update, @provenance %><%= link_to "[ edit ]", edit_provenance_path(@provenance), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <% @provenance.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>

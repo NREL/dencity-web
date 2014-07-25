@@ -25,7 +25,7 @@ class ProvenancesController < ApplicationController
   # POST /provenances
   # POST /provenances.json
   def create
-    @provenance = Provenance.new(provenance_params)
+    @provenance = current_user.provenances.new(provenance_params)
 
     respond_to do |format|
       if @provenance.save

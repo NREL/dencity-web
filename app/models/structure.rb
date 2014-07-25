@@ -9,6 +9,7 @@ class Structure
 
   # Relations
   belongs_to :user
-  #belongs_to :provenance
-
+  has_many :attachments
+  belongs_to :provenance
+  has_many :measure_instances
 end

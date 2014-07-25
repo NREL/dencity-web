@@ -49,4 +49,8 @@ class User
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
   roles :admin, :editor
+
+  # Relations
+  has_many :structures
+  has_many :provenances
 end

@@ -1,5 +1,4 @@
 Dencity::Application.routes.draw do
-  resources :attachments
 
   resources :measure_instances
 
@@ -18,7 +17,9 @@ Dencity::Application.routes.draw do
 
   root 'metas#index'
 
-  resources :structures
+  resources :structures  do
+    resources :attachments
+  end
 
   resources :metas, shallow: true do
     collection do

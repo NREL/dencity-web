@@ -46,11 +46,13 @@ class Ability
       can :read, AnnualReport
     elsif user.encrypted_password
       can [:read, :create], [Meta, Structure]
-      can [:update, :destroy], Structure, :user_id => user.id
+      can :manage, Structure, :user_id => user.id
+      can :manage, Provenance, :user_id => user.id
+      can :manage, Attachment, :user_id => user.id
+      can :manage, MeasureInstance, :user_id => user.id
       can :read, Unit
-
     else
-      can :read, [Structure, Meta, Unit]
+      can :read, [Meta, Unit]
     end
 
   end

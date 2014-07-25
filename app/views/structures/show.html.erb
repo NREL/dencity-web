@@ -1,5 +1,79 @@
 <h2>Structure</h2>
-<% if can? :update, @structure %>
-  <%= link_to 'Edit', edit_structure_path(@structure) %> |
-  <%= link_to 'Back', structures_path %>
+<h3 class="edit-name"><%= @structure.name %> <% if can? :update, @structure %><%= link_to "[ edit ]", edit_structure_path(@structure), class: "edit-link" %><% end %></h3>
+<table class="table table-striped">
+  <% @structure.attributes.keys.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <tr>
+        <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+        <td><% if key == 'user_id' %><%= @structure.user.email %><% else %><%= @structure[key] %><% end %></td>
+      </tr>
+    <% end %>
+
+  <% end %>
+</table>
+
+<h3>Provenance</h3>
+<table class="table table-striped">
+  <tr>
+    <th>Analysis Name</th>
+    <th>Type</th>
+  </tr>
+  <% if @structure.provenance %>
+  <tr>
+    <th><%= @structure.provenance.analysis_name %></th>
+    <th><%= @structure.provenance.category %></th>
+  </tr>
+  <% end %>
+</table>
+
+<h3>Measures</h3>
+<% if @structure.measure_instances %>
+  <div class="panel-group" id="accordion">
+    <% @structure.measure_instances.sort.each do |measure| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= measure.uuid %>">
+              <%= "Measure: #{measure.uuid}" %>
+            </a></h4>
+        </div>
+        <div id="collapse_<%= measure.uuid %>" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-striped">
+              <tr>
+                <th>UUID</th>
+                <td>measure.uuid</td>
+              </tr>
+              <tr>
+                <th>VUID</th>
+                <td>measure.vuid</td>
+              </tr>
+              <% measure.arguments.each do |arg| %>
+                <tr>
+                  <th><%= arg %></th>
+                  <td></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
+
+<h3>Attachments</h3>
+<table class="table table-striped">
+  <tr>
+    <th>Filename</th>
+    <th>Actions</th>
+  </tr>
+  <% @structure.attachments.each do |file| %>
+      <tr>
+        <td> file.filename</td>
+        <td> file.filename</td>
+        <td>BUTTON TO DOWNLOAD</td>
+      </tr>
+  <% end %>
+</table>
+

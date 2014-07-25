@@ -1,17 +1,19 @@
-<h2>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
+<h2><% if can? :manage, :all %>All <% end %>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
   <tr>
     <th>Name</th>
-    <% if can? :update, Structure %><th>Actions</th><% end %>
+    <% if can? :manage, :all %><th>User</th><% end %>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
     <% @structures.each do |structure| %>
       <tr>
         <td><%= link_to structure.name, structure %></td>
-        <% if can? :update, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+        <% if can? :manage, :all %><td><%= structure.user.email %></td><% end %>
+        <% if can? :manage, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>

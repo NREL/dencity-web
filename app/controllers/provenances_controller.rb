@@ -73,6 +73,10 @@ class ProvenancesController < ApplicationController
     if params[:provenance]
       clean_params = provenance_params
       @provenance = Provenance.new(clean_params)
+      #add analysis_information (it's a hash and can't make it through the clean_params method)
+      if params[:provenance][:analysis_information]
+        @provenance.analysis_information = params[:provenance][:analysis_information]
+      end
 
       #TODO: right now assigns all to first user. Eventually pass in user credentials
       @provenance.user = User.first
@@ -102,7 +106,7 @@ class ProvenancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def provenance_params
-      params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [], analysis_information: {})
-      #:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: []
+      params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
+      #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
     end
 end

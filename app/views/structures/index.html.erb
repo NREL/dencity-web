@@ -3,7 +3,7 @@
 <table class="tablesorter table table-striped">
   <thead>
   <tr>
-    <th>Name</th>
+    <th>ID</th>
     <% if can? :manage, :all %><th>User</th><% end %>
     <th>Actions</th>
   </tr>
@@ -11,7 +11,7 @@
   <tbody>
     <% @structures.each do |structure| %>
       <tr>
-        <td><%= link_to structure.name, structure %></td>
+        <td><%= link_to structure.id, structure %></td>
         <% if can? :manage, :all %><td><%= structure.user.email %></td><% end %>
         <td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
       </tr>

@@ -6,7 +6,17 @@
     <% unless key == "created_at" or key == "updated_at" %>
       <tr>
         <th> <%= key == "_id" ? "ID" : key.humanize%></th>
-        <td><% if key == 'user_id' %><%= @provenance.user.email %><% else %><%= @provenance[key] %><% end %></td>
+        <td>
+          <% if key == 'user_id' %><%= @provenance.user.email %>
+            <% elsif key == 'analysis_types' %><%= @provenance.analysis_types.join(', ') %>
+            <% elsif key == 'analysis_information' %>
+              <% @provenance.analysis_information.each do |key2, value2| %>
+                <strong><%= key2 %></strong>: <% if key2 == 'objective_functions' %><br><% value2.each do |val| %>&nbsp;&nbsp;<%= val %><br/><% end %><% else %><%= value2 %><% end %><br/>
+              <% end %>
+            <% else %>
+            <%= @provenance[key] %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   <% end %>

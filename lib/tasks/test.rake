@@ -106,7 +106,7 @@ namespace :testing do
     json_object['site_energy_use'] = 0
     json_object['total_occupancy'] = 88.8
     json_object['total_building_area'] = 3134.92
-    json_request = JSON.generate({'structure' => json_object})
+    json_request = JSON.generate({'provenance_name' => 'test_provenance', 'structure' => json_object})
 
     begin
       response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json

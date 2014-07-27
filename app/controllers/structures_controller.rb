@@ -1,5 +1,5 @@
 class StructuresController < ApplicationController
-  load_and_authorize_resource #param_method: :structure_params
+  load_and_authorize_resource param_method: :structure_params
   before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
   # GET /structures
@@ -75,15 +75,29 @@ class StructuresController < ApplicationController
     # Add new structure
     if params[:structure]
 
-      @structure = Structure.new(params[:structure])
-
-      # Assign provenance
-      if params[:provenance_name]
-        @structure.provenance = Provenance.where(:name => params[:provenance_name])
+      @structure = Structure.new()
+      params[:structure].each do |key, value|
+        if Meta.where(:name => key).count > 0
+          # add to structure
+          @structure[key] = value
+        else
+          puts "#{key} is not a defined metadata, cannot save this attribute."
+        end
       end
 
       #TODO: right now assigns all to first user. Eventually pass in user credentials
       @structure.user = User.first
+
+      # Assign provenance
+      if params[:provenance_name]
+        puts "provenance name: #{params[:provenance_name]}"
+        provs = Provenance.where(:name => params[:provenance_name], :user => @structure.user)
+        if provs.count > 0
+          @structure.provenance = provs.first
+        end
+      end
+
+
 
       unless @structure.save!
         error = true

@@ -1,5 +1,5 @@
 <h2>Structure</h2>
-<h3 class="edit-name"><%= @structure.name %> <% if can? :update, @structure %><%= link_to "[ edit ]", edit_structure_path(@structure), class: "edit-link" %><% end %></h3>
+<h3 class="edit-name"><%= @structure.id %> <% if can? :update, @structure %><%= link_to "[ edit ]", edit_structure_path(@structure), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>
@@ -15,13 +15,13 @@
 <h3>Provenance</h3>
 <table class="table table-striped">
   <tr>
-    <th>Analysis Name</th>
-    <th>Type</th>
+    <th>Name</th>
+    <th>Analysis Types</th>
   </tr>
   <% if @structure.provenance %>
   <tr>
-    <th><%= @structure.provenance.analysis_name %></th>
-    <th><%= @structure.provenance.category %></th>
+    <td><%= link_to @structure.provenance.display_name, provenance_path(@structure.provenance) %></td>
+    <td><%= @structure.provenance.analysis_types.join(' ,') %></td>
   </tr>
   <% end %>
 </table>

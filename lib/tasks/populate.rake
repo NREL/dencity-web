@@ -51,64 +51,6 @@ namespace :populate do
 
   end
 
-  # Test the meta_batch_upload API
-  desc "Batch Post metadata to /api/meta_batch_upload"
-  task :post_batch_metadata => :environment do
-    # TODO: allow users to specify which file to import from?
-    meta_arr = []
-    CSV.foreach("#{Rails.root}/lib/metadata_test.csv", :headers => true) do |row|
-      # TODO: make this a separate function on meta class?
-      json_object = {}
-      row.headers.each do |header|
-        if header == 'user_defined'
-          json_object[header] = row[header] == 'true' || row[header] == 'TRUE' ? true : false
-          next
-        end
-        json_object[header] = row[header]
-      end
-      meta_arr << json_object
-      puts "meta_arr: #{meta_arr.inspect}"
-    end
-
-    json_request = JSON.generate({'metadata' => meta_arr})
-
-    begin
-      response = RestClient.post "http://localhost:3000/api/meta_batch_upload", json_request, :content_type => :json, :accept => :json
-      if response.code == 201
-        puts "SUCCESS: #{response.body}"
-      end
-    rescue => e
-      puts "ERROR: #{e.response}"
-    end
-  end
-
-  #Test the meta_upload API (single metadata entry)
-  desc "Post single metadata entry to /api/meta_upload"
-  task :post_metadata => :environment do
-    # TODO: allow users to specify which file to import from?
-    # Just grab and post the first record in the spreadsheet
-    file = CSV.open("#{Rails.root}/lib/metadata_test.csv", 'rb', :headers => true)
-    row = file.readline()
-    # TODO: make this a separate function on meta class?
-    json_object = {}
-    row.headers.each do |header|
-      if header == 'user_defined'
-        json_object[header] = row[header] == 'true' ? true : false
-        next
-      end
-      json_object[header] = row[header]
-    end
-    json_request = JSON.generate({'meta' => json_object})
-    begin
-      response = RestClient.post "http://localhost:3000/api/meta_upload", json_request, :content_type => :json, :accept => :json
-      if response.code == 201
-        puts "SUCCESS: #{response.body}"
-      end
-    rescue => e
-      puts "ERROR: #{e.response}"
-    end
-  end
-
   # Import Project Haystack units
   desc 'import units from haystack excel file'
   task :units => :environment do

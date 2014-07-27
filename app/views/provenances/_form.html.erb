@@ -15,7 +15,16 @@
     <%= f.text_field :name, control_col: 'col-sm-4' %>
   </fieldset>
   <fieldset>
-    <%#= f.select(:analysis_types, options_for_select(Provenance.get_categories), control_col: 'col-sm-4') %>
+    <%= f.text_field :display_name, control_col: 'col-sm-4' %>
+  </fieldset>
+  <fieldset>
+    <%= f.text_field :description, control_col: 'col-sm-4' %>
+  </fieldset>
+  <fieldset>
+    <%= f.text_field :user_defined_id, control_col: 'col-sm-4' %>
+  </fieldset>
+  <fieldset>
+    <%= f.text_field :user_created_date, control_col: 'col-sm-4' %>
   </fieldset>
 
   <%= f.form_group do %>

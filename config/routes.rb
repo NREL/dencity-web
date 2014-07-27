@@ -5,6 +5,7 @@ Dencity::Application.routes.draw do
   resources :measure_descriptions
 
   resources :provenances
+  match 'api/add_provenance' => 'provenances#add_provenance', via: :post
 
   devise_for :users
   resources :users
@@ -20,6 +21,7 @@ Dencity::Application.routes.draw do
   resources :structures  do
     resources :attachments
   end
+  match 'api/add_structure' => 'structures#add_structure', via: :post
 
   resources :metas, shallow: true do
     collection do

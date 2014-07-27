@@ -1,5 +1,5 @@
 class StructuresController < ApplicationController
-  load_and_authorize_resource param_method: :structure_params
+  load_and_authorize_resource #param_method: :structure_params
   before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
   # GET /structures
@@ -59,6 +59,45 @@ class StructuresController < ApplicationController
     respond_to do |format|
       format.html { redirect_to structures_url }
       format.json { head :no_content }
+    end
+  end
+
+  # API
+  # POST api/add_structure.json
+  def add_structure
+
+    #TODO: validate each param against the metas table before accepting it!
+    #TODO: add provenance link (must have already uploaded provenance, link by name & user). provenance_name in json file as param
+    error = false
+    error_message = ""
+
+
+    # Add new structure
+    if params[:structure]
+
+      @structure = Structure.new(params[:structure])
+
+      # Assign provenance
+      if params[:provenance_name]
+        @structure.provenance = Provenance.where(:name => params[:provenance_name])
+      end
+
+      #TODO: right now assigns all to first user. Eventually pass in user credentials
+      @structure.user = User.first
+
+      unless @structure.save!
+        error = true
+        error_message += "Could not process structure"
+      end
+    end
+
+    respond_to do |format|
+      # logger.info("error flag was set to #{error}")
+      if !error
+        format.json { render json: "Created structure #{@structure.id}", status: :created, location: structure_url(@structure) }
+      else
+        format.json { render json: error_message, status: :unprocessable_entity }
+      end
     end
   end
 

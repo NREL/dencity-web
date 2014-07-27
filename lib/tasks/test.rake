@@ -85,7 +85,61 @@ namespace :testing do
     objs << 'standard_report_legacy.total_source_energy'
     info['objective_functions'] = objs
     json_object['analysis_information'] = info
-    json_request = JSON.generate({'provenance' => json_object})
+
+    measure_defs = []
+    measure = {}
+    measure['id'] = '8a70fa20-f63e-0131-cbb2-14109fdf0b37'
+    measure['version_id'] = '8a711470-f63e-0131-cbb4-14109fdf0b37'
+    measure['name'] = 'SetXPathSingleVariable'
+    measure['display_name'] = nil
+    measure['description'] = nil
+    measure['modeler_description'] = nil
+    measure['type'] =  'XmlMeasure'
+    args = []
+    arg = {}
+    arg['display_name'] = 'Set XPath'
+    arg['display_name_short'] = 'Set XPath'
+    arg['name'] = 'xpath'
+    arg['description'] = ''
+    arg['units'] = ''
+    args << arg
+    arg = {}
+    arg['display_name'] = 'Location'
+    arg['display_name_short'] = 'Location'
+    arg['name'] = 'location'
+    arg['description'] = ''
+    arg['units'] = ''
+    args << arg
+    measure['arguments'] = args
+    measure_defs << measure
+
+    measure = {}
+    measure['id'] = '8a726030-f63e-0131-cbc9-14109fdf0b37'
+    measure['version_id'] = '8a727a60-f63e-0131-cbcb-14109fdf0b37'
+    measure['name'] = 'SetBuildingGeometry'
+    measure['display_name'] = nil
+    measure['description'] = nil
+    measure['modeler_description'] = nil
+    measure['type'] =  'XmlMeasure'
+    args = []
+    arg = {}
+    arg['display_name'] = 'Aspect Ratio Multiplier'
+    arg['display_name_short'] = 'Aspect Ratio Multiplier'
+    arg['name'] = 'aspect_ratio_multiplier'
+    arg['description'] = ''
+    arg['units'] = ''
+    args << arg
+    arg = {}
+    arg['display_name'] = 'Floor Plate Area Multiplier'
+    arg['display_name_short'] = 'Floor Plate Area Multiplier'
+    arg['name'] = 'floor_plate_area_multiplier'
+    arg['description'] = ''
+    arg['units'] = ''
+    args << arg
+    measure['arguments'] = args
+    measure_defs << measure
+
+    json_request = JSON.generate('provenance' => json_object, 'measure_definitions' => measure_defs)
     begin
       response = RestClient.post "http://localhost:3000/api/add_provenance", json_request, :content_type => :json, :accept => :json
       if response.code == 201

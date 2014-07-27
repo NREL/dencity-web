@@ -87,6 +87,25 @@ class ProvenancesController < ApplicationController
       end
     end
 
+    # Add measure descriptions
+    if params[:measure_definitions]
+      params[:measure_definitions].each do |m|
+        @def = MeasureDescription.new()
+        @def['uuid'] = m['id']
+        @def['version_id'] = m['version_id']
+        @def['name'] = m['name']
+        @def['display_name'] = m['display_name']
+        @def['type'] = m['type']
+        @def['description'] = m['description']
+        @def['modeler_description'] = m['modeler_description']
+        @def['arguments'] = m['arguments']
+        unless @def.save!
+          error = true
+          error_message += "Could not save measure definition #{m['id']}"
+        end
+      end
+    end
+
     respond_to do |format|
       #logger.info("error flag was set to #{error}")
       if !error
@@ -96,7 +115,6 @@ class ProvenancesController < ApplicationController
       end
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -109,4 +127,8 @@ class ProvenancesController < ApplicationController
       params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
       #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
     end
+
+   #def measure_description_params
+   #  params.permit(measure_definitions: [:id, :version_id, :name, :display_name, :description, :modeler_description, :type, arguments: []])
+   #end
 end

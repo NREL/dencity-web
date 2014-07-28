@@ -1,4 +1,4 @@
-<h2>Users</h2>
+<h2>User Account</h2>
 <h3 class="edit-name"><%= @user.email %> <% if current_user == @user %><%= link_to "[ edit ]", edit_user_registration_path(current_user), class: "edit-link" %><% else %><%= link_to "[ edit ]", edit_user_path(@user), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <tr>
@@ -14,3 +14,51 @@
     </td>
   </tr>
 </table>
+
+
+<% unless @current_user.provenances.nil? %>
+  <h3>Provenances</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Display Name</th>
+      <th>Analysis Types</th>
+      <th>Actions</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <% @current_user.provenances.each do |prov| %>
+      <tr>
+        <td><%= link_to prov.name, prov %></td>
+        <td><%= prov.display_name %></td>
+        <td><% unless prov.analysis_types.nil? %><%= prov.analysis_types.join(', ') %><% end %></td>
+        <% if can? :update, prov %><td><%= link_to 'Edit', edit_provenance_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% unless @current_user.structures.nil? %>
+  <h3>Buildings</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Provenance</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @current_user.structures.each do |bld| %>
+      <tr>
+        <td><%= link_to bld.id, bld %></td>
+        <td><% unless bld.provenance.nil? %><%= link_to bld.provenance.display_name, provenance_path(bld.provenance) %><% end %></td>
+        <% if can? :update, bld %><td><%= link_to 'Edit', edit_structure_path(bld) %> | <%= link_to 'Destroy', bld, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

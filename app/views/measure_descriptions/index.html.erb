@@ -1,23 +1,28 @@
-<h1>Listing measure_descriptions</h1>
+<h2>Measure Definitions <% if can? :create, MeasureDescription %><%= link_to "[ add new definition ]", new_measure_description_path, class: "edit-link" %><% end %></h2>
 
-<table>
+<table class="tablesorter table table-striped">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Name</th>
+      <th>Display Name</th>
+      <th>Type</th>
+      <th>UUID</th>
+      <th>Version ID</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @measure_descriptions.each do |measure_description| %>
+    <% @measure_descriptions.each do |md| %>
       <tr>
-        <td><%= link_to 'Show', measure_description %></td>
-        <td><%= link_to 'Edit', edit_measure_description_path(measure_description) %></td>
-        <td><%= link_to 'Destroy', measure_description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to md.name, md %></td>
+        <td><%= md.display_name %></td>
+        <td><%= md.type %></td>
+        <td><%= md.uuid %></td>
+        <td><%= md.version_id %></td>
+        <% if can? :update, md %><td><%= link_to 'Edit', edit_measure_description_path(md) %> | <%= link_to 'Destroy', md, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Measure description', new_measure_description_path %>

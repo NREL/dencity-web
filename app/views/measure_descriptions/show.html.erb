@@ -1,4 +1,25 @@
-<p id="notice"><%= notice %></p>
+<h2>Measure Definition</h2>
 
-<%= link_to 'Edit', edit_measure_description_path(@measure_description) %> |
-<%= link_to 'Back', measure_descriptions_path %>
+<h3 class="edit-name"><%= @measure_description.name %> <% if can? :update, @measure_description %><%= link_to "[ edit ]", edit_measure_description_path(@measure_description), class: "edit-link" %><% end %></h3>
+<table class="table table-striped">
+  <% @measure_description.attributes.keys.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <tr>
+        <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+        <td>
+          <% if key == 'user_id' %><%= @measure_description.user.email %>
+          <% elsif key == 'arguments' %>
+
+            <% @measure_description[key].each do |arg| %>
+              <% arg.each do |argkey, argval| %>
+                <strong><%= argkey %></strong>:   <%= argval %>
+              <% end %>      <br/>
+            <% end %>
+          <% else %>
+            <%= @measure_description[key] %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

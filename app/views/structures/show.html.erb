@@ -1,4 +1,4 @@
-<h2>Structure</h2>
+<h2>Building</h2>
 <h3 class="edit-name"><%= @structure.id %> <% if can? :update, @structure %><%= link_to "[ edit ]", edit_structure_path(@structure), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>

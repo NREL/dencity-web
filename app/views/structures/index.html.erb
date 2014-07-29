@@ -5,8 +5,10 @@
   <tr>
     <th>ID</th>
     <th>Provenance</th>
-    <% if can? :manage, :all %><th>User</th><% end %>
-    <th>Actions</th>
+    <% if can? :manage, :all %>
+      <th>User</th>
+      <th>Actions</th>
+    <% end %>
   </tr>
   </thead>
   <tbody>
@@ -15,7 +17,7 @@
         <td><%= link_to structure.id, structure %></td>
         <td><%= structure.provenance.display_name unless structure.provenance.nil? %></td>
         <% if can? :manage, :all %><td><%= structure.user.email %></td><% end %>
-        <td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
+        <% if can? :manage, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td> <% end %>
       </tr>
     <% end %>
   </tbody>

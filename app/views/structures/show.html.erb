@@ -3,10 +3,13 @@
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>
-      <tr>
-        <th> <%= key == "_id" ? "ID" : key.humanize%></th>
-        <td><% if key == 'user_id' %><%= @structure.user.email %><% else %><%= @structure[key] %><% end %></td>
-      </tr>
+      <% if key == 'user_id' and !can? :update, @structure  %>
+      <% else %>
+        <tr>
+          <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+          <td><% if key == 'user_id' %><%= @structure.user.email %><% else %><%= @structure[key] %><% end %></td>
+        </tr>
+      <% end %>
     <% end %>
 
   <% end %>
@@ -21,7 +24,7 @@
   <% if @structure.provenance %>
   <tr>
     <td><%= link_to @structure.provenance.display_name, provenance_path(@structure.provenance) %></td>
-    <td><%= @structure.provenance.analysis_types.join(' ,') %></td>
+    <td><%= @structure.provenance.analysis_types.join(', ') %></td>
   </tr>
   <% end %>
 </table>

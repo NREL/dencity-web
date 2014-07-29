@@ -97,13 +97,20 @@ class StructuresController < ApplicationController
         end
       end
 
-
-
       unless @structure.save!
         error = true
         error_message += "Could not process structure"
       end
+
+      # Save Measure Instances
+      if params[:measure_instances]
+        params[:measure_instances].each do |m|
+          @measure = MeasureInstance.new()
+
+        end
+      end
     end
+
 
     respond_to do |format|
       # logger.info("error flag was set to #{error}")

@@ -15,7 +15,7 @@
   </tr>
 </table>
 
-
+<% if @user == @current_user %>
 <% unless @current_user.provenances.nil? %>
   <h3>Provenances</h3>
   <table class="table table-striped">
@@ -62,3 +62,4 @@
     </tbody>
   </table>
 <% end %>
+ <% end %>

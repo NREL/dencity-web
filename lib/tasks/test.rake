@@ -160,7 +160,27 @@ namespace :testing do
     json_object['site_energy_use'] = 0
     json_object['total_occupancy'] = 88.8
     json_object['total_building_area'] = 3134.92
-    json_request = JSON.generate({'provenance_name' => 'test_provenance', 'structure' => json_object})
+
+    measure_instances = []
+    measure = {}
+    measure['index'] = 0
+    measure['uri'] = 'https://bcl.nrel.gov'
+    measure['id'] =  '8a70fa20-f63e-0131-cbb2-14109fdf0b37'
+    measure['version_id'] = '8a711470-f63e-0131-cbb4-14109fdf0b37'
+    args = {}
+    args['location'] = 'AN_BC_Vancouver.718920_CWEC.epw'
+    args['xpath'] = '/building/address/weather-file'
+    measure['arguments'] = args
+    measure_instances << measure
+    measure = {}
+    measure['index'] = 1
+    measure['uri'] = 'https://bcl.nrel.gov'
+    measure['id'] =  '8a726030-f63e-0131-cbc9-14109fdf0b37'
+    measure['version_id'] = '8a727a60-f63e-0131-cbcb-14109fdf0b37'
+    measure['arguments'] = {}
+    measure_instances << measure
+
+    json_request = JSON.generate({'provenance_name' => 'test_provenance', 'structure' => json_object, 'measure_instances' => measure_instances})
 
     begin
       response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json
@@ -172,4 +192,10 @@ namespace :testing do
     end
   end
 
+  desc 'fix user password'
+  task :fix_user_pwd => :environment do
+    user = User.where(:email => 'katherine.fleming@nrel.gov').first
+    user.password = "testing123"
+    user.save
+  end
 end

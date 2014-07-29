@@ -192,6 +192,39 @@ namespace :testing do
     end
   end
 
+  # upload metadata and instance json
+  desc 'upload analysis data'
+  task :upload_analysis => :environment do
+
+    # add metadata
+    json_file = MultiJson.load(File.read("./lib/data/dencity_metadata.json"))
+    json_request = JSON.generate(json_file)
+
+    begin
+      response = RestClient.post "http://localhost:3000/api/add_provenance", json_request, :content_type => :json, :accept => :json
+      if response.code == 201
+        puts "SUCCESS: #{response.body}"
+      end
+    rescue => e
+      puts "ERROR: #{e.response}"
+    end
+
+    # add analyses
+    files = Dir.glob('./lib/data/data_points/*_dencity.json')
+    files.each do |file|
+      json_file = MultiJson.load(File.read(file))
+      json_request = JSON.generate(json_file)
+      begin
+        response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json
+        if response.code == 201
+          puts "SUCCESS: #{response.body}"
+        end
+      rescue => e
+        puts "ERROR: #{e.response}"
+      end
+    end
+  end
+
   unless Rails.env.production?
     desc 'fix user password, pass in email=<THE_EMAIL>'
     task :fix_user_pwd => :environment do

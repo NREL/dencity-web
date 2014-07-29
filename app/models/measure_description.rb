@@ -8,6 +8,7 @@ class MeasureDescription
   field :version_id, type: String
   field :display_name, type: String
   field :type, type: String
+  field :default_value, type: String
   field :description, type: String
   field :modeler_description, type: String
   field :arguments, type: Array

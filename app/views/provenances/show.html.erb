@@ -14,7 +14,7 @@
             <% elsif key == 'analysis_types' %><%= @provenance.analysis_types.join(', ') %>
             <% elsif key == 'analysis_information' %>
               <% @provenance.analysis_information.each do |key2, value2| %>
-                <strong><%= key2 %></strong>: <% if key2 == 'objective_functions' %><br><% value2.each do |val| %>&nbsp;&nbsp;<%= val %><br/><% end %><% else %><%= value2 %><% end %><br/>
+                <strong><%= key2 %></strong>: <% if key2 == 'objective_functions' && !value2.nil? %><br><% value2.each do |val| %>&nbsp;&nbsp;<%= val %><br/><% end %><% else %><%= value2 %><% end %><br/>
               <% end %>
             <% else %>
               <%= @provenance[key] %>

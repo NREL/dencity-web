@@ -41,9 +41,17 @@
           </a>
         </h4>
       </div>
-      <div id="<%= measure.uuid %>" class="panel-collapse collapse in">
+      <div id="<%= measure.uuid %>" class="panel-collapse collapse">
         <div class="panel-body">
           <table class="table table-striped">
+            <tr>
+              <th>Measure Name</th>
+              <td><%= link_to measure.measure_description.name, measure.measure_description unless measure.measure_description.nil? %></td>
+            </tr>
+            <tr>
+              <th>Measure Type</th>
+              <td><%= measure.measure_description.type unless measure.measure_description.nil? %></td>
+            </tr>
             <tr>
               <th>UUID</th>
               <td><%= measure.uuid %></td>
@@ -52,15 +60,13 @@
               <th>Version ID</th>
               <td><%= measure.version_id %></td>
             </tr>
-            <tr>
-              <th>Measure Definition</th>
-              <td><%= measure.measure_description.name unless measure.measure_description.nil? %></td>
-            </tr>
-            <% measure.arguments.each do |arg| %>
-              <tr>
-                <th><%= arg %></th>
-                <td></td>
-              </tr>
+            <% unless measure.arguments.nil? %>
+              <% measure.arguments.each do |arg| %>
+                <tr>
+                  <th><%= arg %></th>
+                  <td></td>
+                </tr>
+              <% end %>
             <% end %>
           </table>
         </div>

@@ -18,7 +18,7 @@
       <td><%= prov.display_name %></td>
       <td><% unless prov.analysis_types.nil? %><%= prov.analysis_types.join(', ') %><% end %></td>
       <% if can? :manage, :all %><td><%=  prov.user.email %></td><% end %>
-      <% if can? :update, prov %><td><%= link_to 'Edit', edit_provenance_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+      <td><% if can? :update, prov %><%= link_to 'Edit', edit_provenance_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
     </tr>
   <% end %>
   </tbody>

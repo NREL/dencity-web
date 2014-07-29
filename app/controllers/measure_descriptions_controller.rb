@@ -70,6 +70,6 @@ class MeasureDescriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measure_description_params
-      params[:measure_description]
+      params[:measure_definitions]
     end
 end

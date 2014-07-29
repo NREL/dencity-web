@@ -11,6 +11,7 @@ namespace :cleanup do
     Attachment.delete_all
     MeasureInstance.delete_all
     Provenance.delete_all
+    MeasureDescription.delete_all
   end
 
 end

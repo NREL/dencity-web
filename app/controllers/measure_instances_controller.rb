@@ -5,6 +5,7 @@ class MeasureInstancesController < ApplicationController
   # GET /measure_instances
   # GET /measure_instances.json
   def index
+
     @measure_instances = MeasureInstance.all
   end
 

@@ -5,7 +5,6 @@ class MeasureInstance
   # Fields
   field :uuid, type: String
   field :version_id, type: String
-  field :index, type: Integer
   field :uri, type: String
   field :arguments, type: Hash
 

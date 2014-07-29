@@ -107,13 +107,14 @@ class StructuresController < ApplicationController
         params[:measure_instances].each do |m|
           @measure = MeasureInstance.new()
           #expecting these keys
-          @measure.index = m['index']
           @measure.uri = m['uri']
           @measure.uuid = m['id']
           @measure.version_id = m['version_id']
           @measure.arguments = m['arguments']
           @measure.structure = @structure
-          @measure.measure_description = MeasureDescription.where(:uuid => m['uuid'], :version_id => m['version_id']).first
+          #TODO: user_id too?  duplicates?
+          desc =  MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
+          @measure.measure_description = desc
           @measure.save!
         end
       end

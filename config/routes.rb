@@ -1,7 +1,5 @@
 Dencity::Application.routes.draw do
 
-  resources :measure_instances
-
   resources :measure_descriptions
 
   resources :provenances
@@ -20,6 +18,7 @@ Dencity::Application.routes.draw do
 
   resources :structures  do
     resources :attachments
+    resources :measure_instances
   end
   match 'api/add_structure' => 'structures#add_structure', via: :post
 

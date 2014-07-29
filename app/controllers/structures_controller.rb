@@ -106,7 +106,15 @@ class StructuresController < ApplicationController
       if params[:measure_instances]
         params[:measure_instances].each do |m|
           @measure = MeasureInstance.new()
-
+          #expecting these keys
+          @measure.index = m['index']
+          @measure.uri = m['uri']
+          @measure.uuid = m['id']
+          @measure.version_id = m['version_id']
+          @measure.arguments = m['arguments']
+          @measure.structure = @structure
+          @measure.measure_description = MeasureDescription.where(:uuid => m['uuid'], :version_id => m['version_id']).first
+          @measure.save!
         end
       end
     end

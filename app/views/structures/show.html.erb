@@ -33,34 +33,39 @@
 <% if @structure.measure_instances %>
   <div class="panel-group" id="accordion">
     <% @structure.measure_instances.sort.each do |measure| %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= measure.uuid %>">
-              <%= "Measure: #{measure.uuid}" %>
-            </a></h4>
-        </div>
-        <div id="collapse_<%= measure.uuid %>" class="panel-collapse collapse">
-          <div class="panel-body">
-            <table class="table table-striped">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#<%= measure.uuid %>">
+            <%= measure.measure_description.nil? ? measure.uuid : measure.measure_description.name %>
+          </a>
+        </h4>
+      </div>
+      <div id="<%= measure.uuid %>" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <table class="table table-striped">
+            <tr>
+              <th>UUID</th>
+              <td><%= measure.uuid %></td>
+            </tr>
+            <tr>
+              <th>Version ID</th>
+              <td><%= measure.version_id %></td>
+            </tr>
+            <tr>
+              <th>Measure Definition</th>
+              <td><%= measure.measure_description.name unless measure.measure_description.nil? %></td>
+            </tr>
+            <% measure.arguments.each do |arg| %>
               <tr>
-                <th>UUID</th>
-                <td>measure.uuid</td>
+                <th><%= arg %></th>
+                <td></td>
               </tr>
-              <tr>
-                <th>VUID</th>
-                <td>measure.vuid</td>
-              </tr>
-              <% measure.arguments.each do |arg| %>
-                <tr>
-                  <th><%= arg %></th>
-                  <td></td>
-                </tr>
-              <% end %>
-            </table>
-          </div>
+            <% end %>
+          </table>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
 <% end %>

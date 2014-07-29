@@ -2,7 +2,6 @@
  *= require rails_bootstrap_forms
  */
 
-
 $sansFontFamily: 'PT Sans', sans-serif;
 $baseFontSize: 15px;
 $border-grey: #e0e4e6;
@@ -10,7 +9,7 @@ $border-blue: #4BB7E9;
 $button-grey: #6b6b6b;
 $white: #ffffff;
 
-@import "bootstrap";
+@import 'bootstrap';
 
 .navbar {
 
@@ -65,6 +64,7 @@ h3 {
   font-weight: normal;
   margin: 0;
   padding-top:10px;
+  padding-bottom:10px;
 
 }
 

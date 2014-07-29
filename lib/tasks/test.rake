@@ -193,9 +193,10 @@ namespace :testing do
   end
 
   unless Rails.env.production?
-    desc 'fix user password'
+    desc 'fix user password, pass in email=<THE_EMAIL>'
     task :fix_user_pwd => :environment do
-      user = User.where(:email => '').first
+      puts "email is #{ENV['email']}"
+      user = User.where(:email => ENV['email']).first
       user.password = "testing123"
       user.save
     end

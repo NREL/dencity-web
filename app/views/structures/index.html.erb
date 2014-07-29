@@ -7,17 +7,18 @@
     <th>Provenance</th>
     <% if can? :manage, :all %>
       <th>User</th>
-      <th>Actions</th>
     <% end %>
+    <th>Actions</th>
+
   </tr>
   </thead>
   <tbody>
     <% @structures.each do |structure| %>
       <tr>
         <td><%= link_to structure.id, structure %></td>
-        <td><%= structure.provenance.display_name unless structure.provenance.nil? %></td>
+        <td><%= link_to structure.provenance.display_name, structure.provenance unless structure.provenance.nil? %></td>
         <% if can? :manage, :all %><td><%= structure.user.email %></td><% end %>
-        <% if can? :manage, structure %><td><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %></td> <% end %>
+        <td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
       </tr>
     <% end %>
   </tbody>

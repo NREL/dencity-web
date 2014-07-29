@@ -51,7 +51,7 @@ class Ability
       can :read, Unit
     # unauthenticated
     else
-      can :read, [Meta, Unit, Structure]
+      can :read, [Meta, Unit, Structure, Provenance]
       # API actions TODO: authenticate API
       can :add_provenance, Provenance
       can :add_structure, Structure

@@ -192,10 +192,12 @@ namespace :testing do
     end
   end
 
-  desc 'fix user password'
-  task :fix_user_pwd => :environment do
-    user = User.where(:email => 'katherine.fleming@nrel.gov').first
-    user.password = "testing123"
-    user.save
+  unless Rails.env.production?
+    desc 'fix user password'
+    task :fix_user_pwd => :environment do
+      user = User.where(:email => '').first
+      user.password = "testing123"
+      user.save
+    end
   end
 end

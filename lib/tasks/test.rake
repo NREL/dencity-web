@@ -186,6 +186,8 @@ namespace :testing do
       response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json
       if response.code == 201
         puts "SUCCESS: #{response.body}"
+      else
+        raise response.body
       end
     rescue => e
       puts "ERROR: #{e.response}"

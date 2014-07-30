@@ -70,18 +70,20 @@ class StructuresController < ApplicationController
     #TODO: add provenance link (must have already uploaded provenance, link by name & user). provenance_name in json file as param
     error = false
     error_message = ""
+    warnings = []
 
 
     # Add new structure
     if params[:structure]
 
-      @structure = Structure.new()
+      @structure = Structure.new
       params[:structure].each do |key, value|
+        logger.info "I AM HERE::::::: #{key}"
         if Meta.where(:name => key).count > 0
           # add to structure
           @structure[key] = value
         else
-          puts "#{key} is not a defined metadata, cannot save this attribute."
+          warnings << "#{key} is not a defined metadata, cannot save this attribute."
         end
       end
 
@@ -89,6 +91,7 @@ class StructuresController < ApplicationController
       @structure.user = User.first
 
       # Assign provenance
+      # TODO: Convert this to a provenance_id
       if params[:provenance_name]
         puts "provenance name: #{params[:provenance_name]}"
         provs = Provenance.where(:name => params[:provenance_name], :user => @structure.user)
@@ -124,9 +127,9 @@ class StructuresController < ApplicationController
     respond_to do |format|
       # logger.info("error flag was set to #{error}")
       if !error
-        format.json { render json: "Created structure #{@structure.id}", status: :created, location: structure_url(@structure) }
+        format.json { render json: {structure: @structure, warnings: warnings}, status: :created, location: structure_url(@structure) }
       else
-        format.json { render json: error_message, status: :unprocessable_entity }
+        format.json { render json: {error: error_message}, status: :unprocessable_entity }
       end
     end
   end

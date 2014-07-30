@@ -91,14 +91,14 @@ class ProvenancesController < ApplicationController
     if params[:measure_definitions]
 
       params[:measure_definitions].each do |m|
-        @def = MeasureDescription.new()
+        @def = MeasureDescription.new
         puts m.inspect
 
         @def.uuid = m['id']
         @def.version_id = m['version_id']
         @def.name = m['name']
         @def.display_name = m['display_name']
-        @def.type. = m['type']
+        @def.type = m['type']
         @def.description = m['description']
         @def.default_value = m['default_value']
         @def.modeler_description = m['modeler_description']
@@ -113,7 +113,7 @@ class ProvenancesController < ApplicationController
     respond_to do |format|
       #logger.info("error flag was set to #{error}")
       if !error
-        format.json { render json: "Created provenance #{@provenance.id}", status: :created, location: provenances_url }
+        format.json { render json: {provenance: @provenance}, status: :created, location: provenances_url }
       else
         format.json { render json: error_message, status: :unprocessable_entity }
       end

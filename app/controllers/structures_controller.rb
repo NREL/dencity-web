@@ -78,7 +78,6 @@ class StructuresController < ApplicationController
 
       @structure = Structure.new
       params[:structure].each do |key, value|
-        logger.info "I AM HERE::::::: #{key}"
         if Meta.where(:name => key).count > 0
           # add to structure
           @structure[key] = value

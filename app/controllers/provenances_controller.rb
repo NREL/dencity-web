@@ -72,23 +72,30 @@ class ProvenancesController < ApplicationController
     # Add new provenance
     if params[:provenance]
       clean_params = provenance_params
-      @provenance = Provenance.new(clean_params)
-      #add analysis_information (it's a hash and can't make it through the clean_params method)
-      if params[:provenance][:analysis_information]
-        @provenance.analysis_information = params[:provenance][:analysis_information]
-      end
 
-      #TODO: right now assigns all to first user. Eventually pass in user credentials
-      @provenance.user = User.first
-
-      unless @provenance.save!
+      # check if the provenance name already exists?
+      if Provenance.where(name: clean_params[:name]).first
         error = true
-        error_messages += "Could not process provenance"
+        error_messages << "Provenance already exists with the name #{clean_params[:name]}"
+      else
+        @provenance = Provenance.new(clean_params)
+        #add analysis_information (it's a hash and can't make it through the clean_params method)
+        if params[:provenance][:analysis_information]
+          @provenance.analysis_information = params[:provenance][:analysis_information]
+        end
+
+        #TODO: right now assigns all to first user. Eventually pass in user credentials
+        @provenance.user = User.first
+
+        unless @provenance.save!
+          error = true
+          error_messages += "Could not process provenance"
+        end
       end
     end
 
     # Add measure descriptions
-    if params[:measure_definitions]
+    if @provenance && params[:measure_definitions]
 
       params[:measure_definitions].each do |m|
         @def = MeasureDescription.new
@@ -105,7 +112,7 @@ class ProvenancesController < ApplicationController
         @def.arguments = m['arguments']
         unless @def.save!
           error = true
-          error_message += "Could not save measure definition #{m['id']}"
+          error_message << "Could not save measure definition #{m['id']}"
         end
       end
     end

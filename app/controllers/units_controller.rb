@@ -6,7 +6,7 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
-    per_page = 100
+    per_page = 500
     @units = Unit.all.paginate(:per_page => per_page, :page => params[:page])
   end
 

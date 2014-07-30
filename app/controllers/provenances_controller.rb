@@ -67,7 +67,7 @@ class ProvenancesController < ApplicationController
   # POST /api/add_provenance.json
   def add_provenance
     error = false
-    error_message = ""
+    error_messages = []
 
     # Add new provenance
     if params[:provenance]
@@ -83,7 +83,7 @@ class ProvenancesController < ApplicationController
 
       unless @provenance.save!
         error = true
-        error_message += "Could not process provenance"
+        error_messages += "Could not process provenance"
       end
     end
 
@@ -115,7 +115,7 @@ class ProvenancesController < ApplicationController
       if !error
         format.json { render json: {provenance: @provenance}, status: :created, location: provenances_url }
       else
-        format.json { render json: error_message, status: :unprocessable_entity }
+        format.json { render json: {error: error_messages}, status: :unprocessable_entity }
       end
     end
   end

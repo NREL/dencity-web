@@ -16,12 +16,13 @@ namespace :populate do
 
   desc "Import metadata from CSV"
   task  :import_metadata => :environment do
-    raise "Populating is only intended for sample data in development" unless(Rails.env == "development")
+    raise "Populating is only intended for sample data in development" unless Rails.env == "development"
 
     Meta.delete_all
     puts "importing metadata from metadata.csv"
     # metadata.csv = real data, metadata_test.csv = test data
     CSV.foreach("#{Rails.root}/lib/metadata.csv",{:headers => true, :header_converters => :symbol}) do |r|
+      next unless r[:name]
 
      # check on units match first, don't save if it doesn't match anything
       if r[:unit].nil?
@@ -38,7 +39,9 @@ namespace :populate do
         end
       end
 
-      m = Meta.new
+      # All the meta get deleted every time, but in the future we should use find_or_create_by in order
+      # to not delete user defined data potentially.
+      m = Meta.find_or_create_by(name: r[:name])
       m.name = r[:name]
       m.display_name = r[:display_name]
       m.short_name = r[:short_name  ]

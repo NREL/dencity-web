@@ -5,7 +5,7 @@ class StructuresController < ApplicationController
   # GET /structures
   # GET /structures.json
   def index
-    @structures = Structure.all
+    @structures = Structure.all.limit(500)
   end
 
   # GET /structures/1

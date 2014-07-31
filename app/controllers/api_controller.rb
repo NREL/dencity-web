@@ -25,39 +25,47 @@ class ApiController < ApplicationController
       @structure.user = current_user
 
       # Assign provenance
-      # TODO: Convert this to a provenance_id
-      if params[:provenance_name]
-        puts "provenance name: #{params[:provenance_name]}"
-        provs = Provenance.where(:name => params[:provenance_name], :user => @structure.user)
-        if provs.count > 0
-          @structure.provenance = provs.first
+      if params[:provenance_id]
+        prov = Provenance.find_by(:id => params[:provenance_id], :user => @structure.user)
+        if prov
+          @structure.provenance = prov
+        else
+          error = true
+          error_message += "No provenance matching user and provenance_id #{params[:provenance_id]}...could not save structure."
+        end
+      else
+        error = true
+        error_message += 'No provenance_id provided...could not save structure.'
+      end
+
+      unless error
+        unless @structure.save!
+          error = true
+          error_message += 'Could not process structure'
         end
       end
 
-      unless @structure.save!
-        error = true
-        error_message += "Could not process structure"
-      end
+      unless error
 
-      # Save Measure Instances
-      if params[:measure_instances]
-        params[:measure_instances].each do |m|
-          @measure = MeasureInstance.new()
-          #expecting these keys
-          @measure.uri = m['uri']
-          @measure.uuid = m['id']
-          @measure.version_id = m['version_id']
-          @measure.arguments = m['arguments']
-          @measure.structure = @structure
-          #TODO: user_id too?  duplicates?
-          desc =  MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
-          @measure.measure_description = desc
-          @measure.save!
+        # Save Measure Instances
+        if params[:measure_instances]
+          params[:measure_instances].each do |m|
+            @measure = MeasureInstance.new
+            #expecting these keys
+            @measure.uri = m['uri']
+            @measure.uuid = m['id']
+            @measure.version_id = m['version_id']
+            @measure.arguments = m['arguments']
+            @measure.structure = @structure
+            #TODO: user_id too?  duplicates?
+            desc =  MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
+            @measure.measure_description = desc
+            @measure.save!
+          end
         end
       end
 
       respond_to do |format|
-        # logger.info("error flag was set to #{error}")
         if !error
           format.json { render json: {structure: @structure, warnings: warnings}, status: :created, location: structure_url(@structure) }
         else
@@ -124,7 +132,10 @@ class ApiController < ApplicationController
     respond_to do |format|
       #logger.info("error flag was set to #{error}")
       if !error
-        format.json { render json: {provenance: @provenance}, status: :created, location: provenances_url }
+        p_id = @provenance.id.to_s
+        j = @provenance.as_json.except('_id')
+        j['id'] = p_id
+        format.json { render json: {provenance: j}, status: :created, location: provenances_url }
       else
         format.json { render json: {error: error_messages}, status: :unprocessable_entity }
       end

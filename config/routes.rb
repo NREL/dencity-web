@@ -29,6 +29,10 @@ Dencity::Application.routes.draw do
 
   resources :units
 
+  #resources :api do
+
+  #end
+
   match 'api/structure' => 'api#structure', via: :post
   match 'api/structure_metadata' => 'api#structure_metadata', via: :post
 

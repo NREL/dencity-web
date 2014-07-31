@@ -5,7 +5,6 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav">
         <li <%= active_nav('Home') %>><%= link_to 'Home', root_path %></li>
-        <li<%= active_nav('Buildings') %>><%= link_to 'Buildings', structures_path %></li>
         <li<%= active_nav('Metadata') %>><%= link_to 'Metadata', metas_path %></li>
         <li<%= active_nav('Units') %>><%= link_to 'Units', units_path %></li>
         <% if user_signed_in? and current_user.has_role? :admin %><li<%= active_nav('Admin')%>><%= link_to 'Admin', admin_path %></li><% end %>

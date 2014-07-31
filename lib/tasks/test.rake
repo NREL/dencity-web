@@ -210,6 +210,7 @@ namespace :testing do
       response = request.post(json_request, {:content_type => :json, :accept => :json})
       if response.code == 201
         puts "SUCCESS: #{response.body}"
+        provenance_id = MultiJson.load(response.body)['provenance']['id']
       end
     rescue => e
       puts "ERROR: #{e.response}"
@@ -221,7 +222,7 @@ namespace :testing do
       json_file = MultiJson.load(File.read(file))
       json_request = JSON.generate(json_file)
       begin
-        request = RestClient::Resource.new('http://localhost:3000/api/structure', :user => @user_name, :password => @user_pwd)
+        request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", :user => @user_name, :password => @user_pwd)
         response = request.post(json_request, {:content_type => :json, :accept => :json})
         if response.code == 201
           puts "SUCCESS: #{response.body}"

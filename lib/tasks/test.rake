@@ -207,7 +207,7 @@ namespace :testing do
     json_request = JSON.generate(json_file)
 
     begin
-      request = RestClient::Resource.new('http://localhost:3000/api/structure_metadata', :user => @user_name, :password => @user_pwd)
+      request = RestClient::Resource.new('http://localhost:3000/api/analysis', :user => @user_name, :password => @user_pwd)
       response = request.post(json_request, {:content_type => :json, :accept => :json})
       if response.code == 201
         puts "SUCCESS: #{response.body}"

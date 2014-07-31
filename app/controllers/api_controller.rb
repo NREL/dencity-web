@@ -76,9 +76,9 @@ class ApiController < ApplicationController
     end
   end
 
-  def structure_metadata
+  def analysis
     # API
-    # POST /api/structure_metadata.json
+    # POST /api/analysis.json
 
     error = false
     error_messages = []

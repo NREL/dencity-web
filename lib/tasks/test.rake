@@ -198,12 +198,16 @@ namespace :testing do
   desc 'upload analysis data'
   task :upload_analysis => :environment do
 
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
+
     # add metadata
     json_file = MultiJson.load(File.read("./lib/data/dencity_metadata.json"))
     json_request = JSON.generate(json_file)
 
     begin
-      response = RestClient.post "http://localhost:3000/api/add_provenance", json_request, :content_type => :json, :accept => :json
+      request = RestClient::Resource.new('http://localhost:3000/api/structure_metadata', :user => @user_name, :password => @user_pwd)
+      response = request.post(json_request, {:content_type => :json, :accept => :json})
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       end
@@ -211,18 +215,19 @@ namespace :testing do
       puts "ERROR: #{e.response}"
     end
 
-    # add analyses
+    # add structures
     files = Dir.glob('./lib/data/data_points/*_dencity.json')
     files.each do |file|
       json_file = MultiJson.load(File.read(file))
       json_request = JSON.generate(json_file)
       begin
-        response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json
+        request = RestClient::Resource.new('http://localhost:3000/api/structure', :user => @user_name, :password => @user_pwd)
+        response = request.post(json_request, {:content_type => :json, :accept => :json})
         if response.code == 201
           puts "SUCCESS: #{response.body}"
         end
       rescue => e
-        puts "ERROR: #{e.response}"
+        puts "ERROR: #{e.inspect}"
       end
     end
   end

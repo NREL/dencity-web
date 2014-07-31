@@ -10,7 +10,7 @@
       <thead>
       <tr>
         <th>Analysis Name</th>
-        <th>Date Added</th>
+        <th>Added </th>
         <th>Total Site EUI</th>
         <th>Total Source EUI</th>
         <% if can? :manage, :all %>
@@ -24,7 +24,7 @@
       <% @structures.each do |structure| %>
         <tr>
           <td><%= link_to structure.provenance.display_name, structure %></td>
-          <td><%= structure.created_at %></td>
+          <td> <%= time_ago_in_words(structure.created_at) %> ago </td>
           <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
           <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>
           <% if can? :manage, :all %><td><%= structure.user.email unless structure.user.nil? %></td><% end %>

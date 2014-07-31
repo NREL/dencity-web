@@ -5,7 +5,7 @@ class StructuresController < ApplicationController
   # GET /structures
   # GET /structures.json
   def index
-    @structures = Structure.all.limit(500)
+    @structures = Structure.order_by(:created_at.desc).limit(500)
   end
 
   # GET /structures/1

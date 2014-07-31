@@ -1,9 +1,9 @@
 Dencity::Application.routes.draw do
 
-  resources :measure_descriptions
+  root 'structures#index'
 
+  resources :measure_descriptions
   resources :provenances
-  #match 'api/add_provenance' => 'provenances#add_provenance', via: :post
 
   devise_for :users
   resources :users
@@ -14,13 +14,10 @@ Dencity::Application.routes.draw do
     get '/logout' => 'devise/sessions#destroy'
   end
 
-  root 'metas#index'
-
   resources :structures  do
     resources :attachments
     resources :measure_instances
   end
-  #match 'api/add_structure' => 'structures#add_structure', via: :post
 
   resources :metas, shallow: true do
     collection do

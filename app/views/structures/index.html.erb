@@ -1,25 +1,37 @@
-<h2><% if can? :manage, :all %>All <% end %>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
+<h2>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
 
-<table class="tablesorter table table-striped">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Provenance</th>
-    <% if can? :manage, :all %>
-      <th>User</th>
-    <% end %>
-    <th>Actions</th>
+<div class="row-fluid">
+  <div class="col-md-2">
 
-  </tr>
-  </thead>
-  <tbody>
-    <% @structures.each do |structure| %>
+  </div>
+  <div class="col-md-10">
+    <p class="pad-top-30">The list below contains the last 500 buildings added to DenCity.</p>
+    <table class="tablesorter table table-striped">
+      <thead>
       <tr>
-        <td><%= link_to structure.id, structure %></td>
-        <td><%= link_to structure.provenance.display_name, structure.provenance unless structure.provenance.nil? %></td>
-        <% if can? :manage, :all %><td><%= structure.user.email unless structure.user.nil? %></td><% end %>
-        <td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
+        <th>Analysis Name</th>
+        <th>Date Added</th>
+        <th>Total Site EUI</th>
+        <th>Total Source EUI</th>
+        <% if can? :manage, :all %>
+          <th>User</th>
+        <% end %>
+        <% if current_user %><th>Actions</th><% end %>
+
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+      <% @structures.each do |structure| %>
+        <tr>
+          <td><%= link_to structure.provenance.display_name, structure %></td>
+          <td><%= structure.created_at %></td>
+          <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
+          <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>
+          <% if can? :manage, :all %><td><%= structure.user.email unless structure.user.nil? %></td><% end %>
+          <% if current_user %><td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td><% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -4,9 +4,9 @@
 
 <table class="tablesorter table table-striped">
   <tr>
-    <th>Machine Name</th>
     <th>Display Name</th>
     <th>Short Name</th>
+    <th>Name</th>
     <th>Datatype</th>
     <th>Units</th>
     <th>User-Defined?</th>
@@ -15,9 +15,10 @@
   </tr>
   <% @metas.each do |meta|  %>
     <tr>
-      <td><%= link_to meta.name, meta_path(meta) %></td>
-      <td><%= meta.display_name %></td>
+
+      <td><%= link_to meta.display_name, meta_path(meta) %></td>
       <td><%= meta.short_name %></td>
+      <td><%= meta.name %></td>
       <td><%= meta.datatype %></td>
       <td><%= link_to meta.unit.symbol, unit_path(meta.unit) %></td>
       <td><%= meta.user_defined %></td>

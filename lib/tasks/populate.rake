@@ -17,9 +17,8 @@ namespace :populate do
   desc "Import metadata from CSV"
   task  :import_metadata => :environment do
     raise "Populating is only intended for sample data in development" unless Rails.env == "development"
-
+    puts "deleting and importing metadata from metadata.csv"
     Meta.delete_all
-    puts "importing metadata from metadata.csv"
     # metadata.csv = real data, metadata_test.csv = test data
     CSV.foreach("#{Rails.root}/lib/metadata.csv",{:headers => true, :header_converters => :symbol}) do |r|
       next unless r[:name]

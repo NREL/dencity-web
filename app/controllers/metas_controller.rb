@@ -5,7 +5,7 @@ class MetasController < ApplicationController
   # GET /metas
   # GET /metas.json
   def index
-    @metas = Meta.all
+    @metas = Meta.all.order(display_name: :asc)
     respond_to do |format|
       format.html
       format.json {render json: { :metadata => @metas } }

@@ -1,18 +1,23 @@
 <h2>Measure Instances</h2>
- <h3></h3>
-<table>
+ <h3><%= @structure.provenance.name %></h3>
+<table class="tablesorter table table-striped">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>UUID</th>
+      <th>Version ID</th>
+      <th>URI</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @measure_instances.each do |measure_instance| %>
       <tr>
-        <td><%= link_to 'Show', measure_instance %></td>
-        <td><%= link_to 'Edit', edit_measure_instance_path(measure_instance) %></td>
-        <td><%= link_to 'Destroy', measure_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to measure_instance.uuid, measure_instance %></td>
+        <td><%= measure_instance.version_id %></td>
+        <td><%= measure_instance.uri %></td>
+        <td><% if can? :manage, measure_instance %><%= link_to 'Edit', edit_measure_instance_path(measure_instance) %> | <%= link_to 'Destroy', measure_instance, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
@@ -20,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Measure instance', new_measure_instance_path %>
+<%= link_to 'New Measure instance', new_structure_measure_instance_path %>

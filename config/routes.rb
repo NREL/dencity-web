@@ -14,7 +14,7 @@ Dencity::Application.routes.draw do
     get '/logout' => 'devise/sessions#destroy'
   end
 
-  resources :structures  do
+  resources :structures, shallow: true do
     resources :attachments
     resources :measure_instances
   end

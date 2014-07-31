@@ -5,8 +5,9 @@ class MeasureInstancesController < ApplicationController
   # GET /measure_instances
   # GET /measure_instances.json
   def index
+    @structure = Structure.find(params[:structure_id])
+    @measure_instances = MeasureInstance.where(structure_id: params[:structure_id])
 
-    @measure_instances = MeasureInstance.all
   end
 
   # GET /measure_instances/1
@@ -71,6 +72,6 @@ class MeasureInstancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measure_instance_params
-      params[:measure_instance]
+      clean_params = params.require(:measure_instance).permit(:uuid, :version_id, :uri, structure_attributes: [:id])
     end
 end

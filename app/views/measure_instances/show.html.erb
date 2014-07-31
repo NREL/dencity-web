@@ -1,4 +1,16 @@
-<p id="notice"><%= notice %></p>
+<h3 class="edit-name"><%= @measure_instance.id %> <% if can? :update, @measure_instance %><%= link_to "[ edit ]", edit_measure_instance_path(@measure_instance), class: "edit-link" %><% end %></h3>
+<table class="table table-striped">
+  <% @measure_instance.attributes.keys.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <% if key == 'user_id' and !can? :update, @measure_instance  %>
+      <% else %>
+        <tr>
+          <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+          <td><%= @measure_instance[key] %> </td>
+        </tr>
+      <% end %>
+    <% end %>
 
-<%= link_to 'Edit', edit_measure_instance_path(@measure_instance) %> |
-<%= link_to 'Back', measure_instances_path %>
+  <% end %>
+</table>
+

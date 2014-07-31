@@ -25,7 +25,6 @@ class Structure
       if self.user_defined_id.nil?
         self.user_defined_id = self.id
       end
-      logger.info "USER DEFINED ID: #{self.user_defined_id}, #{self.id}"
     end
 
 end

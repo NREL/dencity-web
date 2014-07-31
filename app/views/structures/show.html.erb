@@ -31,63 +31,45 @@
 
 <h3>Measures</h3>
 <% if @structure.measure_instances %>
-  <div class="panel-group" id="accordion">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th width="30%">Measure Name</th>
+      <th>Argument Name</th>
+      <th>Value</th>
+    </tr>
+    </thead>
     <% @structure.measure_instances.sort.each do |measure| %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#<%= measure.uuid %>">
-            <%= measure.measure_description.nil? ? measure.uuid : measure.measure_description.name %>
-          </a>
-        </h4>
-      </div>
-      <div id="<%= measure.uuid %>" class="panel-collapse collapse">
-        <div class="panel-body">
-          <table class="table table-striped">
-            <tr>
-              <th>Measure Name</th>
-              <td><%= link_to measure.measure_description.name, measure.measure_description unless measure.measure_description.nil? %></td>
-            </tr>
-            <tr>
-              <th>Measure Type</th>
-              <td><%= measure.measure_description.type unless measure.measure_description.nil? %></td>
-            </tr>
-            <tr>
-              <th>UUID</th>
-              <td><%= measure.uuid %></td>
-            </tr>
-            <tr>
-              <th>Version ID</th>
-              <td><%= measure.version_id %></td>
-            </tr>
-            <% unless measure.arguments.nil? %>
-              <% measure.arguments.each do |arg| %>
-                <tr>
-                  <th><%= arg %></th>
-                  <td></td>
-                </tr>
-              <% end %>
-            <% end %>
-          </table>
-        </div>
-      </div>
-    </div>
+      <tr>
+         <td colspan="3"><% if measure.measure_description.nil? %> <%= measure.uuid%> <% else %><%= link_to measure.measure_description.name, measure.measure_description %><% end %></td>
+      </tr>
+      <% unless measure.arguments.nil? %>
+        <% measure.arguments.each do |arg| %>
+          <tr>
+            <th>&nbsp;</th>
+            <td><%= arg[0] %></td>
+            <td><%= arg[1] %></td>
+          </tr>
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
+  </table>
 <% end %>
 
+<!--
 <h3>Attachments</h3>
 <table class="table table-striped">
   <tr>
     <th>Filename</th>
     <th>Actions</th>
   </tr>
-  <% @structure.attachments.each do |file| %>
+  <%# @structure.attachments.each do |file| %>
       <tr>
         <td> file.filename</td>
         <td> file.filename</td>
         <td>BUTTON TO DOWNLOAD</td>
       </tr>
-  <% end %>
+  <%# end %>
 </table>
+-->
 

@@ -200,6 +200,7 @@ namespace :testing do
 
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
+    provenance_id = nil
 
     # add metadata
     json_file = MultiJson.load(File.read("./lib/data/dencity_metadata.json"))
@@ -216,6 +217,33 @@ namespace :testing do
       puts "ERROR: #{e.response}"
     end
 
+    if provenance_id
+      # add structures
+      files = Dir.glob('./lib/data/data_points/*_dencity.json')
+      files.each do |file|
+        json_file = MultiJson.load(File.read(file))
+        json_request = JSON.generate(json_file)
+        begin
+          request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", :user => @user_name, :password => @user_pwd)
+          response = request.post(json_request, {:content_type => :json, :accept => :json})
+          if response.code == 201
+            puts "SUCCESS: #{response.body}"
+          end
+        rescue => e
+          puts "ERROR: #{e.inspect}"
+        end
+      end
+    else
+      puts "ERROR: Cannot post structure without a provenance_id"
+    end
+  end
+
+  desc 'upload structure only'
+  task :upload_structures => :environment do
+
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
+    provenance_id = '53daaebb986ffbed940001a7'
     # add structures
     files = Dir.glob('./lib/data/data_points/*_dencity.json')
     files.each do |file|
@@ -231,6 +259,7 @@ namespace :testing do
         puts "ERROR: #{e.inspect}"
       end
     end
+
   end
 
   unless Rails.env.production?

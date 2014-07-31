@@ -6,7 +6,7 @@ class ApiController < ApplicationController
     # API
     # POST api/structure.json
     error = false
-    error_message = ""
+    error_messages = []
     warnings = []
 
     # Add new structure
@@ -25,23 +25,23 @@ class ApiController < ApplicationController
       @structure.user = current_user
 
       # Assign provenance
-      if params[:provenance_id]
+      if params[:provenance_id] && !params[:provenance_id].blank?
         prov = Provenance.find_by(:id => params[:provenance_id], :user => @structure.user)
         if prov
           @structure.provenance = prov
         else
           error = true
-          error_message += "No provenance matching user and provenance_id #{params[:provenance_id]}...could not save structure."
+          error_messages << "No provenance matching user and provenance_id #{params[:provenance_id]}...could not save structure."
         end
       else
         error = true
-        error_message += 'No provenance_id provided...could not save structure.'
+        error_messages << 'No provenance_id provided...could not save structure.'
       end
 
       unless error
         unless @structure.save!
           error = true
-          error_message += 'Could not process structure'
+          error_messages << 'Could not process structure'
         end
       end
 
@@ -58,6 +58,7 @@ class ApiController < ApplicationController
             @measure.arguments = m['arguments']
             @measure.structure = @structure
             #TODO: user_id too?  duplicates?
+            #TODO: warning if this doesn't match a measure description?
             desc =  MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
             @measure.measure_description = desc
             @measure.save!
@@ -69,7 +70,7 @@ class ApiController < ApplicationController
         if !error
           format.json { render json: {structure: @structure, warnings: warnings}, status: :created, location: structure_url(@structure) }
         else
-          format.json { render json: {error: error_message}, status: :unprocessable_entity }
+          format.json { render json: {error: error_messages}, status: :unprocessable_entity }
         end
       end
     end
@@ -81,6 +82,7 @@ class ApiController < ApplicationController
 
     error = false
     error_messages = []
+    warnings = []
 
     # Add new provenance
     if params[:provenance]
@@ -101,7 +103,7 @@ class ApiController < ApplicationController
 
         unless @provenance.save!
           error = true
-          error_messages += "Could not process provenance"
+          error_messages << "Could not process provenance"
         end
       end
     end
@@ -110,21 +112,28 @@ class ApiController < ApplicationController
     if @provenance && params[:measure_definitions]
 
       params[:measure_definitions].each do |m|
-        @def = MeasureDescription.new
-        puts m.inspect
 
-        @def.uuid = m['id']
-        @def.version_id = m['version_id']
-        @def.name = m['name']
-        @def.display_name = m['display_name']
-        @def.type = m['type']
-        @def.description = m['description']
-        @def.default_value = m['default_value']
-        @def.modeler_description = m['modeler_description']
-        @def.arguments = m['arguments']
-        unless @def.save!
-          error = true
-          error_message << "Could not save measure definition #{m['id']}"
+        descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])
+        if descs.count > 0
+          warnings << "Measure definition already exists for uuid: #{m['id']} and version_id: #{m['version_id']}...could not save duplicate."
+
+        else
+          @def = MeasureDescription.new
+          puts m.inspect
+
+          @def.uuid = m['id']
+          @def.version_id = m['version_id']
+          @def.name = m['name']
+          @def.display_name = m['display_name']
+          @def.type = m['type']
+          @def.description = m['description']
+          @def.default_value = m['default_value']
+          @def.modeler_description = m['modeler_description']
+          @def.arguments = m['arguments']
+          unless @def.save!
+            error = true
+            error_message << "Could not save measure definition #{m['id']}"
+          end
         end
       end
     end
@@ -135,7 +144,7 @@ class ApiController < ApplicationController
         p_id = @provenance.id.to_s
         j = @provenance.as_json.except('_id')
         j['id'] = p_id
-        format.json { render json: {provenance: j}, status: :created, location: provenances_url }
+        format.json { render json: {provenance: j, warnings: warnings}, status: :created, location: provenances_url }
       else
         format.json { render json: {error: error_messages}, status: :unprocessable_entity }
       end

@@ -16,4 +16,7 @@ class MeasureDescription
   # Relations
   has_many :measure_instances
 
+  # Validations
+  validates :version_id, :uniqueness => { :scope => :uuid }
+
 end

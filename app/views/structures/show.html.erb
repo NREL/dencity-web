@@ -7,7 +7,7 @@
       <% else %>
         <tr>
           <th> <%= key == "_id" ? "ID" : key.humanize%></th>
-          <td><% if key == 'user_id' %><%= @structure.user.email %><% else %><%= @structure[key] %><% end %></td>
+          <td><% if key == 'user_id' %><%= @structure.user.email %><% else %><%= @structure[key] %> <% meta = Meta.find_by(name: key) rescue nil %><%= meta.unit.symbol unless meta.nil? || meta.unit.nil? %><% end %></td>
         </tr>
       <% end %>
     <% end %>

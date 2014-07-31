@@ -23,3 +23,6 @@ public/tmp
 .ruby-version
 .idea
 .DS_STORE
+
+# Ignore wars
+*.war

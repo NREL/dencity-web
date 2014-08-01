@@ -59,7 +59,7 @@ class ApiController < ApplicationController
             @measure.structure = @structure
             #TODO: user_id too?  duplicates?
             #TODO: warning if this doesn't match a measure description?
-            desc =  MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
+            desc = MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
             @measure.measure_description = desc
             @measure.save!
           end
@@ -70,7 +70,7 @@ class ApiController < ApplicationController
         if !error
           format.json { render json: {structure: @structure, warnings: warnings}, status: :created, location: structure_url(@structure) }
         else
-          format.json { render json: {error: error_messages}, status: :unprocessable_entity }
+          format.json { render json: {error: error_messages, structure: @structure}, status: :unprocessable_entity }
         end
       end
     end
@@ -81,6 +81,7 @@ class ApiController < ApplicationController
     # POST /api/analysis.json
 
     error = false
+    already_exists = false
     error_messages = []
     warnings = []
 
@@ -90,8 +91,10 @@ class ApiController < ApplicationController
 
       # check if the provenance name already exists?
       if Provenance.where(name: clean_params[:name]).first
-        error = true
-        error_messages << "Provenance already exists with the name #{clean_params[:name]}"
+        error = false
+        already_exists = true
+        warnings << "Provenance already exists with the name #{clean_params[:name]}"
+        @provenance = Provenance.where(name: clean_params[:name]).first
       else
         @provenance = Provenance.new(clean_params)
         # add analysis_information (it's a hash and can't make it through the clean_params method)
@@ -109,14 +112,12 @@ class ApiController < ApplicationController
     end
 
     # Add measure descriptions
-    if @provenance && params[:measure_definitions]
+    if @provenance && params[:measure_definitions] && !already_exists
 
       params[:measure_definitions].each do |m|
-
         descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])
         if descs.count > 0
           warnings << "Measure definition already exists for uuid: #{m['id']} and version_id: #{m['version_id']}...could not save duplicate."
-
         else
           @def = MeasureDescription.new
           puts m.inspect
@@ -153,7 +154,7 @@ class ApiController < ApplicationController
 
   def check_auth
 
-    authenticate_or_request_with_http_basic do |username,password|
+    authenticate_or_request_with_http_basic do |username, password|
 
       resource = User.find_by(email: username)
       puts resource.email
@@ -164,9 +165,9 @@ class ApiController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def provenance_params
-      params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
-      #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def provenance_params
+    params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
+    #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
+  end
 end

@@ -19,6 +19,9 @@ Dencity::Application.routes.draw do
     resources :measure_instances
   end
 
+  # route to get search results
+  get 'search' => 'search#show'
+
   resources :metas, shallow: true do
     collection do
       post 'meta_upload'

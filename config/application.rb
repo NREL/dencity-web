@@ -6,6 +6,11 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+# items for solr and rails 4/mongoid 4
+require 'bson'
+require 'moped'
+Moped::BSON = BSON
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)

@@ -5,7 +5,49 @@ class StructuresController < ApplicationController
   # GET /structures
   # GET /structures.json
   def index
-    @structures = Structure.order_by(:created_at.desc).limit(500)
+    # @search = Sunspot.search(Structure) do
+    #   fulltext params[:q] do
+    #     #boost_fields :name => 2.0, :description => 1.5
+    #
+    #     #highlight :name, :fragment_size => 255
+    #     #highlight :description, :fragment_size => 60, :max_snippets => 4, :merge_contiguous_fragments => true
+    #   end
+    # end
+
+    @search = Sunspot.search(Structure) do
+      params[:per_page] ||= 50
+      params[:order] ||= "score"
+
+
+      with(:building_area).less_than 4000
+
+
+
+      facet_filters = {}
+      if params[:f]
+        params[:f].each do |facet_field, values|
+          if(facet_field != "type" || values != ["any"])
+            facet_filters[facet_field] = with(facet_field).any_of(values)
+          end
+        end
+      end
+
+      if params[:r]
+        params[:r].each do |facet_field, input_value|
+          values = input_value.split(";").map { |value| value.to_i }
+          range = values.first..values.last
+          with(facet_field).between(range)
+        end
+      end
+
+      # Make sure to return the stats of some objects for the facets
+      stats :building_area
+      facet :building_area, :exclude => facet_filters["building_area"]
+
+      paginate :page => params[:page], :per_page => params[:per_page]
+    end
+
+    #@structures = Structure.order_by(:created_at.desc).limit(500)
   end
 
   # GET /structures/1

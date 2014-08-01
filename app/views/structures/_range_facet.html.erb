@@ -1,0 +1,8 @@
+<% if @search.stats(:buidling_area) %>
+    <div class="facet facet-checkboxes facet-<%= facet_by %>">
+      <h4><%= title %></h4>
+      <div class="facet-range">
+        <input type="slider" name="r[<%= facet_by %>]" value="<%= @search.stats(:building_area).min %>;<%= @search.stats(:building_area).max %>">
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,23 @@
+<% rows ||= @search.facet(facet_by).rows %>
+<% if rows.any? %>
+    <div class="facet facet-checkboxes facet-<%= facet_by %>">
+      <h4><%= title %></h4>
+      <ul>
+        <% rows[0,5].each do |row| %>
+            <%= facet_item(row.instance_variable_get(:@facet).field_name, row) %>
+        <% end %>
+      </ul>
+
+      <% if rows.length > 5 %>
+          <ul id="facet_<%= facet_by %>_more" class="facet-more" style="display: none;">
+            <% rows[5..-1].each do |row| %>
+                <%= facet_item(row.instance_variable_get(:@facet).field_name, row) %>
+            <% end %>
+          </ul>
+
+          <div class="facet-more-link">
+            <a href="#" data-toggle="more_facets" data-target="facet_<%= facet_by %>_more" data-facet="<%= facet_by %>">more &#9662;</a>
+          </div>
+      <% end %>
+    </div>
+<% end %>

@@ -1,37 +1,67 @@
-<h2>Buildings <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %><% end %></h2>
 
-<div class="row-fluid">
-  <div class="col-md-2">
+<%= form_tag(request.fullpath, :method => :get, :id => "search_results") do %>
+    <div class="row-fluid">
+      <div class="col-md-2">
+        <h2>Facet</h2>
+        <div class="facet facet-type">
+        </div>
 
-  </div>
-  <div class="col-md-10">
-    <p class="pad-top-30">The list below contains the last 500 buildings added to DEnCity.</p>
-    <table class="tablesorter table table-striped">
-      <thead>
-      <tr>
-        <th>Analysis Name</th>
-        <th>Added </th>
-        <th>Total Site EUI</th>
-        <th>Total Source EUI</th>
-        <% if can? :manage, :all %>
-          <th>User</th>
-        <% end %>
-        <% if current_user %><th>Actions</th><% end %>
+        <%#= render("facet", :title => "Building Area", :facet_by => :building_area) %>
+        <%= render("range_facet", :title => "Building Area", :facet_by => :building_area) %>
 
-      </tr>
-      </thead>
-      <tbody>
-      <% @structures.each do |structure| %>
-        <tr>
-          <td><%= link_to structure.provenance.display_name, structure %></td>
-          <td> <%= time_ago_in_words(structure.created_at) %> ago </td>
-          <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
-          <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>
-          <% if can? :manage, :all %><td><%= structure.user.email unless structure.user.nil? %></td><% end %>
-          <% if current_user %><td><% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %> | <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td><% end %>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+      </div>
+      <div class="col-md-10">
+        <h2>Buildings
+          <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %>
+          <% end %></h2>
+
+        <h3>Total Results: <%= number_with_delimiter(@search.total) %></h3>
+
+        <div class="row-fluid search-options">
+        </div>
+        <div id="results">
+          <table class="tablesorter table table-striped">
+            <thead>
+            <tr>
+              <th>Analysis Name</th>
+              <th>Added</th>
+              <th>Total Site EUI</th>
+              <th>Total Source EUI</th>
+              <% if can? :manage, :all %>
+                  <th>User</th>
+              <% end %>
+              <% if current_user %>
+                  <th>Actions</th>
+              <% end %>
+            </tr>
+            </thead>
+            <tbody>
+            <% @search.each_hit_with_result do |hit, structure| %>
+                <tr>
+                  <td><%= link_to structure.provenance.display_name, structure %></td>
+                  <td> <%= time_ago_in_words(structure.created_at) %> ago</td>
+                  <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
+                  <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>
+                  <% if can? :manage, :all %>
+                      <td><%= structure.user.email unless structure.user.nil? %></td>
+                  <% end %>
+                  <% if current_user %>
+                      <td>
+                      <% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %>
+                          | <%= link_to 'Destroy', structure, method: :delete, data: {confirm: 'Are you sure?'} %>
+                      <% end %></td>
+                  <% end %>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<% content_for(:custom_js) do %>
+    <%= javascript_include_tag "search" %>
+<% end %>
+
+

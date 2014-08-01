@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/hlegius/sunspot_mongoid2.git
+  revision: 2a978761ef81960dbf3e87980c36bc6c3a8f672a
+  specs:
+    sunspot_mongoid2 (0.5.1.7)
+      mongoid (>= 2)
+      sunspot (>= 2)
+      sunspot_rails (>= 2)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: 1fcb8721b0222ad4de7677f69fbf543a3f75b5f4
   specs:
@@ -9,11 +18,13 @@ GIT
       tzinfo (>= 0.3.37)
 
 GIT
-  remote: https://github.com/jclosure/sunspot_mongo.git
-  revision: b613b9d2bca1e7fcec9a2dbecc8a7a4adba81dd9
+  remote: git://github.com/mongoid/moped.git
+  revision: 2d92a6b9df638ed6b32843323cf795744a422f3d
   specs:
-    sunspot_mongo (1.0.1)
-      sunspot_rails
+    moped (2.0.0)
+      bson (~> 2.2)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -88,10 +99,6 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.3.5)
-    moped (2.0.0.rc2)
-      bson (~> 2.2)
-      connection_pool (~> 2.0)
-      optionable (~> 0.2.0)
     multi_json (1.10.1)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
@@ -198,12 +205,14 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   bootstrap_form
+  bson
   cancancan (~> 1.9)
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 1.2)
   jquery-rails
   mongoid!
+  moped!
   multi_json
   puma
   rails (= 4.1.0)
@@ -212,7 +221,7 @@ DEPENDENCIES
   roo
   sass-rails (~> 4.0.0)
   sdoc
-  sunspot_mongo!
+  sunspot_mongoid2!
   sunspot_rails
   sunspot_solr
   therubyrhino

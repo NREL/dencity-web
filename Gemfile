@@ -45,6 +45,13 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+# Solr-based searching
+gem "sunspot_rails"
+
+# This github fork fixes compatibility with Mongoid 3 (by using
+# Moped::BSON::ObjectId instead of BSON::ObjectId).
+gem "sunspot_mongo", :git => "https://github.com/jclosure/sunspot_mongo.git"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
@@ -64,3 +71,7 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
+group :development, :test do
+  gem 'puma'
+  gem 'sunspot_solr'
+end

@@ -8,6 +8,13 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
+GIT
+  remote: https://github.com/jclosure/sunspot_mongo.git
+  revision: b613b9d2bca1e7fcec9a2dbecc8a7a4adba81dd9
+  specs:
+    sunspot_mongo (1.0.1)
+      sunspot_rails
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -93,6 +100,11 @@ GEM
     origin (2.1.1)
     orm_adapter (0.5.0)
     polyglot (0.3.5)
+    pr_geohash (1.0.0)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
+    puma (2.9.0-java)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -121,6 +133,8 @@ GEM
       nokogiri
       rubyzip
       spreadsheet (> 0.6.4)
+    rsolr (1.0.10)
+      builder (>= 2.1.2)
     ruby-ole (1.2.11.7)
     rubyzip (1.0.0)
     sass (3.2.19)
@@ -143,6 +157,14 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sunspot (2.1.1)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (2.1.1)
+      nokogiri
+      rails (>= 3)
+      sunspot (= 2.1.1)
+    sunspot_solr (2.1.1)
     therubyrhino (2.0.3)
       therubyrhino_jar (>= 1.7.3)
     therubyrhino_jar (1.7.4)
@@ -183,12 +205,16 @@ DEPENDENCIES
   jquery-rails
   mongoid!
   multi_json
+  puma
   rails (= 4.1.0)
   rest-client
   role_model
   roo
   sass-rails (~> 4.0.0)
   sdoc
+  sunspot_mongo!
+  sunspot_rails
+  sunspot_solr
   therubyrhino
   turbolinks
   uglifier (>= 1.3.0)

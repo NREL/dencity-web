@@ -23,8 +23,13 @@ class StructuresController < ApplicationController
       facet_filters = {}
       if params[:f]
         params[:f].each do |facet_field, values|
-          if(facet_field != "type" || values != ["any"])
-            facet_filters[facet_field] = with(facet_field).any_of(values)
+          case values
+            when Array
+              facet_filters[facet_field] = with(facet_field, Range.new(*values.first.split("..").map(&:to_i)))
+            else
+              if (facet_field != "type" || values != ["any"])
+                facet_filters[facet_field] = with(facet_field).any_of(values)
+              end
           end
         end
       end
@@ -39,9 +44,9 @@ class StructuresController < ApplicationController
 
       # Make sure to return the stats of some objects for the facets
       stats :building_area
-      facet :building_area, range: 0..100000, range_interval: 1000, exclude: facet_filters['building_area']
+      facet :building_area, range: 0..100000, range_interval: 1000 #, exclude: facet_filters['building_area']
       stats :total_site_eui
-      facet :total_site_eui, range: 0..1500, range_interval: 100, exclude: facet_filters['total_site_eui']
+      facet :total_site_eui, range: 0..1500, range_interval: 100 #, exclude: facet_filters['total_site_eui']
 
       paginate page: params[:page], per_page: params[:per_page]
     end
@@ -101,7 +106,7 @@ class StructuresController < ApplicationController
     end
   end
 
-private
+  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_structure

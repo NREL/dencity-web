@@ -19,7 +19,7 @@ class StructuresController < ApplicationController
       params[:order] ||= "score"
 
 
-      with(:building_area).less_than 4000
+      with(:building_area).less_than 10000
 
 
 
@@ -43,6 +43,8 @@ class StructuresController < ApplicationController
       # Make sure to return the stats of some objects for the facets
       stats :building_area
       facet :building_area, :exclude => facet_filters["building_area"]
+      stats :total_site_eui
+      facet :total_site_eui, :exclude => facet_filters["total_site_eui"]
 
       paginate :page => params[:page], :per_page => params[:per_page]
     end

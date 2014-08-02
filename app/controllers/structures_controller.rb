@@ -15,11 +15,11 @@ class StructuresController < ApplicationController
     # end
 
     @search = Sunspot.search(Structure) do
-      params[:per_page] ||= 50
+      params[:per_page] ||= 100
       params[:order] ||= "score"
 
 
-      with(:building_area).less_than 10000
+      #with(:building_area).less_than 10000
 
 
 

@@ -7,8 +7,8 @@
         </div>
 
         <%#= render("facet", :title => "Building Area", :facet_by => :building_area) %>
-        <%= render("facet", :title => "EUI", :facet_by => :total_site_eui) %>
         <%= render("facet", :title => "Building Area", :facet_by => :building_area) %>
+        <%= render("facet", :title => "EUI", :facet_by => :total_site_eui) %>
 
       </div>
       <div class="col-md-10">
@@ -58,7 +58,9 @@
           </table>
         </div>
       </div>
+      <%#= will_paginate @search %>
     </div>
+
 <% end %>
 
 <% content_for(:custom_js) do %>

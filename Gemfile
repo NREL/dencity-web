@@ -46,6 +46,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Solr-based searching
+gem "blacklight"
 gem "sunspot_rails"
 
 # This github fork fixes compatibility with Mongoid 3 (by using

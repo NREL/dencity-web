@@ -35,4 +35,4 @@ and execute the following
     java -classpath "lib/*" org.jruby.Main -S rake sunspot:reindex
     ```
 
-    * Note that the schema.xml file that ships with Ubuntu's solr-tomcat does not work out of the box. I used https://raw.githubusercontent.com/sunspot/sunspot/master/sunspot_solr/solr/solr/conf/schema.xml
+  * Note that the schema.xml file that ships with Ubuntu's solr-tomcat does not work out of the box. I used https://raw.githubusercontent.com/sunspot/sunspot/master/sunspot_solr/solr/solr/conf/schema.xml

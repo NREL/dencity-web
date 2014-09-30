@@ -9,10 +9,16 @@ class ApiController < ApplicationController
     error_messages = []
     warnings = []
 
-    # Add new structure
-    if params[:structure]
+    # Find or add a new structure
+    if params[:metadata]
+      # pull out the user create uuid if they have one, otherwise create a new one
+      user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
 
-      @structure = Structure.new
+      @structure = Structure.find_or_create_by(user_defined_id: user_uuid)
+      # set the 'date generated' field
+    end
+
+    if params[:structure]
       params[:structure].each do |key, value|
         if Meta.where(:name => key).count > 0
           # add to structure
@@ -153,7 +159,6 @@ class ApiController < ApplicationController
   end
 
   def check_auth
-
     authenticate_or_request_with_http_basic do |username, password|
 
       resource = User.find_by(email: username)

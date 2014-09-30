@@ -3,10 +3,13 @@
 ## Development
 
 ```
+bundle
 jruby -S sunspot-solr run
 ```
 
 You can check that Solr is running by going to `http://localhost:8983/solr`
+
+In a seperate terminal run `rails s`
 
 ## Deployment
 

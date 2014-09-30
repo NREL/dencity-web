@@ -26,3 +26,5 @@ public/tmp
 
 # Ignore wars
 *.war
+
+dump

@@ -43,10 +43,12 @@ class StructuresController < ApplicationController
       end
 
       # Make sure to return the stats of some objects for the facets
+      #facet :building_type
       stats :building_area
       facet :building_area, range: 0..100000, range_interval: 1000 #, exclude: facet_filters['building_area']
       stats :total_site_eui
       facet :total_site_eui, range: 0..1500, range_interval: 100 #, exclude: facet_filters['total_site_eui']
+
 
       paginate page: params[:page], per_page: params[:per_page]
     end

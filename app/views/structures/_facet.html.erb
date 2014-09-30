@@ -12,7 +12,6 @@
           <ul id="facet_<%= facet_by %>_more" class="facet-more" style="display: none;">
             <% rows[50..-1].each do |row| %>
                 <%= facet_item(row.instance_variable_get(:@facet).field_name, row) %>
-
             <% end %>
           </ul>
 

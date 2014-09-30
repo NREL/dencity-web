@@ -1,7 +1,7 @@
 
 <%= form_tag(request.fullpath, :method => :get, :id => "search_results") do %>
     <div class="row-fluid">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <h2>Facet</h2>
         <div class="facet facet-type">
         </div>
@@ -11,7 +11,7 @@
         <%= render("facet", :title => "EUI (MJ/m2)", :facet_by => :total_site_eui) %>
 
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <h2>Buildings
           <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %>
           <% end %></h2>

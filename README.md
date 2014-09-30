@@ -2,12 +2,20 @@
 
 ## Development
 
+Start Solr for JRuby using the command below.  You can check that Solr is running by going to `http://localhost:8983/solr`
+
 ```
 bundle
 jruby -S sunspot-solr run
 ```
 
-You can check that Solr is running by going to `http://localhost:8983/solr`
+In a separate console window call
+
+```
+rake sunspot:reindex
+```
+
+
 
 In a seperate terminal run `rails s`
 
@@ -29,6 +37,7 @@ demand.  This needs to be fixed.
 production.rb file.  `config.assets.version = '1.1'`
 1. If you need to reindex or run any rake tasks, then for now you need to manually SSH into one of the running EB instances
 and execute the following
+  * Note that the schema.xml file that ships with Ubuntu's solr-tomcat does not work out of the box. I used https://raw.githubusercontent.com/sunspot/sunspot/master/sunspot_solr/solr/solr/conf/schema.xml
 
     ```
     export RAILS_ENV=production
@@ -37,5 +46,3 @@ and execute the following
     export GEM_HOME=gems
     java -classpath "lib/*" org.jruby.Main -S rake sunspot:reindex
     ```
-
-  * Note that the schema.xml file that ships with Ubuntu's solr-tomcat does not work out of the box. I used https://raw.githubusercontent.com/sunspot/sunspot/master/sunspot_solr/solr/solr/conf/schema.xml

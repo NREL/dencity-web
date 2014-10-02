@@ -29,3 +29,4 @@ public/tmp
 
 dump
 deploy.zip
+*.log

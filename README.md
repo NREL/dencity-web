@@ -46,3 +46,22 @@ and execute the following
     export GEM_HOME=gems
     java -classpath "lib/*" org.jruby.Main -S rake sunspot:reindex
     ```
+
+## Docker deployment
+
+1. Re/Pre-compile assets if they changed. `rake assets:precompile RAILS_ENV=production`
+1. `docker build -t nlong/dencity-1 .`
+1. Test locally by calling `docker run -p 80:80 nlong/dencity-1`
+1. Point browser to $DOCKER_HOST IP (if using boot2docker) (e.g. http://192.168.59.103)
+1. If you are ready to deploy then make sure commit your changes locally.
+1. If it works, then create a zip file `git archive --format=zip HEAD > deploy.zip`
+    + Note that this will not upload the assets. So make sure to run `zip -9 -r deploy.zip public/assets/*` to add the assets to the upload
+    ```
+    rm -f deploy.zip
+    git archive --format=zip HEAD > deploy.zip
+    zip -9 -r deploy.zip public/assets/*
+    ```
+
+1. Upload the Zip to EB
+
+Source code will be mounted at /srv

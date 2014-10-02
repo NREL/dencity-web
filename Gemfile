@@ -60,10 +60,13 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'warbler'
 
+gem 'puma'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -75,6 +78,5 @@ end
 # gem 'capistrano', group: :development
 
 group :development, :test do
-  gem 'puma'
   gem 'sunspot_solr'
 end

@@ -1,7 +1,7 @@
 FROM ubuntu
 MAINTAINER Nicholas Long nicholas.long@nrel.gov
 
-# Install Nginx.
+# Install JDF, nginx, and other libraries
 RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends openjdk-7-jre-headless tar curl git nginx imagemagick && \
@@ -17,14 +17,19 @@ RUN echo gem: --no-document >> /etc/gemrc
 RUN gem update --system
 RUN gem install bundler
 
-# TODO: create an image from the above code then use that image as the base.
 # **Make sure NOT to publish this container as it contains the source code via the ADD command below**
 
 # First upload the Gemfile* so that it can cache the Gems -- do this first because it is slow
-WORKDIR /tmp
-ADD ./Gemfile Gemfile
-ADD ./Gemfile.lock Gemfile.lock
+WORKDIR /srv
+ADD Gemfile /srv/Gemfile
+ADD Gemfile.lock /srv/Gemfile.lock
 RUN bundle install
+
+# Add the app assets and precompile assets. Do it this way so that when the app changes the assets don't
+# have to be recompiled everytime
+ADD Rakefile /srv/Rakefile
+ADD /config/ /srv/config/
+ADD /app/assets/ /srv/app/assets/
 
 # Configure the nginx server
 ADD docker/nginx.conf /etc/nginx/sites-enabled/default
@@ -33,10 +38,11 @@ ADD docker/nginx.conf /etc/nginx/sites-enabled/default
 ADD docker/start-server.sh /usr/bin/start-server
 RUN chmod +x /usr/bin/start-server
 
-# Bundle app source
-ADD . /srv
+# Build the assets
+RUN rake assets:precompile RAILS_ENV=production
 
-WORKDIR /srv
+# Bundle app source
+ADD / /srv
 
 # Call the start-server script as the default command
 # When debugging you can use CMD so that you can override the command otherwise use ENTRYPOINT

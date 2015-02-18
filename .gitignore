@@ -19,6 +19,10 @@
 /tmp
 public/tmp
 
+# Berkshelf
+.vagrant
+Berksfile.lock
+
 # Ignore other specific files
 .ruby-version
 .idea

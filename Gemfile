@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.9'
 
 # Use jdbcsqlite3 as the database for Active Record
 #gem 'activerecord-jdbcsqlite3-adapter'
@@ -58,10 +58,6 @@ gem 'sunspot_mongoid2', github: 'hlegius/sunspot_mongoid2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'warbler'
-
-gem 'puma'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -79,4 +75,5 @@ end
 
 group :development, :test do
   gem 'sunspot_solr'
+  gem 'puma'
 end

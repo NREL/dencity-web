@@ -1,16 +1,16 @@
 FROM ubuntu
 MAINTAINER Nicholas Long nicholas.long@nrel.gov
 
-# Install JDF, nginx, and other libraries
+# Install JDK, nginx, and other libraries
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends openjdk-7-jre-headless tar curl git nginx imagemagick && \
+  apt-get install -y --no-install-recommends openjdk-7-jre-headless tar curl wget git nginx imagemagick && \
   rm -rf /var/lib/apt/lists/* && \
   echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
   chown -R www-data:www-data /var/lib/nginx
 
 # Install JRuby and Update Bundler
-ENV JRUBY_VERSION 1.7.15
+ENV JRUBY_VERSION 1.7.19
 RUN curl http://jruby.org.s3.amazonaws.com/downloads/$JRUBY_VERSION/jruby-bin-$JRUBY_VERSION.tar.gz | tar xz -C /opt
 ENV PATH /opt/jruby-$JRUBY_VERSION/bin:$PATH
 RUN echo gem: --no-document >> /etc/gemrc
@@ -39,6 +39,9 @@ ADD docker/start-server.sh /usr/bin/start-server
 RUN chmod +x /usr/bin/start-server
 
 # Build the assets
+# First add the users model to prevent the error with not finding the User
+ADD /app/models/user.rb /srv/app/models/user.rb
+# Now call precompile
 RUN rake assets:precompile RAILS_ENV=production
 
 # Bundle app source

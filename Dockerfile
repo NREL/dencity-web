@@ -47,6 +47,9 @@ RUN rake assets:precompile RAILS_ENV=production
 # Bundle app source
 ADD / /srv
 
+# Define mountable directories.
+VOLUME ["/var/data"]
+
 # Call the start-server script as the default command
 # When debugging you can use CMD so that you can override the command otherwise use ENTRYPOINT
 CMD ["/usr/bin/start-server"]

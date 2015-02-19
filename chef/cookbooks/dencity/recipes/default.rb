@@ -30,7 +30,7 @@ docker_container 'makuk66/docker-solr' do
   detach true
   port '8983:8983'
   # env 'SETTINGS_FLAVOR=local'
-  volume '/var/data/solr:/docker-storage'
+  volume '/var/data/solr:/var/data'
 end
 
 directory '/var/data/mongodb' do
@@ -44,7 +44,7 @@ docker_container 'dockerfile/mongodb' do
   container_name 'dencity-db'
   detach true
   port '27017:27017'
-  volume '/var/data/mongodb:/docker-storage'
+  volume '/var/data/mongodb:/data/db'
 end
 
 # # build the docker container for the web application
@@ -58,8 +58,8 @@ end
 #docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb
 docker_container 'nllong/dencity-web' do
   container_name 'dencity-web'
-  link ['dencity-db']
+  link ['dencity-db:dencity-db', 'dencity-solr:dencity-solr']
   detach true
   port '80:80'
-  volume '/mnt/docker:/docker-storage'
+  volume '/mnt/docker:/var/data'
 end

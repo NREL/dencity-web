@@ -4,7 +4,7 @@
 # puma -C ./config/puma.rb
 
 #application_path = '.'
-railsenv = 'production'
+railsenv = 'docker'
 #directory application_path
 environment railsenv
 daemonize true

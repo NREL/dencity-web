@@ -8,5 +8,9 @@ run_list([
 override_attributes(
     nginx: {
         default_site_enabled: false
+    },
+    docker: {
+        container_cmd_timeout: 1800,
+        image_cmd_timeout: 1800
     }
 )

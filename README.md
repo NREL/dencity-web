@@ -9,15 +9,52 @@ bundle
 jruby -S sunspot-solr run
 ```
 
-In a separate console window call
+In a separate console  call
 
 ```
 rake sunspot:reindex
 ```
 
+In a separate console call
 
+```
+rails s
+```
 
-In a seperate terminal run `rails s`
+## Development using Docker
+
+If desired, it is possible to run the database (MongoDB) and Solr as docker containers on your local machine.
+
+1. Install boot2docker if the machine is Mac OSX or Windows. Make sure it is running `boot2docker start`.
+1. Pull down the MongoDB Docker Image `docker pull dockerfile/mongodb`
+1. Pull down the Apache Solr Docker Image `docker pull makuk66/docker-solr`
+1. Start the database
+
+    ```
+    cd <project_root_directory>
+
+    # create data volume and run the mongodb container
+    docker run -v /data/db --name mongodata busybox true
+    docker run -it -d --name dencity_mongo -p 27017:27017 --volumes-from mongodata dockerfile/mongodb
+
+    # build the solr container
+    cd solr && docker build -t dencity-solr .
+
+    # run the solr container. Not sure how the index is persisted after removing the container
+    docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true
+    docker run -it -d --name dencity_solr -p 8983:8983 --volumes-from solrdata dencity-solr
+
+    # build the dencity container
+    docker build -t dencity-web .
+
+    # run the dencity container
+    docker run -it -d --name dencity_web -p 80:80 --link dencity_mongo:db --link dencity_solr:solr dencity-web
+
+    # enter the dencity_web container and populate some data
+    docker exec -it dencity_web /bin/bash
+    rake populate:units RAILS_ENV=docker
+    ```
+
 
 ## Docker deployment
 
@@ -28,4 +65,4 @@ In a seperate terminal run `rails s`
 
 1. Upload the Zip to EB
 
-### Deploying to Elastic Beanstalk
+## Deploying to Elastic Beanstalk

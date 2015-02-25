@@ -38,7 +38,8 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
     docker run -it -d --name dencity_mongo -p 27017:27017 --volumes-from mongodata dockerfile/mongodb
 
     # build the solr container
-    cd solr && docker build -t dencity-solr .
+    cd solr
+    docker build -t dencity-solr .
 
     # run the solr container. Not sure how the index is persisted after removing the container
     docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true

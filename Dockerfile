@@ -13,7 +13,10 @@ RUN \
 ENV JRUBY_VERSION 1.7.19
 RUN curl http://jruby.org.s3.amazonaws.com/downloads/$JRUBY_VERSION/jruby-bin-$JRUBY_VERSION.tar.gz | tar xz -C /opt
 ENV PATH /opt/jruby-$JRUBY_VERSION/bin:$PATH
+RUN echo "testing"
 RUN echo gem: --no-document >> /etc/gemrc
+# don't check the validity of the SSL certificates because of NREL's ssl proxy
+RUN echo :ssl_verify_mode: 0 >> /root/.gemrc
 RUN gem update --system
 RUN gem install bundler
 

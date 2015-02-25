@@ -28,7 +28,7 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
 1. Install boot2docker if the machine is Mac OSX or Windows. Make sure it is running `boot2docker start`.
 1. Pull down the MongoDB Docker Image `docker pull dockerfile/mongodb`
 1. Pull down the Apache Solr Docker Image `docker pull makuk66/docker-solr`
-1. Start the database
+1. To build the app for the first time run the following:
 
     ```
     cd <project_root_directory>
@@ -40,6 +40,7 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
     # build the solr container
     cd solr
     docker build -t dencity-solr .
+    cd ..
 
     # run the solr container. Not sure how the index is persisted after removing the container
     docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true
@@ -49,13 +50,20 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
     docker build -t dencity-web .
 
     # run the dencity container
-    docker run -it -d --name dencity_web -p 80:80 --link dencity_mongo:db --link dencity_solr:solr dencity-web
+    docker run -it -d --name dencity_web -p 8080:80 --link dencity_mongo:db --link dencity_solr:solr dencity-web
 
     # enter the dencity_web container and populate some data
     docker exec -it dencity_web /bin/bash
     rake populate:units RAILS_ENV=docker
     ```
 
+1. To start the app, run the following
+
+    ```
+    docker run -it -d --name dencity_mongo -p 27017:27017 --volumes-from mongodata dockerfile/mongodb
+    docker run -it -d --name dencity_solr -p 8983:8983 --volumes-from solrdata dencity-solr
+    docker run -it -d --name dencity_web -p 8080:80 --link dencity_mongo:db --link dencity_solr:solr dencity-web
+    ```
 
 ## Docker deployment
 

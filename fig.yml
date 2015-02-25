@@ -1,0 +1,18 @@
+web:
+  build: .
+  command: /usr/bin/start-server
+  links:
+    - db:db
+    - solr
+  ports:
+    - "8080:80"
+db:
+  image: dockerfile/mongodb
+  volumes_from:
+    - mongodata
+  ports:
+    - "27017:27017"
+solr:
+   build: solr/
+   volumes_from:
+       - solrdata

@@ -65,6 +65,24 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
     docker run -it -d --name dencity_web -p 8080:80 --link dencity_mongo:db --link dencity_solr:solr dencity-web
     ```
 
+## Development with Docker and Fig
+
+Install fig (`brew install fig`), docker (boot2docker)
+
+Make sure that you have your data containers:
+
+```
+docker run -v /data/db --name mongodata busybox true
+docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true
+```
+
+Run
+
+```
+fig up
+```
+
+
 ## Docker deployment
 
 1. `docker build -t nlong/dencity-1 .`

@@ -15,14 +15,16 @@
     <%= f.email_field :email, autofocus: true, control_col: "col-sm-4" %>
   </fieldset>
 
-  <%= f.form_group :roles, label: { text: "Roles" } do %>
+  <% if current_user.has_role? :admin %>
+    <%= f.form_group :roles, label: { text: "Roles" } do %>
 
-        <% for role in User.valid_roles %>
-          <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {name: "user[roles][]" }%>
-          <%= label_tag "user_roles_#{role}", role, class: "user-label" %><br />
-        <% end %>
-        <%= hidden_field_tag "user[roles][]", "" %>
+          <% for role in User.valid_roles %>
+            <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {name: "user[roles][]" }%>
+            <%= label_tag "user_roles_#{role}", role, class: "user-label" %><br />
+          <% end %>
+          <%= hidden_field_tag "user[roles][]", "" %>
 
+    <% end %>
   <% end %>
 
   <%= f.form_group do %>

@@ -48,6 +48,7 @@ class User
 
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
+  # to automatically assign admin to a user, set roles_mask = 1 in db user record.
   roles :admin, :editor
 
   # Relations

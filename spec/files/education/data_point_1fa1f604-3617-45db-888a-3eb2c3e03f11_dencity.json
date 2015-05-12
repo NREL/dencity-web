@@ -1,0 +1,636 @@
+{
+  "measure_instances": [
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "279b463e-ed90-4cf3-8cb1-43e7c09c9541",
+      "version_id": "b244d2fd-5834-4f0f-b8d3-577675a08b7d",
+      "arguments": {
+        "value": "USA_MT_Helena.Rgnl.AP.727720_TMY3.epw",
+        "xpath": "/building/address/weather-file"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "f7f1fd4f-4102-4580-8968-065dd5925cb0",
+      "version_id": "788212da-1d14-4e70-9b73-9ac4fd156f96"
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "8134ba07-b0d6-4c2a-a4d2-c77a82e51202",
+      "version_id": "4adc72ea-5b03-42c9-ad7c-29a385599f88"
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "651fb599-9d5d-47ab-b674-3875113923e7",
+      "version_id": "b2db019f-c5cc-422a-9d26-290197962203",
+      "arguments": {
+        "value": 0.7855439234346462,
+        "xpath": "/building/blocks/block/geometry/perimeter-zone-depth",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "3fb8fac0-8aba-4251-ba43-ec018768615f",
+      "version_id": "333ec276-3aea-4adb-9e54-83cf134a7395",
+      "arguments": {
+        "value": 1.965857127364725,
+        "xpath": "/building/floor/u-value",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "37543a72-8c55-49f4-a64c-84155678e1ff",
+      "version_id": "c52e1e4b-b4a7-49b9-b03b-fc7421f27850",
+      "arguments": {
+        "value": 1.3294265239838015,
+        "xpath": "/building/blocks/block/envelope/surfaces/window/layout/wwr",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "682f01a0-c141-4532-8584-96826c038c15",
+      "version_id": "d9a3f14e-228d-4b8a-b4af-4a1e4014c11a",
+      "arguments": {
+        "value": 4.4149710447905814,
+        "xpath": "/building/blocks/block/envelope/surfaces/window/layout/sill-height",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "9a84e3af-38a9-42e9-94d3-be12decb478f",
+      "version_id": "10a1136e-0d84-4b16-b50e-1cf495c5b37e",
+      "arguments": {
+        "value": 1.8561765359124234,
+        "static_xpath": "/building/window/u-value",
+        "static_apply_method": "absolute",
+        "xpath": "/building/window/u-value",
+        "apply_method": "multiplier",
+        "static_value": 0.56
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "b0e79676-f8ee-4a48-8089-9398cdc93fe4",
+      "version_id": "5327f101-40a1-4389-9453-8a6ef0e3cbb3",
+      "arguments": {
+        "value": 0.6545475959556948,
+        "xpath": "/building/window/shgc",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "cda4746f-ae95-49f7-95f5-3edea036a9f7",
+      "version_id": "632c88cc-0e47-4275-b6df-742f37089f0b",
+      "arguments": {
+        "value": 0.573028129888089,
+        "xpath": "/building/window/vt",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "2e00cfff-79dc-48a6-9626-9284e57f82f6",
+      "version_id": "92faf63a-4e8c-481e-9333-3847ba017dfd",
+      "arguments": {
+        "static_value_1": "masonry-on-masonry",
+        "value": 0.41596594119444485,
+        "static_xpath_1": "/building/wall/wall-construction",
+        "static_xpath_2": "/building/wall/u-value",
+        "static_apply_method": "absolute",
+        "xpath": "/building/wall/u-value",
+        "apply_method": "multiplier",
+        "static_value_2": 0.1
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "56b6f684-679d-4880-84d3-2f77ae9a9398",
+      "version_id": "e0abb212-0814-446c-8795-a8d51a03a70d",
+      "arguments": {
+        "static_value_1": "built-up concrete-deck",
+        "value": 4.221374660478613,
+        "static_xpath_1": "/building/roof/roof-construction",
+        "static_xpath_2": "/building/roof/u-value",
+        "static_apply_method": "absolute",
+        "xpath": "/building/roof/u-value",
+        "apply_method": "multiplier",
+        "static_value_2": 0.04
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "d3be4788-40eb-4a94-9bfe-1e7d97252abc",
+      "version_id": "46b225d8-f118-4f47-8449-c210d2504043",
+      "arguments": {
+        "value": "enable",
+        "xpath": "/building/blocks/block/envelope/surfaces/window/daylighting/daylight-control",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "1f844873-9373-4547-9f67-6f44837bf45c",
+      "version_id": "8b70f70b-8f24-4079-9311-7e6d9ef675ee",
+      "arguments": {
+        "value": 2.614428274215432,
+        "xpath": "/building/blocks/block/lightings/total-lpd",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "e3972fd6-d69d-4198-989f-a80866a17caf",
+      "version_id": "f9e50d1f-4b2f-4ee9-91ee-244af4c67152",
+      "arguments": {
+        "value": 0.7567795196420047,
+        "static_xpath": "/building/blocks/block/envelope/surfaces/shading/type",
+        "static_apply_method": "absolute",
+        "xpath": "/building/blocks/block/envelope/surfaces/shading/projection",
+        "apply_method": "absolute",
+        "static_value": "External Overhangs"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "e9dd48ea-6b1b-45aa-9191-e4fa34aff899",
+      "version_id": "5381f819-8cc7-49b3-bde2-9a718c228779",
+      "arguments": {
+        "value": 1.5308216993615498,
+        "xpath": "/building/blocks/block/envelope/surfaces/shading/height-above-window",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "425ef496-8c91-4f37-ab71-47401bd5bffe",
+      "version_id": "d9e16f8d-3114-40da-8f2e-0aa66b979361",
+      "arguments": {
+        "value": 0.8650480870033224,
+        "xpath": "/building/hvac/plant-loop/chiller/cooling-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "340519d9-1968-42ac-8f5b-a119abb34351",
+      "version_id": "61451c7a-d2af-465e-ada0-02252febe3e4",
+      "arguments": {
+        "value": 0.9640194190311706,
+        "xpath": "/building/hvac/plant-loop/district-cooling/cooling-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "442f980e-93be-4f06-bc24-380973eeb1c3",
+      "version_id": "ae6438d2-3fdd-4711-bab7-3eaaa5ace9fa",
+      "arguments": {
+        "efficiency": 89.32062826543115,
+        "fuel_type": "natural-gas",
+        "xpath_root": "/building/hvac/plant-loop/boiler",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "6be68388-40a3-4f76-940e-1cbee87b8404",
+      "version_id": "5ef8e38e-fe9f-4217-9d74-ea8328818aaa",
+      "arguments": {
+        "value": 0.9355689081406381,
+        "xpath": "/building/hvac/plant-loop/district-heating/heating-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "738a20c5-0fee-4cf5-a105-506445f1f6c1",
+      "version_id": "8e0fb1ff-c3b1-4394-8c72-45fde52a20e1",
+      "arguments": {
+        "value": 0.8401663697087861,
+        "xpath": "/building/hvac/air-loop/fan/efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "fd6073a7-ecb0-432c-a9ea-1fe1e4788690",
+      "version_id": "f08f05f7-ab4b-4ed2-886c-b9f4bb97e807",
+      "arguments": {
+        "value": 0.9514593075221074,
+        "xpath": "/building/hvac/air-loop/heatpump/cooling-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "01e2edbd-7ecc-4155-b539-1cc832cd4f54",
+      "version_id": "cce2c228-8b74-4dc1-9633-a4eac4d0429f",
+      "arguments": {
+        "value": 0.974681696853791,
+        "xpath": "/building/hvac/air-loop/heatpump/heating-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "3aba562a-0117-450e-9d10-ad4c740e462a",
+      "version_id": "3d865e69-ad18-4808-8351-918d6ad4889d",
+      "arguments": {
+        "value": 1.0172334976866348,
+        "xpath": "/building/hvac/air-loop/pair/cooling-coil/central-dx/cooling-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "db73aeb4-d90d-4697-a564-4bdec6ab30cd",
+      "version_id": "b078956f-c342-4468-8ff7-0042be0e82a8",
+      "arguments": {
+        "efficiency": 71.32564576263539,
+        "fuel_type": "electricity",
+        "xpath_root": "/building/hvac/air-loop/pair/heating-coil/furnace",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "5c876ce2-12b3-4fa8-add4-df5f5a37f0b5",
+      "version_id": "646fa80e-6050-4fd5-a09b-4bf74c8bf0d3",
+      "arguments": {
+        "value": 0.8788052162885154,
+        "xpath": "/building/blocks/block/hvac-reference/zone-cooling-equip/terminal-dx/cooling-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "af81508b-b809-4be2-a4c5-4b7446295ced",
+      "version_id": "e6897c7e-486c-4d0a-a5ba-8a3250307631",
+      "arguments": {
+        "value": 77.65378099961671,
+        "xpath": "/building/blocks/block/hvac-reference/zone-heating-equip/furnace/heating-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "92da1842-c5fc-4be2-80e8-11eca2e8f7f9",
+      "version_id": "f776988c-d977-4984-a191-a011a6751299",
+      "arguments": {
+        "value": 1.0916811107635627,
+        "xpath": "/building/blocks/block/hvac-reference/zone-heating-equip/heatpump/heating-efficiency",
+        "apply_method": "multiplier"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "dd61a5ae-5ed2-4e36-8abc-b025e7a5fadc",
+      "version_id": "82abd688-3ca9-4a8c-bb77-a23446f41856",
+      "arguments": {
+        "value": 88.10550386979303,
+        "xpath": "/building/service-hot-water/shw-system/water-heater-efficiency",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "b2a1b813-48d9-4e1f-b5de-e0a9cf0d5db1",
+      "version_id": "f4937e96-1c87-41f6-ab84-2cd684b2101c",
+      "arguments": {
+        "value": "disable",
+        "xpath": "/building/hvac/air-loop/economizer",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "8407d2ad-7a2e-4441-b2b6-5f3d8a71b0bb",
+      "version_id": "7d988d86-170c-406b-85e1-fc3d7b2446eb",
+      "arguments": {
+        "value": "cav",
+        "xpath": "/building/hvac/air-loop/fan/fan-control-type",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "e6183b55-5aa4-42cf-99d0-e5fa60b43bbf",
+      "version_id": "210cbd32-a63a-4b8b-a946-6aafa8bdc0c0",
+      "arguments": {
+        "value": "null",
+        "xpath": "/building/hvac/plant-loop/chiller/chiller-pump-control",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "4c66f30a-ac85-4d00-b4fd-b47c3fee20c4",
+      "version_id": "e4087fc4-fa0c-4c33-99f6-9914d6e7fd82",
+      "arguments": {
+        "value": "null",
+        "xpath": "/building/hvac/plant-loop/chiller/condenser-pump-control",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "88b33cb1-e970-47cf-9321-155418163437",
+      "version_id": "ba7ff2da-3680-488b-b3e7-6b6b0852f2e3",
+      "arguments": {
+        "value": "null",
+        "xpath": "/building/hvac/plant-loop/chiller/chilled-water-reset",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "66ac8409-0700-4c08-bb41-4db8c3ffff6c",
+      "version_id": "ebd32abe-82d8-4052-a743-f701e0cdd988",
+      "arguments": {
+        "value": "SingleSpeed",
+        "xpath": "/building/hvac/plant-loop/chiller/condenser/cooling-tower-fan-control",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "96c562c8-4cc6-43cd-b96c-ccf672a696ee",
+      "version_id": "8d699940-7ff2-4f2e-9a86-b42e3c8d1e31",
+      "arguments": {
+        "value": "disable",
+        "xpath": "/building/hvac/air-loop/fan/fan-static-pressure-reset",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "110a9a77-ca07-489d-9162-f2decb147da0",
+      "version_id": "f7d7c445-6cdc-4356-9a03-d2bc26faab3c",
+      "arguments": {
+        "value": "enable",
+        "xpath": "/building/hvac/air-loop/supply-air-temperature-reset",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "0530e79f-a60f-41d8-9172-493db671e7c6",
+      "version_id": "d1e8a168-88c5-4279-8b23-55a179bc0a1c",
+      "arguments": {
+        "value": "disable",
+        "xpath": "/building/hvac/air-loop/demand-control-ventilation",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "21535456-e600-4ff1-bb5b-03ac421ab34e",
+      "version_id": "8f57e8f9-bc8c-4890-96c9-202b715bd64e",
+      "arguments": {
+        "value": "0.3",
+        "xpath": "/building/hvac/air-loop/min-air-flow-fraction",
+        "apply_method": "absolute"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "749ea905-df77-49e6-9f9b-6fc7664f075d",
+      "version_id": "b1071171-69aa-4d94-b573-f3e24cc3b259"
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "c9bb8b82-becd-46fa-9f78-0a6c557948fe",
+      "version_id": "4517f2ba-9430-45cb-907e-f51692f44709",
+      "arguments": {
+        "building_type": "Education",
+        "system_type": "VAV with Electric Reheat",
+        "system_fuel_type": "Gas"
+      }
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "9fb3f2bc-0cf4-42b7-b95d-8449c5d466b5",
+      "version_id": "8c5acc3c-8830-4db5-938f-fb97f41e9431"
+    },
+    {
+      "uri": "https://bcl.nrel.gov or file:///local",
+      "id": "af3f1562-d04b-4b39-bffc-ecea3ac10ca6",
+      "version_id": "5ee89c66-8fba-448f-88d8-2fb1ef93589e"
+    }
+  ],
+  "structure": {
+    "air_handler_fan_efficiency": "49.56981581281838",
+    "air_source_heat_pump_cooling_efficiency": null,
+    "air_source_heat_pump_heating_efficiency": null,
+    "boiler_efficiency": null,
+    "number_of_floors": 1,
+    "chiller_efficiency": "3.0264624274783456",
+    "condenser_pump_control": "ConstantSpeed",
+    "additional_fuel_cooling_eui": 0,
+    "additional_fuel_exterior_equipment_eui": 0,
+    "additional_fuel_exterior_lighting_eui": 0,
+    "additional_fuel_fans_eui": 0,
+    "additional_fuel_generators_eui": 0,
+    "additional_fuel_heat_recovery_eui": 0,
+    "additional_fuel_heat_rejection_eui": 0,
+    "additional_fuel_heating_eui": 0,
+    "additional_fuel_humidification_eui": 0,
+    "additional_fuel_interior_equipment_eui": 0,
+    "additional_fuel_interior_lighting_eui": 0,
+    "additional_fuel_pumps_eui": 0,
+    "additional_fuel_refrigeration_eui": 0,
+    "additional_fuel_water_systems_eui": 0,
+    "april_end_use_additional_fuel_eui": 0,
+    "april_end_use_district_cooling_eui": 0,
+    "april_end_use_district_heating_eui": 0,
+    "april_end_use_electricity_eui": 89.1477747717281,
+    "april_end_use_natural_gas_eui": 6.380904069439747,
+    "aspect_ratio": 3.2784023668639053,
+    "august_end_use_additional_fuel_eui": 0,
+    "august_end_use_district_cooling_eui": 0,
+    "august_end_use_district_heating_eui": 0,
+    "august_end_use_electricity_eui": 62.57659951366411,
+    "august_end_use_natural_gas_eui": 1.3003462325072064,
+    "building_area": 6209.7,
+    "conditioned_area": 6209.7,
+    "december_end_use_additional_fuel_eui": 0,
+    "december_end_use_district_cooling_eui": 0,
+    "december_end_use_district_heating_eui": 0,
+    "december_end_use_electricity_eui": 148.41361809078214,
+    "december_end_use_natural_gas_eui": 6.693447348503148,
+    "district_cooling_cooling_eui": 0,
+    "district_cooling_exterior_equipment_eui": 0,
+    "district_cooling_exterior_lighting_eui": 0,
+    "district_cooling_fans_eui": 0,
+    "district_cooling_generators_eui": 0,
+    "district_cooling_heat_recovery_eui": 0,
+    "district_cooling_heat_rejection_eui": 0,
+    "district_cooling_heating_eui": 0,
+    "district_cooling_humidification_eui": 0,
+    "district_cooling_interior_equipment_eui": 0,
+    "district_cooling_interior_lighting_eui": 0,
+    "district_cooling_pumps_eui": 0,
+    "district_cooling_refrigeration_eui": 0,
+    "district_cooling_water_systems_eui": 0,
+    "district_heating_cooling_eui": 0,
+    "district_heating_exterior_equipment_eui": 0,
+    "district_heating_exterior_lighting_eui": 0,
+    "district_heating_fans_eui": 0,
+    "district_heating_generators_eui": 0,
+    "district_heating_heat_recovery_eui": 0,
+    "district_heating_heat_rejection_eui": 0,
+    "district_heating_heating_eui": 0,
+    "district_heating_humidification_eui": 0,
+    "district_heating_interior_equipment_eui": 0,
+    "district_heating_interior_lighting_eui": 0,
+    "district_heating_pumps_eui": 0,
+    "district_heating_refrigeration_eui": 0,
+    "district_heating_water_systems_eui": 0,
+    "economizer_density": 0,
+    "electricity_cooling_eui": 64.92262106059873,
+    "electricity_exterior_equipment_eui": 0,
+    "electricity_exterior_lighting_eui": 0,
+    "electricity_fans_eui": 119.66117525806399,
+    "electricity_generators_eui": 0,
+    "electricity_heat_recovery_eui": 0,
+    "electricity_heat_rejection_eui": 3.766687601655475,
+    "electricity_heating_eui": 310.72354542087385,
+    "electricity_humidification_eui": 0,
+    "electricity_interior_equipment_eui": 224.97866241525355,
+    "electricity_interior_lighting_eui": 442.1904439828011,
+    "electricity_pumps_eui": 21.318260141391693,
+    "electricity_refrigeration_eui": 0,
+    "electricity_water_systems_eui": 0,
+    "elevation": 1167,
+    "exterior_fenestration_area": 761.3045524154487,
+    "exterior_roof_area": 6012.745884084446,
+    "exterior_wall_area": 974.0176777921733,
+    "february_end_use_additional_fuel_eui": 0,
+    "february_end_use_district_cooling_eui": 0,
+    "february_end_use_district_heating_eui": 0,
+    "february_end_use_electricity_eui": 119.51089074212923,
+    "february_end_use_natural_gas_eui": 6.179767138509106,
+    "floor_to_floor_height": null,
+    "ground_contact_area": 6209.697777220132,
+    "infiltration_rate": 1.01231805334712,
+    "january_end_use_additional_fuel_eui": 0,
+    "january_end_use_district_cooling_eui": 0,
+    "january_end_use_district_heating_eui": 0,
+    "january_end_use_electricity_eui": 140.1432682839187,
+    "january_end_use_natural_gas_eui": 6.703657181506353,
+    "july_end_use_additional_fuel_eui": 0,
+    "july_end_use_district_cooling_eui": 0,
+    "july_end_use_district_heating_eui": 0,
+    "july_end_use_electricity_eui": 66.83079053738506,
+    "july_end_use_natural_gas_eui": 1.4387860927258964,
+    "june_end_use_additional_fuel_eui": 0,
+    "june_end_use_district_cooling_eui": 0,
+    "june_end_use_district_heating_eui": 0,
+    "june_end_use_electricity_eui": 89.95385284313251,
+    "june_end_use_natural_gas_eui": 5.384994444176047,
+    "latitude": 46.6,
+    "lighting_power": 209639.8065540572,
+    "lighting_power_density": 33.760065960554,
+    "longitude": -112,
+    "march_end_use_additional_fuel_eui": 0,
+    "march_end_use_district_cooling_eui": 0,
+    "march_end_use_district_heating_eui": 0,
+    "march_end_use_electricity_eui": 103.18709615601398,
+    "march_end_use_natural_gas_eui": 6.686683736734463,
+    "may_end_use_additional_fuel_eui": 0,
+    "may_end_use_district_cooling_eui": 0,
+    "may_end_use_district_heating_eui": 0,
+    "may_end_use_electricity_eui": 83.27512601252879,
+    "may_end_use_natural_gas_eui": 5.710533520137848,
+    "natural_gas_cooling_eui": 0,
+    "natural_gas_exterior_equipment_eui": 0,
+    "natural_gas_exterior_lighting_eui": 0,
+    "natural_gas_fans_eui": 0,
+    "natural_gas_generators_eui": 0,
+    "natural_gas_heat_recovery_eui": 0,
+    "natural_gas_heat_rejection_eui": 0,
+    "natural_gas_heating_eui": 0,
+    "natural_gas_humidification_eui": 0,
+    "natural_gas_interior_equipment_eui": 0,
+    "natural_gas_interior_lighting_eui": 0,
+    "natural_gas_pumps_eui": 0,
+    "natural_gas_refrigeration_eui": 0,
+    "natural_gas_water_systems_eui": 62.896758297502295,
+    "november_end_use_additional_fuel_eui": 0,
+    "november_end_use_district_cooling_eui": 0,
+    "november_end_use_district_heating_eui": 0,
+    "november_end_use_electricity_eui": 107.74410236728828,
+    "november_end_use_natural_gas_eui": 5.727973976198528,
+    "occupancy_density": null,
+    "october_end_use_additional_fuel_eui": 0,
+    "october_end_use_district_cooling_eui": 0,
+    "october_end_use_district_heating_eui": 0,
+    "october_end_use_electricity_eui": 91.16162391097798,
+    "october_end_use_natural_gas_eui": 5.589480973315941,
+    "orientation": 30.2195326793706,
+    "september_end_use_additional_fuel_eui": 0,
+    "september_end_use_district_cooling_eui": 0,
+    "september_end_use_district_heating_eui": 0,
+    "september_end_use_electricity_eui": 85.6171811842762,
+    "september_end_use_natural_gas_eui": 5.099892104288451,
+    "site_energy_use": 7764.970000000001,
+    "time_setpoint_not_met_during_occupied_cooling": 0,
+    "time_setpoint_not_met_during_occupied_heating": 8,
+    "time_setpoint_not_met_during_occupied_hours": 8,
+    "total_additional_fuel_end_use": 0,
+    "total_building_volume": null,
+    "total_district_cooling_end_use": 0,
+    "total_district_heating_end_use": 0,
+    "total_electricity_end_use": 7374.4000000000015,
+    "total_natural_gas_end_use": 390.57,
+    "total_occupancy": 1671.0157647209742,
+    "total_site_eui": 1250.46,
+    "total_source_eui": 3829.19,
+    "total_water_end_use": 161192.59000000003,
+    "unconditioned_area": 0,
+    "water_cooling_eui": 0,
+    "water_exterior_equipment_eui": 0,
+    "water_exterior_lighting_eui": 0,
+    "water_fans_eui": 0,
+    "water_generators_eui": 0,
+    "water_heat_recovery_eui": 0,
+    "water_heat_rejection_eui": 25.681546612557774,
+    "water_heating_eui": 0,
+    "water_humidification_eui": 0,
+    "water_interior_equipment_eui": 0,
+    "water_interior_lighting_eui": 0,
+    "water_pumps_eui": 0,
+    "water_refrigeration_eui": 0,
+    "water_water_systems_eui": 0.2766462147929852,
+    "window_to_wall_ratio_east": 43.87,
+    "window_to_wall_ratio_north": 43.87,
+    "window_to_wall_ratio_south": 43.87,
+    "window_to_wall_ratio_west": 43.87,
+    "district_cooling_efficiency": null,
+    "district_heating_efficiency": null,
+    "fan_static_pressure_reset": "false",
+    "weather_file": "USA_MT_Helena.Rgnl.AP.727720_TMY3.epw",
+    "packaged_dx_cooling_efficiency": null,
+    "packaged_dx_heating_efficiency": 100.0,
+    "packaged_dx_heating_fuel_type": "electricity",
+    "roof_construction_type": "built-up concrete-deck",
+    "shading_projection_factor": "0.7567795196420047",
+    "total_electricity_intensity": 1187.5613958806384,
+    "total_site_energy_intensity": 1250.46,
+    "total_natural_gas_intensity": 62.896758297502295,
+    "total_source_energy_intensity": 3829.19,
+    "supply_air_temperature_reset": "true",
+    "terminal_dx_cooling_efficiency": null,
+    "terminal_furnace_heating_efficiency": null,
+    "terminal_heat_pump_heating_efficiency": null,
+    "wall_construction_type": "masonry-on-masonry",
+    "water_heater_energy_factor": "88.10550386979303",
+    "window_shgc": "0.255273562422721",
+    "window_vlt": "0.40111969092166233"
+  }
+}

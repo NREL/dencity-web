@@ -1,0 +1,1865 @@
+{
+  "provenance": {
+    "description": null,
+    "display_name": "Asset Score Distributions 2015-04-27 Large Lodging Four Pipe Fan Coil Unit Gas",
+    "name": "asset_score_distributions_2015-04-27_large_lodging_four_pipe_fan_coil_unit_gas",
+    "user_defined_id": "0e4b5b84-1d17-45ec-a30e-012e70bb5c4d",
+    "user_created_date": "2015-05-09T16:23:11Z",
+    "analysis_types": [
+      "lhs",
+      "batch_run"
+    ],
+    "analysis_information": {
+      "number_of_samples": 400,
+      "sample_method": "all_variables",
+      "objective_functions": null
+    }
+  },
+  "measure_definitions": [
+    {
+      "id": "e7a6977c-034c-4314-b293-7a66660d25a5",
+      "version_id": "33a2ac25-adc8-40e6-81b9-b01b785d20a0",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Location",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Location",
+          "display_name_short": "Location",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "e9785b15-1d0a-4ce0-a468-b055e724a52f",
+      "version_id": "ea89beab-4441-416b-9711-8ec36bc24ff2",
+      "name": "SetBuildingGeometry",
+      "display_name": "Change Geometry",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Aspect Ratio Multiplier",
+          "display_name_short": "Aspect Ratio Multiplier",
+          "name": "aspect_ratio_multiplier",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Floor Plate Area Multiplier",
+          "display_name_short": "Floor Plate Area Multiplier",
+          "name": "floor_plate_multiplier",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Square Footage Multiplier",
+          "display_name_short": "Square Footage Multiplier",
+          "name": "square_footage_multiplier",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "727160ef-a004-4271-89fb-3e4e9a7a9b54",
+      "version_id": "8a6fdb76-fe11-4a62-8d6d-079ef93e3c56",
+      "name": "SetFloorToFloorHeight",
+      "display_name": "Floor-To-Floor Height",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Floor-To-Floor Height Multiplier",
+          "display_name_short": "Floor-To-Floor Height Multiplier",
+          "name": "floor_to_floor_height_multiplier",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Floor-To-Ceiling Height Multiplier",
+          "display_name_short": "Floor-To-Ceiling Height Multiplier",
+          "name": "floor_to_ceiling_height_multiplier",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "714f79b4-85ac-45cf-a4f4-5ce6ff99d346",
+      "version_id": "0c9ea3cf-aa74-4c39-aa6b-f192176e3d8a",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Perimeter Zone Depth",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Perimeter Zone Depth",
+          "display_name_short": "Perimeter Zone Depth",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "0b721988-8e3d-4532-986c-6bbe6c8ab6cc",
+      "version_id": "6e9d3d11-ece1-4ff5-bc9d-10695b3ff7e7",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Floor U-Value",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Floor R-Value for 24 in",
+          "display_name_short": "Floor R-Value for 24 in",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "f33f7643-1ef4-46a2-acae-af0a7b86b2b2",
+      "version_id": "fa1d7d40-7180-4e34-acb2-fbe443202a37",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Window-To-Wall Ratio",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window-To-Wall Ratio",
+          "display_name_short": "Window-To-Wall Ratio",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "ae4b5b3f-2234-41d7-b94c-7c60500283ef",
+      "version_id": "6f5f28e3-ff90-4f57-b755-b7119b1d2d89",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Window Sill Height",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window Sill Height",
+          "display_name_short": "Window Sill Height",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "c53f5837-2625-45d8-ba7f-730a45900213",
+      "version_id": "a68d24ee-4435-4b0d-8571-76819fd1acbd",
+      "name": "SetXPathStaticAndVariable",
+      "display_name": "Window U-Value",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Static XPath",
+          "display_name_short": "Static XPath",
+          "name": "static_xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Apply Method",
+          "display_name_short": "Static Apply Method",
+          "name": "static_apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window U-Value Static",
+          "display_name_short": "Window U-Value Static",
+          "name": "static_value",
+          "data_type": "double",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window U-Value",
+          "display_name_short": "Window U-Value",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "1bf544f3-8aeb-4302-9ef4-96e98ae3cd30",
+      "version_id": "f9538dc1-4d5f-4b4e-a814-5f3a8436a71f",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Window SHGC",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window SHGC",
+          "display_name_short": "Window SHGC",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "f1c9244e-60fa-4713-bffe-c54007ff080e",
+      "version_id": "6f83f478-28f0-4940-8828-17c549d3e8b2",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Window VLT",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Window VLT",
+          "display_name_short": "Window VLT",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "942652fb-c01a-444a-a41f-cd2ca0721a99",
+      "version_id": "8306fc56-7ba7-458a-bcc7-f15e61d1c03a",
+      "name": "SetXPathTwoStaticAndVariable",
+      "display_name": "Wall Construction",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Static Xpath 1",
+          "display_name_short": "Static Xpath 1",
+          "name": "static_xpath_1",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Xpath 2",
+          "display_name_short": "Static Xpath 2",
+          "name": "static_xpath_2",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Apply Method",
+          "display_name_short": "Static Apply Method",
+          "name": "static_apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Initial Wall U-Value",
+          "display_name_short": "Initial Wall U-Value",
+          "name": "static_value_2",
+          "data_type": "double",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Wall Construction Type",
+          "display_name_short": "Wall Construction Type",
+          "name": "static_value_1",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Wall U-Value",
+          "display_name_short": "Wall U-Value",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "9b706d9f-162b-4230-acb0-d4f3f14f6f61",
+      "version_id": "8d1ecdc6-2034-49d1-9e50-05b83cc4f54a",
+      "name": "SetXPathTwoStaticAndVariable",
+      "display_name": "Roof Construction",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Static Xpath 1",
+          "display_name_short": "Static Xpath 1",
+          "name": "static_xpath_1",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Xpath 2",
+          "display_name_short": "Static Xpath 2",
+          "name": "static_xpath_2",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Apply Method",
+          "display_name_short": "Static Apply Method",
+          "name": "static_apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Initial Roof U-Value",
+          "display_name_short": "Initial Roof U-Value",
+          "name": "static_value_2",
+          "data_type": "double",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Roof Construction Type",
+          "display_name_short": "Roof Construction Type",
+          "name": "static_value_1",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Roof U-Value",
+          "display_name_short": "Roof U-Value",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "d88b3909-1315-484f-ab80-63e7acbd2d59",
+      "version_id": "cde13a01-4b54-4ae2-aa0c-473c73568ff1",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Daylighting Control Setpoint",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Daylighting Control",
+          "display_name_short": "Daylighting Control",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "6047ae96-e58e-4a57-8eca-5ab59f32908c",
+      "version_id": "3566fcc4-0a45-48ae-934a-1de4949df936",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Interior Lighting Power Density",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Interior Lighting Power Density",
+          "display_name_short": "Interior Lighting Power Density",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "4af87f22-7d2a-47f1-8f7b-beaa808cd2a6",
+      "version_id": "cc120a9b-15ce-4075-ae61-64508280196e",
+      "name": "SetXPathStaticAndVariable",
+      "display_name": "Shading Projection Factor",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Static XPath",
+          "display_name_short": "Static XPath",
+          "name": "static_xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Static Apply Method",
+          "display_name_short": "Static Apply Method",
+          "name": "static_apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Shading Type",
+          "display_name_short": "Shading Type",
+          "name": "static_value",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Shading Projection Factor",
+          "display_name_short": "Shading Projection Factor",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "dc82359d-74d7-439f-a7ce-62b9a56f252b",
+      "version_id": "f5dee414-d48e-48c4-bf1c-3be5bdf89ddf",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Shading Height above Window",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Shading Height above Window",
+          "display_name_short": "Shading Height above Window",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "da032224-4a48-4fab-acd7-dc2807fad658",
+      "version_id": "767ca90a-3249-4f54-9e3e-f87198772e47",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Chiller Cooling Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Chiller Cooling Efficiency",
+          "display_name_short": "Chiller Cooling Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "1a755d5f-7468-4afd-a6f2-04f902a43d0d",
+      "version_id": "692276b5-cde9-4972-bcae-35f56aacd1cd",
+      "name": "SetXPathSingleVariable",
+      "display_name": "District Cooling Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "District Cooling Efficiency",
+          "display_name_short": "District Cooling Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "09ccb03b-d746-4b18-b4b8-79af17e9a276",
+      "version_id": "c0602baf-a01e-462e-ad01-0f42ca016648",
+      "name": "SetHeatingTypeAndEfficiency",
+      "display_name": "Boiler Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath_root",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Boiler Heating Efficiency",
+          "display_name_short": "Boiler Heating Efficiency",
+          "name": "efficiency",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Boiler Fuel Type",
+          "display_name_short": "Boiler Fuel Type",
+          "name": "fuel_type",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "9691d404-9fca-4fa8-9bc6-5afccd167cc4",
+      "version_id": "d33d8054-d9c7-43e7-980b-5b0387ce68b0",
+      "name": "SetXPathSingleVariable",
+      "display_name": "District Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "District Heating Efficiency",
+          "display_name_short": "District Heating Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "fcb00471-47bd-4c4d-8521-010319950d1b",
+      "version_id": "736d0229-59f9-4254-8401-19a58fd67920",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Air Handler Fan Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Air Handler Fan Efficiency",
+          "display_name_short": "Air Handler Fan Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "22e359c5-3f7f-455f-9241-94ac27e3e74f",
+      "version_id": "138bce23-a5ea-4f02-aa5f-65be5ad7adce",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Air Source Heat Pump Cooling Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Air Source Heat Pump Cooling Efficiency",
+          "display_name_short": "Air Source Heat Pump Cooling Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "829561b7-78ca-4155-b150-b4d15d7f1b93",
+      "version_id": "274c6791-131b-4604-9f67-2d4df9bf6e4a",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Air Source Heat Pump Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Air Source Heat Pump Heating Efficiency",
+          "display_name_short": "Air Source Heat Pump Heating Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "4d5c7747-f314-4301-9f9c-694e36d1c123",
+      "version_id": "ad738a49-d22f-40d9-b5d3-f8568f7e8e3e",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Packaged DX Cooling Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Packaged DX Cooling Efficiency",
+          "display_name_short": "Packaged DX Cooling Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "061ed026-e06f-4835-b73f-72184a791e81",
+      "version_id": "c727c02b-f09e-44d1-8047-550c6d4f6df5",
+      "name": "SetHeatingTypeAndEfficiency",
+      "display_name": "Packaged DX Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath_root",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Heating Efficiency",
+          "display_name_short": "Heating Efficiency",
+          "name": "efficiency",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        },
+        {
+          "display_name": "Heating Fuel Type",
+          "display_name_short": "Heating Fuel Type",
+          "name": "fuel_type",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "b73358bf-09cf-4095-b999-11b8e5a2406b",
+      "version_id": "91b952f2-73b9-4f19-8311-1774e6a744d9",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Terminal Equipment DX Cooling Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Terminal DX Cooling Efficiency",
+          "display_name_short": "Terminal DX Cooling Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "01dc2c04-2b84-4ce3-8ba3-d9a3e1022c30",
+      "version_id": "5fada35f-4755-4d61-a4de-9b86f1ccc726",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Terminal Equipment Furnace Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Terminal Furnace Heating Efficiency",
+          "display_name_short": "Terminal Furnace Heating Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "f7f4334e-28c1-4d29-bf7f-0986df1fb321",
+      "version_id": "57d08d67-5c17-4659-beec-e4fb00d2f8b6",
+      "name": "SetXPathSingleVariable",
+      "display_name": "Terminal Equipment Heat Pump Heating Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Terminal Furnace Heat Pump Heating Efficiency",
+          "display_name_short": "Terminal Furnace Heat Pump Heating Efficiency",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "7c1f0435-1937-4fe2-a007-8050e7bbba67",
+      "version_id": "63cf5f7e-71c2-4329-a29d-a7273dae8708",
+      "name": "SetXPathValueWithOptional",
+      "display_name": "Water Heater Efficiency",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Water Heater Energy Factor",
+          "display_name_short": "Water Heater Energy Factor",
+          "name": "value",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "751dd538-1689-466f-986d-640f10ae67ef",
+      "version_id": "e18db2d7-b2fe-460e-bb89-36d1bf2074d6",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Economizer",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Economizer",
+          "display_name_short": "Economizer",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "e41aa581-7850-463e-9059-2633f1892c99",
+      "version_id": "250a2ad3-69ac-4a0d-9594-0bdeb5fcda4a",
+      "name": "SetXPathStringWithOptional",
+      "display_name": "Fan Control",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Fan Control",
+          "display_name_short": "Fan Control",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "0e075e35-b926-4322-a1c5-eab34fceab2c",
+      "version_id": "b67e9ba4-69c7-4f09-81aa-ee0a1b2b54bb",
+      "name": "SetXPathStringWithOptional",
+      "display_name": "Chiller Pump Control",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Chiller Pump Control",
+          "display_name_short": "Chiller Pump Control",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "50c327e5-9bd0-461b-b6ea-c0fb5c94f527",
+      "version_id": "dce7c735-523b-4d4c-b04a-7d82f441dd6a",
+      "name": "SetXPathStringWithOptional",
+      "display_name": "Condenser Pump Control",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Condenser Pump Control",
+          "display_name_short": "Condenser Pump Control",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "8b613dea-19f6-4fe4-99a6-eaef5043db52",
+      "version_id": "ec1d8d0f-9281-4cce-8d35-35f808e603d1",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Chilled Water Reset",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Chilled Water Reset",
+          "display_name_short": "Chilled Water Reset",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "6355116b-cb3a-4928-87db-7eed37bd4fdb",
+      "version_id": "311b82cc-fca9-4008-a14a-f809f48fc4e9",
+      "name": "SetXPathStringWithOptional",
+      "display_name": "Cooling Tower Control",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Cooling Tower Control",
+          "display_name_short": "Cooling Tower Control",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "9ea3f384-9c06-4c65-a106-9884ca02323d",
+      "version_id": "3540b89a-092b-45d0-bb00-151023054fc7",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Fan Static Pressure Reset",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Fan Static Pressure Reset",
+          "display_name_short": "Fan Static Pressure Reset",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "2c4035eb-5038-46cc-81fd-70f132af82eb",
+      "version_id": "91cda282-aeab-4471-84f3-cb6ce0ab025d",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Supply Air Temperature Reset",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Supply Air Temperature Reset",
+          "display_name_short": "Supply Air Temperature Reset",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "80d442b1-0739-45be-80be-f0e9344c2d48",
+      "version_id": "ae04f539-d1c2-4282-b775-aa0d5d031df8",
+      "name": "SetXPathBooleanWithOptional",
+      "display_name": "Demand Control Ventilation",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Demand Control Ventilation",
+          "display_name_short": "Demand Control Ventilation",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "4d364cd3-8c2c-4854-a8b6-8852c0170a76",
+      "version_id": "67412761-f649-4085-8744-24563840193f",
+      "name": "SetXPathStringWithOptional",
+      "display_name": "Minimum Airflow Fraction",
+      "type": "XmlMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Set XPath",
+          "display_name_short": "Set XPath",
+          "name": "xpath",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Apply Method",
+          "display_name_short": "Apply Method",
+          "name": "apply_method",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "Minimum Airflow Fraction",
+          "display_name_short": "Minimum Airflow Fraction",
+          "name": "value",
+          "default_value": null,
+          "data_type": "string",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "5016fe28-1794-43a8-b86e-fa9b03a21ed3",
+      "version_id": "0b16f6bf-ab77-4fda-a3e8-a20595117ffc",
+      "name": "RotateBuilding",
+      "display_name": "Rotate Building Relative to Current Orientation",
+      "type": "RubyMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Orientation",
+          "display_name_short": "Orientation",
+          "name": "relative_building_rotation",
+          "default_value": null,
+          "data_type": "double",
+          "description": "",
+          "display_units": null,
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "cb3589c7-741b-4d71-89c3-27ca5b178b13",
+      "version_id": "3771080d-7980-44e9-aa8d-fe27eb670a55",
+      "name": "SetBuildingInformation",
+      "display_name": "Set Building Information",
+      "type": "RubyMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+        {
+          "display_name": "Building Type",
+          "display_name_short": "Building Type",
+          "name": "building_type",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "System Type",
+          "display_name_short": "System Type",
+          "name": "system_type",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        },
+        {
+          "display_name": "System Fuel Type",
+          "display_name_short": "System Fuel Type",
+          "name": "system_fuel_type",
+          "data_type": "string",
+          "default_value": null,
+          "description": "",
+          "display_units": "",
+          "units": ""
+        }
+      ]
+    },
+    {
+      "id": "b880a119-4d9e-474e-b633-90c6da1caa7d",
+      "version_id": "5364b8ed-b787-4437-b4d6-404f4dd882fd",
+      "name": "AddDencityMeters",
+      "display_name": "Add Dencity Meters",
+      "type": "RubyMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+
+      ]
+    },
+    {
+      "id": "7f0e34fb-66a5-4f66-b805-899c3a982d7c",
+      "version_id": "64594a53-4352-4979-8033-a6e55e2d4e9e",
+      "name": "DencityReports",
+      "display_name": "Dencity Reports",
+      "type": "ReportingMeasure",
+      "modeler_description": null,
+      "description": null,
+      "arguments": [
+
+      ]
+    }
+  ]
+}

@@ -22,9 +22,10 @@ namespace :testing do
     end
 
     json_request = JSON.generate({'metadata' => meta_arr})
-
+    puts "POST http://localhost:3000/api/meta_batch_upload, parameters: #{json_request}"
     begin
       response = RestClient.post "http://localhost:3000/api/meta_batch_upload", json_request, :content_type => :json, :accept => :json
+      puts "Status: #{response.code}"
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       end
@@ -50,8 +51,10 @@ namespace :testing do
       json_object[header] = row[header]
     end
     json_request = JSON.generate({'meta' => json_object})
+    puts "POST http://localhost:3000/api/meta_upload, parameters: #{json_request}"
     begin
       response = RestClient.post "http://localhost:3000/api/meta_upload", json_request, :content_type => :json, :accept => :json
+      puts "Status: #{response.code}"
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       end
@@ -60,9 +63,12 @@ namespace :testing do
     end
   end
 
-  # Test the provenance upload API
-  desc 'Post provenance entry'
-  task :post_provenance => :environment do
+  # Test the provenance upload API (authenticated)
+  desc 'Post analysis/provenance entry'
+  task :post_analysis => :environment do
+
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
 
     json_object = {}
     json_object['name'] = 'test_provenance'
@@ -140,8 +146,12 @@ namespace :testing do
     measure_defs << measure
 
     json_request = JSON.generate('provenance' => json_object, 'measure_definitions' => measure_defs)
+    puts "POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: #{json_request}"
     begin
-      response = RestClient.post "http://localhost:3000/api/add_provenance", json_request, :content_type => :json, :accept => :json
+
+      request = RestClient::Resource.new('http://localhost:3000/api/analysis', :user => @user_name, :password => @user_pwd)
+      response = request.post(json_request, {:content_type => :json, :accept => :json})
+      puts "Status: #{response.code}"
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       end
@@ -150,9 +160,13 @@ namespace :testing do
     end
   end
 
-  # Test the structure upload API
+  # Test the structure upload API (authenticated)
   desc 'Post structure and associated measure_instances'
   task :post_structure => :environment do
+
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
+
     json_object = {}
     json_object['building_rotation'] = 0
     json_object['infiltration_rate'] = 2.00155
@@ -180,10 +194,16 @@ namespace :testing do
     measure['arguments'] = {}
     measure_instances << measure
 
-    json_request = JSON.generate({'provenance_name' => 'test_provenance', 'structure' => json_object, 'measure_instances' => measure_instances})
+    prov = Provenance.where(name: 'test_provenance').first
+    prov_id = prov.id.to_s
+
+    json_request = JSON.generate({'provenance_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => {'user_defined_id' => 'test123'}})
+    puts "POST http://<user>:<pwd>@<base_url>/api/structure, parameters: #{json_request}"
 
     begin
-      response = RestClient.post "http://localhost:3000/api/add_structure", json_request, :content_type => :json, :accept => :json
+      request = RestClient::Resource.new('http://localhost:3000/api/structure', :user => @user_name, :password => @user_pwd)
+      response = request.post(json_request, {:content_type => :json, :accept => :json})
+      puts "Status: #{response.code}"
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       else
@@ -191,7 +211,7 @@ namespace :testing do
       end
     rescue => e
       puts "ERROR: #{e.response}"
-    end
+    end   
   end
 
   # upload metadata and instance json

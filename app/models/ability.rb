@@ -49,12 +49,11 @@ class Ability
       can :manage, MeasureInstance, :user_id => user.id
       can [:read, :update], User, :id => user.id
       can :read, Unit
+      # API actions
+      can [:analysis, :structure], Api
     # unauthenticated
     else
       can :read, [Meta, Unit, Structure, Provenance, MeasureDescription, MeasureInstance]
-      # API actions TODO: authenticate API
-      can :add_provenance, Provenance
-      can :add_structure, Structure
       can [:meta_upload, :meta_batch_upload], Meta
     end
 

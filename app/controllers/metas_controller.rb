@@ -76,23 +76,24 @@ class MetasController < ApplicationController
     # Add new metadata
     if params[:meta]
       clean_params = meta_params
+      logger.info("clean_params: #{clean_params}")
       @meta = Meta.new(clean_params)
 
       # TODO: ensure that user_defined is set to true if non-admin is using this action
 
       # check for units machine name match
-      if @meta.units.nil?
+      if clean_params[:unit].nil?
         error = true
         error_message += "could not save #{@meta.name}, no unit specified. If no units are applicable, set unit to 'none'"
       else
-        units = Unit.where(name: @meta.units)
+        units = Unit.where(name: clean_params[:unit])
         if units.count == 0
           error = true
-          error_message += "could not save #{@meta.name}, no match found for unit #{@meta.units}."
+          error_message += "could not save #{@meta.name}, no match found for unit #{@meta.unit}."
         elsif !units.first.allowable
-          puts "could not save #{@meta.name}, unit #{r[:unit]} is not allowable."
+          puts "could not save #{@meta.name}, unit #{clean_params[:unit]} is not allowable."
         else
-          @meta.units = units.first
+          @meta.unit = units.first
         end
       end
       unless error
@@ -129,19 +130,19 @@ class MetasController < ApplicationController
         # TODO: ensure that user_defined is set?
 
         # check for units machine name match
-        if @meta.unit.nil?
+        if meta[:unit].nil?
           error = true
           error_message += "could not save #{@meta.name}, no units specified. If no units are applicable, set units to 'none'"
           next
         else
-          units = Unit.where(name: @meta.unit)
+          units = Unit.where(name: meta[:unit])
           if units.count == 0
             error = true
-            error_message += "could not save #{@meta.name}, no match found for units #{@meta.unit}."
+            error_message += "could not save #{@meta.name}, no match found for units #{meta[:unit]}."
             next
           elsif !units.first.allowable
             error = true
-            error_message += "could not save #{@meta.name}, units #{@meta.unit} are not allowable."
+            error_message += "could not save #{@meta.name}, units #{meta[:unit]} are not allowable."
             next
           else
             @meta.unit = units.first

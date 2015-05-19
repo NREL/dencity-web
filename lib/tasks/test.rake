@@ -291,4 +291,32 @@ namespace :testing do
       user.save
     end
   end
+
+  desc 'test search'
+  task :search => :environment do
+
+    filters = []
+    filter = {name: 'building_area', value: 2737.26, operator: '='}
+    filters << filter
+    filter = {name: 'floor_to_floor_height', value: '2', operator: 'ne'}
+    filters << filter
+
+
+    json_request = JSON.generate({'filters' => filters})
+    puts "POST http://localhost:3000/api/search, parameters: #{json_request}"
+    begin
+      response = RestClient.post "http://localhost:3000/api/search", json_request, :content_type => :json, :accept => :json
+      puts "Status: #{response.code}"
+      if response.code == 200
+        puts "SUCCESS: #{response.body}"
+
+      end
+    rescue => e
+      puts "ERROR: #{e.response}"
+    end
+
+
+  end
+
+
 end

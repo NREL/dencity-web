@@ -32,11 +32,9 @@ Dencity::Application.routes.draw do
 
   resources :units
 
-  #resources :api do
-
-  #end
-
+  # APIs
   match 'api/structure' => 'api#structure', via: :post
   match 'api/analysis' => 'api#analysis', via: :post
+  match 'api/search' => 'api#search', via: :post
 
 end

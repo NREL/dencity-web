@@ -1,6 +1,8 @@
 class ApiController < ApplicationController
 
-  before_filter :check_auth
+  before_filter :check_auth, except: :search
+
+  respond_to :json
 
   def structure
     # API
@@ -158,6 +160,70 @@ class ApiController < ApplicationController
     end
   end
 
+
+  def search
+
+    # expecting 3 parameters:  filters, return_only, page
+    # filters is an array of hashes, each containing: name, value, operator
+    # operators allowed:  =, ne, gt, gte, lt, lte, in, exists near
+    # in and near have an array as the value.  exists has a nil value.
+    # return_only is an containing the subset of metadata to return
+
+    # clean params
+    clean_params = search_params
+    
+    @results_per_page = 10
+    @return_only = []
+    page = 0
+
+    if params[:filters]
+      @filters = params[:filters]
+
+        # Build query
+        query = Structure.all
+        @filters.each do |filter|
+
+        case filter[:operator]
+        when '='
+          # equal
+          query = query.where(filter[:name].to_sym => filter[:value])
+        when 'ne'
+          # not equal
+          query = query.where(filter[:name].to_sym.ne => filter[:value])
+         # criteria.ne(filter[:name].to_sym => filter[:value])
+        else
+          # not a valid operator
+        end      
+      end
+
+      # limit results
+      query = query.limit(@results_per_page)
+
+      # get correct page (0-based)
+      @page = params[:page] ? params[:page] : 0
+      query = query.skip(@page * @results_per_page)
+
+      # add 'only'  
+      @return_only = params[:return_only] ? params[:return_only] : nil
+      
+
+      
+
+
+      logger.info("!!!!QUERY: #{query.inspect})")
+      @results = query
+      @total_results = @results.count
+      logger.info("RESULTS COUNT: #{@results.count}")
+
+
+
+  
+
+    end
+
+  end
+
+
   def check_auth
     authenticate_or_request_with_http_basic do |username, password|
 
@@ -169,10 +235,14 @@ class ApiController < ApplicationController
     end
   end
 
-  private
+private
   # Never trust parameters from the scary internet, only allow the white list through.
   def provenance_params
     params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
     #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
+  end
+
+  def search_params
+    params.permit(:page, filters: [:name, :value, :operator], return_only: [])
   end
 end

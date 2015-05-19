@@ -189,11 +189,47 @@ class ApiController < ApplicationController
           query = query.where(filter[:name].to_sym => filter[:value])
         when 'ne'
           # not equal
-          query = query.where(filter[:name].to_sym.ne => filter[:value])
+          query = query.ne(filter[:name].to_sym => filter[:value])
          # criteria.ne(filter[:name].to_sym => filter[:value])
+        when 'lt'
+          # less than
+          query = query.lt(filter[:name].to_sym => filter[:value])
+        when 'lte'
+          # less than or equal to
+          query = query.lte(filter[:name].to_sym => filter[:value])
+        when 'gt'
+          # greater than
+          query = query.gt(filter[:name].to_sym => filter[:value])
+        when 'gte'
+          # greater than or equal to   
+          query = query.gte(filter[:name].to_sym => filter[:value])  
+        when 'in'
+          # value is in the provided list
+          # TODD: check that value is an array even if only 1 value is provided
+          query = query.in(filter[:name].to_sym => filter[:value])
+        when 'nin'
+          # value is not in the provided list
+          # TODD: check that value is an array even if only 1 value is provided
+          query = query.nin(filter[:name].to_sym => filter[:value])
+        when 'exists'
+          # attribute is defined for the building
+          query = query.exists(filter[:name].to_sym => true)
+        when 'near'
+          # TODO  
         else
           # not a valid operator
         end      
+      end
+
+      # add 'only' if it's a non-nil array
+      if params[:return_only] && params[:return_only].kind_of?(Array) && !params[:return_only].empty?
+        @return_only = params[:return_only]
+        # ensure that 'id is always returned?'
+        @return_only << 'id' unless @return_only.include?('id')
+
+        query = query.only(@return_only)
+      else
+        @return_only = nil
       end
 
       # limit results
@@ -203,21 +239,9 @@ class ApiController < ApplicationController
       @page = params[:page] ? params[:page] : 0
       query = query.skip(@page * @results_per_page)
 
-      # add 'only'  
-      @return_only = params[:return_only] ? params[:return_only] : nil
-      
-
-      
-
-
-      logger.info("!!!!QUERY: #{query.inspect})")
+      # query results and total count for json     
       @results = query
       @total_results = @results.count
-      logger.info("RESULTS COUNT: #{@results.count}")
-
-
-
-  
 
     end
 

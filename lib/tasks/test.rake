@@ -295,14 +295,24 @@ namespace :testing do
   desc 'test search'
   task :search => :environment do
 
+    # test all filters
     filters = []
-    filter = {name: 'building_area', value: 2737.26, operator: '='}
+    #filter = {name: 'building_area', value: 2737.26, operator: '='}
+    filter = {name: 'building_area', value: 2737.26, operator: 'lt'}
+    filters << filter
+    filter = {name: 'building_type', value: ['Community Center'], operator: 'in'}
     filters << filter
     filter = {name: 'floor_to_floor_height', value: '2', operator: 'ne'}
     filters << filter
+    filter = {name: 'weather_file', value: '', operator: 'exists'}
+    filters << filter
+    filter = {name: 'roof_construction_type', value: ['shingle roof'], operator: 'nin'}
+    filters << filter
 
+    page = 0
+    return_only = ['building_area', 'building_type', 'roof_construction_type']
 
-    json_request = JSON.generate({'filters' => filters})
+    json_request = JSON.generate({'filters' => filters, 'page' => page, 'return_only' => return_only})
     puts "POST http://localhost:3000/api/search, parameters: #{json_request}"
     begin
       response = RestClient.post "http://localhost:3000/api/search", json_request, :content_type => :json, :accept => :json

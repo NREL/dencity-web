@@ -172,16 +172,16 @@ class ApiController < ApplicationController
     # clean params
     clean_params = search_params
     
-    @results_per_page = 10
+    @results_per_page = 100
     @return_only = []
     page = 0
 
     if params[:filters]
       @filters = params[:filters]
 
-        # Build query
-        query = Structure.all
-        @filters.each do |filter|
+      # Build query
+      query = Structure.all
+      @filters.each do |filter|
 
         case filter[:operator]
         when '='
@@ -213,20 +213,22 @@ class ApiController < ApplicationController
           query = query.nin(filter[:name].to_sym => filter[:value])
         when 'exists'
           # attribute is defined for the building
-          query = query.exists(filter[:name].to_sym => true)
-        when 'near'
-          # TODO  
+          query = query.exists(filter[:name].to_sym => true) 
         else
           # not a valid operator
         end      
       end
 
       # add 'only' if it's a non-nil array
+      # TODO: always add the filters specified to the return_only list
+
       if params[:return_only] && params[:return_only].kind_of?(Array) && !params[:return_only].empty?
         @return_only = params[:return_only]
+        temp_returns = @filters.map{|x| x[:name]}
+        @return_only = @return_only + temp_returns
         # ensure that 'id is always returned?'
-        @return_only << 'id' unless @return_only.include?('id')
-
+        @return_only << 'id'
+        @return_only = @return_only.uniq
         query = query.only(@return_only)
       else
         @return_only = nil

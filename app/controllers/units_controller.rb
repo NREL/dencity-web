@@ -7,7 +7,7 @@ class UnitsController < ApplicationController
   # GET /units.json
   def index
     per_page = 500
-    @units = Unit.all.paginate(:per_page => per_page, :page => params[:page])
+    @units = Unit.all.paginate(per_page: per_page, page: params[:page])
   end
 
   # GET /units/1
@@ -65,13 +65,14 @@ class UnitsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_unit
-      @unit = Unit.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def unit_params
-      params.require(:unit).permit(:name, :type, :symbol, :symbol_alt, :allowable)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_unit
+    @unit = Unit.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def unit_params
+    params.require(:unit).permit(:name, :type, :symbol, :symbol_alt, :allowable)
+  end
 end

@@ -18,7 +18,7 @@ class StructuresControllerTest < ActionController::TestCase
 
   test 'should create structure' do
     assert_difference('Structure.count') do
-      post :create, structure: {  }
+      post :create, structure: {}
     end
 
     assert_redirected_to structure_path(assigns(:structure))
@@ -35,7 +35,7 @@ class StructuresControllerTest < ActionController::TestCase
   end
 
   test 'should update structure' do
-    patch :update, id: @structure, structure: {  }
+    patch :update, id: @structure, structure: {}
     assert_redirected_to structure_path(assigns(:structure))
   end
 

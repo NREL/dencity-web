@@ -3,11 +3,11 @@ require 'rest-client'
 
 namespace :testing do
   # Test the meta_batch_upload API
-  desc "Batch Post metadata to /api/meta_batch_upload"
-  task :post_batch_metadata => :environment do
+  desc 'Batch Post metadata to /api/meta_batch_upload'
+  task post_batch_metadata: :environment do
     # TODO: allow users to specify which file to import from?
     meta_arr = []
-    CSV.foreach("#{Rails.root}/lib/metadata_test.csv", :headers => true) do |row|
+    CSV.foreach("#{Rails.root}/lib/metadata_test.csv", headers: true) do |row|
       # TODO: make this a separate function on meta class?
       json_object = {}
       row.headers.each do |header|
@@ -21,26 +21,24 @@ namespace :testing do
       puts "meta_arr: #{meta_arr.inspect}"
     end
 
-    json_request = JSON.generate({'metadata' => meta_arr})
+    json_request = JSON.generate('metadata' => meta_arr)
     puts "POST http://localhost:3000/api/meta_batch_upload, parameters: #{json_request}"
     begin
-      response = RestClient.post "http://localhost:3000/api/meta_batch_upload", json_request, :content_type => :json, :accept => :json
+      response = RestClient.post 'http://localhost:3000/api/meta_batch_upload', json_request, content_type: :json, accept: :json
       puts "Status: #{response.code}"
-      if response.code == 201
-        puts "SUCCESS: #{response.body}"
-      end
+      puts "SUCCESS: #{response.body}" if response.code == 201
     rescue => e
       puts "ERROR: #{e.response}"
     end
   end
 
-  #Test the meta_upload API (single metadata entry)
-  desc "Post single metadata entry to /api/meta_upload"
-  task :post_metadata => :environment do
+  # Test the meta_upload API (single metadata entry)
+  desc 'Post single metadata entry to /api/meta_upload'
+  task post_metadata: :environment do
     # TODO: allow users to specify which file to import from?
     # Just grab and post the first record in the spreadsheet
-    file = CSV.open("#{Rails.root}/lib/metadata_test.csv", 'rb', :headers => true)
-    row = file.readline()
+    file = CSV.open("#{Rails.root}/lib/metadata_test.csv", 'rb', headers: true)
+    row = file.readline
     # TODO: make this a separate function on meta class?
     json_object = {}
     row.headers.each do |header|
@@ -50,14 +48,12 @@ namespace :testing do
       end
       json_object[header] = row[header]
     end
-    json_request = JSON.generate({'meta' => json_object})
+    json_request = JSON.generate('meta' => json_object)
     puts "POST http://localhost:3000/api/meta_upload, parameters: #{json_request}"
     begin
-      response = RestClient.post "http://localhost:3000/api/meta_upload", json_request, :content_type => :json, :accept => :json
+      response = RestClient.post 'http://localhost:3000/api/meta_upload', json_request, content_type: :json, accept: :json
       puts "Status: #{response.code}"
-      if response.code == 201
-        puts "SUCCESS: #{response.body}"
-      end
+      puts "SUCCESS: #{response.body}" if response.code == 201
     rescue => e
       puts "ERROR: #{e.response}"
     end
@@ -65,8 +61,7 @@ namespace :testing do
 
   # Test the provenance upload API (authenticated)
   desc 'Post analysis/provenance entry'
-  task :post_analysis => :environment do
-
+  task post_analysis: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
 
@@ -149,12 +144,10 @@ namespace :testing do
     puts "POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: #{json_request}"
     begin
 
-      request = RestClient::Resource.new('http://localhost:3000/api/analysis', :user => @user_name, :password => @user_pwd)
-      response = request.post(json_request, {:content_type => :json, :accept => :json})
+      request = RestClient::Resource.new('http://localhost:3000/api/analysis', user: @user_name, password: @user_pwd)
+      response = request.post(json_request, content_type: :json, accept: :json)
       puts "Status: #{response.code}"
-      if response.code == 201
-        puts "SUCCESS: #{response.body}"
-      end
+      puts "SUCCESS: #{response.body}" if response.code == 201
     rescue => e
       puts "ERROR: #{e.response}"
     end
@@ -162,8 +155,7 @@ namespace :testing do
 
   # Test the structure upload API (authenticated)
   desc 'Post structure and associated measure_instances'
-  task :post_structure => :environment do
-
+  task post_structure: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
 
@@ -197,38 +189,37 @@ namespace :testing do
     prov = Provenance.where(name: 'test_provenance').first
     prov_id = prov.id.to_s
 
-    json_request = JSON.generate({'provenance_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => {'user_defined_id' => 'test123'}})
+    json_request = JSON.generate('provenance_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => 'test123' })
     puts "POST http://<user>:<pwd>@<base_url>/api/structure, parameters: #{json_request}"
 
     begin
-      request = RestClient::Resource.new('http://localhost:3000/api/structure', :user => @user_name, :password => @user_pwd)
-      response = request.post(json_request, {:content_type => :json, :accept => :json})
+      request = RestClient::Resource.new('http://localhost:3000/api/structure', user: @user_name, password: @user_pwd)
+      response = request.post(json_request, content_type: :json, accept: :json)
       puts "Status: #{response.code}"
       if response.code == 201
         puts "SUCCESS: #{response.body}"
       else
-        raise response.body
+        fail response.body
       end
     rescue => e
       puts "ERROR: #{e.response}"
-    end   
+    end
   end
 
   # upload metadata and instance json
   desc 'upload analysis data'
-  task :upload_analysis => :environment do
-
+  task upload_analysis: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
     provenance_id = nil
 
     # add metadata
-    json_file = MultiJson.load(File.read("./lib/data/dencity_metadata.json"))
+    json_file = MultiJson.load(File.read('./lib/data/dencity_metadata.json'))
     json_request = JSON.generate(json_file)
 
     begin
-      request = RestClient::Resource.new('http://localhost:3000/api/analysis', :user => @user_name, :password => @user_pwd)
-      response = request.post(json_request, {:content_type => :json, :accept => :json})
+      request = RestClient::Resource.new('http://localhost:3000/api/analysis', user: @user_name, password: @user_pwd)
+      response = request.post(json_request, content_type: :json, accept: :json)
       if response.code == 201
         puts "SUCCESS: #{response.body}"
         provenance_id = MultiJson.load(response.body)['provenance']['id']
@@ -244,23 +235,20 @@ namespace :testing do
         json_file = MultiJson.load(File.read(file))
         json_request = JSON.generate(json_file)
         begin
-          request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", :user => @user_name, :password => @user_pwd)
-          response = request.post(json_request, {:content_type => :json, :accept => :json})
-          if response.code == 201
-            puts "SUCCESS: #{response.body}"
-          end
+          request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", user: @user_name, password: @user_pwd)
+          response = request.post(json_request, content_type: :json, accept: :json)
+          puts "SUCCESS: #{response.body}" if response.code == 201
         rescue => e
           puts "ERROR: #{e.inspect}"
         end
       end
     else
-      puts "ERROR: Cannot post structure without a provenance_id"
+      puts 'ERROR: Cannot post structure without a provenance_id'
     end
   end
 
   desc 'upload structure only'
-  task :upload_structures => :environment do
-
+  task upload_structures: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
     provenance_id = '53daaebb986ffbed940001a7'
@@ -270,63 +258,52 @@ namespace :testing do
       json_file = MultiJson.load(File.read(file))
       json_request = JSON.generate(json_file)
       begin
-        request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", :user => @user_name, :password => @user_pwd)
-        response = request.post(json_request, {:content_type => :json, :accept => :json})
-        if response.code == 201
-          puts "SUCCESS: #{response.body}"
-        end
+        request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", user: @user_name, password: @user_pwd)
+        response = request.post(json_request, content_type: :json, accept: :json)
+        puts "SUCCESS: #{response.body}" if response.code == 201
       rescue => e
         puts "ERROR: #{e.inspect}"
       end
     end
-
   end
 
   unless Rails.env.production?
     desc 'fix user password, pass in email=<THE_EMAIL>'
-    task :fix_user_pwd => :environment do
+    task fix_user_pwd: :environment do
       puts "email is #{ENV['email']}"
-      user = User.where(:email => ENV['email']).first
-      user.password = "testing123"
+      user = User.where(email: ENV['email']).first
+      user.password = 'testing123'
       user.save
     end
   end
 
   desc 'test search'
-  task :search => :environment do
-
+  task search: :environment do
     # test all filters
     filters = []
-    #filter = {name: 'building_area', value: 2737.26, operator: '='}
-    filter = {name: 'building_area', value: 2737.26, operator: 'lt'}
+    # filter = {name: 'building_area', value: 2737.26, operator: '='}
+    filter = { name: 'building_area', value: 2737.26, operator: 'lt' }
     filters << filter
-    filter = {name: 'building_type', value: ['Community Center'], operator: 'in'}
+    filter = { name: 'building_type', value: ['Community Center'], operator: 'in' }
     filters << filter
-    filter = {name: 'floor_to_floor_height', value: '2', operator: 'ne'}
+    filter = { name: 'floor_to_floor_height', value: '2', operator: 'ne' }
     filters << filter
-    filter = {name: 'weather_file', value: '', operator: 'exists'}
+    filter = { name: 'weather_file', value: '', operator: 'exists' }
     filters << filter
-    filter = {name: 'roof_construction_type', value: ['shingle roof'], operator: 'nin'}
+    filter = { name: 'roof_construction_type', value: ['shingle roof'], operator: 'nin' }
     filters << filter
 
     page = 0
-    return_only = ['building_area', 'building_type', 'roof_construction_type']
+    return_only = %w(building_area building_type roof_construction_type)
 
-    json_request = JSON.generate({'filters' => filters, 'page' => page, 'return_only' => return_only})
+    json_request = JSON.generate('filters' => filters, 'page' => page, 'return_only' => return_only)
     puts "POST http://localhost:3000/api/search, parameters: #{json_request}"
     begin
-      response = RestClient.post "http://localhost:3000/api/search", json_request, :content_type => :json, :accept => :json
+      response = RestClient.post 'http://localhost:3000/api/search', json_request, content_type: :json, accept: :json
       puts "Status: #{response.code}"
-      if response.code == 200
-        puts "SUCCESS: #{response.body}"
-
-      end
+      puts "SUCCESS: #{response.body}" if response.code == 200
     rescue => e
       puts "ERROR: #{e.response}"
     end
-
-
   end
-
-
 end

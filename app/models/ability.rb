@@ -11,12 +11,12 @@ class Ability
     #     can :read, :all
     #   end
     #
-    # The first argument to `can` is the action you are giving the user 
+    # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
-    # The second argument is the resource the user can perform the action on. 
+    # The second argument is the resource the user can perform the action on.
     # If you pass :all it will apply to every resource. Otherwise pass a Ruby
     # class of the resource.
     #
@@ -31,7 +31,7 @@ class Ability
 
     # Define abilities for the passed in user here.
     user ||= User.new # guest user (not logged in)
-                        # a signed-in user can do everything
+    # a signed-in user can do everything
     # admin
     if user.has_role? :admin
       # an admin can do everything
@@ -43,11 +43,11 @@ class Ability
     # authenticated user
     elsif user.encrypted_password
       can [:read, :create], [Meta, Structure]
-      can :manage, Structure, :user_id => user.id
-      can :manage, Provenance, :user_id => user.id
-      can :manage, Attachment, :user_id => user.id
-      can :manage, MeasureInstance, :user_id => user.id
-      can [:read, :update], User, :id => user.id
+      can :manage, Structure, user_id: user.id
+      can :manage, Provenance, user_id: user.id
+      can :manage, Attachment, user_id: user.id
+      can :manage, MeasureInstance, user_id: user.id
+      can [:read, :update], User, id: user.id
       can :read, Unit
       # API actions
       can [:analysis, :structure], Api
@@ -56,6 +56,5 @@ class Ability
       can :read, [Meta, Unit, Structure, Provenance, MeasureDescription, MeasureInstance]
       can [:meta_upload, :meta_batch_upload], Meta
     end
-
   end
 end

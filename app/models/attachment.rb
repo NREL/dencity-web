@@ -9,5 +9,4 @@ class Attachment
 
   # Relations
   belongs_to :structure
-
 end

@@ -1,5 +1,4 @@
 class ApiController < ApplicationController
-
   before_filter :check_auth, except: :search
 
   respond_to :json
@@ -22,7 +21,7 @@ class ApiController < ApplicationController
 
     if params[:structure]
       params[:structure].each do |key, value|
-        if Meta.where(:name => key).count > 0
+        if Meta.where(name: key).count > 0
           # add to structure
           @structure[key] = value
         else
@@ -34,7 +33,7 @@ class ApiController < ApplicationController
 
       # Assign provenance
       if params[:provenance_id] && !params[:provenance_id].blank?
-        prov = Provenance.find_by(:id => params[:provenance_id], :user => @structure.user)
+        prov = Provenance.find_by(id: params[:provenance_id], user: @structure.user)
         if prov
           @structure.provenance = prov
         else
@@ -59,15 +58,15 @@ class ApiController < ApplicationController
         if params[:measure_instances]
           params[:measure_instances].each do |m|
             @measure = MeasureInstance.new
-            #expecting these keys
+            # expecting these keys
             @measure.uri = m['uri']
             @measure.uuid = m['id']
             @measure.version_id = m['version_id']
             @measure.arguments = m['arguments']
             @measure.structure = @structure
-            #TODO: user_id too?  duplicates?
-            #TODO: warning if this doesn't match a measure description?
-            desc = MeasureDescription.where(:uuid => m['id'], :version_id => m['version_id']).first
+            # TODO: user_id too?  duplicates?
+            # TODO: warning if this doesn't match a measure description?
+            desc = MeasureDescription.where(uuid: m['id'], version_id: m['version_id']).first
             @measure.measure_description = desc
             @measure.save!
           end
@@ -76,9 +75,9 @@ class ApiController < ApplicationController
 
       respond_to do |format|
         if !error
-          format.json { render json: {structure: @structure, warnings: warnings}, status: :created, location: structure_url(@structure) }
+          format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
         else
-          format.json { render json: {error: error_messages, structure: @structure}, status: :unprocessable_entity }
+          format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
         end
       end
     end
@@ -114,7 +113,7 @@ class ApiController < ApplicationController
 
         unless @provenance.save!
           error = true
-          error_messages << "Could not process provenance"
+          error_messages << 'Could not process provenance'
         end
       end
     end
@@ -148,21 +147,19 @@ class ApiController < ApplicationController
     end
 
     respond_to do |format|
-      #logger.info("error flag was set to #{error}")
+      # logger.info("error flag was set to #{error}")
       if !error
         p_id = @provenance.id.to_s
         j = @provenance.as_json.except('_id')
         j['id'] = p_id
-        format.json { render json: {provenance: j, warnings: warnings}, status: :created, location: provenances_url }
+        format.json { render json: { provenance: j, warnings: warnings }, status: :created, location: provenances_url }
       else
-        format.json { render json: {error: error_messages}, status: :unprocessable_entity }
+        format.json { render json: { error: error_messages }, status: :unprocessable_entity }
       end
     end
   end
 
-
   def search
-
     # expecting 3 parameters:  filters, return_only, page
     # filters is an array of hashes, each containing: name, value, operator
     # operators allowed:  =, ne, gt, gte, lt, lte, in, exists near
@@ -171,7 +168,7 @@ class ApiController < ApplicationController
 
     # clean params
     clean_params = search_params
-    
+
     @results_per_page = 100
     @return_only = []
     page = 0
@@ -182,7 +179,6 @@ class ApiController < ApplicationController
       # Build query
       query = Structure.all
       @filters.each do |filter|
-
         case filter[:operator]
         when '='
           # equal
@@ -190,7 +186,7 @@ class ApiController < ApplicationController
         when 'ne'
           # not equal
           query = query.ne(filter[:name].to_sym => filter[:value])
-         # criteria.ne(filter[:name].to_sym => filter[:value])
+        # criteria.ne(filter[:name].to_sym => filter[:value])
         when 'lt'
           # less than
           query = query.lt(filter[:name].to_sym => filter[:value])
@@ -201,8 +197,8 @@ class ApiController < ApplicationController
           # greater than
           query = query.gt(filter[:name].to_sym => filter[:value])
         when 'gte'
-          # greater than or equal to   
-          query = query.gte(filter[:name].to_sym => filter[:value])  
+          # greater than or equal to
+          query = query.gte(filter[:name].to_sym => filter[:value])
         when 'in'
           # value is in the provided list
           # TODD: check that value is an array even if only 1 value is provided
@@ -213,19 +209,19 @@ class ApiController < ApplicationController
           query = query.nin(filter[:name].to_sym => filter[:value])
         when 'exists'
           # attribute is defined for the building
-          query = query.exists(filter[:name].to_sym => true) 
+          query = query.exists(filter[:name].to_sym => true)
         else
           # not a valid operator
-        end      
+        end
       end
 
       # add 'only' if it's a non-nil array
       # TODO: always add the filters specified to the return_only list
 
-      if params[:return_only] && params[:return_only].kind_of?(Array) && !params[:return_only].empty?
+      if params[:return_only] && params[:return_only].is_a?(Array) && !params[:return_only].empty?
         @return_only = params[:return_only]
-        temp_returns = @filters.map{|x| x[:name]}
-        @return_only = @return_only + temp_returns
+        temp_returns = @filters.map { |x| x[:name] }
+        @return_only += temp_returns
         # ensure that 'id is always returned?'
         @return_only << 'id'
         @return_only = @return_only.uniq
@@ -241,31 +237,27 @@ class ApiController < ApplicationController
       @page = params[:page] ? params[:page] : 0
       query = query.skip(@page * @results_per_page)
 
-      # query results and total count for json     
+      # query results and total count for json
       @results = query
       @total_results = @results.count
 
     end
-
   end
-
 
   def check_auth
     authenticate_or_request_with_http_basic do |username, password|
-
       resource = User.find_by(email: username)
       puts resource.email
-      if resource.valid_password?(password)
-        sign_in :user, resource
-      end
+      sign_in :user, resource if resource.valid_password?(password)
     end
   end
 
-private
+  private
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def provenance_params
     params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
-    #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
+    # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
   end
 
   def search_params

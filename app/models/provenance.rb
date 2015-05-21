@@ -17,5 +17,4 @@ class Provenance
   # Relations
   belongs_to :user
   has_many :structures
-
 end

@@ -16,7 +16,7 @@ class StructuresController < ApplicationController
 
     @search = Sunspot.search(Structure) do
       params[:per_page] ||= 100
-      params[:order] ||= "score"
+      params[:order] ||= 'score'
 
       fulltext params[:search]
 
@@ -25,9 +25,9 @@ class StructuresController < ApplicationController
         params[:f].each do |facet_field, values|
           case values
             when Array
-              facet_filters[facet_field] = with(facet_field, Range.new(*values.first.split("..").map(&:to_i)))
+              facet_filters[facet_field] = with(facet_field, Range.new(*values.first.split('..').map(&:to_i)))
             else
-              if (facet_field != "type" || values != ["any"])
+              if facet_field != 'type' || values != ['any']
                 facet_filters[facet_field] = with(facet_field).any_of(values)
               end
           end
@@ -36,19 +36,18 @@ class StructuresController < ApplicationController
 
       if params[:r]
         params[:r].each do |facet_field, input_value|
-          values = input_value.split(";").map { |value| value.to_i }
+          values = input_value.split(';').map(&:to_i)
           range = values.first..values.last
           with(facet_field).between(range)
         end
       end
 
       # Make sure to return the stats of some objects for the facets
-      #facet :building_type
+      # facet :building_type
       stats :building_area
-      facet :building_area, range: 0..100000, range_interval: 1000 #, exclude: facet_filters['building_area']
+      facet :building_area, range: 0..100_000, range_interval: 1000 # , exclude: facet_filters['building_area']
       stats :total_site_eui
-      facet :total_site_eui, range: 0..1500, range_interval: 100 #, exclude: facet_filters['total_site_eui']
-
+      facet :total_site_eui, range: 0..1500, range_interval: 100 # , exclude: facet_filters['total_site_eui']
 
       paginate page: params[:page], per_page: params[:per_page]
     end

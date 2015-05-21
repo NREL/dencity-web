@@ -11,5 +11,5 @@ daemonize true
 #pidfile "/srv/pids/puma-production.pid"
 #state_path "#{application_path}/tmp/pids/puma-#{railsenv}.state"
 stdout_redirect "/var/log/puma-#{railsenv}.stdout.log", "/var/log/puma-#{railsenv}.stderr.log"
-threads 0, 16
+threads 0, 4
 bind 'tcp://0.0.0.0:3000'

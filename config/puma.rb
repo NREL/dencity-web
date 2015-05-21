@@ -3,10 +3,8 @@
 # start puma with:
 # puma -C ./config/puma.rb
 
-#application_path = '.'
-railsenv = 'docker'
 #directory application_path
-environment railsenv
+environment ENV['RAILS_ENV']
 daemonize true
 #pidfile "/srv/pids/puma-production.pid"
 #state_path "#{application_path}/tmp/pids/puma-#{railsenv}.state"

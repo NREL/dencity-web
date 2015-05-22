@@ -26,6 +26,7 @@ class Structure
 
   # Add indexes for most popular fields
   index({building_type: 1, building_area: 1})
+  index({user_id: 1})
 
   # TODO: add more indexes
 

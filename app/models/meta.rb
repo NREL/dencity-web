@@ -11,7 +11,7 @@ class Meta
   field :datatype, type: String
   field :user_defined, type: Boolean
 
-  #Validation
+  # Validation
   validates_presence_of :name
 
   # Indexes
@@ -22,5 +22,4 @@ class Meta
   def self.get_allowable_units
     Unit.where(allowable: true)
   end
-
 end

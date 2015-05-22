@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def active_nav(page)
     path = request.path
     active = ' class="active"'.html_safe
@@ -17,6 +16,4 @@ module ApplicationHelper
       active if page == 'Admin'
     end
   end
-
 end
-

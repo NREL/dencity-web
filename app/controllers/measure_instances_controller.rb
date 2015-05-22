@@ -7,7 +7,6 @@ class MeasureInstancesController < ApplicationController
   def index
     @structure = Structure.find(params[:structure_id])
     @measure_instances = MeasureInstance.where(structure_id: params[:structure_id])
-
   end
 
   # GET /measure_instances/1
@@ -65,13 +64,14 @@ class MeasureInstancesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_measure_instance
-      @measure_instance = MeasureInstance.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def measure_instance_params
-      clean_params = params.require(:measure_instance).permit(:uuid, :version_id, :uri, structure_attributes: [:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_measure_instance
+    @measure_instance = MeasureInstance.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def measure_instance_params
+    clean_params = params.require(:measure_instance).permit(:uuid, :version_id, :uri, structure_attributes: [:id])
+  end
 end

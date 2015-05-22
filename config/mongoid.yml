@@ -27,6 +27,7 @@ production:
         - 10.1.1.93:27017
         #- localhost:27017
       options:
+        pool_size: 16
   options:
 docker:
   # Configure available database sessions. (required)
@@ -43,6 +44,7 @@ docker:
         - db:27017
         #- localhost:27017
       options:
+        pool_size: 16
   options:
 test:
   sessions:

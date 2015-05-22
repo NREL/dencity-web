@@ -6,8 +6,10 @@ web:
     - solr
   ports:
     - "8080:80"
+  environment:
+    - RAILS_ENV=docker
 db:
-  image: dockerfile/mongodb
+  image: mongo
   volumes_from:
     - mongodata
   ports:
@@ -16,3 +18,4 @@ solr:
    build: solr/
    volumes_from:
        - solrdata
+

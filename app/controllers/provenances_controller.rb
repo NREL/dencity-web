@@ -1,7 +1,7 @@
 class ProvenancesController < ApplicationController
   load_and_authorize_resource param_method: :provenance_params
   before_action :set_provenance, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => [:add_provenance]
+  skip_before_filter :verify_authenticity_token, only: [:add_provenance]
 
   # GET /provenances
   # GET /provenances.json
@@ -64,15 +64,15 @@ class ProvenancesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_provenance
-      @provenance = Provenance.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def provenance_params
-      params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
-      #analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_provenance
+    @provenance = Provenance.find(params[:id])
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def provenance_params
+    params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
+    # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
+  end
 end

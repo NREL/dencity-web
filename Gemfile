@@ -4,15 +4,15 @@ source 'http://rubygems.org'
 gem 'rails', '4.1.9'
 
 # Use jdbcsqlite3 as the database for Active Record
-#gem 'activerecord-jdbcsqlite3-adapter'
+# gem 'activerecord-jdbcsqlite3-adapter'
 # MongoDB Adapter
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # JSON parsing and conversion
-gem "multi_json"
+gem 'multi_json'
 
 # XLSX parsing
-gem "roo"
+gem 'roo'
 
 # user auth & permissions
 gem 'devise'
@@ -23,11 +23,11 @@ gem 'role_model'
 gem 'will_paginate', '~> 3.0'
 
 # HTTP requests
-gem "rest-client"
+gem 'rest-client'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
-gem "bootstrap-sass", '~> 3.1.1'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap_form'
 
 # Use Uglifier as compressor for JavaScript assets
@@ -46,14 +46,14 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Solr-based searching
-gem "sunspot_rails"
+gem 'sunspot_rails'
 
 # This github fork fixes compatibility with Mongoid 3 (by using
 # Moped::BSON::ObjectId instead of BSON::ObjectId).
 gem 'bson'
 gem 'moped', github: 'mongoid/moped'
 gem 'sunspot_mongoid2', github: 'hlegius/sunspot_mongoid2'
-#gem "sunspot_mongo", :git => "https://github.com/jclosure/sunspot_mongo.git"
+# gem "sunspot_mongo", :git => "https://github.com/jclosure/sunspot_mongo.git"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -62,7 +62,6 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

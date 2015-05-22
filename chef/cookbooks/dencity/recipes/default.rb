@@ -7,11 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "docker"
+include_recipe 'docker'
 
 # Add users to the docker group
 %w(vagrant).each do |u|
-  group "docker" do
+  group 'docker' do
     members u
     append true
 
@@ -55,7 +55,7 @@ docker_image 'nllong/dencity-web' do
 end
 
 # install the database
-#docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb
+# docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb
 docker_container 'nllong/dencity-web' do
   container_name 'dencity-web'
   link ['dencity-db:dencity-db', 'dencity-solr:dencity-solr']

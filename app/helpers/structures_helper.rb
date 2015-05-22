@@ -4,16 +4,16 @@ module StructuresHelper
     highlights = hit.highlights(field)
 
     if highlights.any?
-      highlights.collect { |highlight| highlight.format { |fragment| content_tag(:strong, fragment) } }.join(" ... ").html_safe
+      highlights.collect { |highlight| highlight.format { |fragment| content_tag(:strong, fragment) } }.join(' ... ').html_safe
     else
       if (stored = hit.stored(field))
-        stored.join(" ")
+        stored.join(' ')
       end
     end
   end
 
   def facet_sum_item(facet, title, options = {})
-    sum = facet.rows.sum { |row| row.count }
+    sum = facet.rows.sum(&:count)
     row = Sunspot::Search::FacetRow.new(title, sum, facet)
 
     facet_item(facet.field_name, row, options)
@@ -23,19 +23,15 @@ module StructuresHelper
     link_text = nil
     case (facet_field)
       when :building_id
-        building = Building.where(:_id => row.value.to_s).first
-        if building
-          link_text = building.name
-        end
+        building = Building.where(_id: row.value.to_s).first
+        link_text = building.name if building
       else
         if row.value.present?
-          link_text = t(row.value.to_s, :scope => [:views, :facets, facet_field], :default => row.value.to_s)
+          link_text = t(row.value.to_s, scope: [:views, :facets, facet_field], default: row.value.to_s)
         end
     end
 
-    if link_text.blank?
-      link_text = "Unknown"
-    end
+    link_text = 'Unknown' if link_text.blank?
 
     # Deep copy the current params so we don't end up modifying the actual
     # params hash every time this method is called.
@@ -44,44 +40,40 @@ module StructuresHelper
 
     # Always reset to page 1 when applying facets. Otherwise, the page the user
     # was currently sitting on may not exist after applying further filtering.
-    if (facet_params[:page].present?)
-      facet_params[:page] = 1
-    end
+    facet_params[:page] = 1 if facet_params[:page].present?
 
     value = row.value
 
-    if (options[:singular])
-      facet_params[:f].delete(facet_field)
-    end
+    facet_params[:f].delete(facet_field) if options[:singular]
 
     active = (params[:f] && params[:f][facet_field] && params[:f][facet_field].include?(value))
-    if (options[:singular] && row.value == "Everything")
+    if options[:singular] && row.value == 'Everything'
       active = (!params[:f] || !params[:f][facet_field])
     end
 
-    item_class = "facet-item"
-    if (options[:singular])
+    item_class = 'facet-item'
+    if options[:singular]
       item_class << " facet-item-#{row.value.downcase}"
       link_text = %(<i class="facet-icon"></i> #{link_text})
     end
 
-    if (active)
-      item_class << " facet-item-active"
+    if active
+      item_class << ' facet-item-active'
 
-      if (!options[:singular] || row.value != "Everything")
+      if !options[:singular] || row.value != 'Everything'
         facet_params[:f][facet_field] ||= []
         facet_params[:f][facet_field].delete(value)
       end
     else
-      item_class << " facet-item-inactive"
+      item_class << ' facet-item-inactive'
 
-      if (!options[:singular] || row.value != "Everything")
+      if !options[:singular] || row.value != 'Everything'
         facet_params[:f][facet_field] ||= []
         facet_params[:f][facet_field] << value
       end
     end
 
-    content_tag(:li, :class => item_class) do
+    content_tag(:li, class: item_class) do
       if options[:singular]
         link_to("#{link_text} (#{number_with_delimiter(row.count)})".html_safe, url_for(facet_params))
       else

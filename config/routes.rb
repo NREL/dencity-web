@@ -1,5 +1,4 @@
 Dencity::Application.routes.draw do
-
   root 'structures#index'
 
   resources :measure_descriptions
@@ -36,5 +35,4 @@ Dencity::Application.routes.draw do
   match 'api/structure' => 'api#structure', via: :post
   match 'api/analysis' => 'api#analysis', via: :post
   match 'api/search' => 'api#search', via: :post
-
 end

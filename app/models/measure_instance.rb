@@ -11,5 +11,4 @@ class MeasureInstance
   # Relations
   belongs_to :structure
   belongs_to :measure_description
-
 end

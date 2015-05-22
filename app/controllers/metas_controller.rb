@@ -8,7 +8,7 @@ class MetasController < ApplicationController
     @metas = Meta.all.order(display_name: :asc)
     respond_to do |format|
       format.html
-      format.json {render json: { :metadata => @metas } }
+      format.json { render json: { metadata: @metas } }
     end
   end
 
@@ -69,9 +69,8 @@ class MetasController < ApplicationController
   # POST /api/meta_upload.json
   # upload metadata fields
   def meta_upload
-
     error = false
-    error_message = ""
+    error_message = ''
 
     # Add new metadata
     if params[:meta]
@@ -117,9 +116,8 @@ class MetasController < ApplicationController
   # POST /api/meta_batch_upload.json
   # Batch upload metadata fields (admin only)
   def meta_batch_upload
-
     error = false
-    error_message = ""
+    error_message = ''
     saved_metas = 0
 
     # Add new metadata
@@ -166,7 +164,8 @@ class MetasController < ApplicationController
       end
     end
   end
-private
+
+  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_meta
@@ -177,8 +176,8 @@ private
   def meta_batch_params
     params.permit(metadata: [:name, :display_name, :short_name, :unit, :datatype, :description, :user_defined])
   end
+
   def meta_params
     params.require(:meta).permit(:name, :display_name, :short_name, :unit, :datatype, :description, :user_defined)
   end
-
 end

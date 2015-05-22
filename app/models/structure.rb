@@ -28,6 +28,7 @@ class Structure
   index({building_type: 1, building_area: 1})
   index({user_id: 1})
 
+
   # TODO: add more indexes
 
   # Searching
@@ -36,14 +37,14 @@ class Structure
 
     text :id
 
-    #text :building_type, stored: true
+    # text :building_type, stored: true
     double :building_area, stored: true
     double :total_source_eui, stored: true
     double :total_site_eui, stored: true
 
     time :updated_at
     time :created_at
-    #string(:name_string) { name } # For sorting
+    # string(:name_string) { name } # For sorting
   end
 
   before_validation :assign_id
@@ -51,9 +52,6 @@ class Structure
   protected
 
   def assign_id
-    if self.user_defined_id.nil?
-      self.user_defined_id = self.id
-    end
+    self.user_defined_id = id if user_defined_id.nil?
   end
-
 end

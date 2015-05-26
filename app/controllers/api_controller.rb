@@ -1,4 +1,5 @@
 class ApiController < ApplicationController
+
   before_filter :check_auth, except: :search
 
   respond_to :json
@@ -6,6 +7,9 @@ class ApiController < ApplicationController
   def structure
     # API
     # POST api/structure.json
+    authorize! :structure, :api
+
+
     error = false
     error_messages = []
     warnings = []
@@ -86,6 +90,7 @@ class ApiController < ApplicationController
   def analysis
     # API
     # POST /api/analysis.json
+    authorize! :analysis, :api
 
     error = false
     already_exists = false

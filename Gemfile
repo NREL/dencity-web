@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.9'
+gem 'rails', '4.1.10'
 
 # Use jdbcsqlite3 as the database for Active Record
 # gem 'activerecord-jdbcsqlite3-adapter'
 # MongoDB Adapter
-gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid', '~> 4.0.2'
+# gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # JSON parsing and conversion
 gem 'multi_json'
@@ -50,9 +51,12 @@ gem 'sunspot_rails'
 
 # This github fork fixes compatibility with Mongoid 3 (by using
 # Moped::BSON::ObjectId instead of BSON::ObjectId).
-gem 'bson'
-gem 'moped', github: 'mongoid/moped'
-gem 'sunspot_mongoid2', github: 'hlegius/sunspot_mongoid2'
+#gem 'bson'
+#gem 'moped', github: 'mongoid/moped'
+
+gem 'sunspot_mongo'
+
+#gem 'sunspot_mongoid2', github: 'hlegius/sunspot_mongoid2'
 # gem "sunspot_mongo", :git => "https://github.com/jclosure/sunspot_mongo.git"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -63,16 +67,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
 group :development, :test do
+  gem 'capistrano'
   gem 'sunspot_solr'
+end
+
+platforms :jruby do
   gem 'puma'
 end

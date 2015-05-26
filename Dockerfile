@@ -49,6 +49,9 @@ RUN rake assets:precompile
 # Bundle app source
 ADD / /srv
 
+# Remove the logs because they need to be recreated
+RUN rm -rf /srv/log
+
 # Call the start-server script as the default command
 # When debugging you can use CMD so that you can override the command otherwise use ENTRYPOINT
 CMD ["/usr/bin/start-server"]

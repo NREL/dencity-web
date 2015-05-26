@@ -49,8 +49,9 @@ class Ability
       can :manage, MeasureInstance, user_id: user.id
       can [:read, :update], User, id: user.id
       can :read, Unit
-      # API actions
-      can [:analysis, :structure], Api
+      # API actions (authenticated users can post analysis and structures.  Anyone can search)
+      can :analysis, :api
+      can :structure, :api
     # unauthenticated
     else
       can :read, [Meta, Unit, Structure, Provenance, MeasureDescription, MeasureInstance]

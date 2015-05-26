@@ -82,7 +82,8 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
 
     # to populate db (first time only)
     docker-compose run web bash
-    rake populate:units RAILS_ENV=docker
+    rake db:mongoid:create_indexes
+    rake populate:units
 
     # point browser to boot2docker ip (or system ip) port 8080.
     ```

@@ -1,10 +1,9 @@
 <h2>Provenance</h2>
 
-<h3 class="edit-name"><%= @provenance.name %> <% if can? :update, @provenance %><%= link_to "[ edit ]", edit_provenance_path(@provenance), class: "edit-link" %><% end %></h3>
+<h3 class="edit-name"><%= @provenance.display_name || @provenance.name %> <% if can? :update, @provenance %><%= link_to "[ edit ]", edit_provenance_path(@provenance), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
-  <% @provenance.attributes.keys.each do |key| %>
+  <% @provenance.attributes.keys.sort.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" %>
-
       <% if key == 'user_id' and !can? :update, @provenance  %>
       <% else %>
         <tr>
@@ -24,5 +23,9 @@
       <% end %>
     <% end %>
   <% end %>
+  <tr>
+    <th>Number of Structures</th>
+    <td><%= @provenance.structures.size %> </td>
+  </tr>
 </table>
 

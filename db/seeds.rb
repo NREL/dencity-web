@@ -1,7 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# create a new admin user. Make sure to reset the password on staging and production sites!
+u = User.find_or_create_by(email: 'test@nrel.gov')
+
+u.roles = [:admin]
+# Remove this if we share the code. This is very dangerous giving the admin a simple password for testing sake!
+# only set password if it doesn't already exist
+unless u.encrypted_password
+  u.password = 'testing123'
+end
+
+u.save!

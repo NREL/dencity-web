@@ -2,7 +2,7 @@ web:
   build: .
   command: /usr/bin/start-server
   links:
-    - db:db
+    - db
     - solr
   ports:
     - "8080:80"

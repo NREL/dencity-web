@@ -67,7 +67,7 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
 
 ## Development with Docker and Fig
 
-1. Install fig (`brew install fig` or http://www.fig.sh/install.html), docker (boot2docker)
+1. Install docker-compose (`brew install docker-compse` or https://docs.docker.com/compose/install/), docker (boot2docker)
 1. Make sure that the mongodata and solrdata data containers exist:
 
     ```
@@ -78,10 +78,10 @@ If desired, it is possible to run the database (MongoDB) and Solr as docker cont
 1. Run
 
     ```
-    fig up
+    docker-compose up
 
     # to populate db (first time only)
-    fig run web bash
+    docker-compose run web bash
     rake populate:units RAILS_ENV=docker
 
     # point browser to boot2docker ip (or system ip) port 8080.

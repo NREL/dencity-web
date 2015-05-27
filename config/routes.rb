@@ -17,7 +17,7 @@ Dencity::Application.routes.draw do
     member do
       get 'download_file'
     end
-    resources :attachments
+
     resources :measure_instances
   end
 

@@ -1,6 +1,6 @@
 class StructuresController < ApplicationController
   load_and_authorize_resource param_method: :structure_params
-  before_action :set_structure, only: [:show, :edit, :update, :destroy]
+  before_action :set_structure, only: [:show, :edit, :update, :destroy, :download_related_file]
 
   # GET /structures
   # GET /structures.json
@@ -107,6 +107,20 @@ class StructuresController < ApplicationController
     end
   end
 
+  # download a related file
+  def download_file
+    file = @structure.related_files.find(params[:related_file_id])
+
+    fail 'file not found in database' unless file
+
+    file_data = get_file_data(file)
+    if file_data
+      send_data file_data, filename: File.basename(file.uri), type: 'application/octet-stream; header=present', disposition: 'attachment'
+    else
+      fail 'file not found in database'
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -117,5 +131,22 @@ class StructuresController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def structure_params
     params.require(:structure).permit(:name, :other_field, provenance_attributes: [:id], user_attributes: [:id])
+  end
+
+  # download a file
+  def get_file_data(file)
+    begin
+      file_data = nil
+      fail 'File not stored on the server' unless File.exist?("#{Rails.root}#{file.uri}")
+      file_data = File.read("#{Rails.root}#{file.uri}")
+
+      fail "Could not find file to download #{file.uri}" if file_data.nil?
+    rescue => e
+      flash[:notice] = "Could not find file to download #{file.uri}. #{e.message}"
+      logger.error "Could not find file to download #{file.uri}. #{e.message}"
+      redirect_to(:back)
+    end
+
+    file_data
   end
 end

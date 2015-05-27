@@ -14,6 +14,8 @@ class Structure
   field :total_source_eui
   field :total_site_eui
 
+  embeds_many :related_files
+
   # Relations
   belongs_to :user
   has_many :attachments

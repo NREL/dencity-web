@@ -206,6 +206,44 @@ namespace :testing do
     end
   end
 
+  desc 'post file associated with structure'
+  task post_file: :environment do
+    
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
+
+    # only works after saving a structure, so get a valid one
+    prov = Provenance.where(name: 'test_provenance').first
+    structure = prov.structures.first
+    structure_id = structure.id.to_s
+
+    file = File.open("#{Rails.root}/lib/metadata_test.csv", "rb")
+    the_file = Base64.strict_encode64(file.read)
+    file.close
+    # file_data param
+    file_data = {}
+    file_data['file_name'] = 'testing.csv'
+    file_data['file'] = the_file
+
+    json_request = JSON.generate('structure_id' => structure_id, 'file_data' => file_data)
+    puts "POST http://<user.:<pwd>@<base_url>/api/related_file, parameters: #{json_request}"
+
+    begin
+      request = RestClient::Resource.new('http://localhost:3000/api/related_file', user: @user_name, password: @user_pwd)
+      response = request.post(json_request, content_type: :json, accept: :json)
+      puts "Status: #{response.code}"
+      if response.code == 201
+        puts "SUCCESS: #{response.body}"
+      else
+        fail response.body
+      end
+    rescue => e
+      puts "ERROR: #{e.response}"
+      puts e.inspect
+    end
+
+  end
+
   # upload metadata and instance json
   desc 'upload analysis data'
   task upload_analysis: :environment do

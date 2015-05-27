@@ -87,6 +87,53 @@ class ApiController < ApplicationController
     end
   end
 
+  def related_file
+    # API
+    # POST /api/related_file.json
+    # expects structure_id and file params
+    # automatic 400 bad request if those params aren't found
+    authorize! :analysis, :api
+
+    error = false
+    error_messages = []
+
+    clean_params = file_params
+
+    @structure = Structure.find(clean_params[:structure_id])
+    basic_path = "/lib/assets/related_files/"
+    
+    # save to file_path:
+    if clean_params[:file_data] && clean_params[:file_data][:file_name] 
+      file_name = clean_params[:file_data][:file_name]
+      file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
+
+      Dir.mkdir("#{Rails.root}#{basic_path}") if !Dir.exists?("#{Rails.root}#{basic_path}")
+      Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") if !Dir.exists?("#{Rails.root}#{basic_path}#{@structure.id}/")
+
+      the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
+        f.write(Base64.strict_decode64(clean_params[:file_data][:file])) 
+      end
+
+      rf = RelatedFile.add_from_path(file_uri)
+
+      @structure.related_files << rf
+      @structure.save
+
+    else
+      error = true
+      error_messages << 'No file data to save.'
+    end
+
+    respond_to do |format|
+      if !error
+        format.json { render json: { structure: @structure}, status: :created, location: structure_url(@structure) }
+      else
+        format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   def analysis
     # API
     # POST /api/analysis.json
@@ -265,7 +312,13 @@ class ApiController < ApplicationController
     # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
   end
 
+  def file_params
+    params.require(:structure_id)
+    params.permit(:structure_id, file_data: [:file_name, :file])
+  end
+
   def search_params
     params.permit(:page, filters: [:name, :value, :operator], return_only: [])
   end
+
 end

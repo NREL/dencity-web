@@ -3,7 +3,15 @@
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" or key == "provenance_id" %>
-      <% if key == 'user_id' and !can? :update, @structure  %>
+      <% if key == 'related_files' %>
+          <tr>
+            <th><%= key.humanize %></th>
+            <td>
+              <% @structure.related_files.each do |f| %>
+                <%= link_to f.file_name, download_file_structure_path(@structure, related_file_id: f.id) %><br/>
+              <% end %>
+            </td>
+          </tr>
       <% else %>
         <tr>
           <th> <%= key == "_id" ? "ID" : key.humanize%></th>

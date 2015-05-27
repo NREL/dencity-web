@@ -14,6 +14,9 @@ Dencity::Application.routes.draw do
   end
 
   resources :structures, shallow: true do
+    member do
+      get 'download_file'
+    end
     resources :attachments
     resources :measure_instances
   end
@@ -34,5 +37,6 @@ Dencity::Application.routes.draw do
   # APIs
   match 'api/structure' => 'api#structure', via: :post
   match 'api/analysis' => 'api#analysis', via: :post
+  match 'api/related_file' => 'api#related_file', via: :post
   match 'api/search' => 'api#search', via: :post
 end

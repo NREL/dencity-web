@@ -52,6 +52,7 @@ class Ability
       # API actions (authenticated users can post analysis and structures.  Anyone can search)
       can :analysis, :api
       can :structure, :api
+      can :related_file, :api
     # unauthenticated
     else
       can :read, [Meta, Unit, Structure, Provenance, MeasureDescription, MeasureInstance]

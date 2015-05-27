@@ -6,6 +6,9 @@
 #Ignore precompiled assets (for now at least)
 /public/assets
 
+#Ignore user files
+/lib/assets/related_files
+
 # Ignore bundler config.
 /.bundle
 

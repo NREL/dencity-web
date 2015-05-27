@@ -64,8 +64,11 @@ Dencity::Application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  Rails.application.routes.default_url_options[:host] = ENV['DENCITY_HOST_URL']
+
+  config.action_mailer.delivery_method = :mailgun
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "docker.dencity.org" }
+  config.action_mailer.default_url_options = { :host => Rails.application.routes.default_url_options[:host] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).

@@ -15,10 +15,11 @@ gem 'multi_json'
 # XLSX parsing
 gem 'roo'
 
-# user auth & permissions
+# user auth, permissions, and mail
 gem 'devise'
 gem 'cancancan', '~> 1.9'
 gem 'role_model'
+gem 'mailgunner', '~> 2.2.1'
 
 # pagination
 gem 'will_paginate', '~> 3.0'

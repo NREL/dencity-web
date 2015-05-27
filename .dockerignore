@@ -1,4 +1,6 @@
 .git
 spec
 test
-solr
+solr# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.gitignore

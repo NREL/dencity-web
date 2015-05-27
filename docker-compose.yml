@@ -8,6 +8,9 @@ web:
     - "8080:80"
   environment:
     - RAILS_ENV=docker
+    - DENCITY_HOST_URL
+    - MAILGUN_SMTP_LOGIN
+    - MAILGUN_API_KEY
 db:
   image: mongo
   volumes_from:

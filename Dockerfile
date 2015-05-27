@@ -51,6 +51,8 @@ ADD / /srv
 
 # Remove the logs because they need to be recreated
 RUN rm -rf /srv/log
+RUN mkdir /srv/log
+RUN chmod 777 /srv/log
 
 # Call the start-server script as the default command
 # When debugging you can use CMD so that you can override the command otherwise use ENTRYPOINT

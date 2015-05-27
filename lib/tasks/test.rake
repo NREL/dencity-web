@@ -143,7 +143,6 @@ namespace :testing do
     json_request = JSON.generate('provenance' => json_object, 'measure_definitions' => measure_defs)
     puts "POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: #{json_request}"
     begin
-
       request = RestClient::Resource.new('http://localhost:3000/api/analysis', user: @user_name, password: @user_pwd)
       response = request.post(json_request, content_type: :json, accept: :json)
       puts "Status: #{response.code}"
@@ -252,7 +251,7 @@ namespace :testing do
     provenance_id = nil
 
     # add metadata
-    json_file = MultiJson.load(File.read('./lib/data/dencity_metadata.json'))
+    json_file = MultiJson.load(File.read(File.join(Rails.root,'spec/files/education/analysis_63e94813-9db3-4f47-a50b-ecb0cc0c6d7c_dencity.json')))
     json_request = JSON.generate(json_file)
 
     begin

@@ -2,7 +2,7 @@
 class Structure
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Sunspot::Mongoid2
+  include Sunspot::Mongo
 
   # Fields
   field :user_defined_id, type: String

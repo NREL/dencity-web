@@ -207,7 +207,6 @@ namespace :testing do
 
   desc 'post file associated with structure'
   task post_file: :environment do
-    
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
 
@@ -216,7 +215,7 @@ namespace :testing do
     structure = prov.structures.first
     structure_id = structure.id.to_s
 
-    file = File.open("#{Rails.root}/lib/metadata_test.csv", "rb")
+    file = File.open("#{Rails.root}/lib/metadata_test.csv", 'rb')
     the_file = Base64.strict_encode64(file.read)
     file.close
     # file_data param
@@ -240,7 +239,6 @@ namespace :testing do
       puts "ERROR: #{e.response}"
       puts e.inspect
     end
-
   end
 
   # upload metadata and instance json
@@ -251,7 +249,7 @@ namespace :testing do
     provenance_id = nil
 
     # add metadata
-    json_file = MultiJson.load(File.read(File.join(Rails.root,'spec/files/education/analysis_63e94813-9db3-4f47-a50b-ecb0cc0c6d7c_dencity.json')))
+    json_file = MultiJson.load(File.read(File.join(Rails.root, 'spec/files/education/analysis_63e94813-9db3-4f47-a50b-ecb0cc0c6d7c_dencity.json')))
     json_request = JSON.generate(json_file)
 
     begin

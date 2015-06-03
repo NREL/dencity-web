@@ -48,8 +48,8 @@ rails s
     # if you need email, then setup mailgun and add in your mailgun smtp user and api key
     export MAILGUN_SMTP_LOGIN = login (typically this is the domain)
     export MAILGUN_API_KEY = key
-    export SECRET_KEY_BASE = 'a long secret key for the rails application'
-    export DEVISE_SECRET_KEY = 'a long secret key for rails devise'
+    export SECRET_KEY_BASE = 'a long secret key for the rails application (use rake secret to generate key)'
+    export DEVISE_SECRET_KEY = 'a long secret key for rails devise (use rake secret to generate key)'
     
     docker-compose up
 
@@ -73,7 +73,8 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
 1. Note that you must set a few environment variables for the EB environment
     * JRUBY_OPTS = --server -J-Xms1024m -J-Xmx1500m -J-XX:+UseConcMarkSweepGC -J-XX:-UseGCOverheadLimit -J-XX:+CMSClassUnloadingEnabled
     * RAILS_ENV = production
-    * 
+    * SECRET_KEY_BASE = 'a long secret key for the rails application (use rake secret to generate key)' 
+    * DEVISE_SECRET_KEY = 'a long secret key for rails devise (use rake secret to generate key)'
     * MAILGUN_SMTP_LOGIN = smtp_from_mailgun
     * MAILGUN_API_KEY = key_from_mailgun
 

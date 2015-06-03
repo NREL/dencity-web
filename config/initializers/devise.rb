@@ -6,7 +6,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
 
   # TODO: remove from repo!
-  if Rails.env.development? or Rails.env.test?
+  if Rails.env.development? || Rails.env.test?
     config.secret_key = 'fd7e588338f83e1fbfce0f691958b7209db44085f52a6ed5d36f5197bad6ebec2a794c662ae3a634552556a33b0928b15a88af0cc9afb3e101f1119c986bc95b'
   else
     config.secret_key = ENV['DEVISE_SECRET_KEY']
@@ -166,7 +166,7 @@ Devise.setup do |config|
   config.lock_strategy = :failed_attempts
 
   # Defines which key will be used when locking and unlocking an account
-  config.unlock_keys = [ :email ]
+  config.unlock_keys = [:email]
 
   # Defines which strategy will be used to unlock an account.
   # :email = Sends an unlock link to the user email

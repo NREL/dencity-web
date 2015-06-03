@@ -1,5 +1,4 @@
 class ApiController < ApplicationController
-
   before_filter :check_auth, except: :search
 
   respond_to :json
@@ -8,7 +7,6 @@ class ApiController < ApplicationController
     # API
     # POST api/structure.json
     authorize! :structure, :api
-
 
     error = false
     error_messages = []
@@ -100,18 +98,18 @@ class ApiController < ApplicationController
     clean_params = file_params
 
     @structure = Structure.find(clean_params[:structure_id])
-    basic_path = "/lib/assets/related_files/"
-    
+    basic_path = '/lib/assets/related_files/'
+
     # save to file_path:
-    if clean_params[:file_data] && clean_params[:file_data][:file_name] 
+    if clean_params[:file_data] && clean_params[:file_data][:file_name]
       file_name = clean_params[:file_data][:file_name]
       file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
 
-      Dir.mkdir("#{Rails.root}#{basic_path}") if !Dir.exists?("#{Rails.root}#{basic_path}")
-      Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") if !Dir.exists?("#{Rails.root}#{basic_path}#{@structure.id}/")
+      Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
+      Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
 
       the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
-        f.write(Base64.strict_decode64(clean_params[:file_data][:file])) 
+        f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
       end
 
       rf = RelatedFile.add_from_path(file_uri)
@@ -126,12 +124,11 @@ class ApiController < ApplicationController
 
     respond_to do |format|
       if !error
-        format.json { render json: { structure: @structure}, status: :created, location: structure_url(@structure) }
+        format.json { render json: { structure: @structure }, status: :created, location: structure_url(@structure) }
       else
         format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
       end
     end
-
   end
 
   def analysis
@@ -320,5 +317,4 @@ class ApiController < ApplicationController
   def search_params
     params.permit(:page, filters: [:name, :value, :operator], return_only: [])
   end
-
 end

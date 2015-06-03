@@ -49,16 +49,7 @@ gem 'turbolinks'
 
 # Solr-based searching
 gem 'sunspot_rails'
-
-# This github fork fixes compatibility with Mongoid 3 (by using
-# Moped::BSON::ObjectId instead of BSON::ObjectId).
-#gem 'bson'
-#gem 'moped', github: 'mongoid/moped'
-
 gem 'sunspot_mongo'
-
-#gem 'sunspot_mongoid2', github: 'hlegius/sunspot_mongoid2'
-# gem "sunspot_mongo", :git => "https://github.com/jclosure/sunspot_mongo.git"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

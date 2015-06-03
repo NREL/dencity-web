@@ -23,7 +23,7 @@ class RelatedFile
       rf.file_time = File.ctime(new_path).utc
       rf.file_modified_time = File.mtime(new_path).utc
       rf.file_size = (File.size(new_path) / 1024).to_i
-      
+
       return rf
     else
       logger.error "Could not find file path: #{file_path} to add to RelatedFile"

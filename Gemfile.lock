@@ -75,6 +75,7 @@ GEM
     json (1.8.2-java)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mailgunner (2.2.1)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.6.1)
@@ -202,6 +203,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 1.2)
   jquery-rails
+  mailgunner (~> 2.2.1)
   mongoid (~> 4.0.2)
   multi_json
   puma

@@ -36,7 +36,7 @@ class Ability
     if user.has_role? :admin
       # an admin can do everything
       can :manage, :all
-    # editor TODO: define this role
+    # editor
     elsif user.has_role? :editor
       can :manage, [Meta, Unit]
       can [:read, :create, :update], Structure

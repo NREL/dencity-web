@@ -11,6 +11,8 @@ web:
     - DENCITY_HOST_URL
     - MAILGUN_SMTP_LOGIN
     - MAILGUN_API_KEY
+    - SECRET_KEY_BASE
+    - DEVISE_SECRET_KEY
 db:
   image: mongo
   volumes_from:

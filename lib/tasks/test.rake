@@ -59,16 +59,16 @@ namespace :testing do
     end
   end
 
-  # Test the provenance upload API (authenticated)
-  desc 'Post analysis/provenance entry'
+  # Test the analysis upload API (authenticated)
+  desc 'Post analysis entry'
   task post_analysis: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
 
     json_object = {}
-    json_object['name'] = 'test_provenance'
-    json_object['display_name'] = 'Testing Provenance'
-    json_object['description'] = 'Testing the add_provenance API'
+    json_object['name'] = 'test_analysis'
+    json_object['display_name'] = 'Testing Analysis'
+    json_object['description'] = 'Testing the add_analysis API'
     json_object['user_defined_id'] = '230948203498203498203948'
     json_object['user_created_date'] = '2014-07-25T15:30:41Z'
     types = []
@@ -185,10 +185,10 @@ namespace :testing do
     measure['arguments'] = {}
     measure_instances << measure
 
-    prov = Analysis.where(name: 'test_provenance').first
-    prov_id = prov.id.to_s
+    analysis = Analysis.where(name: 'test_analysis').first
+    analysis_id = analysis.id.to_s
 
-    json_request = JSON.generate('analysis_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => 'test123' })
+    json_request = JSON.generate('analysis_id' => analysis_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => SecureRandom.uuid })
     puts "POST http://<user>:<pwd>@<base_url>/api/structure, parameters: #{json_request}"
 
     begin
@@ -211,7 +211,7 @@ namespace :testing do
     @user_pwd = 'testing123'
 
     # only works after saving a structure, so get a valid one
-    prov = Analysis.where(name: 'test_provenance').first
+    prov = Analysis.where(name: 'test_analysis').first
     structure = prov.structures.first
     structure_id = structure.id.to_s
 

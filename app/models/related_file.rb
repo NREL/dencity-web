@@ -2,7 +2,6 @@ class RelatedFile
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :source_type, type: Symbol # where the file is stored (s3, local).  all local for now
   field :file_type, type: String # the kind of file (HTML, CSV, etc)
   field :file_name, type: String
   field :file_size, type: Integer # kb
@@ -17,7 +16,6 @@ class RelatedFile
       new_path = "#{Rails.root}/#{file_path}"
       rf = RelatedFile.new
       rf.uri = file_path
-      rf.source_type = :local_file
       rf.file_name = File.basename(new_path)
       rf.file_type = File.extname(rf.file_name).gsub('.', '').downcase
       rf.file_time = File.ctime(new_path).utc

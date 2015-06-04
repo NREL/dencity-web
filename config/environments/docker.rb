@@ -82,4 +82,8 @@ Dencity::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # LOCATION TO STORE FILES.  OPTIONS ARE: s3, local_file
+  config.storage_type = :local_file
+
 end

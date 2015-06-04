@@ -17,7 +17,8 @@ class ApiController < ApplicationController
       # pull out the user create uuid if they have one, otherwise create a new one
       user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
 
-      @structure = Structure.find_or_create_by(user_defined_id: user_uuid)
+      # allow editing of previously uploaded structures, must match user_uuid and user_id  
+      @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
       # set the 'date generated' field
     end
 
@@ -33,18 +34,18 @@ class ApiController < ApplicationController
 
       @structure.user = current_user
 
-      # Assign provenance
-      if params[:provenance_id] && !params[:provenance_id].blank?
-        prov = Provenance.find_by(id: params[:provenance_id], user: @structure.user)
+      # Assign analysis
+      if params[:analysis_id] && !params[:analysis_id].blank?
+        prov = Analysis.find_by(id: params[:analysis_id], user: @structure.user)
         if prov
-          @structure.provenance = prov
+          @structure.analysis = prov
         else
           error = true
-          error_messages << "No provenance matching user and provenance_id #{params[:provenance_id]}...could not save structure."
+          error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
         end
       else
         error = true
-        error_messages << 'No provenance_id provided...could not save structure.'
+        error_messages << 'No analysis_id provided...could not save structure.'
       end
 
       unless error
@@ -98,7 +99,7 @@ class ApiController < ApplicationController
     clean_params = file_params
 
     @structure = Structure.find(clean_params[:structure_id])
-    basic_path = '/lib/assets/related_files/'
+    basic_path = RELATED_FILES_BASIC_PATH
 
     # save to file_path:
     if clean_params[:file_data] && clean_params[:file_data][:file_name]
@@ -112,9 +113,9 @@ class ApiController < ApplicationController
         f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
       end
 
-      rf = RelatedFile.add_from_path(file_uri)
+      @rf = RelatedFile.add_from_path(file_uri)
 
-      @structure.related_files << rf
+      @structure.related_files << @rf
       @structure.save
 
     else
@@ -124,9 +125,9 @@ class ApiController < ApplicationController
 
     respond_to do |format|
       if !error
-        format.json { render json: { structure: @structure }, status: :created, location: structure_url(@structure) }
+        format.json { render json: { related_file: @rf }, status: :created, location: structure_url(@structure) }
       else
-        format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+        format.json { render json: { error: error_messages, related_file: @rf }, status: :unprocessable_entity }
       end
     end
   end
@@ -141,34 +142,34 @@ class ApiController < ApplicationController
     error_messages = []
     warnings = []
 
-    # Add new provenance
-    if params[:provenance]
-      clean_params = provenance_params
+    # Add new analysis
+    if params[:analysis]
+      clean_params = analysis_params
 
-      # check if the provenance name already exists?
-      if Provenance.where(name: clean_params[:name]).first
+      # check if the analysis name already exists?
+      if Analysis.where(name: clean_params[:name]).first
         error = false
         already_exists = true
-        warnings << "Provenance already exists with the name #{clean_params[:name]}"
-        @provenance = Provenance.where(name: clean_params[:name]).first
+        warnings << "Analysis already exists with the name #{clean_params[:name]}"
+        @analysis = Analysis.where(name: clean_params[:name]).first
       else
-        @provenance = Provenance.new(clean_params)
+        @analysis = Analysis.new(clean_params)
         # add analysis_information (it's a hash and can't make it through the clean_params method)
-        if params[:provenance][:analysis_information]
-          @provenance.analysis_information = params[:provenance][:analysis_information]
+        if params[:analysis][:analysis_information]
+          @analysis.analysis_information = params[:analysis][:analysis_information]
         end
 
-        @provenance.user = current_user
+        @analysis.user = current_user
 
-        unless @provenance.save!
+        unless @analysis.save!
           error = true
-          error_messages << 'Could not process provenance'
+          error_messages << 'Could not process analysis'
         end
       end
     end
 
     # Add measure descriptions
-    if @provenance && params[:measure_definitions] && !already_exists
+    if @analysis && params[:measure_definitions] && !already_exists
 
       params[:measure_definitions].each do |m|
         descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])
@@ -198,10 +199,10 @@ class ApiController < ApplicationController
     respond_to do |format|
       # logger.info("error flag was set to #{error}")
       if !error
-        p_id = @provenance.id.to_s
-        j = @provenance.as_json.except('_id')
+        p_id = @analysis.id.to_s
+        j = @analysis.as_json.except('_id')
         j['id'] = p_id
-        format.json { render json: { provenance: j, warnings: warnings }, status: :created, location: provenances_url }
+        format.json { render json: { analysis: j, warnings: warnings }, status: :created, location: analyses_url }
       else
         format.json { render json: { error: error_messages }, status: :unprocessable_entity }
       end
@@ -304,8 +305,8 @@ class ApiController < ApplicationController
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def provenance_params
-    params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
+  def analysis_params
+    params.require(:analysis).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
     # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
   end
 

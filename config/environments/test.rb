@@ -33,4 +33,7 @@ Dencity::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # LOCATION TO STORE FILES.  OPTIONS ARE: s3, local_file
+  config_storage_type = :local_file
 end

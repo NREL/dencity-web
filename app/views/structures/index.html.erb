@@ -12,9 +12,7 @@
 
       </div>
       <div class="col-md-9">
-        <h2>Buildings
-          <% if can? :create, Structure %><%= link_to "[ add new building ]", new_structure_path, class: "edit-link" %>
-          <% end %></h2>
+        <h2>Buildings</h2>
 
         <h3>Total Results: <%= number_with_delimiter(@search.total) %></h3>
 
@@ -48,9 +46,10 @@
                   <% end %>
                   <% if current_user %>
                       <td>
-                      <% if can? :manage, structure %><%= link_to 'Edit', edit_structure_path(structure) %>
-                          | <%= link_to 'Destroy', structure, method: :delete, data: {confirm: 'Are you sure?'} %>
-                      <% end %></td>
+                      <% if can? :manage, structure %>
+                        <%= link_to 'Destroy', structure, method: :delete, data: {confirm: 'Are you sure?'} %>
+                      <% end %>
+                      </td>
                   <% end %>
                 </tr>
             <% end %>

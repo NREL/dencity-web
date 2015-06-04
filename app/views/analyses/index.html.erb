@@ -1,4 +1,4 @@
-<h2><% if can? :manage, :all %>All <% end %>analyses <% if can? :create, analysis %><%= link_to "[ add new analysis ]", new_analysis_path, class: "edit-link" %><% end %></h2>
+<h2><% if can? :manage, :all %>All <% end %>Analyses <% if can? :create, Analysis %><%= link_to "[ add new analysis ]", new_analysis_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>

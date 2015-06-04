@@ -18,7 +18,7 @@ class Structure
 
   # Relations
   belongs_to :user
-  belongs_to :analysis
+  belongs_to :analysis, index: true
   has_many :measure_instances
 
   # Validations

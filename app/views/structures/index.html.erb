@@ -39,7 +39,7 @@
             <tbody>
             <% @search.each_hit_with_result do |hit, structure| %>
                 <tr>
-                  <td><%= link_to structure.provenance.display_name, structure %></td>
+                  <td><%= link_to structure.analysis.display_name, structure %></td>
                   <td> <%= time_ago_in_words(structure.created_at) %> ago</td>
                   <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
                   <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>

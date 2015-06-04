@@ -18,7 +18,7 @@ class Structure
 
   # Relations
   belongs_to :user
-  belongs_to :provenance
+  belongs_to :analysis
   has_many :measure_instances
 
   # Validations
@@ -26,9 +26,8 @@ class Structure
   validates_uniqueness_of :user_defined_id, scope: :user_id
 
   # Add indexes for most popular fields
-  index({building_type: 1, building_area: 1})
-  index({user_id: 1})
-
+  index(building_type: 1, building_area: 1)
+  index(user_id: 1)
 
   # TODO: add more indexes
 

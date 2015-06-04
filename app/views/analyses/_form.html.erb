@@ -1,10 +1,10 @@
-<%= bootstrap_form_for(@provenance, layout: :horizontal) do |f| %>
-  <% if @provenance.errors.any? %>
+<%= bootstrap_form_for(@analysis, layout: :horizontal) do |f| %>
+  <% if @analysis.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@provenance.errors.count, "error") %> prohibited this provenance from being saved:</h2>
+      <h2><%= pluralize(@analysis.errors.count, "error") %> prohibited this analysis from being saved:</h2>
 
       <ul>
-      <% @provenance.errors.full_messages.each do |message| %>
+      <% @analysis.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

@@ -140,7 +140,7 @@ namespace :testing do
     measure['arguments'] = args
     measure_defs << measure
 
-    json_request = JSON.generate('provenance' => json_object, 'measure_definitions' => measure_defs)
+    json_request = JSON.generate('analysis' => json_object, 'measure_definitions' => measure_defs)
     puts "POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: #{json_request}"
     begin
       request = RestClient::Resource.new('http://localhost:3000/api/analysis', user: @user_name, password: @user_pwd)
@@ -185,10 +185,10 @@ namespace :testing do
     measure['arguments'] = {}
     measure_instances << measure
 
-    prov = Provenance.where(name: 'test_provenance').first
+    prov = Analysis.where(name: 'test_provenance').first
     prov_id = prov.id.to_s
 
-    json_request = JSON.generate('provenance_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => 'test123' })
+    json_request = JSON.generate('analysis_id' => prov_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => 'test123' })
     puts "POST http://<user>:<pwd>@<base_url>/api/structure, parameters: #{json_request}"
 
     begin
@@ -207,16 +207,15 @@ namespace :testing do
 
   desc 'post file associated with structure'
   task post_file: :environment do
-    
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
 
     # only works after saving a structure, so get a valid one
-    prov = Provenance.where(name: 'test_provenance').first
+    prov = Analysis.where(name: 'test_provenance').first
     structure = prov.structures.first
     structure_id = structure.id.to_s
 
-    file = File.open("#{Rails.root}/lib/metadata_test.csv", "rb")
+    file = File.open("#{Rails.root}/lib/metadata_test.csv", 'rb')
     the_file = Base64.strict_encode64(file.read)
     file.close
     # file_data param
@@ -240,7 +239,6 @@ namespace :testing do
       puts "ERROR: #{e.response}"
       puts e.inspect
     end
-
   end
 
   # upload metadata and instance json
@@ -248,10 +246,10 @@ namespace :testing do
   task upload_analysis: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
-    provenance_id = nil
+    analysis_id = nil
 
     # add metadata
-    json_file = MultiJson.load(File.read(File.join(Rails.root,'spec/files/education/analysis_63e94813-9db3-4f47-a50b-ecb0cc0c6d7c_dencity.json')))
+    json_file = MultiJson.load(File.read(File.join(Rails.root, 'spec/files/education/analysis_63e94813-9db3-4f47-a50b-ecb0cc0c6d7c_dencity.json')))
     json_request = JSON.generate(json_file)
 
     begin
@@ -259,20 +257,20 @@ namespace :testing do
       response = request.post(json_request, content_type: :json, accept: :json)
       if response.code == 201
         puts "SUCCESS: #{response.body}"
-        provenance_id = MultiJson.load(response.body)['provenance']['id']
+        analysis_id = MultiJson.load(response.body)['analysis']['id']
       end
     rescue => e
       puts "ERROR: #{e.response}"
     end
 
-    if provenance_id
+    if analysis_id
       # add structures
       files = Dir.glob('./lib/data/data_points/*_dencity.json')
       files.each do |file|
         json_file = MultiJson.load(File.read(file))
         json_request = JSON.generate(json_file)
         begin
-          request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", user: @user_name, password: @user_pwd)
+          request = RestClient::Resource.new("http://localhost:3000/api/structure?analysis_id=#{analysis_id}", user: @user_name, password: @user_pwd)
           response = request.post(json_request, content_type: :json, accept: :json)
           puts "SUCCESS: #{response.body}" if response.code == 201
         rescue => e
@@ -280,7 +278,7 @@ namespace :testing do
         end
       end
     else
-      puts 'ERROR: Cannot post structure without a provenance_id'
+      puts 'ERROR: Cannot post structure without an analysis_id'
     end
   end
 
@@ -288,14 +286,14 @@ namespace :testing do
   task upload_structures: :environment do
     @user_name = 'nicholas.long@nrel.gov'
     @user_pwd = 'testing123'
-    provenance_id = '53daaebb986ffbed940001a7'
+    analysis_id = '53daaebb986ffbed940001a7'
     # add structures
     files = Dir.glob('./lib/data/data_points/*_dencity.json')
     files.each do |file|
       json_file = MultiJson.load(File.read(file))
       json_request = JSON.generate(json_file)
       begin
-        request = RestClient::Resource.new("http://localhost:3000/api/structure?provenance_id=#{provenance_id}", user: @user_name, password: @user_pwd)
+        request = RestClient::Resource.new("http://localhost:3000/api/structure?analysis_id=#{analysis_id}", user: @user_name, password: @user_pwd)
         response = request.post(json_request, content_type: :json, accept: :json)
         puts "SUCCESS: #{response.body}" if response.code == 201
       rescue => e

@@ -1,4 +1,4 @@
-<h2><% if can? :manage, :all %>All <% end %>Provenances <% if can? :create, Provenance %><%= link_to "[ add new provenance ]", new_provenance_path, class: "edit-link" %><% end %></h2>
+<h2><% if can? :manage, :all %>All <% end %>analyses <% if can? :create, analysis %><%= link_to "[ add new analysis ]", new_analysis_path, class: "edit-link" %><% end %></h2>
 
 <table class="tablesorter table table-striped">
   <thead>
@@ -12,13 +12,13 @@
   </tr>
   </thead>
   <tbody>
-  <% @provenances.each do |prov| %>
+  <% @analyses.each do |prov| %>
     <tr>
       <td><%= link_to prov.name, prov %></td>
       <td><%= prov.display_name %></td>
       <td><% unless prov.analysis_types.nil? %><%= prov.analysis_types.join(', ') %><% end %></td>
       <% if can? :manage, :all %><td><%=  prov.user.email %></td><% end %>
-      <td><% if can? :update, prov %><%= link_to 'Edit', edit_provenance_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
+      <td><% if can? :update, prov %><%= link_to 'Edit', edit_analysis_path(prov) %> | <%= link_to 'Destroy', prov, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
     </tr>
   <% end %>
   </tbody>

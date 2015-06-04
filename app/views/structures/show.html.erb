@@ -2,7 +2,7 @@
 <h3 class="edit-name"><%= @structure.id %> <% if can? :update, @structure %><%= link_to "[ edit ]", edit_structure_path(@structure), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>
-    <% unless key == "created_at" or key == "updated_at" or key == "provenance_id" %>
+    <% unless key == "created_at" or key == "updated_at" or key == "analysis_id" %>
       <% if key == 'related_files' %>
           <tr>
             <th><%= key.humanize %></th>
@@ -23,16 +23,16 @@
   <% end %>
 </table>
 
-<h3>Provenance</h3>
+<h3>Analysis</h3>
 <table class="table table-striped">
   <tr>
     <th>Name</th>
     <th>Analysis Types</th>
   </tr>
-  <% if @structure.provenance %>
+  <% if @structure.analysis %>
   <tr>
-    <td><%= link_to @structure.provenance.display_name, provenance_path(@structure.provenance) %></td>
-    <td><%= @structure.provenance.analysis_types.join(', ') %></td>
+    <td><%= link_to @structure.analysis.display_name, analysis_path(@structure.analysis) %></td>
+    <td><%= @structure.analysis.analysis_types.join(', ') %></td>
   </tr>
   <% end %>
 </table>

@@ -1,0 +1,31 @@
+<h2>analysis</h2>
+
+<h3 class="edit-name"><%= @analysis.display_name || @analysis.name %> <% if can? :update, @analysis %><%= link_to "[ edit ]", edit_analysis_path(@analysis), class: "edit-link" %><% end %></h3>
+<table class="table table-striped">
+  <% @analysis.attributes.keys.sort.each do |key| %>
+    <% unless key == "created_at" or key == "updated_at" %>
+      <% if key == 'user_id' and !can? :update, @analysis  %>
+      <% else %>
+        <tr>
+          <th> <%= key == "_id" ? "ID" : key.humanize%></th>
+          <td>
+            <% if key == 'user_id' %><%= @analysis.user.email %>
+            <% elsif key == 'analysis_types' %><%= @analysis.analysis_types.join(', ') %>
+            <% elsif key == 'analysis_information' %>
+              <% @analysis.analysis_information.each do |key2, value2| %>
+                <strong><%= key2 %></strong>: <% if key2 == 'objective_functions' && !value2.nil? %><br><% value2.each do |val| %>&nbsp;&nbsp;<%= val %><br/><% end %><% else %><%= value2 %><% end %><br/>
+              <% end %>
+            <% else %>
+              <%= @analysis[key] %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+  <tr>
+    <th>Number of Structures</th>
+    <td><%= @analysis.structures.size %> </td>
+  </tr>
+</table>
+

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @provenances = @current_user.provenances
+    @analyses = @current_user.analyses
   end
 
   # GET /users/new

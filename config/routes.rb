@@ -2,7 +2,7 @@ Dencity::Application.routes.draw do
   root 'structures#index'
 
   resources :measure_descriptions
-  resources :provenances
+  resources :analyses
 
   devise_for :users
   resources :users

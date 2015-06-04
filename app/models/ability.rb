@@ -44,7 +44,7 @@ class Ability
     elsif user.encrypted_password
       can [:read, :create], [Meta, Structure]
       can :manage, Structure, user_id: user.id
-      can :manage, Provenance, user_id: user.id
+      can :manage, Analysis, user_id: user.id
       can :manage, MeasureInstance, user_id: user.id
       can [:read, :update], User, id: user.id
       can :read, Unit
@@ -54,7 +54,7 @@ class Ability
       can :related_file, :api
     # unauthenticated
     else
-      can :read, [Meta, Unit, Structure, Provenance, MeasureDescription, MeasureInstance]
+      can :read, [Meta, Unit, Structure, Analysis, MeasureDescription, MeasureInstance]
       can [:meta_upload, :meta_batch_upload], Meta
     end
   end

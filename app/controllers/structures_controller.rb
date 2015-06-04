@@ -130,7 +130,7 @@ class StructuresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def structure_params
-    params.require(:structure).permit(:name, :other_field, provenance_attributes: [:id], user_attributes: [:id])
+    params.require(:structure).permit(:name, :other_field, analysis_attributes: [:id], user_attributes: [:id])
   end
 
   # download a file

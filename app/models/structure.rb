@@ -29,8 +29,6 @@ class Structure
   index(building_type: 1, building_area: 1)
   index(user_id: 1)
 
-  # TODO: add more indexes
-
   # Searching
   searchable do
     string(:type) { self.class.name }

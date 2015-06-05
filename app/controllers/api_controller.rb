@@ -17,7 +17,7 @@ class ApiController < ApplicationController
       # pull out the user create uuid if they have one, otherwise create a new one
       user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
 
-      # allow editing of previously uploaded structures, must match user_uuid and user_id  
+      # allow updating of previously uploaded structures, must match user_uuid and user_id  
       @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
       # set the 'date generated' field
     end
@@ -91,7 +91,7 @@ class ApiController < ApplicationController
     # POST /api/related_file.json
     # expects structure_id and file params
     # automatic 400 bad request if those params aren't found
-    authorize! :analysis, :api
+    authorize! :related_file, :api
 
     error = false
     error_messages = []
@@ -138,38 +138,39 @@ class ApiController < ApplicationController
     authorize! :analysis, :api
 
     error = false
-    already_exists = false
     error_messages = []
     warnings = []
 
     # Add new analysis
     if params[:analysis]
       clean_params = analysis_params
+      logger.info(clean_params)
 
-      # check if the analysis name already exists?
-      if Analysis.where(name: clean_params[:name]).first
-        error = false
-        already_exists = true
-        warnings << "Analysis already exists with the name #{clean_params[:name]}"
-        @analysis = Analysis.where(name: clean_params[:name]).first
-      else
-        @analysis = Analysis.new(clean_params)
-        # add analysis_information (it's a hash and can't make it through the clean_params method)
-        if params[:analysis][:analysis_information]
-          @analysis.analysis_information = params[:analysis][:analysis_information]
-        end
+       # pull out the user create uuid if they have one, otherwise create a new one
+      user_uuid = clean_params[:user_defined_id] ? clean_params[:user_defined_id] : SecureRandom.uuid
 
-        @analysis.user = current_user
+      # allow updating of previously uploaded analysis, must match user_uuid and user_id  
+      @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid)
 
-        unless @analysis.save!
-          error = true
-          error_messages << 'Could not process analysis'
-        end
+      clean_params.except(:user_defined_id).each do |key, value|
+        @analysis[key] = value
+      end
+
+      # add analysis_information (it's a hash and can't make it through the clean_params method)
+      if params[:analysis][:analysis_information]
+        @analysis.analysis_information = params[:analysis][:analysis_information]
+      end
+
+      @analysis.user = current_user
+
+      unless @analysis.save!
+        error = true
+        error_messages << 'Could not process analysis'
       end
     end
 
     # Add measure descriptions
-    if @analysis && params[:measure_definitions] && !already_exists
+    if @analysis && params[:measure_definitions]
 
       params[:measure_definitions].each do |m|
         descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])

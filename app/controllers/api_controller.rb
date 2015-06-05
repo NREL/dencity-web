@@ -12,76 +12,75 @@ class ApiController < ApplicationController
     error_messages = []
     warnings = []
 
-    # Find or add a new structure
-    if params[:metadata]
-      # pull out the user create uuid if they have one, otherwise create a new one
-      user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
-
-      # allow updating of previously uploaded structures, must match user_uuid and user_id  
-      @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
-      # set the 'date generated' field
+    # Assign analysis
+    if params[:analysis_id] && !params[:analysis_id].blank?
+      prov = current_user.analyses.find(params[:analysis_id])
+      unless prov
+        error = true
+        error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
+      end
+    else
+      error = true
+      error_messages << 'No analysis_id provided...could not save structure.'
     end
 
-    if params[:structure]
-      params[:structure].each do |key, value|
-        if Meta.where(name: key).count > 0
-          # add to structure
-          @structure[key] = value
-        else
-          warnings << "#{key} is not a defined metadata, cannot save this attribute."
-        end
+    unless error
+      # Find or add a new structure
+      if params[:metadata]
+        # pull out the user create uuid if they have one, otherwise create a new one
+        user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
+
+        # allow updating of previously uploaded structures, must match user_uuid and user_id  
+        @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
+       
       end
 
-      @structure.user = current_user
-
-      # Assign analysis
-      if params[:analysis_id] && !params[:analysis_id].blank?
-        prov = Analysis.find_by(id: params[:analysis_id], user: @structure.user)
-        if prov
-          @structure.analysis = prov
-        else
-          error = true
-          error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
+      if params[:structure]
+        params[:structure].each do |key, value|
+          if Meta.where(name: key).count > 0
+            # add to structure
+            @structure[key] = value
+          else
+            warnings << "#{key} is not a defined metadata, cannot save this attribute."
+          end
         end
-      else
-        error = true
-        error_messages << 'No analysis_id provided...could not save structure.'
-      end
-
-      unless error
+        @structure.user = current_user
+        @structure.analysis = prov
         unless @structure.save!
           error = true
           error_messages << 'Could not process structure'
         end
+      else
+        error = true
+        error_messages << 'No structure provided.'
       end
+    end  
 
-      unless error
-
-        # Save Measure Instances
-        if params[:measure_instances]
-          params[:measure_instances].each do |m|
-            @measure = MeasureInstance.new
-            # expecting these keys
-            @measure.uri = m['uri']
-            @measure.uuid = m['id']
-            @measure.version_id = m['version_id']
-            @measure.arguments = m['arguments']
-            @measure.structure = @structure
-            # TODO: user_id too?  duplicates?
-            # TODO: warning if this doesn't match a measure description?
-            desc = MeasureDescription.where(uuid: m['id'], version_id: m['version_id']).first
-            @measure.measure_description = desc
-            @measure.save!
-          end
+    unless error
+      # Save Measure Instances
+      if params[:measure_instances]
+        params[:measure_instances].each do |m|
+          @measure = MeasureInstance.new
+          # expecting these keys
+          @measure.uri = m['uri']
+          @measure.uuid = m['id']
+          @measure.version_id = m['version_id']
+          @measure.arguments = m['arguments']
+          @measure.structure = @structure
+          # TODO: user_id too?  duplicates?
+          # TODO: warning if this doesn't match a measure description?
+          desc = MeasureDescription.where(uuid: m['id'], version_id: m['version_id']).first
+          @measure.measure_description = desc
+          @measure.save!
         end
       end
+    end
 
-      respond_to do |format|
-        if !error
-          format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
-        else
-          format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if error
+        format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+      else
+        format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
       end
     end
   end
@@ -95,42 +94,95 @@ class ApiController < ApplicationController
 
     error = false
     error_messages = []
-
     clean_params = file_params
+    @structure = current_user.structures.find(clean_params[:structure_id])
 
-    @structure = Structure.find(clean_params[:structure_id])
-    basic_path = RELATED_FILES_BASIC_PATH
-
-    # save to file_path:
-    if clean_params[:file_data] && clean_params[:file_data][:file_name]
-      file_name = clean_params[:file_data][:file_name]
-      file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
-
-      Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
-      Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
-
-      the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
-        f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
-      end
-
-      @rf = RelatedFile.add_from_path(file_uri)
-
-      @structure.related_files << @rf
-      @structure.save
-
-    else
+    if !@structure
       error = true
-      error_messages << 'No file data to save.'
-    end
+      error_messages << "Structure #{@structure.id} could not be found."
+    else
+      basic_path = RELATED_FILES_BASIC_PATH
+      # save to file_path:
+      if clean_params[:file_data] && clean_params[:file_data][:file_name]
+        file_name = clean_params[:file_data][:file_name]
+        file = @structure.related_files.find_by_file_name(file_name)
+        if file 
+          error = true
+          error_messages << "File #{file_name} already exists. Delete the file first and reupload."
+        else
+          file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
+          Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
+          Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
 
-    respond_to do |format|
-      if !error
-        format.json { render json: { related_file: @rf }, status: :created, location: structure_url(@structure) }
+          the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
+            f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
+          end
+          @rf = RelatedFile.add_from_path(file_uri)
+          @structure.related_files << @rf
+          @structure.save
+        end
       else
+        error = true
+        error_messages << 'No file data to save.'
+      end
+    end
+    respond_to do |format|
+      if error
         format.json { render json: { error: error_messages, related_file: @rf }, status: :unprocessable_entity }
+      else
+        format.json { render json: { related_file: @rf }, status: :created, location: structure_url(@structure) }
       end
     end
   end
+
+  def remove_file
+    authorize! :remove_file, :api
+
+    error = false
+    error_messages = []
+    clean_params = remove_file_params
+    @structure = current_user.structures.find(clean_params[:structure_id])
+
+    if !@structure
+      error = true
+      error_messages << "Structure #{@structure.id} could not be found."
+    else
+
+      basic_path = RELATED_FILES_BASIC_PATH
+      if clean_params[:file_name]
+        file_name = clean_params[:file_name]
+        file = @structure.related_files.find_by_file_name(file_name)
+
+        if file
+          # delete the file from disk
+          if Rails.application.config.storage_type == :local_file
+            logger.info(" FILE!! #{file.inspect}")
+            File.delete("#{Rails.root}/#{file.uri}")
+          else
+            # TODO delete from s3
+          end
+          # delete from structure
+          @structure.related_files.delete(file)
+        else
+          error = true
+          error_messages << "No file named #{file_name} to delete."
+        end
+
+      else
+        error = true
+        error_messages << 'No file_name specified.'
+      end 
+    end
+
+    respond_to do |format|
+      if error
+        format.json { render json: { error: error_messages }, status: :unprocessable_entity }
+      else
+        format.json { render json: {}, status: :no_content}
+      end
+    end
+  end
+
 
   def analysis
     # API
@@ -165,8 +217,13 @@ class ApiController < ApplicationController
 
       unless @analysis.save!
         error = true
-        error_messages << 'Could not process analysis'
+        error_messages << 'Could not save analysis.'
       end
+    else
+      # analysis does not belong to user
+      error = true
+      error_message << "The analysis #{@analysis.id} does not belong to you...cannot update."
+      @analysis = nil
     end
 
     # Add measure descriptions
@@ -199,13 +256,13 @@ class ApiController < ApplicationController
 
     respond_to do |format|
       # logger.info("error flag was set to #{error}")
-      if !error
+      if error
+        format.json { render json: { error: error_messages }, status: :unprocessable_entity }
+      else
         p_id = @analysis.id.to_s
         j = @analysis.as_json.except('_id')
         j['id'] = p_id
         format.json { render json: { analysis: j, warnings: warnings }, status: :created, location: analyses_url }
-      else
-        format.json { render json: { error: error_messages }, status: :unprocessable_entity }
       end
     end
   end
@@ -314,6 +371,11 @@ class ApiController < ApplicationController
   def file_params
     params.require(:structure_id)
     params.permit(:structure_id, file_data: [:file_name, :file])
+  end
+
+  def remove_file_params
+    params.require(:structure_id)
+    params.permit(:structure_id, :file_name)
   end
 
   def search_params

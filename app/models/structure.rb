@@ -14,7 +14,11 @@ class Structure
   field :total_source_eui
   field :total_site_eui
 
-  embeds_many :related_files
+  embeds_many :related_files do
+    def find_by_file_name(file_name)
+      where(file_name: file_name).first
+    end
+  end
 
   # Relations
   belongs_to :user

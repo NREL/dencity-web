@@ -39,4 +39,5 @@ Dencity::Application.routes.draw do
   match 'api/analysis' => 'api#analysis', via: :post
   match 'api/related_file' => 'api#related_file', via: :post
   match 'api/search' => 'api#search', via: :post
+  match 'api/remove_file' => 'api#remove_file', via: :post
 end

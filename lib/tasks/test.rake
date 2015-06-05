@@ -224,7 +224,7 @@ namespace :testing do
     file_data['file'] = the_file
 
     json_request = JSON.generate('structure_id' => structure_id, 'file_data' => file_data)
-    puts "POST http://<user.:<pwd>@<base_url>/api/related_file, parameters: #{json_request}"
+    puts "POST http://<user>:<pwd>@<base_url>/api/related_file, parameters: #{json_request}"
 
     begin
       request = RestClient::Resource.new('http://localhost:3000/api/related_file', user: @user_name, password: @user_pwd)
@@ -239,6 +239,37 @@ namespace :testing do
       puts "ERROR: #{e.response}"
       puts e.inspect
     end
+  end
+
+  desc 'remove file associated with structure'
+  task remove_file: :environment do
+    @user_name = 'nicholas.long@nrel.gov'
+    @user_pwd = 'testing123'
+
+    # only works after saving a structure, so get a valid one
+    prov = Analysis.where(name: 'test_analysis').first
+    structure = prov.structures.first
+    structure_id = structure.id.to_s
+
+    file_name = 'testing.csv'
+
+    json_request = JSON.generate('structure_id' => structure_id, 'file_name' => file_name)
+    puts "POST http://<user>:<pwd>@<base_url>/api/remove_file, parameters: #{json_request}"
+
+    begin
+      request = RestClient::Resource.new('http://localhost:3000/api/remove_file', user: @user_name, password: @user_pwd)
+      response = request.post(json_request, content_type: :json, accept: :json)
+      puts "Status: #{response.code}"
+      if response.code == 204
+        puts "SUCCESS: #{response.body}"
+      else
+        fail response.body
+      end
+    rescue => e
+      puts "ERROR: #{e.response}"
+      puts e.inspect
+    end
+
   end
 
   # upload metadata and instance json

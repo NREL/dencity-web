@@ -3,7 +3,7 @@ class ApiController < ApplicationController
 
   respond_to :json
 
-  def structure
+  def structure_v1
     # API
     # POST api/structure.json
     authorize! :structure, :api
@@ -85,7 +85,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def related_file
+  def related_file_v1
     # API
     # POST /api/related_file.json
     # expects structure_id and file params
@@ -135,7 +135,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def remove_file
+  def remove_file_v1
     authorize! :remove_file, :api
 
     error = false
@@ -184,7 +184,7 @@ class ApiController < ApplicationController
   end
 
 
-  def analysis
+  def analysis_v1
     # API
     # POST /api/analysis.json
     authorize! :analysis, :api
@@ -267,7 +267,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def search
+  def search_v1
     # expecting 3 parameters:  filters, return_only, page
     # filters is an array of hashes, each containing: name, value, operator
     # operators allowed:  =, ne, gt, gte, lt, lte, in, exists near

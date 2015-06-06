@@ -1,4 +1,4 @@
-<h2>analysis</h2>
+<h2>Analysis</h2>
 
 <h3 class="edit-name"><%= @analysis.display_name || @analysis.name %> <% if can? :update, @analysis %><%= link_to "[ edit ]", edit_analysis_path(@analysis), class: "edit-link" %><% end %></h3>
 <table class="table table-striped">
@@ -25,7 +25,7 @@
   <% end %>
   <tr>
     <th>Number of Structures</th>
-    <td><%= @analysis.structures.size %> </td>
+    <td><%= @analysis.structures.size %> &nbsp; &nbsp; <% if @analysis.structures.size > 0 %><%= link_to 'View Buildings', buildings_analysis_path(@analysis) %><% end %></td>
   </tr>
 </table>
 

@@ -1,6 +1,7 @@
 class AnalysesController < ApplicationController
+  #require 'will_paginate/array'
   load_and_authorize_resource param_method: :analysis_params
-  before_action :set_analysis, only: [:show, :edit, :update, :destroy]
+  before_action :set_analysis, only: [:show, :edit, :update, :destroy, :buildings]
   # skip_before_filter :verify_authenticity_token, only: [:add_analysis]
 
   # GET /analyses
@@ -8,6 +9,16 @@ class AnalysesController < ApplicationController
   def index
     @analyses = Analysis.all
   end
+
+  # GET analyses/buildings
+  def buildings
+    params[:per_page] ||= 100
+    params[:page] ||= 1
+    @search = Structure.solr_search do
+      with(:analysis_id, params[:id])
+      paginate page: params[:page], per_page: params[:per_page]
+    end
+   end
 
   # GET /analyses/1
   # GET /analyses/1.json

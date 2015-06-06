@@ -38,11 +38,14 @@ class Structure
     string(:type) { self.class.name }
 
     text :id
+    
+    string :analysis_id, stored: true
 
     # text :building_type, stored: true
     double :building_area, stored: true
     double :total_source_eui, stored: true
     double :total_site_eui, stored: true
+
 
     time :updated_at
     time :created_at

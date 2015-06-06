@@ -2,7 +2,11 @@ Dencity::Application.routes.draw do
   root 'structures#index'
 
   resources :measure_descriptions
-  resources :analyses
+  resources :analyses do
+    member do
+      get 'buildings'
+    end
+  end
 
   devise_for :users
   resources :users
@@ -35,9 +39,16 @@ Dencity::Application.routes.draw do
   resources :units
 
   # APIs
-  match 'api/structure' => 'api#structure', via: :post
-  match 'api/analysis' => 'api#analysis', via: :post
-  match 'api/related_file' => 'api#related_file', via: :post
-  match 'api/search' => 'api#search', via: :post
-  match 'api/remove_file' => 'api#remove_file', via: :post
+  match 'api/structure' => 'api#structure_v1', via: :post
+  match 'api/analysis' => 'api#analysis_v1', via: :post
+  match 'api/related_file' => 'api#related_file_v1', via: :post
+  match 'api/search' => 'api#search_v1', via: :post
+  match 'api/remove_file' => 'api#remove_file_v1', via: :post
+
+  # v1
+  match 'api/v1/structure' => 'api#structure_v1', via: :post
+  match 'api/v1/analysis' => 'api#analysis_v1', via: :post
+  match 'api/v1/related_file' => 'api#related_file_v1', via: :post
+  match 'api/v1/search' => 'api#search_v1', via: :post
+  match 'api/v1/remove_file' => 'api#remove_file_v1', via: :post
 end

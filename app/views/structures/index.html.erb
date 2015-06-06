@@ -56,8 +56,9 @@
             </tbody>
           </table>
         </div>
+       <div id="paginate-div"> <%= will_paginate @search.hits unless @search.nil? %></div>
+        
       </div>
-      <%#= will_paginate @search %>
     </div>
 
 <% end %>

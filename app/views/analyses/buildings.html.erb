@@ -1,0 +1,38 @@
+<h2>Analysis</h2>
+
+<h3 class="edit-name"><%= @analysis.display_name || @analysis.name %>  Associated Buildings</h3>
+<% if @search %>
+ <table class="table table-striped">
+ 	 <thead>
+    <tr>
+      <th>Building ID</th>
+      <th>Added</th>
+      <th>Total Site EUI</th>
+      <th>Total Source EUI</th>
+      <% if current_user %>
+          <th>Actions</th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @search.each_hit_with_result do |hit, structure| %>
+        <tr>
+          <td><%= link_to structure.id, structure %></td>
+          <td> <%= time_ago_in_words(structure.created_at) %> ago</td>
+          <td><%= structure['total_site_eui'] %> MJ/m&sup2;</td>
+          <td><%= structure['total_source_eui'] %> MJ/m&sup2;</td>
+          <% if current_user %>
+              <td>
+              <% if can? :manage, structure %>
+                <%= link_to 'Destroy', structure, method: :delete, data: {confirm: 'Are you sure?'} %>
+              <% end %>
+              </td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @search.hits %>
+<% else %>
+	<p> There are no buildings associated with this analysis </p>
+<% end %>

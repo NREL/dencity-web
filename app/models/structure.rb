@@ -14,11 +14,15 @@ class Structure
   field :total_source_eui
   field :total_site_eui
 
-  embeds_many :related_files
+  embeds_many :related_files do
+    def find_by_file_name(file_name)
+      where(file_name: file_name).first
+    end
+  end
 
   # Relations
   belongs_to :user
-  belongs_to :provenance
+  belongs_to :analysis, index: true
   has_many :measure_instances
 
   # Validations
@@ -34,11 +38,14 @@ class Structure
     string(:type) { self.class.name }
 
     text :id
+    
+    string :analysis_id, stored: true
 
     # text :building_type, stored: true
     double :building_area, stored: true
     double :total_source_eui, stored: true
     double :total_site_eui, stored: true
+
 
     time :updated_at
     time :created_at

@@ -354,7 +354,7 @@ h2.header-large {
     font-size: 95%;
     color: #6D6D6D;
     margin: 3px;
-    padding-top: 4px;
+    padding-top: 20px;
     text-align: center;
     a {
       font-size:85%;
@@ -520,4 +520,9 @@ h2.header-large {
 
 .user-label {
   font-weight: normal;
+}
+
+#paginate-div {
+  padding-left:80px;
+  height:100px;
 }

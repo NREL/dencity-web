@@ -9,6 +9,6 @@ class MeasureInstance
   field :arguments, type: Hash
 
   # Relations
-  belongs_to :structure
+  belongs_to :structure, index: true
   belongs_to :measure_description
 end

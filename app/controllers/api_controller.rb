@@ -3,7 +3,7 @@ class ApiController < ApplicationController
 
   respond_to :json
 
-  def structure
+  def structure_v1
     # API
     # POST api/structure.json
     authorize! :structure, :api
@@ -12,163 +12,222 @@ class ApiController < ApplicationController
     error_messages = []
     warnings = []
 
-    # Find or add a new structure
-    if params[:metadata]
-      # pull out the user create uuid if they have one, otherwise create a new one
-      user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
-
-      @structure = Structure.find_or_create_by(user_defined_id: user_uuid)
-      # set the 'date generated' field
+    # Assign analysis
+    if params[:analysis_id] && !params[:analysis_id].blank?
+      prov = current_user.analyses.find(params[:analysis_id])
+      unless prov
+        error = true
+        error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
+      end
+    else
+      error = true
+      error_messages << 'No analysis_id provided...could not save structure.'
     end
 
-    if params[:structure]
-      params[:structure].each do |key, value|
-        if Meta.where(name: key).count > 0
-          # add to structure
-          @structure[key] = value
-        else
-          warnings << "#{key} is not a defined metadata, cannot save this attribute."
-        end
+    unless error
+      # Find or add a new structure
+      if params[:metadata]
+        # pull out the user create uuid if they have one, otherwise create a new one
+        user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
+
+        # allow updating of previously uploaded structures, must match user_uuid and user_id  
+        @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
+       
       end
 
-      @structure.user = current_user
-
-      # Assign provenance
-      if params[:provenance_id] && !params[:provenance_id].blank?
-        prov = Provenance.find_by(id: params[:provenance_id], user: @structure.user)
-        if prov
-          @structure.provenance = prov
-        else
-          error = true
-          error_messages << "No provenance matching user and provenance_id #{params[:provenance_id]}...could not save structure."
+      if params[:structure]
+        params[:structure].each do |key, value|
+          if Meta.where(name: key).count > 0
+            # add to structure
+            @structure[key] = value
+          else
+            warnings << "#{key} is not a defined metadata, cannot save this attribute."
+          end
         end
-      else
-        error = true
-        error_messages << 'No provenance_id provided...could not save structure.'
-      end
-
-      unless error
+        @structure.user = current_user
+        @structure.analysis = prov
         unless @structure.save!
           error = true
           error_messages << 'Could not process structure'
         end
+      else
+        error = true
+        error_messages << 'No structure provided.'
       end
+    end  
 
-      unless error
-
-        # Save Measure Instances
-        if params[:measure_instances]
-          params[:measure_instances].each do |m|
-            @measure = MeasureInstance.new
-            # expecting these keys
-            @measure.uri = m['uri']
-            @measure.uuid = m['id']
-            @measure.version_id = m['version_id']
-            @measure.arguments = m['arguments']
-            @measure.structure = @structure
-            # TODO: user_id too?  duplicates?
-            # TODO: warning if this doesn't match a measure description?
-            desc = MeasureDescription.where(uuid: m['id'], version_id: m['version_id']).first
-            @measure.measure_description = desc
-            @measure.save!
-          end
+    unless error
+      # Save Measure Instances
+      if params[:measure_instances]
+        params[:measure_instances].each do |m|
+          @measure = MeasureInstance.new
+          # expecting these keys
+          @measure.uri = m['uri']
+          @measure.uuid = m['id']
+          @measure.version_id = m['version_id']
+          @measure.arguments = m['arguments']
+          @measure.structure = @structure
+          # TODO: user_id too?  duplicates?
+          # TODO: warning if this doesn't match a measure description?
+          desc = MeasureDescription.where(uuid: m['id'], version_id: m['version_id']).first
+          @measure.measure_description = desc
+          @measure.save!
         end
       end
+    end
 
-      respond_to do |format|
-        if !error
-          format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
-        else
-          format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if error
+        format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+      else
+        format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
       end
     end
   end
 
-  def related_file
+  def related_file_v1
     # API
     # POST /api/related_file.json
     # expects structure_id and file params
     # automatic 400 bad request if those params aren't found
-    authorize! :analysis, :api
+    authorize! :related_file, :api
 
     error = false
     error_messages = []
-
     clean_params = file_params
+    @structure = current_user.structures.find(clean_params[:structure_id])
 
-    @structure = Structure.find(clean_params[:structure_id])
-    basic_path = '/lib/assets/related_files/'
-
-    # save to file_path:
-    if clean_params[:file_data] && clean_params[:file_data][:file_name]
-      file_name = clean_params[:file_data][:file_name]
-      file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
-
-      Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
-      Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
-
-      the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
-        f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
-      end
-
-      rf = RelatedFile.add_from_path(file_uri)
-
-      @structure.related_files << rf
-      @structure.save
-
-    else
+    if !@structure
       error = true
-      error_messages << 'No file data to save.'
-    end
+      error_messages << "Structure #{@structure.id} could not be found."
+    else
+      basic_path = RELATED_FILES_BASIC_PATH
+      # save to file_path:
+      if clean_params[:file_data] && clean_params[:file_data][:file_name]
+        file_name = clean_params[:file_data][:file_name]
+        file = @structure.related_files.find_by_file_name(file_name)
+        if file 
+          error = true
+          error_messages << "File #{file_name} already exists. Delete the file first and reupload."
+        else
+          file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
+          Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
+          Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
 
-    respond_to do |format|
-      if !error
-        format.json { render json: { structure: @structure }, status: :created, location: structure_url(@structure) }
+          the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|
+            f.write(Base64.strict_decode64(clean_params[:file_data][:file]))
+          end
+          @rf = RelatedFile.add_from_path(file_uri)
+          @structure.related_files << @rf
+          @structure.save
+        end
       else
-        format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+        error = true
+        error_messages << 'No file data to save.'
+      end
+    end
+    respond_to do |format|
+      if error
+        format.json { render json: { error: error_messages, related_file: @rf }, status: :unprocessable_entity }
+      else
+        format.json { render json: { related_file: @rf }, status: :created, location: structure_url(@structure) }
       end
     end
   end
 
-  def analysis
+  def remove_file_v1
+    authorize! :remove_file, :api
+
+    error = false
+    error_messages = []
+    clean_params = remove_file_params
+    @structure = current_user.structures.find(clean_params[:structure_id])
+
+    if !@structure
+      error = true
+      error_messages << "Structure #{@structure.id} could not be found."
+    else
+
+      basic_path = RELATED_FILES_BASIC_PATH
+      if clean_params[:file_name]
+        file_name = clean_params[:file_name]
+        file = @structure.related_files.find_by_file_name(file_name)
+
+        if file
+          # delete the file from disk
+          if Rails.application.config.storage_type == :local_file
+            logger.info(" FILE!! #{file.inspect}")
+            File.delete("#{Rails.root}/#{file.uri}")
+          else
+            # TODO delete from s3
+          end
+          # delete from structure
+          @structure.related_files.delete(file)
+        else
+          error = true
+          error_messages << "No file named #{file_name} to delete."
+        end
+
+      else
+        error = true
+        error_messages << 'No file_name specified.'
+      end 
+    end
+
+    respond_to do |format|
+      if error
+        format.json { render json: { error: error_messages }, status: :unprocessable_entity }
+      else
+        format.json { render json: {}, status: :no_content}
+      end
+    end
+  end
+
+
+  def analysis_v1
     # API
     # POST /api/analysis.json
     authorize! :analysis, :api
 
     error = false
-    already_exists = false
     error_messages = []
     warnings = []
 
-    # Add new provenance
-    if params[:provenance]
-      clean_params = provenance_params
+    # Add new analysis
+    if params[:analysis]
+      clean_params = analysis_params
+      logger.info(clean_params)
 
-      # check if the provenance name already exists?
-      if Provenance.where(name: clean_params[:name]).first
-        error = false
-        already_exists = true
-        warnings << "Provenance already exists with the name #{clean_params[:name]}"
-        @provenance = Provenance.where(name: clean_params[:name]).first
-      else
-        @provenance = Provenance.new(clean_params)
-        # add analysis_information (it's a hash and can't make it through the clean_params method)
-        if params[:provenance][:analysis_information]
-          @provenance.analysis_information = params[:provenance][:analysis_information]
-        end
+       # pull out the user create uuid if they have one, otherwise create a new one
+      user_uuid = clean_params[:user_defined_id] ? clean_params[:user_defined_id] : SecureRandom.uuid
 
-        @provenance.user = current_user
+      # allow updating of previously uploaded analysis, must match user_uuid and user_id  
+      @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid)
 
-        unless @provenance.save!
-          error = true
-          error_messages << 'Could not process provenance'
-        end
+      clean_params.except(:user_defined_id).each do |key, value|
+        @analysis[key] = value
       end
+
+      # add analysis_information (it's a hash and can't make it through the clean_params method)
+      if params[:analysis][:analysis_information]
+        @analysis.analysis_information = params[:analysis][:analysis_information]
+      end
+
+      @analysis.user = current_user
+
+      unless @analysis.save!
+        error = true
+        error_messages << 'Could not save analysis.'
+      end
+    else
+      # analysis does not belong to user
+      error = true
+      error_message << "The analysis #{@analysis.id} does not belong to you...cannot update."
+      @analysis = nil
     end
 
     # Add measure descriptions
-    if @provenance && params[:measure_definitions] && !already_exists
+    if @analysis && params[:measure_definitions]
 
       params[:measure_definitions].each do |m|
         descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])
@@ -197,18 +256,18 @@ class ApiController < ApplicationController
 
     respond_to do |format|
       # logger.info("error flag was set to #{error}")
-      if !error
-        p_id = @provenance.id.to_s
-        j = @provenance.as_json.except('_id')
-        j['id'] = p_id
-        format.json { render json: { provenance: j, warnings: warnings }, status: :created, location: provenances_url }
-      else
+      if error
         format.json { render json: { error: error_messages }, status: :unprocessable_entity }
+      else
+        p_id = @analysis.id.to_s
+        j = @analysis.as_json.except('_id')
+        j['id'] = p_id
+        format.json { render json: { analysis: j, warnings: warnings }, status: :created, location: analyses_url }
       end
     end
   end
 
-  def search
+  def search_v1
     # expecting 3 parameters:  filters, return_only, page
     # filters is an array of hashes, each containing: name, value, operator
     # operators allowed:  =, ne, gt, gte, lt, lte, in, exists near
@@ -304,14 +363,19 @@ class ApiController < ApplicationController
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def provenance_params
-    params.require(:provenance).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
+  def analysis_params
+    params.require(:analysis).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, analysis_types: [])
     # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
   end
 
   def file_params
     params.require(:structure_id)
     params.permit(:structure_id, file_data: [:file_name, :file])
+  end
+
+  def remove_file_params
+    params.require(:structure_id)
+    params.permit(:structure_id, :file_name)
   end
 
   def search_params

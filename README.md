@@ -21,7 +21,7 @@ bundle exec sunspot-solr run
 In a separate console  call
 
 ```
-rake sunspot:reindex
+rake sunspot:mongo:reindex
 ```
 
 In a separate console call

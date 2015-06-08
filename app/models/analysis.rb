@@ -1,4 +1,4 @@
-class Provenance
+class Analysis
   include Mongoid::Document
   include Mongoid::Timestamps
 

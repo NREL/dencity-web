@@ -53,5 +53,5 @@
 
     # Relations
     has_many :structures
-    has_many :provenances
+    has_many :analyses
   end

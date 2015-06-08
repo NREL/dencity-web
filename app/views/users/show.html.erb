@@ -19,8 +19,8 @@
 </table>
 
 <% if @user == @current_user %>
-    <% unless @current_user.provenances.nil? %>
-        <h3>Provenances</h3>
+    <% unless @current_user.analyses.nil? %>
+        <h3>Analyses</h3>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -32,7 +32,7 @@
           </tr>
           </thead>
           <tbody>
-          <% @current_user.provenances.each do |prov| %>
+          <% @current_user.analyses.each do |prov| %>
               <tr>
                 <td><%= link_to prov.name, prov %></td>
                 <td><%= prov.display_name %></td>
@@ -40,7 +40,7 @@
                   <% unless prov.analysis_types.nil? %><%= prov.analysis_types.join(', ') %>
                   <% end %></td>
                 <% if can? :update, prov %>
-                    <td><%= link_to 'Edit', edit_provenance_path(prov) %>
+                    <td><%= link_to 'Edit', edit_analysis_path(prov) %>
                       | <%= link_to 'Destroy', prov, method: :delete, data: {confirm: 'Are you sure?'} %></td>
                 <% end %>
               </tr>

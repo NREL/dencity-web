@@ -28,4 +28,8 @@ Dencity::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # LOCATION TO STORE FILES.  OPTIONS ARE: s3, local_file
+  config.storage_type = :local_file
+
 end

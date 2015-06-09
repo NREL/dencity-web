@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    apipie-rails (0.3.4)
+      json
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     bcrypt (3.1.10-java)
@@ -195,6 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   bootstrap-sass (~> 3.1.1)
   bootstrap_form
   cancancan (~> 1.9)

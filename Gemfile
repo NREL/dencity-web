@@ -53,6 +53,8 @@ gem 'sunspot_mongo'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+# Document API
+gem 'apipie-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

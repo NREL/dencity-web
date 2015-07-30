@@ -116,20 +116,20 @@ module Api::V1
     description 'URL to post an analysis for structure(s).  An analysis_id will be returned if the request is successful, and will be needed to then post a structure.'
     param :analysis, Hash, desc: 'Hash of analysis descriptors, listed below:', required: true do
       param :name, String, desc: 'Machine name of the analysis'
-      param :display_name, String, desc: 'Analysis display name'
-      param :description, String, desc: 'Analysis description'
-      param :user_defined_id, String, desc: 'User-specified unique identifier for the analysis'
-      param :user_created_date, String, desc: 'User-specified Date the analysis was run by the user (as opposed to date it was uploaded to DEnCity'
+      param :display_name, String, allow_nil: true, desc: 'Analysis display name'
+      param :description, String, allow_nil: true, desc: 'Analysis description'
+      param :user_defined_id, String, allow_nil: true, desc: 'User-specified unique identifier for the analysis'
+      param :user_created_date, String, allow_nil: true,  desc: 'User-specified Date the analysis was run by the user (as opposed to date it was uploaded to DEnCity'
       param :analysis_types, Array, of: String, desc: 'Array of analysis types performed'
       param :analysis_information, Hash, desc: 'Hash of additional information to store about the analysis'   
     end
     param :measure_definitions, Array, desc: 'Array of hashes, each containing the following parameters:', required: true do
       param :id, String, desc: 'ID of the measure definition'
       param :version_id, String, desc: 'Version ID of the measure definition'
-      param :display_name, String, desc: 'Measure Display Name'
+      param :display_name, String, allow_nil: true, desc: 'Measure Display Name'
       param :type, String, desc: 'Measure type'
-      param :description, String, desc: 'Measure Description.'
-      param :default_value, String, desc: 'Default measure value'
+      param :description, String, allow_nil: true, desc: 'Measure Description.'
+      param :default_value, String, allow_nil: true, desc: 'Default measure value'
       param :arguments, Array, desc: 'Array of measure arguments. Note: Information specific to the instance of the measure (such as user-defined argument values) is posted via the measure_instances parameter of the structure resource.'
     end 
     error :code => 401, desc: 'Unauthorized'
@@ -224,10 +224,10 @@ module Api::V1
     formats ['json']
     description 'Add or update a structure.  Must have previously uploaded an analysis.'
     param :metadata, Hash, desc:  'Metadata for structure', required: false do
-      param :user_defined_id, String, desc: 'User-defined unique identifier for the structure'
+      param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure'
     end
     param :analysis_id, String, desc: 'Analysis ID this structure belongs to.', required: true
-    param :structure, Array, of: Hash, desc: 'Array of hashes containing structure metadata. Each hash should contain the following parameters:', required: true do
+    param :structure, Hash, desc: 'Hash containing structure metadata. Each hash should contain the following parameters:', required: true do
       param :name, String, desc: 'Machine name of a metadatum already defined in DEnCity'
       param :value, String, desc: 'Value associated with the metadatum name'
     end
@@ -448,8 +448,8 @@ module Api::V1
     description 'Add a new metadatum.  Metadata are the parameters that describe structures.'
     param :meta, Hash, desc:  'Metadatum', required: true do
       param :name, String, desc: 'Metadatum machine name'
-      param :display_name, String, desc: 'Metadatum display name'
-      param :short_name, String, desc: 'Metadatum short name'
+      param :display_name, String, allow_nil: true, desc: 'Metadatum display name'
+      param :short_name, String, allow_nil: true,  desc: 'Metadatum short name'
       param :unit, String, desc: 'Metadatum Units.  Must choose from Project Haystack units already defined at dencity.org/units'
       param :datatype, String, desc: 'Metadatum datatype. Select from string, double, integer, '
       param :description, String, desc: 'Metadatum description'
@@ -512,8 +512,8 @@ module Api::V1
     description 'Add multiple metadata.  Metadata are the parameters that describe structures.'
     param :metadata, Array, desc:  'Array of metadata hashes', required: true do
       param :name, String, desc: 'Metadatum machine name'
-      param :display_name, String, desc: 'Metadatum display name'
-      param :short_name, String, desc: 'Metadatum short name'
+      param :display_name, String, allow_nil: true, desc: 'Metadatum display name'
+      param :short_name, String, allow_nil: true, desc: 'Metadatum short name'
       param :unit, String, desc: 'Metadatum Units.  Must choose from Project Haystack units already defined at dencity.org/units'
       param :datatype, String, desc: 'Metadatum datatype. Select from string, double, integer, '
       param :description, String, desc: 'Metadatum description'

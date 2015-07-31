@@ -8,11 +8,29 @@ json.set! :filters do
     json.extract! f, :name, :value, :operator
   end
 end
+@bld_id = nil
 json.set! :results do
   json.array!(@results) do |res|
     res.attributes.each_pair do |k, v|
       if k == '_id'
         json.set! :id, v.to_s
+        @bld_id = v.to_s
+      elsif k == 'related_files'
+        json.set! :related_files do
+          json.array!(v) do |file|
+
+            file.each_pair do |fk, fv|
+              if fk == '_id'
+                json.set! :id, fv.to_s
+                @file_id = fv.to_s
+              elsif fk == 'file_name'
+                json.set! fk, fv  
+              elsif fk == 'uri'
+                json.set! :uri, download_file_structure_url(@bld_id, related_file_id: @file_id) 
+              end
+            end
+          end
+        end  
       else
         json.set! k, v
       end

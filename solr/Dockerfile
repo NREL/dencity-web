@@ -3,7 +3,7 @@
 FROM    makuk66/docker-oracle-java7
 MAINTAINER  Nicholas Long "nicholas.long@nrel.gov"
 
-ENV SOLR_VERSION 4.10.3
+ENV SOLR_VERSION 4.10.4
 ENV SOLR solr-$SOLR_VERSION
 RUN export DEBIAN_FRONTEND=noninteractive && \
   apt-get update && \

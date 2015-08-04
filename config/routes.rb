@@ -8,7 +8,6 @@ Dencity::Application.routes.draw do
       get 'buildings'
     end
   end
-  get '/retrieve_analysis' => 'analyses#retrieve_analysis'
 
   devise_for :users
   resources :users
@@ -64,8 +63,10 @@ Dencity::Application.routes.draw do
       post 'search' => 'api#search'
       post 'meta_upload' => 'api#meta_upload'
       post 'meta_batch_upload' => 'api#meta_batch_upload'
+      get 'retrieve_analysis' => 'api#retrieve_analysis'
 
     end
+
     # match all api requests w/o version numbers to v1
     post 'structure' => 'v1/api#structure'
     post 'analysis' => 'v1/api#analysis'
@@ -73,7 +74,11 @@ Dencity::Application.routes.draw do
     post 'remove_file' => 'v1/api#remove_file'
     post 'search' => 'v1/api#search'
     post 'meta_upload' => 'v1/api#meta_upload'
-    post 'meta_batch_upload' => 'api#meta_batch_upload'
+    post 'meta_batch_upload' => 'v1/api#meta_batch_upload'
+    get 'retrieve_analysis' => 'v1/api#retrieve_analysis'
   end
+
+  # other actions to keep the /api prefix consistency
+  get '/api/analyses/:id' => 'analyses#show'
 
 end

@@ -7,7 +7,7 @@ module Api::V1
       api_version "1"
     end
 
-    before_filter :check_auth, except: :search
+    before_filter :check_auth, except: [:search, :retrieve_analysis]
     respond_to :json
 
     api :POST, '/search', 'Search for structures'
@@ -109,6 +109,37 @@ module Api::V1
         @total_results = @results.count
 
       end
+    end
+
+    api :GET, '/retrieve_analysis', 'Retrieve an analysis.'
+    formats ['json']
+    description 'URL to get an analysis by name and user_id. Uniqueness is enforced; only 1 analysis will match a name and user_id combination.'
+    param :name, String, desc: 'The machine name of the analysis', required: true
+    param :user_id, String, desc: 'The user_id of the user that uploaded the analysis', required: true
+    error :code => 401, desc: 'Unauthorized'
+    error :code => 422, desc: 'Error present in request:  parameters missing'
+    example %Q(GET http://<user>:<pwd>@<base_url>/api/retrieve_analysis?name="analysis_name"&user_id="123")
+
+     # GET /retrieve_analysis?name=''&user_id=''
+    def retrieve_analysis
+
+      clean_params = retrieve_analysis_params
+      if clean_params[:name] && clean_params[:user_id]
+
+        @analysis = Analysis.where(name: clean_params[:name], user_id: clean_params[:user_id]).first
+      else
+        error = true
+        error_messages = 'Parameter missing'
+      end
+
+      respond_to do |format|
+        if !@error
+          format.json {render 'analyses/show', location: @analysis}
+        else
+          format.json { render json: error_message, status: :unprocessable_entity }
+        end
+     end
+     
     end
 
     api :POST, '/analysis', 'Add or update an analysis'
@@ -611,6 +642,10 @@ module Api::V1
 
     def meta_params
       params.require(:meta).permit(:name, :display_name, :short_name, :unit, :datatype, :description, :user_defined)
+    end
+
+    def retrieve_analysis_params
+      params.permit(:name, :user_id)
     end
   end
 end

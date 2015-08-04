@@ -52,10 +52,15 @@ class Ability
       can :analysis, :api
       can :structure, :api
       can :related_file, :api
+      can :meta_batch_upload, :api
+      can :meta_upload, :api
+      can :remove_file, :api
     # unauthenticated
     else
       can :read, [Meta, Unit, Structure, Analysis, MeasureDescription, MeasureInstance]
       can [:meta_upload, :meta_batch_upload], Meta
+      can :retrieve_analysis, :api
+      can :search, :api
     end
   end
 end

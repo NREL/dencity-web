@@ -25,30 +25,7 @@ class AnalysesController < ApplicationController
   def show
   end
 
-  # GET /retrieve_analysis?name=''&user_id=''
-  def retrieve_analysis
-    clean_params = retrieve_analysis_params
-    if clean_params[:name] && clean_params[:user_id]
-
-      @analysis = Analysis.where(name: clean_params[:name], user_id: clean_params[:user_id]).first
-    else
-      error = true
-      error_messages = 'Parameter missing'
-    end
-
-    respond_to do |format|
-      if !@error
-        format.html {redirect_to @analysis}
-        format.json {render action: 'show', location: @analysis}
-      else
-        format.html {render action: 'index', notice: 'Analysis could not be found'}
-         format.json { render json: error_message, status: :unprocessable_entity }
-      end
-    end
-
-  end
-
-  # GET /analyses/new
+   # GET /analyses/new
   def new
     @analyses = Analysis.new
   end
@@ -108,9 +85,5 @@ class AnalysesController < ApplicationController
   def analysis_params
     params.require(:analysis).permit(:name, :display_name, :description, :user_defined_id, :user_created_date, :user_id, analysis_types: [])
     # analysis_information: {:sample_method, :run_max, :run_min, :run_mode, :run_all_samples_for_pivots, objective_functions: [] }
-  end
-
-  def retrieve_analysis_params
-    params.permit(:name, :user_id)
   end
 end

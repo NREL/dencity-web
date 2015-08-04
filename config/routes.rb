@@ -8,6 +8,7 @@ Dencity::Application.routes.draw do
       get 'buildings'
     end
   end
+  get '/retrieve_analysis' => 'analyses#retrieve_analysis'
 
   devise_for :users
   resources :users

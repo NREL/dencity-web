@@ -258,7 +258,7 @@ module Api::V1
       param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure'
     end
     param :analysis_id, String, desc: 'Analysis ID this structure belongs to.', required: true
-    param :structure, Hash, desc: 'Hash containing structure metadata. Each hash should contain the following parameters:', required: true do
+    param :structure, Array, of: Hash, desc: 'Array of hashes containing structure metadata. Each hash should contain the following parameters:', required: true do
       param :name, String, desc: 'Machine name of a metadatum already defined in DEnCity'
       param :value, String, desc: 'Value associated with the metadatum name'
     end
@@ -305,6 +305,7 @@ module Api::V1
         end
 
         if params[:structure]
+          @structure = Structure.new
           params[:structure].each do |key, value|
             if Meta.where(name: key).count > 0
               # add to structure
@@ -347,9 +348,13 @@ module Api::V1
 
       respond_to do |format|
         if error
-          format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
+          format.json { render json: { error: error_messages, structure: @structure}, status: :unprocessable_entity }
         else
-          format.json { render json: { structure: @structure, warnings: warnings }, status: :created, location: structure_url(@structure) }
+          #p_id = @structure.id.to_s
+          #j = @structure.as_json.except('_id')
+          #j['id'] = p_id
+          format.json { render 'structures/show', :locals => { :warnings => warnings }, status: :created, location: structures_url(@structure) }
+          #format.json {render 'structures/show', location: @structure}
         end
       end
     end

@@ -1,4 +1,6 @@
 json.set! :id, @structure.id.to_s
+json.set! :user_id, @structure.user.id.to_s
+json.set! :analysis_id, @structure.analysis.id.to_s
 json.extract! @structure, :user_defined_id, :building_type, :building_area, :created_at, :updated_at
 
 json.set! :related_files do
@@ -14,4 +16,18 @@ json.set! :related_files do
 	    end
 	  end
 	end
+end
+
+json.set! :measure_instances do
+  json.array!(@structure.measure_instances) do |measure|
+  	json.extract! measure, :uuid, :version_id, :uri, :arguments
+  end
+end
+
+if defined?(warnings)
+	json.set! :warnings do
+  	json.array!(warnings) do |warning|
+  		json.set! :warning, warning
+  	end
+  end
 end

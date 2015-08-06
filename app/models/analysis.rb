@@ -11,6 +11,9 @@ class Analysis
   field :analysis_types, type: Array
   field :analysis_information, type: Hash
 
+  # count number of structures
+  field :structures_count, type: Integer, default: 0
+
   # Validation
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :user_id
@@ -18,4 +21,5 @@ class Analysis
   # Relations
   belongs_to :user
   has_many :structures
+
 end

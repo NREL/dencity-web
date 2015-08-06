@@ -112,4 +112,11 @@ namespace :populate do
     u.mapped << ''
     u.save!
   end
+
+  desc "reset cache counters on analysis/structures relations"
+  task reset_counters: :environment do
+    Analysis.all.each do |a|
+      Analysis.reset_counters(a.id, :structures)
+    end
+  end
 end

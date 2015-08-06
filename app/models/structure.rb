@@ -22,7 +22,7 @@ class Structure
 
   # Relations
   belongs_to :user
-  belongs_to :analysis, index: true
+  belongs_to :analysis, counter_cache: true, index: true
   has_many :measure_instances
 
   # Validations

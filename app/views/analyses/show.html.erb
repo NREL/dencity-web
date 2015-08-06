@@ -25,7 +25,7 @@
   <% end %>
   <tr>
     <th>Number of Structures</th>
-    <td><%= @analysis.structures.size %> &nbsp; &nbsp; <% if @analysis.structures.size > 0 %><%= link_to 'View Buildings', buildings_analysis_path(@analysis) %><% end %></td>
+    <td><%= @analysis.structures_count %> &nbsp; &nbsp; <% if @analysis.structures_count > 0 %><%= link_to 'View Buildings', buildings_analysis_path(@analysis) %><% end %></td>
   </tr>
 </table>
 

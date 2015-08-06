@@ -107,6 +107,7 @@ module Api::V1
         # query results and total count for json
         @results = query
         @total_results = @results.count
+        @total_pages = (@total_results/@results_per_page).ceil
 
       end
     end

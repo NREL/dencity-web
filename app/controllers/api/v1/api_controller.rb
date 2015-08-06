@@ -40,11 +40,14 @@ module Api::V1
       @return_only = []
       page = 0
 
+      query = Structure.all
+      @filters = []
+
       if params[:filters]
         @filters = params[:filters]
 
         # Build query
-        query = Structure.all
+       
         @filters.each do |filter|
           case filter[:operator]
           when '='
@@ -81,36 +84,36 @@ module Api::V1
             # not a valid operator
           end
         end
-
-        # add 'only' if it's a non-nil array
-        # TODO: always add the filters specified to the return_only list
-
-        if params[:return_only] && params[:return_only].is_a?(Array) && !params[:return_only].empty?
-          @return_only = params[:return_only]
-          temp_returns = @filters.map { |x| x[:name] }
-          @return_only += temp_returns
-          # ensure that 'id is always returned?'
-          @return_only << 'id'
-          @return_only = @return_only.uniq
-          query = query.only(@return_only)
-        else
-          @return_only = nil
-        end
-
-        # limit results
-        query = query.limit(@results_per_page)
-
-        # get correct page (0-based)
-        @page = params[:page] ? params[:page] : 0
-        query = query.skip(@page * @results_per_page)
-
-        # query results and total count for json
-        @results = query
-        @total_results = @results.count
-        @total_pages = (@total_results.to_f/@results_per_page.to_f).ceil
       end
-    end
 
+      # add 'only' if it's a non-nil array
+      # TODO: always add the filters specified to the return_only list
+
+      if params[:return_only] && params[:return_only].is_a?(Array) && !params[:return_only].empty?
+        @return_only = params[:return_only]
+        temp_returns = @filters.map { |x| x[:name] }
+        @return_only += temp_returns
+        # ensure that 'id is always returned?'
+        @return_only << 'id'
+        @return_only = @return_only.uniq
+        query = query.only(@return_only)
+      else
+        @return_only = nil
+      end
+
+      # limit results
+      query = query.limit(@results_per_page)
+
+      # get correct page (0-based)
+      @page = params[:page] ? params[:page] : 0
+      query = query.skip(@page * @results_per_page)
+
+      # query results and total count for json
+      @results = query
+      @total_results = @results.count
+      @total_pages = (@total_results.to_f/@results_per_page.to_f).ceil
+    end
+ 
     api :GET, '/retrieve_analysis', 'Retrieve an analysis.'
     formats ['json']
     description 'URL to get an analysis by name and user_id. Uniqueness is enforced; only 1 analysis will match a name and user_id combination.'

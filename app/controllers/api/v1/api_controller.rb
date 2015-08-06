@@ -175,6 +175,7 @@ module Api::V1
       error = false
       error_messages = []
       warnings = []
+      created_flag = false
 
       # Add new analysis
       if params[:analysis]
@@ -185,7 +186,9 @@ module Api::V1
         user_uuid = clean_params[:user_defined_id] ? clean_params[:user_defined_id] : SecureRandom.uuid
 
         # allow updating of previously uploaded analysis, must match user_uuid and user_id  
-        @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid)
+        @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid) do |a|
+          created_flag = true
+        end
 
         clean_params.except(:user_defined_id).each do |key, value|
           @analysis[key] = value
@@ -245,7 +248,12 @@ module Api::V1
           p_id = @analysis.id.to_s
           j = @analysis.as_json.except('_id')
           j['id'] = p_id
-          format.json { render json: { analysis: j, warnings: warnings }, status: :created, location: analyses_url }
+          if created_flag
+            status = :created
+          else
+            status = :ok
+          end
+          format.json { render json: { analysis: j, warnings: warnings }, status: status, location: analyses_url }
         end
       end
     end
@@ -280,6 +288,7 @@ module Api::V1
       error = false
       error_messages = []
       warnings = []
+      created_flag = false
 
       # Assign analysis
       if params[:analysis_id] && !params[:analysis_id].blank?
@@ -295,17 +304,16 @@ module Api::V1
 
       unless error
         # Find or add a new structure
-        if params[:metadata]
-          # pull out the user create uuid if they have one, otherwise create a new one
-          user_uuid = params[:metadata][:user_defined_id] ? params[:metadata][:user_defined_id] : SecureRandom.uuid
-
-          # allow updating of previously uploaded structures, must match user_uuid and user_id  
-          @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid)
-         
+        # pull out the user create uuid if they have one, otherwise create a new one
+        logger.info("HEY!  #{params[:metadata]}")
+        user_uuid = (params[:metadata] && params[:metadata][:user_defined_id]) ? params[:metadata][:user_defined_id] : SecureRandom.uuid
+      
+        # allow updating of previously uploaded structures, must match user_uuid and user_id  
+        @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid) do |a|
+          created_flag = true
         end
-
+        
         if params[:structure]
-          @structure = Structure.new
           params[:structure].each do |key, value|
             if Meta.where(name: key).count > 0
               # add to structure
@@ -350,11 +358,12 @@ module Api::V1
         if error
           format.json { render json: { error: error_messages, structure: @structure}, status: :unprocessable_entity }
         else
-          #p_id = @structure.id.to_s
-          #j = @structure.as_json.except('_id')
-          #j['id'] = p_id
-          format.json { render 'structures/show', :locals => { :warnings => warnings }, status: :created, location: structures_url(@structure) }
-          #format.json {render 'structures/show', location: @structure}
+          if created_flag
+            status = :created
+          else
+            status = :ok
+          end
+          format.json { render 'structures/show', :locals => { :warnings => warnings }, status: status, location: structures_url(@structure) }
         end
       end
     end

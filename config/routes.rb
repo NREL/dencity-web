@@ -64,6 +64,7 @@ Dencity::Application.routes.draw do
       post 'meta_upload' => 'api#meta_upload'
       post 'meta_batch_upload' => 'api#meta_batch_upload'
       get 'retrieve_analysis' => 'api#retrieve_analysis'
+      post 'login' => 'api#login'
 
     end
 
@@ -76,6 +77,7 @@ Dencity::Application.routes.draw do
     post 'meta_upload' => 'v1/api#meta_upload'
     post 'meta_batch_upload' => 'v1/api#meta_batch_upload'
     get 'retrieve_analysis' => 'v1/api#retrieve_analysis'
+    post 'login' => 'v1/api#login'
   end
 
   # other actions to keep the /api prefix consistency

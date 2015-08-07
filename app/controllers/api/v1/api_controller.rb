@@ -10,6 +10,20 @@ module Api::V1
     before_filter :check_auth, except: [:search, :retrieve_analysis]
     respond_to :json
 
+    api :POST, '/login', 'Credential check'
+    formats ['json']
+    description 'Imitates a login action and validates a user\'s username and password'
+    error :code => 401, desc: 'Unauthorized'
+    example %Q(POST http://<username>:<password>@<base_url/api/login)
+    # check basic_auth params
+    def login
+      # this just calls check_auth and that's it
+       @user = current_user
+       respond_to do |format|
+        format.json {render 'users/show', location: @user}
+      end
+    end
+
     api :POST, '/search', 'Search for structures'
     formats ['json']
     description 'Search for structures, filter results by metadata.'
@@ -25,7 +39,7 @@ module Api::V1
     error :code => 401, desc: 'Unauthorized'
     error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
     example %Q(POST http://<base_url>/api/search, parameters: {"filters":[{"name":"aspect_ratio","value":2,"operator":"lt"}], "return_only":["aspect_ratio"], "page":"2"})
-
+    # search
     def search
       # expecting 3 parameters:  filters, return_only, page
       # filters is an array of hashes, each containing: name, value, operator

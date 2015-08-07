@@ -289,7 +289,7 @@ module Api::V1
     end
     error :code => 401, desc: 'Unauthorized'
     error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/structure, parameters: {"analysis_id":<analysis_id,"structure":{"building_rotation":0,"infiltration_rate":2.00155,"lighting_power_density":3.88565,"site_energy_use":0,"total_occupancy":88.8,"total_building_area":3134.92},"measure_instances":[{"index":0,"uri":"https://bcl.nrel.gov","id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","arguments":{"location":"AN_BC_Vancouver.718920_CWEC.epw","xpath":"/building/address/weather-file"}},{"index":1,"uri":"https://bcl.nrel.gov","id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","arguments":{}}],"metadata":{"user_defined_id":"test123"}})
+    example %Q(POST http://<user>:<pwd>@<base_url>/api/structure, parameters: {"structure":{"analysis_id":<analysis_id>, "user_defined_id":<user_defined_id>, metadata:[{"name":"infiltration_rate", "value":2.00155},{"name":"lighting_power_density", "value": 3.5}]},"measure_instances":[{"index":0,"uri":"https://bcl.nrel.gov","id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","arguments":{"location":"AN_BC_Vancouver.718920_CWEC.epw","xpath":"/building/address/weather-file"}},{"index":1,"uri":"https://bcl.nrel.gov","id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","arguments":{}}]})
     
     def structure
       # API

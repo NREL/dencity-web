@@ -265,13 +265,16 @@ module Api::V1
     api :POST, '/structure', 'Add or update a structure'
     formats ['json']
     description 'Add or update a structure.  Must have previously uploaded an analysis.'
-    param :metadata, Hash, desc:  'Metadata for structure', required: false do
-      param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure'
-    end
+    #param :metadata, Hash, desc:  'Metadata for structure', required: false do
+    #  param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure'
+    #end
     param :analysis_id, String, desc: 'Analysis ID this structure belongs to.', required: true
     param :structure, Array, of: Hash, desc: 'Array of hashes containing structure metadata. Each hash should contain the following parameters:', required: true do
-      param :name, String, desc: 'Machine name of a metadatum already defined in DEnCity'
-      param :value, String, desc: 'Value associated with the metadatum name'
+      param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure', required: false
+      param :metadata, Array, of: Hash, desc: 'Name/Value pairs of all metadata info related to the structure' do
+        param :name, String, desc: 'Machine name of a metadatum already defined in DEnCity'
+        param :value, String, desc: 'Value associated with the metadatum name'
+      end
     end
     param :measure_instances, Array, of: Hash, desc: 'Array of measure instance hashes applied to the structure.  Each array element should contain the parameters listed below:', required: false do
       param :uri, String, desc: 'URI of measure instance (from BCL)'
@@ -295,8 +298,8 @@ module Api::V1
 
       # Assign analysis
       if params[:analysis_id] && !params[:analysis_id].blank?
-        prov = current_user.analyses.find(params[:analysis_id])
-        unless prov
+        analysis = current_user.analyses.find(params[:analysis_id])
+        unless analysis
           error = true
           error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
         end
@@ -307,26 +310,29 @@ module Api::V1
 
       unless error
         # Find or add a new structure
-        # pull out the user create uuid if they have one, otherwise create a new one
-        logger.info("HEY!  #{params[:metadata]}")
-        user_uuid = (params[:metadata] && params[:metadata][:user_defined_id]) ? params[:metadata][:user_defined_id] : SecureRandom.uuid
-      
-        # allow updating of previously uploaded structures, must match user_uuid and user_id  
-        @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid) do |a|
-          created_flag = true
-        end
-        
+        # pull out the user defined uuid if they have one, otherwise create a new one
         if params[:structure]
-          params[:structure].each do |key, value|
-            if Meta.where(name: key).count > 0
-              # add to structure
-              @structure[key] = value
-            else
-              warnings << "#{key} is not a defined metadata, cannot save this attribute."
+          user_uuid = params[:structure][:user_defined_id] ? params[:structure][:user_defined_id] : SecureRandom.uuid
+      
+          # allow updating of previously uploaded structures, must match user_defined_id and user_id  
+          @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid) do |a|
+            created_flag = true
+          end
+        
+          if params[:structure][:metadata]
+            params[:structure][:metadata].each do |meta|
+              thecount = Meta.where(name: meta['name']).count
+              logger.info( "*********count: #{thecount}")
+              if Meta.where(name: meta['name']).count > 0
+                # add to structure
+                @structure[meta['name']] = meta['value']
+              else
+                warnings << "#{meta['name']} is not a defined metadata, cannot save this attribute."
+              end
             end
           end
           @structure.user = current_user
-          @structure.analysis = prov
+          @structure.analysis = analysis
           unless @structure.save!
             error = true
             error_messages << 'Could not process structure'

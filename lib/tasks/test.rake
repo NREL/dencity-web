@@ -160,13 +160,12 @@ namespace :testing do
       @user_name = 'nicholas.long@nrel.gov'
       @user_pwd = 'testing123'
 
-      json_object = {}
-      json_object['building_rotation'] = 0
-      json_object['infiltration_rate'] = 2.00155
-      json_object['lighting_power_density'] = 3.88565
-      json_object['site_energy_use'] = 0
-      json_object['total_occupancy'] = 88.8
-      json_object['total_building_area'] = 3134.92
+      json_object = []
+      json_object << {name: 'infiltration_rate', value: 2.00155}
+      json_object << {name: 'lighting_power_density', value: 3.88565}
+      json_object << {name: 'site_energy_use', value: 0}
+      json_object << {name: 'total_occupancy', value: 88.8}
+      json_object << {name: 'building_area', value: 3134.92}
 
       measure_instances = []
       measure = {}
@@ -190,7 +189,7 @@ namespace :testing do
       analysis = Analysis.where(name: 'test_analysis').first
       analysis_id = analysis.id.to_s
 
-      json_request = JSON.generate('analysis_id' => analysis_id, 'structure' => json_object, 'measure_instances' => measure_instances, 'metadata' => { 'user_defined_id' => SecureRandom.uuid })
+      json_request = JSON.generate('analysis_id' => analysis_id, 'structure' => { 'user_defined_id' => SecureRandom.uuid, 'metadata' =>  json_object}, 'measure_instances' => measure_instances)
       puts "POST http://<user>:<pwd>@<base_url>/api/v1/structure, parameters: #{json_request}"
 
       begin

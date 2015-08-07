@@ -189,7 +189,7 @@ namespace :testing do
       analysis = Analysis.where(name: 'test_analysis').first
       analysis_id = analysis.id.to_s
 
-      json_request = JSON.generate('analysis_id' => analysis_id, 'structure' => { 'user_defined_id' => SecureRandom.uuid, 'metadata' =>  json_object}, 'measure_instances' => measure_instances)
+      json_request = JSON.generate('structure' => { 'user_defined_id' => SecureRandom.uuid, 'analysis_id' => analysis_id, 'metadata' =>  json_object}, 'measure_instances' => measure_instances)
       puts "POST http://<user>:<pwd>@<base_url>/api/v1/structure, parameters: #{json_request}"
 
       begin

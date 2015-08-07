@@ -120,26 +120,34 @@ module Api::V1
     param :name, String, desc: 'The machine name of the analysis', required: true
     param :user_id, String, desc: 'The user_id of the user that uploaded the analysis', required: true
     error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing'
+    error :code => 422, desc: 'Error present in request:  parameters missing or analysis not found'
     example %Q(GET http://<user>:<pwd>@<base_url>/api/retrieve_analysis?name="analysis_name"&user_id="123")
 
      # GET /retrieve_analysis?name=''&user_id=''
     def retrieve_analysis
 
+      error_messages = nil
+
       clean_params = retrieve_analysis_params
       if clean_params[:name] && clean_params[:user_id]
 
         @analysis = Analysis.where(name: clean_params[:name], user_id: clean_params[:user_id]).first
+        if @analysis.nil?
+          error = true
+          error_messages = 'Analysis not Found'
+        end
       else
         error = true
         error_messages = 'Parameter missing'
       end
 
       respond_to do |format|
-        if !@error
+        if !@error && @analysis
           format.json {render 'analyses/show', location: @analysis}
+        elsif @analysis.nil?
+          format.json { render json: { error: error_messages }, status: :not_found }
         else
-          format.json { render json: error_message, status: :unprocessable_entity }
+          format.json { render json: { error: error_messages }, status: :unprocessable_entity }
         end
      end
      
@@ -167,7 +175,7 @@ module Api::V1
       param :arguments, Array, desc: 'Array of measure arguments. Note: Information specific to the instance of the measure (such as user-defined argument values) is posted via the measure_instances parameter of the structure resource.'
     end 
     error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or file doesn\'t exists'
+    error :code => 422, desc: 'Error present in request:  parameters missing'
     example %Q(POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: {"analysis":{"name":"test_analysis","display_name":"Testing Analysis","description":"Testing the add_analysis API","user_defined_id":<user defined id>,"user_created_date":"2014-07-25T15:30:41Z","analysis_types":["preflight","batch_run"],"analysis_information":{"sample_method":"individual_variables","run_max":true,"run_min":true,"run_mode":true,"run_all_samples_for_pivots":true,"objective_functions":["standard_report_legacy.total_energy","standard_report_legacy.total_source_energy"]}},"measure_definitions":[{"id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","name":"SetXPathSingleVariable","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Set XPath","display_name_short":"Set XPath","name":"xpath","description":"","units":""},{"display_name":"Location","display_name_short":"Location","name":"location","description":"","units":""}]},{"id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","name":"SetBuildingGeometry","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Aspect Ratio Multiplier","display_name_short":"Aspect Ratio Multiplier","name":"aspect_ratio_multiplier","description":"","units":""},{"display_name":"Floor Plate Area Multiplier","display_name_short":"Floor Plate Area Multiplier","name":"floor_plate_area_multiplier","description":"","units":""}]}]}
 )
     def analysis
@@ -265,12 +273,9 @@ module Api::V1
     api :POST, '/structure', 'Add or update a structure'
     formats ['json']
     description 'Add or update a structure.  Must have previously uploaded an analysis.'
-    #param :metadata, Hash, desc:  'Metadata for structure', required: false do
-    #  param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure'
-    #end
-    param :analysis_id, String, desc: 'Analysis ID this structure belongs to.', required: true
     param :structure, Array, of: Hash, desc: 'Array of hashes containing structure metadata. Each hash should contain the following parameters:', required: true do
       param :user_defined_id, String, allow_nil: true,  desc: 'User-defined unique identifier for the structure', required: false
+      param :analysis_id, String, desc: 'Analysis ID this structure belongs to.', required: true
       param :metadata, Array, of: Hash, desc: 'Name/Value pairs of all metadata info related to the structure' do
         param :name, String, desc: 'Machine name of a metadatum already defined in DEnCity'
         param :value, String, desc: 'Value associated with the metadatum name'
@@ -296,22 +301,23 @@ module Api::V1
       warnings = []
       created_flag = false
 
-      # Assign analysis
-      if params[:analysis_id] && !params[:analysis_id].blank?
-        analysis = current_user.analyses.find(params[:analysis_id])
-        unless analysis
-          error = true
-          error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
-        end
-      else
-        error = true
-        error_messages << 'No analysis_id provided...could not save structure.'
-      end
+      # Find or add a new structure
+      # pull out the user defined uuid if they have one, otherwise create a new one
+      if params[:structure]
 
-      unless error
-        # Find or add a new structure
-        # pull out the user defined uuid if they have one, otherwise create a new one
-        if params[:structure]
+        if params[:structure][:analysis_id] && !params[:structure][:analysis_id].blank?
+          analysis = current_user.analyses.find(params[:structure][:analysis_id])
+          unless analysis
+            error = true
+            error_messages << "No analysis matching user and analysis_id #{params[:analysis_id]}...could not save structure."
+          end
+        else
+          error = true
+          error_messages << 'No analysis_id provided...could not save structure.'
+        end
+
+        unless error
+
           user_uuid = params[:structure][:user_defined_id] ? params[:structure][:user_defined_id] : SecureRandom.uuid
       
           # allow updating of previously uploaded structures, must match user_defined_id and user_id  
@@ -322,7 +328,6 @@ module Api::V1
           if params[:structure][:metadata]
             params[:structure][:metadata].each do |meta|
               thecount = Meta.where(name: meta['name']).count
-              logger.info( "*********count: #{thecount}")
               if Meta.where(name: meta['name']).count > 0
                 # add to structure
                 @structure[meta['name']] = meta['value']

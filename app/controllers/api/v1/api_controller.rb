@@ -453,7 +453,7 @@ module Api::V1
         if error
           format.json { render json: { error: error_messages, related_file: @rf }, status: :unprocessable_entity }
         else
-          format.json { render json: { related_file: @rf }, status: :created, location: structure_url(@structure) }
+          format.json { render 'related_file', status: :created, location: structure_url(@structure) }
         end
       end
     end
@@ -466,7 +466,7 @@ module Api::V1
     error :code => 401, desc: 'Unauthorized'
     error :code => 422, desc: 'Error present in request:  parameters missing or file doesn\'t exists'
     
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/related_file, parameters: {"structure_id":<structure_id>,"file_data":{"file_name":"file.txt","file":"bmFtZSxkaXNwbGF5X25hbWUsZGVzY3JpcHRpb24sdW5pdCxkYXRhdHlwZSx1c2VyX2RlZFsc2UNCg=="}})
+    example %Q(POST http://<user>:<pwd>@<base_url>/api/remove_file, parameters: {"structure_id":<structure_id>,"file_name":<filename>})
     def remove_file
       authorize! :remove_file, :api
 
@@ -488,7 +488,6 @@ module Api::V1
           if file
             # delete the file from disk
             if Rails.application.config.storage_type == :local_file
-              logger.info(" FILE!! #{file.inspect}")
               File.delete("#{Rails.root}/#{file.uri}")
             else
               # TODO delete from s3

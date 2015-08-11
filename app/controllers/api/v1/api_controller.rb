@@ -27,7 +27,7 @@ module Api::V1
     api :POST, '/search', 'Search for structures'
     formats ['json']
     description 'Search for structures, filter results by metadata.'
-    param :filters, Array, of: Hash, desc: 'Hash of filters, listed below:', required: true do
+    param :filters, Array, of: Hash, desc: 'Hash of filters, listed below:' do
       param :name, String, desc: 'Metadatum name.  Metadatum must already be defined at dencity.org/metadata', required: true
       param :value, String, desc: 'Metadatum value'
       param :operator, String, desc: 'Operator.  Options include: [ =, ne, lt, lte, gt, gte, exists, in, nin].  =: Return if value is equal to specified value.  ne: Return if value is not equal to specified value.  lt: Return if value is less than specified value.  lte: Return if value is less than or equal to specified value
@@ -509,7 +509,7 @@ module Api::V1
         if error
           format.json { render json: { error: error_messages }, status: :unprocessable_entity }
         else
-          format.json { render json: {}, status: :no_content}
+          format.json { render json: { message: 'File has been deleted' }, status: :ok }
         end
       end
     end

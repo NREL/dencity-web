@@ -271,8 +271,10 @@ module Api::V1
           format.json { render json: { error: error_messages }, status: :unprocessable_entity }
         else
           p_id = @analysis.id.to_s
-          j = @analysis.as_json.except('_id')
+          p_user_id = @analysis.user_id.to_s
+          j = @analysis.as_json.except('_id', 'user_id')
           j['id'] = p_id
+          j['user_id'] = p_user_id
           if created_flag
             status = :created
           else

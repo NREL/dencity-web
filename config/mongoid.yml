@@ -12,6 +12,7 @@ development:
         - localhost:27017
       options:
   options:
+    raise_not_found_error: false
 production:
   # Configure available database sessions. (required)
   sessions:
@@ -29,6 +30,7 @@ production:
       options:
         pool_size: 16
   options:
+    raise_not_found_error: false
 docker:
   # Configure available database sessions. (required)
   sessions:
@@ -46,6 +48,7 @@ docker:
       options:
         pool_size: 16
   options:
+    raise_not_found_error: false
 test:
   sessions:
     default:

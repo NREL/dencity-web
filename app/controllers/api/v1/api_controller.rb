@@ -18,8 +18,8 @@ module Api::V1
     # check basic_auth params
     def login
       # this just calls check_auth and that's it
-       @user = current_user
-       respond_to do |format|
+      @user = current_user
+      respond_to do |format|
         format.json {render 'users/show', location: @user}
       end
     end
@@ -652,8 +652,14 @@ module Api::V1
     def check_auth
       authenticate_or_request_with_http_basic do |username, password|
         resource = User.find_by(email: username)
-        puts resource.email
-        sign_in :user, resource if resource.valid_password?(password)
+        
+        if !resource.nil?
+          sign_in :user, resource if resource.valid_password?(password)
+        else
+          respond_to do |format|
+            format.json {render json: "No user matching username #{username}", status: :unauthorized}
+          end
+        end
       end
     end
 

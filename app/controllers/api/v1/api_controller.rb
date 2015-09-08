@@ -651,17 +651,18 @@ module Api::V1
 
     def check_auth
       authenticate_or_request_with_http_basic do |username, password|
-        resource = User.find_by(email: username)
         
-        if !resource.nil?
-          sign_in :user, resource if resource.valid_password?(password)
-        else
+        begin
+         resource = User.find_by(email: username)
+        rescue
           respond_to do |format|
             format.json {render json: "No user matching username #{username}", status: :unauthorized}
           end
+        else
+          sign_in :user, resource if resource.valid_password?(password)
         end
       end
-    end
+    end  
 
     private
 

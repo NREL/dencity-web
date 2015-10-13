@@ -71,12 +71,100 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
 1. Set the in the Dockerfile and the /config/puma.rb (this should already be done)
 1. eb create NAME_OF_ENVIRONMENT or eb deploy NAME_OF_ENVIRONMENT.  *Note elastic beanstalk environments are specified here: https://github.com/NREL/cofee-rails/blob/develop/.elasticbeanstalk/config.yml*
 1. Note that you must set a few environment variables for the EB environment
-    * JRUBY_OPTS = --server -J-Xms2048m -J-Xmx2048m -J-XX:+UseConcMarkSweepGC -J-XX:-UseGCOverheadLimit -J-XX:+CMSClassUnloadingEnabled
-    * RAILS_ENV = production
-    * SECRET_KEY_BASE = 'a long secret key for the rails application (use rake secret to generate key)' 
-    * DEVISE_SECRET_KEY = 'a long secret key for rails devise (use rake secret to generate key)'
-    * MAILGUN_SMTP_LOGIN = smtp_from_mailgun
-    * MAILGUN_API_KEY = key_from_mailgun
+    * JRUBY_OPTS=--server -J-Xms2048m -J-Xmx2048m -J-XX:+UseConcMarkSweepGC -J-XX:-UseGCOverheadLimit -J-XX:+CMSClassUnloadingEnabled
+    * RAILS_ENV=production
+    * SECRET_KEY_BASE='a long secret key for the rails application (use rake secret to generate key)'
+    * DEVISE_SECRET_KEY='a long secret key for rails devise (use rake secret to generate key)'
+    * MAILGUN_SMTP_LOGIN=smtp_from_mailgun
+    * MAILGUN_API_KEY=key_from_mailgun
+
+
+## Configuring Blank Ubuntu Box to Host DEnCity on AWS
+
+* Create instance via AWS console
+* Mount 500GB of EBS Storage for docker containers
+* Launch instance
+* Format and Mount Storage
+
+    ```
+    sudo mkfs -t ext4 /dev/xvdb
+    # Add /dev/xvdb /mnt/docker-data auto defaults,nobootwait,comment=cloudconfig 0 2 to /etc/fstab
+    sudo mount -a
+    ```
+
+* Install Docker, Python, and Supervisor
+    Make sure to forward your keys to access Github.
+
+    ```
+    ssh -A ubuntu@<ip-address>
+    sudo -i
+    apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
+    apt-get update
+    apt-get install docker-engine
+
+    echo 'DOCKER_OPTS="-g /mnt/docker-data"' >> /etc/default/docker
+    service docker restart
+    usermod -aG docker ubuntu
+
+    mkdir /var/www
+    chmod ubuntu.ubuntu /var/www
+
+    apt-get install python-setuptools
+    easy_install pip
+    pip install docker-compose
+    pip install supervisor
+
+    ```
+
+    * create a new file for dencity keys
+    vi /etc/profile.d/dencity.sh
+
+    ```
+    export DENCITY_HOST_URL=newsite.url.org
+    export SECRET_KEY_BASE='Generate new secret key, use `rake secret`'
+    export DEVISE_SECRET_KEY='Generate new secret key, use `rake secret`'
+    # export MAILGUN_SMTP_LOGIN = login (typically this is the domain)
+    # export MAILGUN_API_KEY = key
+
+    ```
+
+    Log out entirely, then in again
+
+    ```
+    ssh -A ubuntu@<ip-address>
+    git clone git@github.com:NREL/dencity-web.git /var/www/dencity
+
+    cd /var/www/dencity
+    docker run -v /data/db --name mongodata busybox true
+    docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true
+    docker-compose up
+
+    # create new shell and populate the database
+    ssh -A ubuntu@<ip-address>
+    cd /var/www/dencity
+    docker-compose run web bash
+    rake db:mongoid:create_indexes
+    rake db:seed # create test user with default password. Make sure to reset this password!
+    rake populate:units
+
+    ```
+
+    * Add in the supervisor task after the site is verified to be working. Point browser to <ip-address:8080> to make
+    sure the dencity site loads
+
+    ```
+    sudo -i
+    cd /var/www/dencity
+    cp docker/supervisor-dencity.conf /etc/supervisor.d/dencity.conf
+    ```
+
+
+
+
+
+
+
 
 
 

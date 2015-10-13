@@ -110,10 +110,9 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     mkdir /var/www
     chmod ubuntu.ubuntu /var/www
 
-    apt-get install python-setuptools
+    apt-get install python-setuptools supervisor
     easy_install pip
     pip install docker-compose
-    pip install supervisor
 
     ```
 
@@ -156,7 +155,8 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     ```
     sudo -i
     cd /var/www/dencity
-    cp docker/supervisor-dencity.conf /etc/supervisor.d/dencity.conf
+    cp docker/supervisor-dencity.conf /etc/supervisor/conf.d/dencity.conf
+    supervisorctl reload
     ```
 
 

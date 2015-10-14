@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Rebuilding Docker Container"
 /usr/local/bin/docker-compose build
 echo "Starting Docker Container"

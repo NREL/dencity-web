@@ -103,16 +103,16 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
     echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
     apt-get update
-    apt-get install docker-engine
+    apt-get install -y docker-engine
 
     echo 'DOCKER_OPTS="-g /mnt/docker-data"' >> /etc/default/docker
     service docker restart
     usermod -aG docker ubuntu
 
     mkdir /var/www
-    chmod ubuntu.ubuntu /var/www
+    chown ubuntu.ubuntu /var/www
 
-    apt-get install python-setuptools supervisor
+    apt-get install -y python-setuptools supervisor
     easy_install pip
     pip install docker-compose
 

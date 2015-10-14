@@ -1,6 +1,8 @@
 .git
 spec
 test
-solr# Elastic Beanstalk Files
+solr
 .elasticbeanstalk/*
 .gitignore
+docker/docker-start-dencity.sh
+docker/supervisor-dencity.sh

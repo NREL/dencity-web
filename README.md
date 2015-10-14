@@ -131,7 +131,7 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     export SMTP_PASSWORD=secure-password
     ```
 
-    Log out entirely, then in again
+    * Log out entirely, then in again
 
     ```
     ssh -A ubuntu@<ip-address>
@@ -160,7 +160,10 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     cd /var/www/dencity
     cp docker/supervisor-dencity.conf /etc/supervisor/conf.d/dencity.conf
     supervisorctl reload
+    supervisorctl start
     ```
+
+    * Change admin user email and password. Log in as `test@nrel.gov` and `testing123`, then edit your account and update the email and password
 
     * To redeploy, simply restart supervisor task
 

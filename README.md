@@ -87,9 +87,11 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
 * Format and Mount Storage
 
     ```
-    sudo mkfs -t ext4 /dev/xvdb
+    sudo -i
+    mkfs -t ext4 /dev/xvdb
+    mkdir /mnt/docker-data
     # Add /dev/xvdb /mnt/docker-data auto defaults,nobootwait,comment=cloudconfig 0 2 to /etc/fstab
-    sudo mount -a
+    mount -a
     ```
 
 * Install Docker, Python, and Supervisor

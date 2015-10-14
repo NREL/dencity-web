@@ -123,9 +123,12 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     export DENCITY_HOST_URL=newsite.url.org
     export SECRET_KEY_BASE='Generate new secret key, use `rake secret`'
     export DEVISE_SECRET_KEY='Generate new secret key, use `rake secret`'
-    # export MAILGUN_SMTP_LOGIN = login (typically this is the domain)
-    # export MAILGUN_API_KEY = key
-
+    # export MAILGUN_SMTP_LOGIN=login (typically this is the domain)
+    # export MAILGUN_API_KEY=key
+    export SMTP_ADDRESS=smtp.gmail.com
+    export SMTP_PORT=587
+    export SMTP_USERNAME=gmail_user@gmail.com
+    export SMTP_PASSWORD=secure-password
     ```
 
     Log out entirely, then in again
@@ -157,6 +160,12 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
     cd /var/www/dencity
     cp docker/supervisor-dencity.conf /etc/supervisor/conf.d/dencity.conf
     supervisorctl reload
+    ```
+
+    * To redeploy, simply restart supervisor task
+
+    ```
+    supervisorctl restart dencity
     ```
 
 

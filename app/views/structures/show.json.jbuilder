@@ -1,7 +1,13 @@
 json.set! :id, @structure.id.to_s
 json.set! :user_id, @structure.user.id.to_s
 json.set! :analysis_id, @structure.analysis.id.to_s
-json.extract! @structure, :user_defined_id, :building_type, :building_area, :created_at, :updated_at
+json.extract! @structure, :user_defined_id, :created_at, :updated_at
+
+@structure.attributes.keys.each do |key|
+  unless ['created_at', 'updated_at', 'analysis_id', 'related_files', '_id', 'user_defined_id', 'user_id'].include? key
+    json.set! key, @structure[key]
+  end
+end
 
 json.set! :related_files do
 	json.array!(@structure.related_files) do |file|

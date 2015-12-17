@@ -239,11 +239,12 @@ module Api::V1
 
       # Add measure descriptions
       if @analysis && params[:measure_definitions]
-
+        defs = []
         params[:measure_definitions].each do |m|
           descs = MeasureDescription.where(uuid: m['id'], version_id: m['version_id'])
           if descs.count > 0
             warnings << "Measure definition already exists for uuid: #{m['id']} and version_id: #{m['version_id']}...could not save duplicate."
+            defs << descs.first
           else
             @def = MeasureDescription.new
             puts m.inspect
@@ -257,7 +258,9 @@ module Api::V1
             @def.default_value = m['default_value']
             @def.modeler_description = m['modeler_description']
             @def.arguments = m['arguments']
-            unless @def.save!
+            if @def.save!
+              defs << @def
+            else
               error = true
               error_message << "Could not save measure definition #{m['id']}"
             end
@@ -275,12 +278,19 @@ module Api::V1
           j = @analysis.as_json.except('_id', 'user_id')
           j['id'] = p_id
           j['user_id'] = p_user_id
+
+          mds = []
+          defs.each do |d|
+            md = d.as_json.except('_id')
+            md['id'] = d.id.to_s
+            mds << md
+          end
           if created_flag
             status = :created
           else
             status = :ok
           end
-          format.json { render json: { analysis: j, warnings: warnings }, status: status, location: analyses_url }
+          format.json { render json: { analysis: j, measure_descriptions: mds, warnings: warnings }, status: status, location: analyses_url }
         end
       end
     end

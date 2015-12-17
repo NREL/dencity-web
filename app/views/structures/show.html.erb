@@ -1,5 +1,21 @@
 <h2>Building</h2>
 <h3 class="edit-name"><%= @structure.id %> </h3>
+
+<h3>Analysis</h3>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Analysis Types</th>
+  </tr>
+  <% if @structure.analysis %>
+  <tr>
+    <td><%= link_to @structure.analysis.display_name, analysis_path(@structure.analysis) %></td>
+    <td><%= @structure.analysis.analysis_types.join(', ') %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h3>Metadata</h3>
 <table class="table table-striped">
   <% @structure.attributes.keys.each do |key| %>
     <% unless key == "created_at" or key == "updated_at" or key == "analysis_id" %>
@@ -20,20 +36,6 @@
       <% end %>
     <% end %>
 
-  <% end %>
-</table>
-
-<h3>Analysis</h3>
-<table class="table table-striped">
-  <tr>
-    <th>Name</th>
-    <th>Analysis Types</th>
-  </tr>
-  <% if @structure.analysis %>
-  <tr>
-    <td><%= link_to @structure.analysis.display_name, analysis_path(@structure.analysis) %></td>
-    <td><%= @structure.analysis.analysis_types.join(', ') %></td>
-  </tr>
   <% end %>
 </table>
 

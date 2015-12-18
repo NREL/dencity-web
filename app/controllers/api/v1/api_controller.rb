@@ -1,10 +1,9 @@
 
 module Api::V1
   class ApiController < ApplicationController
-  
     # version1 of API
     resource_description do
-      api_version "1"
+      api_version '1'
     end
 
     before_filter :check_auth, except: [:search, :search_by_arguments, :retrieve_analysis]
@@ -13,14 +12,14 @@ module Api::V1
     api :POST, '/login', 'Credential check'
     formats ['json']
     description 'Imitates a login action and validates a user\'s username and password'
-    error :code => 401, desc: 'Unauthorized'
-    example %Q(POST http://<username>:<password>@<base_url/api/login)
+    error code: 401, desc: 'Unauthorized'
+    example %(POST http://<username>:<password>@<base_url/api/login)
     # check basic_auth params
     def login
       # this just calls check_auth and that's it
       @user = current_user
       respond_to do |format|
-        format.json {render 'users/show', location: @user}
+        format.json { render 'users/show', location: @user }
       end
     end
 
@@ -36,9 +35,9 @@ module Api::V1
     param :return_only, Array, of: String, desc: 'If return_only is specified, it restricts the metadata returned with each structure in the result set.  All metadata specified in the return_only parameter as well as the metadata in the filters will be returned, as well as the id of each resource.  If this parameter is not specified, all metadata associated with each structure in the result set will be returned.
 ', required: false
     param :page, Integer, desc: 'Search returns a maximum of 100 results per request.  Use this parameter to iterate through the search results. The page parameter is 0-based.', required: false
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<base_url>/api/search, parameters: {"filters":[{"name":"aspect_ratio","value":2,"operator":"lt"}], "return_only":["aspect_ratio"], "page":"2"})
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %(POST http://<base_url>/api/search, parameters: {"filters":[{"name":"aspect_ratio","value":2,"operator":"lt"}], "return_only":["aspect_ratio"], "page":"2"})
     # search
     def search
       # expecting 3 parameters:  filters, return_only, page
@@ -61,7 +60,7 @@ module Api::V1
         @filters = params[:filters]
 
         # Build query
-       
+
         @filters.each do |filter|
           case filter[:operator]
           when '='
@@ -125,7 +124,7 @@ module Api::V1
       # query results and total count for json
       @results = query
       @total_results = @results.count
-      @total_pages = (@total_results.to_f/@results_per_page.to_f).ceil
+      @total_pages = (@total_results.to_f / @results_per_page.to_f).ceil
     end
 
     api :POST, '/search_by_arguments', 'Search for structures within an analysis by arguments'
@@ -137,14 +136,13 @@ module Api::V1
       param :version_id, String, desc: 'Measure Version ID', required: true
       param :arguments, Hash, desc: 'Hash of measure arguments listed in name/value pairs', required: true
     end
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<base_url>/api/search_by_arguments, parameters: {"analysis_id": "00201935829103952394", "measures":[{"uuid":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37", "arguments":{"location" : "AN_BC_Vancouver.718920_CWEC.epw", "xpath": "/building/address/weather-file"}])
-    
-    # POST /search_by_arguments 
-    def search_by_arguments
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %(POST http://<base_url>/api/search_by_arguments, parameters: {"analysis_id": "00201935829103952394", "measures":[{"uuid":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37", "arguments":{"location" : "AN_BC_Vancouver.718920_CWEC.epw", "xpath": "/building/address/weather-file"}])
 
-      #TODO: want page?
+    # POST /search_by_arguments
+    def search_by_arguments
+      # TODO: want page?
       @total_pages = nil
       error_messages = nil
 
@@ -158,36 +156,44 @@ module Api::V1
       @results_per_page = 100
       if params[:analysis_id]
         @analysis = Analysis.find(clean_params[:analysis_id])
-        @structure_ids = @analysis.structures.only(:id).map(&:_id) 
+        @structure_ids = @analysis.structures.only(:id).map(&:_id)
 
         m = @measures.first
-        query = MeasureInstance.where(uuid: m['uuid'],version_id: m['version_id'])
-        m['arguments'].each do |key, value|
-          the_key = 'arguments.' +  key
-          query = query.where(the_key.to_sym => value)
+        # 1 query per measure
+        result_arrays = []
+        @measures.each do |m|
+          query = MeasureInstance.where(uuid: m['uuid'], version_id: m['version_id'])
+          m['arguments'].each do |key, value|
+            the_key = 'arguments.' + key
+            query = query.where(the_key.to_sym => value)
+          end
+          query = query.in(structure_id: @structure_ids)
+          query = query.only(:structure_id)
+          results = query.map(&:structure_id).map(&:to_s)
+          logger.info("RES ARRAY: #{results}")
+          result_arrays << results
         end
 
-        query = query.in(:structure_id => @structure_ids)
-        @results = query
+        # find intersection between result arrays to identify structures that have all 3
+        @results = result_arrays.inject(:&).uniq
 
         # for json view
         @total_results = @results.count
 
       end
     end
- 
+
     api :GET, '/retrieve_analysis', 'Retrieve an analysis.'
     formats ['json']
     description 'URL to get an analysis by name and user_id. Uniqueness is enforced; only 1 analysis will match a name and user_id combination.'
     param :name, String, desc: 'The machine name of the analysis', required: true
     param :user_id, String, desc: 'The user_id of the user that uploaded the analysis', required: true
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or analysis not found'
-    example %Q(GET http://<user>:<pwd>@<base_url>/api/retrieve_analysis?name="analysis_name"&user_id="123")
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or analysis not found'
+    example %(GET http://<user>:<pwd>@<base_url>/api/retrieve_analysis?name="analysis_name"&user_id="123")
 
-     # GET /retrieve_analysis?name=''&user_id=''
+    # GET /retrieve_analysis?name=''&user_id=''
     def retrieve_analysis
-
       error_messages = nil
 
       clean_params = retrieve_analysis_params
@@ -205,14 +211,13 @@ module Api::V1
 
       respond_to do |format|
         if !@error && @analysis
-          format.json {render 'analyses/show', location: @analysis}
+          format.json { render 'analyses/show', location: @analysis }
         elsif @analysis.nil?
           format.json { render json: { error: error_messages }, status: :not_found }
         else
           format.json { render json: { error: error_messages }, status: :unprocessable_entity }
         end
-     end
-     
+      end
     end
 
     api :POST, '/analysis', 'Add or update an analysis'
@@ -225,7 +230,7 @@ module Api::V1
       param :user_defined_id, String, allow_nil: true, desc: 'User-specified unique identifier for the analysis'
       param :user_created_date, String, allow_nil: true,  desc: 'User-specified Date the analysis was run by the user (as opposed to date it was uploaded to DEnCity'
       param :analysis_types, Array, of: String, desc: 'Array of analysis types performed'
-      param :analysis_information, Hash, desc: 'Hash of additional information to store about the analysis'   
+      param :analysis_information, Hash, desc: 'Hash of additional information to store about the analysis'
     end
     param :measure_definitions, Array, desc: 'Array of hashes, each containing the following parameters:', required: true do
       param :id, String, desc: 'ID of the measure definition'
@@ -235,10 +240,10 @@ module Api::V1
       param :description, String, allow_nil: true, desc: 'Measure Description.'
       param :default_value, String, allow_nil: true, desc: 'Default measure value'
       param :arguments, Array, desc: 'Array of measure arguments. Note: Information specific to the instance of the measure (such as user-defined argument values) is posted via the measure_instances parameter of the structure resource.'
-    end 
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing'
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: {"analysis":{"name":"test_analysis","display_name":"Testing Analysis","description":"Testing the add_analysis API","user_defined_id":<user defined id>,"user_created_date":"2014-07-25T15:30:41Z","analysis_types":["preflight","batch_run"],"analysis_information":{"sample_method":"individual_variables","run_max":true,"run_min":true,"run_mode":true,"run_all_samples_for_pivots":true,"objective_functions":["standard_report_legacy.total_energy","standard_report_legacy.total_source_energy"]}},"measure_definitions":[{"id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","name":"SetXPathSingleVariable","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Set XPath","display_name_short":"Set XPath","name":"xpath","description":"","units":""},{"display_name":"Location","display_name_short":"Location","name":"location","description":"","units":""}]},{"id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","name":"SetBuildingGeometry","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Aspect Ratio Multiplier","display_name_short":"Aspect Ratio Multiplier","name":"aspect_ratio_multiplier","description":"","units":""},{"display_name":"Floor Plate Area Multiplier","display_name_short":"Floor Plate Area Multiplier","name":"floor_plate_area_multiplier","description":"","units":""}]}]}
+    end
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing'
+    example %(POST http://<user>:<pwd>@<base_url>/api/analysis, parameters: {"analysis":{"name":"test_analysis","display_name":"Testing Analysis","description":"Testing the add_analysis API","user_defined_id":<user defined id>,"user_created_date":"2014-07-25T15:30:41Z","analysis_types":["preflight","batch_run"],"analysis_information":{"sample_method":"individual_variables","run_max":true,"run_min":true,"run_mode":true,"run_all_samples_for_pivots":true,"objective_functions":["standard_report_legacy.total_energy","standard_report_legacy.total_source_energy"]}},"measure_definitions":[{"id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","name":"SetXPathSingleVariable","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Set XPath","display_name_short":"Set XPath","name":"xpath","description":"","units":""},{"display_name":"Location","display_name_short":"Location","name":"location","description":"","units":""}]},{"id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","name":"SetBuildingGeometry","display_name":null,"description":null,"modeler_description":null,"type":"XmlMeasure","arguments":[{"display_name":"Aspect Ratio Multiplier","display_name_short":"Aspect Ratio Multiplier","name":"aspect_ratio_multiplier","description":"","units":""},{"display_name":"Floor Plate Area Multiplier","display_name_short":"Floor Plate Area Multiplier","name":"floor_plate_area_multiplier","description":"","units":""}]}]}
 )
     def analysis
       # API
@@ -255,11 +260,11 @@ module Api::V1
         clean_params = analysis_params
         logger.info(clean_params)
 
-         # pull out the user create uuid if they have one, otherwise create a new one
+        # pull out the user create uuid if they have one, otherwise create a new one
         user_uuid = clean_params[:user_defined_id] ? clean_params[:user_defined_id] : SecureRandom.uuid
 
-        # allow updating of previously uploaded analysis, must match user_uuid and user_id  
-        @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid) do |a|
+        # allow updating of previously uploaded analysis, must match user_uuid and user_id
+        @analysis = current_user.analyses.find_or_create_by(user_defined_id: user_uuid) do |_a|
           created_flag = true
         end
 
@@ -361,10 +366,10 @@ module Api::V1
       param :version_id, String, desc: 'Version identifier for the measure instance'
       param :arguments, Hash, desc: 'Measure instance arguments'
     end
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/structure, parameters: {"structure":{"analysis_id":<analysis_id>, "user_defined_id":<user_defined_id>, metadata:[{"name":"infiltration_rate", "value":2.00155},{"name":"lighting_power_density", "value": 3.5}]},"measure_instances":[{"index":0,"uri":"https://bcl.nrel.gov","id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","arguments":{"location":"AN_BC_Vancouver.718920_CWEC.epw","xpath":"/building/address/weather-file"}},{"index":1,"uri":"https://bcl.nrel.gov","id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","arguments":{}}]})
-    
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %(POST http://<user>:<pwd>@<base_url>/api/structure, parameters: {"structure":{"analysis_id":<analysis_id>, "user_defined_id":<user_defined_id>, metadata:[{"name":"infiltration_rate", "value":2.00155},{"name":"lighting_power_density", "value": 3.5}]},"measure_instances":[{"index":0,"uri":"https://bcl.nrel.gov","id":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37","arguments":{"location":"AN_BC_Vancouver.718920_CWEC.epw","xpath":"/building/address/weather-file"}},{"index":1,"uri":"https://bcl.nrel.gov","id":"8a726030-f63e-0131-cbc9-14109fdf0b37","version_id":"8a727a60-f63e-0131-cbcb-14109fdf0b37","arguments":{}}]})
+
     def structure
       # API
       # POST api/structure.json
@@ -393,12 +398,12 @@ module Api::V1
         unless error
 
           user_uuid = params[:structure][:user_defined_id] ? params[:structure][:user_defined_id] : SecureRandom.uuid
-      
-          # allow updating of previously uploaded structures, must match user_defined_id and user_id  
-          @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid) do |a|
+
+          # allow updating of previously uploaded structures, must match user_defined_id and user_id
+          @structure = current_user.structures.find_or_create_by(user_defined_id: user_uuid) do |_a|
             created_flag = true
           end
-        
+
           if params[:structure][:metadata]
             params[:structure][:metadata].each do |meta|
               thecount = Meta.where(name: meta['name']).count
@@ -420,7 +425,7 @@ module Api::V1
           error = true
           error_messages << 'No structure provided.'
         end
-      end  
+      end
 
       unless error
         # Save Measure Instances
@@ -444,14 +449,14 @@ module Api::V1
 
       respond_to do |format|
         if error
-          format.json { render json: { error: error_messages, structure: @structure}, status: :unprocessable_entity }
+          format.json { render json: { error: error_messages, structure: @structure }, status: :unprocessable_entity }
         else
           if created_flag
             status = :created
           else
             status = :ok
           end
-          format.json { render 'structures/show', :locals => { :warnings => warnings }, status: status, location: structures_url(@structure) }
+          format.json { render 'structures/show', locals: { warnings: warnings }, status: status, location: structures_url(@structure) }
         end
       end
     end
@@ -464,10 +469,10 @@ module Api::V1
       param :file_name, String, desc: 'Name of the file', required: true
       param :file, String, desc: 'Base64-encoded file data', required: true
     end
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or file already exists'
-   
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/related_file, parameters: {"structure_id":<structure_id>,"file_data":{"file_name":"file.txt","file":"bmFtZSxkaXNwbGF5X25hbWUsZGVzY3JpcHRpb24sdW5pdCxkYXRhdHlwZSx1c2VyX2RlZFsc2UNCg=="}})
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or file already exists'
+
+    example %(POST http://<user>:<pwd>@<base_url>/api/related_file, parameters: {"structure_id":<structure_id>,"file_data":{"file_name":"file.txt","file":"bmFtZSxkaXNwbGF5X25hbWUsZGVzY3JpcHRpb24sdW5pdCxkYXRhdHlwZSx1c2VyX2RlZFsc2UNCg=="}})
     def related_file
       # API
       # POST /api/related_file.json
@@ -489,7 +494,7 @@ module Api::V1
         if clean_params[:file_data] && clean_params[:file_data][:file_name]
           file_name = clean_params[:file_data][:file_name]
           file = @structure.related_files.find_by_file_name(file_name)
-          if file 
+          if file
             error = true
             error_messages << "File #{file_name} already exists. Delete the file first and reupload."
           else
@@ -522,11 +527,11 @@ module Api::V1
     api :POST, '/remove_file', 'Remove a related file from a structure'
     formats ['json']
     param :structure_id, String, desc: 'Structure ID the file belongs to.', required: true
-    param :file_name, String, desc: 'Name of the file to remove', required: true 
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or file doesn\'t exists'
-    
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/remove_file, parameters: {"structure_id":<structure_id>,"file_name":<filename>})
+    param :file_name, String, desc: 'Name of the file to remove', required: true
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or file doesn\'t exists'
+
+    example %(POST http://<user>:<pwd>@<base_url>/api/remove_file, parameters: {"structure_id":<structure_id>,"file_name":<filename>})
     def remove_file
       authorize! :remove_file, :api
 
@@ -550,7 +555,7 @@ module Api::V1
             if Rails.application.config.storage_type == :local_file
               File.delete("#{Rails.root}/#{file.uri}")
             else
-              # TODO delete from s3
+              # TODO: delete from s3
             end
             # delete from structure
             @structure.related_files.delete(file)
@@ -562,7 +567,7 @@ module Api::V1
         else
           error = true
           error_messages << 'No file_name specified.'
-        end 
+        end
       end
 
       respond_to do |format|
@@ -587,11 +592,11 @@ module Api::V1
       param :description, String, desc: 'Metadatum description'
       param :user_defined, String, desc: 'True if unit is added by user, false if unit is added by admin.'
     end
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/meta_upload, parameters: {"meta":{"name":"total_electricity","display_name":"Total Electricity","short_name":"Total Elec","description":"Total electricity usage","unit":"megajoules_per_square_meter", "datatype":"double","user_defined":false}}
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %(POST http://<user>:<pwd>@<base_url>/api/meta_upload, parameters: {"meta":{"name":"total_electricity","display_name":"Total Electricity","short_name":"Total Elec","description":"Total electricity usage","unit":"megajoules_per_square_meter", "datatype":"double","user_defined":false}}
 )
-   # POST /api/meta_upload.json
+    # POST /api/meta_upload.json
     # upload metadata fields
     def meta_upload
       error = false
@@ -638,7 +643,7 @@ module Api::V1
       end
     end
 
-    #apipie
+    # apipie
     api :POST, '/meta_batch_upload', 'Add multiple metadata'
     formats ['json']
     description 'Add multiple metadata.  Metadata are the parameters that describe structures.'
@@ -651,9 +656,9 @@ module Api::V1
       param :description, String, desc: 'Metadatum description'
       param :user_defined, String, desc: 'True if unit is added by user, false if unit is added by admin.'
     end
-    error :code => 401, desc: 'Unauthorized'
-    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
-    example %Q(POST http://<user>:<pwd>@<base_url>/api/meta_batch_upload, parameters: {"metadata":[{"name":"total_electricity","display_name":"Total Electricity","short_name":"Total Elec"," description":" Total electricity usage","unit":"megajoules_per_square_meter","datatype":"double","user_defined":false},{"name":"total_natural_gas","display_name":"Total Natural Gas","short_name":" Total Gas"," description":" Total gas usage","unit":"megajoules_per_square_meter","datatype":"double","user_defined":false}]}
+    error code: 401, desc: 'Unauthorized'
+    error code: 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %(POST http://<user>:<pwd>@<base_url>/api/meta_batch_upload, parameters: {"metadata":[{"name":"total_electricity","display_name":"Total Electricity","short_name":"Total Elec"," description":" Total electricity usage","unit":"megajoules_per_square_meter","datatype":"double","user_defined":false},{"name":"total_natural_gas","display_name":"Total Natural Gas","short_name":" Total Gas"," description":" Total gas usage","unit":"megajoules_per_square_meter","datatype":"double","user_defined":false}]}
 )
     # POST /api/meta_batch_upload.json
     # Batch upload metadata fields (admin only)
@@ -709,18 +714,17 @@ module Api::V1
 
     def check_auth
       authenticate_or_request_with_http_basic do |username, password|
-        
         begin
-         resource = User.find_by(email: username)
-        rescue
-          respond_to do |format|
-            format.json {render json: "No user matching username #{username}", status: :unauthorized}
-          end
+          resource = User.find_by(email: username)
+         rescue
+           respond_to do |format|
+             format.json { render json: "No user matching username #{username}", status: :unauthorized }
+           end
         else
           sign_in :user, resource if resource.valid_password?(password)
         end
       end
-    end  
+    end
 
     private
 

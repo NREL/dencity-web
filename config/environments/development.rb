@@ -11,7 +11,7 @@ Dencity::Application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  #config.consider_all_requests_local = false
+  # config.consider_all_requests_local = false
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
@@ -32,5 +32,4 @@ Dencity::Application.configure do
 
   # LOCATION TO STORE FILES.  OPTIONS ARE: s3, local_file
   config.storage_type = :local_file
-
 end

@@ -1,3 +1,4 @@
+# metas controller
 class MetasController < ApplicationController
   load_and_authorize_resource param_method: :meta_params
   before_action :set_meta, only: [:show, :edit, :update, :destroy]

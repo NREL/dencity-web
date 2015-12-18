@@ -1,3 +1,4 @@
+# MeasureDescription class
 class MeasureDescription
   include Mongoid::Document
   include Mongoid::Timestamps

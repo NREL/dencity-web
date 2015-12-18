@@ -19,19 +19,18 @@ json.set! :results do
       elsif k == 'related_files'
         json.set! :related_files do
           json.array!(v) do |file|
-
             file.each_pair do |fk, fv|
               if fk == '_id'
                 json.set! :id, fv.to_s
                 @file_id = fv.to_s
               elsif fk == 'file_name'
-                json.set! fk, fv  
+                json.set! fk, fv
               elsif fk == 'uri'
-                json.set! :uri, download_file_structure_url(@bld_id, related_file_id: @file_id) 
+                json.set! :uri, download_file_structure_url(@bld_id, related_file_id: @file_id)
               end
             end
           end
-        end  
+        end
       else
         json.set! k, v
       end

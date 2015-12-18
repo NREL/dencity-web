@@ -1,3 +1,4 @@
+# Analysis class
 class Analysis
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -21,5 +22,4 @@ class Analysis
   # Relations
   belongs_to :user
   has_many :structures
-
 end

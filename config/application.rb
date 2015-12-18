@@ -31,6 +31,5 @@ module Dencity
 
     # default related_files storage.  should be set in environments/*
     config.storage_type = 'local'
-
   end
 end

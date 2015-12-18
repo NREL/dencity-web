@@ -22,13 +22,13 @@ module StructuresHelper
   def facet_item(facet_field, row, options = {})
     link_text = nil
     case (facet_field)
-      when :building_id
-        building = Building.where(_id: row.value.to_s).first
-        link_text = building.name if building
-      else
-        if row.value.present?
-          link_text = t(row.value.to_s, scope: [:views, :facets, facet_field], default: row.value.to_s)
-        end
+    when :building_id
+      building = Building.where(_id: row.value.to_s).first
+      link_text = building.name if building
+    else
+      if row.value.present?
+        link_text = t(row.value.to_s, scope: [:views, :facets, facet_field], default: row.value.to_s)
+      end
     end
 
     link_text = 'Unknown' if link_text.blank?

@@ -1,3 +1,4 @@
+# users controller
 class UsersController < ApplicationController
   load_and_authorize_resource param_method: :user_params
   before_action :set_user, only: [:show, :edit, :update, :destroy]
@@ -12,7 +13,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @analyses = @user.analyses
-
   end
 
   # GET /users/new

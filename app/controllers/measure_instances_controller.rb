@@ -1,3 +1,4 @@
+# Measure Instance controller
 class MeasureInstancesController < ApplicationController
   load_and_authorize_resource param_method: :measure_instance_params
   before_action :set_measure_instance, only: [:show, :edit, :update, :destroy]

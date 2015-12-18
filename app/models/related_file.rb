@@ -1,3 +1,4 @@
+# RelatedFile class
 class RelatedFile
   include Mongoid::Document
   include Mongoid::Timestamps

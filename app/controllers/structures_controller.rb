@@ -1,3 +1,4 @@
+# structure controller
 class StructuresController < ApplicationController
   load_and_authorize_resource param_method: :structure_params
   before_action :set_structure, only: [:show, :edit, :update, :destroy, :download_related_file]

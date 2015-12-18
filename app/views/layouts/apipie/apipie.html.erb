@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t('apipie.api_documentation') %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='<%= Apipie.full_url("stylesheets/application.css")%>'/>
+  <%= Apipie.include_stylesheets %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="fluid-container">
+    <%= render 'layouts/nav' %>
+    <div class="row-fluid header-row">
+      <div class="span12">
+        <h1 class="sitename"><%= link_to 'DEnCity', root_path, :class => 'sitename' %></h1>
+      </div>
+
+    </div>
+    <div id="blue-line-and-fade" class="row-fluid header-row">
+
+      <div class="span12">
+        <hr class='top-blue'>
+        <div class="below-header"></div>
+      </div>
+    </div>
+
+    <div class="row-fluid header-row">
+      <!-- notices -->
+      <%= render 'layouts/flash_messages' if !flash.empty? %>
+    </div>
+    <div id='container'>
+      <%= yield %>
+      <%= render 'disqus' if Apipie.configuration.use_disqus? %>
+    </div>
+
+    <div class="row-fluid">
+      <div id="footer">
+        <footer><%= yield :apipie_footer %></footer>
+        <p>Developed by <a href="http://www.nrel.gov">NREL</a>.</p>
+      </div>
+    </div>
+    <%= Apipie.include_javascripts %>
+  </div>
+
+</body>
+</html>

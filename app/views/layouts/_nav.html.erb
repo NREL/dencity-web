@@ -7,6 +7,8 @@
         <li <%= active_nav('Home') %>><%= link_to 'Home', root_path %></li>
         <li<%= active_nav('Metadata') %>><%= link_to 'Metadata', metas_path %></li>
         <li<%= active_nav('Units') %>><%= link_to 'Units', units_path %></li>
+        <li<%= active_nav('Analyses') %>><%= link_to 'Analyses', analyses_path %></li>
+        <li<%= active_nav('API') %>><%= link_to 'API', '/apidocs' %></li>
         <% if user_signed_in? and current_user.has_role? :admin %><li<%= active_nav('Admin')%>><%= link_to 'Admin', admin_path %></li><% end %>
       </ul>
 

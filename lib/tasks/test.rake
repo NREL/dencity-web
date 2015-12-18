@@ -161,11 +161,11 @@ namespace :testing do
       @user_pwd = 'testing123'
 
       json_object = []
-      json_object << {name: 'infiltration_rate', value: 2.00155}
-      json_object << {name: 'lighting_power_density', value: 3.88565}
-      json_object << {name: 'site_energy_use', value: 0}
-      json_object << {name: 'total_occupancy', value: 88.8}
-      json_object << {name: 'building_area', value: 3134.92}
+      json_object << { name: 'infiltration_rate', value: 2.00155 }
+      json_object << { name: 'lighting_power_density', value: 3.88565 }
+      json_object << { name: 'site_energy_use', value: 0 }
+      json_object << { name: 'total_occupancy', value: 88.8 }
+      json_object << { name: 'building_area', value: 3134.92 }
 
       measure_instances = []
       measure = {}
@@ -189,7 +189,7 @@ namespace :testing do
       analysis = Analysis.where(name: 'test_analysis').first
       analysis_id = analysis.id.to_s
 
-      json_request = JSON.generate('structure' => { 'user_defined_id' => SecureRandom.uuid, 'analysis_id' => analysis_id, 'metadata' =>  json_object}, 'measure_instances' => measure_instances)
+      json_request = JSON.generate('structure' => { 'user_defined_id' => SecureRandom.uuid, 'analysis_id' => analysis_id, 'metadata' =>  json_object }, 'measure_instances' => measure_instances)
       puts "POST http://<user>:<pwd>@<base_url>/api/v1/structure, parameters: #{json_request}"
 
       begin
@@ -307,8 +307,8 @@ namespace :testing do
       analysis_id = '542a01b6042fa5e81c000001'
       measures = []
 
-      measure = {uuid: "567b1f00-1d03-0132-2734-22000a2da8e0" , version_id: "567d76b0-1d03-0132-2735-22000a2da8e0", arguments: {value: "USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw", xpath: "/building/address/weather-file" }}
-      measures << measure
+      measures << { uuid: '567b1f00-1d03-0132-2734-22000a2da8e0', version_id: '567d76b0-1d03-0132-2735-22000a2da8e0', arguments: { value: 'USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw', xpath: '/building/address/weather-file' } }
+      measures << { uuid: '56be40f0-1d03-0132-27ce-22000a2da8e0', version_id: '56be96f0-1d03-0132-27cf-22000a2da8e0', arguments: { efficiency: 92.7167407206081, fuel_type: 'electricity' } }
 
       json_request = JSON.generate('analysis_id' => analysis_id, 'measures' => measures)
       puts "POST http://localhost:3000/api/v1/search_by_arguments, parameters: #{json_request}"
@@ -320,7 +320,6 @@ namespace :testing do
         puts "ERROR: #{e.response}"
       end
     end
-
   end
   # upload metadata and instance json
   desc 'upload analysis data'
@@ -392,5 +391,4 @@ namespace :testing do
       user.save
     end
   end
-
 end

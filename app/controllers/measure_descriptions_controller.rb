@@ -1,3 +1,4 @@
+# MeasureDescription controller
 class MeasureDescriptionsController < ApplicationController
   load_and_authorize_resource param_method: :measure_description_params
   before_action :set_measure_description, only: [:show, :edit, :update, :destroy]

@@ -1,3 +1,4 @@
+# units controller
 class UnitsController < ApplicationController
   require 'will_paginate/array'
   load_and_authorize_resource param_method: :unit_params

@@ -1,5 +1,6 @@
+# analysis controller
 class AnalysesController < ApplicationController
-  #require 'will_paginate/array'
+  # require 'will_paginate/array'
   load_and_authorize_resource
   before_action :set_analysis, only: [:show, :edit, :update, :destroy, :buildings]
   # skip_before_filter :verify_authenticity_token, only: [:add_analysis]
@@ -25,7 +26,7 @@ class AnalysesController < ApplicationController
   def show
   end
 
-   # GET /analyses/new
+  # GET /analyses/new
   def new
     @analyses = Analysis.new
   end

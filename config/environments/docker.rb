@@ -85,5 +85,4 @@ Dencity::Application.configure do
 
   # LOCATION TO STORE FILES.  OPTIONS ARE: s3, local_file
   config.storage_type = :local_file
-
 end

@@ -18,7 +18,7 @@ class Unit
   validates :name, uniqueness: true
 
   def self.get_unit_hash(name)
-    unit = Unit.where(name: name).first
+    Unit.where(name: name).first
   end
 
   def name_and_symbol

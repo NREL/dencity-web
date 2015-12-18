@@ -29,33 +29,30 @@ Dencity::Application.routes.draw do
   # route to get search results
   get 'search' => 'search#show'
 
-  resources :metas, shallow: true 
- 
+  resources :metas, shallow: true
+
   resources :units
 
-=begin
-  # APIs (default routes)
-  match 'api/structure' => 'api#structure_v1', via: :post
-  match 'api/analysis' => 'api#analysis_v1', via: :post
-  match 'api/related_file' => 'api#related_file_v1', via: :post
-  match 'api/search' => 'api#search_v1', via: :post
-  match 'api/remove_file' => 'api#remove_file_v1', via: :post
-  match 'api/meta_upload' => 'metas#meta_upload_v1', via: :post
-  match 'api/meta_batch_upload' => 'metas#meta_batch_upload_v1', via: :post
-
-  # API v1
-  match 'api/v1/structure' => 'api#structure_v1', via: :post
-  match 'api/v1/analysis' => 'api#analysis_v1', via: :post
-  match 'api/v1/related_file' => 'api#related_file_v1', via: :post
-  match 'api/v1/search' => 'api#search_v1', via: :post
-  match 'api/v1/remove_file' => 'api#remove_file_v1', via: :post
-  match 'api/v1/meta_upload' => 'metas#meta_upload_v1', via: :post
-  match 'api/v1/meta_batch_upload' => 'metas#meta_batch_upload_v1', via: :post
-=end
+  #   # APIs (default routes)
+  #   match 'api/structure' => 'api#structure_v1', via: :post
+  #   match 'api/analysis' => 'api#analysis_v1', via: :post
+  #   match 'api/related_file' => 'api#related_file_v1', via: :post
+  #   match 'api/search' => 'api#search_v1', via: :post
+  #   match 'api/remove_file' => 'api#remove_file_v1', via: :post
+  #   match 'api/meta_upload' => 'metas#meta_upload_v1', via: :post
+  #   match 'api/meta_batch_upload' => 'metas#meta_batch_upload_v1', via: :post
+  #
+  #   # API v1
+  #   match 'api/v1/structure' => 'api#structure_v1', via: :post
+  #   match 'api/v1/analysis' => 'api#analysis_v1', via: :post
+  #   match 'api/v1/related_file' => 'api#related_file_v1', via: :post
+  #   match 'api/v1/search' => 'api#search_v1', via: :post
+  #   match 'api/v1/remove_file' => 'api#remove_file_v1', via: :post
+  #   match 'api/v1/meta_upload' => 'metas#meta_upload_v1', via: :post
+  #   match 'api/v1/meta_batch_upload' => 'metas#meta_batch_upload_v1', via: :post
 
   namespace :api do
     namespace :v1 do
-
       post 'structure' => 'api#structure'
       post 'analysis' => 'api#analysis'
       post 'related_file' => 'api#related_file'
@@ -66,7 +63,6 @@ Dencity::Application.routes.draw do
       post 'meta_batch_upload' => 'api#meta_batch_upload'
       get 'retrieve_analysis' => 'api#retrieve_analysis'
       post 'login' => 'api#login'
-
     end
 
     # match all api requests w/o version numbers to v1
@@ -84,5 +80,4 @@ Dencity::Application.routes.draw do
 
   # other actions to keep the /api prefix consistency
   get '/api/analyses/:id' => 'analyses#show'
-
 end

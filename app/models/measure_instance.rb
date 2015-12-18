@@ -1,3 +1,4 @@
+# MeasureInstance class
 class MeasureInstance
   include Mongoid::Document
   include Mongoid::Timestamps

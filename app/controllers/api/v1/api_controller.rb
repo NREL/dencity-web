@@ -7,7 +7,7 @@ module Api::V1
       api_version "1"
     end
 
-    before_filter :check_auth, except: [:search, :retrieve_analysis]
+    before_filter :check_auth, except: [:search, :search_by_arguments, :retrieve_analysis]
     respond_to :json
 
     api :POST, '/login', 'Credential check'
@@ -126,6 +126,54 @@ module Api::V1
       @results = query
       @total_results = @results.count
       @total_pages = (@total_results.to_f/@results_per_page.to_f).ceil
+    end
+
+    api :POST, '/search_by_arguments', 'Search for structures within an analysis by arguments'
+    formats ['json']
+    description 'Search for structures, filter results by measure and arguments.'
+    param :analysis_id, String, desc:  'The ID of the analysis to search within', required: true
+    param :measures, Array, of: Hash, desc: 'Hash of measure uuid/version_id, and hash of argument name/value pairs:' do
+      param :uuid, String, desc: 'Measure UUID', required: true
+      param :version_id, String, desc: 'Measure Version ID', required: true
+      param :arguments, Hash, desc: 'Hash of measure arguments listed in name/value pairs', required: true
+    end
+    error :code => 401, desc: 'Unauthorized'
+    error :code => 422, desc: 'Error present in request:  parameters missing or incorrect'
+    example %Q(POST http://<base_url>/api/search_by_arguments, parameters: {"analysis_id": "00201935829103952394", "measures":[{"uuid":"8a70fa20-f63e-0131-cbb2-14109fdf0b37","version_id":"8a711470-f63e-0131-cbb4-14109fdf0b37", "arguments":{"location" : "AN_BC_Vancouver.718920_CWEC.epw", "xpath": "/building/address/weather-file"}])
+    
+    # POST /search_by_arguments 
+    def search_by_arguments
+
+      #TODO: want page?
+      @total_pages = nil
+      error_messages = nil
+
+      # clean params
+      clean_params = {}
+      clean_params[:analysis_id] = params[:analysis_id]
+      clean_params[:measures] = params[:measures]
+
+      @measures = clean_params[:measures]
+
+      @results_per_page = 100
+      if params[:analysis_id]
+        @analysis = Analysis.find(clean_params[:analysis_id])
+        @structure_ids = @analysis.structures.only(:id).map(&:_id) 
+
+        m = @measures.first
+        query = MeasureInstance.where(uuid: m['uuid'],version_id: m['version_id'])
+        m['arguments'].each do |key, value|
+          the_key = 'arguments.' +  key
+          query = query.where(the_key.to_sym => value)
+        end
+
+        query = query.in(:structure_id => @structure_ids)
+        @results = query
+
+        # for json view
+        @total_results = @results.count
+
+      end
     end
  
     api :GET, '/retrieve_analysis', 'Retrieve an analysis.'

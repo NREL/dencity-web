@@ -302,6 +302,25 @@ namespace :testing do
       end
     end
 
+    desc 'test search_by_arguments'
+    task search_by_arguments: :environment do
+      analysis_id = '542a01b6042fa5e81c000001'
+      measures = []
+
+      measure = {uuid: "567b1f00-1d03-0132-2734-22000a2da8e0" , version_id: "567d76b0-1d03-0132-2735-22000a2da8e0", arguments: {value: "USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw", xpath: "/building/address/weather-file" }}
+      measures << measure
+
+      json_request = JSON.generate('analysis_id' => analysis_id, 'measures' => measures)
+      puts "POST http://localhost:3000/api/v1/search_by_arguments, parameters: #{json_request}"
+      begin
+        response = RestClient.post 'http://localhost:3000/api/v1/search_by_arguments', json_request, content_type: :json, accept: :json
+        puts "Status: #{response.code}"
+        puts "SUCCESS: #{response.body}" if response.code == 200
+      rescue => e
+        puts "ERROR: #{e.response}"
+      end
+    end
+
   end
   # upload metadata and instance json
   desc 'upload analysis data'

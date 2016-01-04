@@ -9,10 +9,14 @@ web:
   environment:
     - RAILS_ENV=docker
     - DENCITY_HOST_URL
-    - MAILGUN_SMTP_LOGIN
-    - MAILGUN_API_KEY
     - SECRET_KEY_BASE
     - DEVISE_SECRET_KEY
+    - MAILGUN_SMTP_LOGIN
+    - MAILGUN_API_KEY
+    - SMTP_ADDRESS
+    - SMTP_PORT
+    - SMTP_USERNAME
+    - SMTP_PASSWORD
 db:
   image: mongo
   volumes_from:

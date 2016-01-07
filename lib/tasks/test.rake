@@ -6,6 +6,8 @@ namespace :testing do
     # Test the meta_batch_upload API
     desc 'Batch Post metadata to /api/meta_batch_upload'
     task post_batch_metadata: :environment do
+      @user_name = 'nicholas.long@nrel.gov'
+      @user_pwd = 'testing123'
       # TODO: allow users to specify which file to import from?
       meta_arr = []
       CSV.foreach("#{Rails.root}/lib/metadata_test.csv", headers: true) do |row|
@@ -25,7 +27,8 @@ namespace :testing do
       json_request = JSON.generate('metadata' => meta_arr)
       puts "POST http://localhost:3000/api/v1/meta_batch_upload, parameters: #{json_request}"
       begin
-        response = RestClient.post 'http://localhost:3000/api/v1/meta_batch_upload', json_request, content_type: :json, accept: :json
+        request = RestClient::Resource.new('http://localhost:3000/api/v1/meta_batch_upload', user: @user_name, password: @user_pwd)
+        response = request.post(json_request, content_type: :json, accept: :json)
         puts "Status: #{response.code}"
         puts "SUCCESS: #{response.body}" if response.code == 201
       rescue => e
@@ -36,6 +39,8 @@ namespace :testing do
     # Test the meta_upload API (single metadata entry)
     desc 'Post single metadata entry to /api/meta_upload'
     task post_metadata: :environment do
+      @user_name = 'nicholas.long@nrel.gov'
+      @user_pwd = 'testing123'
       # TODO: allow users to specify which file to import from?
       # Just grab and post the first record in the spreadsheet
       file = CSV.open("#{Rails.root}/lib/metadata_test.csv", 'rb', headers: true)
@@ -52,7 +57,8 @@ namespace :testing do
       json_request = JSON.generate('meta' => json_object)
       puts "POST http://localhost:3000/api/v1/meta_upload, parameters: #{json_request}"
       begin
-        response = RestClient.post 'http://localhost:3000/api/v1/meta_upload', json_request, content_type: :json, accept: :json
+        request = RestClient::Resource.new('http://localhost:3000/api/v1/meta_upload', user: @user_name, password: @user_pwd)
+        response = request.post(json_request, content_type: :json, accept: :json)
         puts "Status: #{response.code}"
         puts "SUCCESS: #{response.body}" if response.code == 201
       rescue => e
@@ -261,13 +267,13 @@ namespace :testing do
         request = RestClient::Resource.new('http://localhost:3000/api/v1/remove_file', user: @user_name, password: @user_pwd)
         response = request.post(json_request, content_type: :json, accept: :json)
         puts "Status: #{response.code}"
-        if response.code == 204
+        if response.code == 204 || response.code == 200
           puts "SUCCESS: #{response.body}"
         else
           fail response.body
         end
       rescue => e
-        puts "ERROR: #{e.response}"
+        puts "ERROR: #{e.inspect}"
         puts e.inspect
       end
     end

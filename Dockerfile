@@ -10,7 +10,7 @@ RUN \
   chown -R www-data:www-data /var/lib/nginx
 
 # Install JRuby and Update Bundler
-ENV JRUBY_VERSION 1.7.19
+ENV JRUBY_VERSION 9.0.4.0
 RUN curl http://jruby.org.s3.amazonaws.com/downloads/$JRUBY_VERSION/jruby-bin-$JRUBY_VERSION.tar.gz | tar xz -C /opt
 ENV PATH /opt/jruby-$JRUBY_VERSION/bin:$PATH
 RUN echo gem: --no-document >> /etc/gemrc

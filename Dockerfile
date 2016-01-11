@@ -19,8 +19,6 @@ RUN echo :ssl_verify_mode: 0 >> /root/.gemrc
 RUN gem update --system
 RUN gem install bundler
 
-# **Make sure NOT to publish this container as it contains the source code via the ADD command below**
-
 # First upload the Gemfile* so that it can cache the Gems -- do this first because it is slow
 WORKDIR /srv
 ADD Gemfile /srv/Gemfile

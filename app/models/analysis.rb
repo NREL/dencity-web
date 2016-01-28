@@ -21,5 +21,5 @@ class Analysis
 
   # Relations
   belongs_to :user
-  has_many :structures
+  has_many :structures, dependent: :destroy
 end

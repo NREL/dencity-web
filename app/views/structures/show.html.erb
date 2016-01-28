@@ -10,7 +10,7 @@
   <% if @structure.analysis %>
   <tr>
     <td><%= link_to @structure.analysis.display_name, analysis_path(@structure.analysis) %></td>
-    <td><%= @structure.analysis.analysis_types.join(', ') %></td>
+    <td><% if @structure.analysis.analysis_types.count > 0 %><%= @structure.analysis.analysis_types.join(', ') %><% end %></td>
   </tr>
   <% end %>
 </table>

@@ -76,7 +76,7 @@ namespace :populate do
       unit.display_name = row[2]
       unit.symbol = row[3]
       unit.symbol_alt = row[4] unless row[4].nil?
-      unit.allowable = row[6] == 'TRUE' || row[6] == 'true' ? true : false
+      unit.allowable = row[6].downcase == 'true' ? true : false
       unit.save!
     end
 

@@ -15,7 +15,7 @@ namespace :populate do
 
   desc 'Import metadata from CSV'
   task import_metadata: :environment do
-    fail 'Populating is only intended for sample data in development' unless Rails.env == 'development'
+    # fail 'Populating is only intended for sample data in development' unless Rails.env == 'development'
     puts 'deleting and importing metadata from metadata.csv'
     Meta.delete_all
     # metadata.csv = real data, metadata_test.csv = test data

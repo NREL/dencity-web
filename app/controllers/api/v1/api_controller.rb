@@ -1,3 +1,4 @@
+require 'fileutils'
 
 module Api::V1
   class ApiController < ApplicationController
@@ -499,7 +500,7 @@ module Api::V1
             error_messages << "File #{file_name} already exists. Delete the file first and reupload."
           else
             file_uri = "#{basic_path}#{@structure.id}/#{file_name}"
-            Dir.mkdir("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
+            FileUtils.mkpath("#{Rails.root}#{basic_path}") unless Dir.exist?("#{Rails.root}#{basic_path}")
             Dir.mkdir("#{Rails.root}#{basic_path}#{@structure.id}/") unless Dir.exist?("#{Rails.root}#{basic_path}#{@structure.id}/")
 
             the_file = File.open("#{Rails.root}/#{file_uri}", 'wb') do |f|

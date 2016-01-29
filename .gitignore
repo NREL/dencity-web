@@ -43,3 +43,6 @@ deploy.zip
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+nohup.out
+bin/

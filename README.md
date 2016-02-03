@@ -33,7 +33,7 @@ rails s
 ## Deployment with Docker and Docker-Compose
 
 1. Install docker-compose (`brew install docker-compose` or https://docs.docker.com/compose/install/), docker-machine (brew install docker-machine)
-2. 
+ 
 1. Make sure that the mongodata and solrdata data containers exist:
 
     ```

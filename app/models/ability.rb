@@ -62,6 +62,7 @@ class Ability
       can [:meta_upload, :meta_batch_upload], Meta
       can :retrieve_analysis, :api
       can :search, :api
+      can :search_by_arguments, :api
     end
   end
 end

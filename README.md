@@ -70,7 +70,7 @@ These instructions only work with Docker on AWS' ElasticBeanstalk (EB) Environme
 1. Make sure you commit your changes locally (EB will use your current Github commit)
 1. Setup Python (use brew), pip, [EB cli](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-set-up.html) and [AWS cli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html)
 1. Set the in the Dockerfile and the /config/puma.rb (this should already be done)
-1. eb create NAME_OF_ENVIRONMENT or eb deploy NAME_OF_ENVIRONMENT.  *Note elastic beanstalk environments are specified here: https://github.com/NREL/cofee-rails/blob/develop/.elasticbeanstalk/config.yml*
+1. eb create NAME_OF_ENVIRONMENT or eb deploy NAME_OF_ENVIRONMENT.  *Note elastic beanstalk environments are specified here: https://github.com/NREL/dencity-web/blob/develop/.ebextensions/01_environment.config*
 1. Note that you must set a few environment variables for the EB environment
     * JRUBY_OPTS=--server -J-Xms2048m -J-Xmx2048m -J-XX:+UseConcMarkSweepGC -J-XX:-UseGCOverheadLimit -J-XX:+CMSClassUnloadingEnabled
     * RAILS_ENV=production

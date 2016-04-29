@@ -43,7 +43,7 @@ class Ability
       can [:read, :create, :update], Structure
     # authenticated user
     elsif user.encrypted_password
-      can [:read, :create], [Meta, Structure]
+      can [:read, :create], [Meta, Structure, MeasureDescription]
       can :manage, Structure, user_id: user.id
       can :manage, Analysis, user_id: user.id
       can :manage, MeasureInstance, user_id: user.id

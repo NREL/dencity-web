@@ -1,4 +1,5 @@
 # DEnCity Rails Application
+[![Dependency Status](https://www.versioneye.com/user/projects/5579946366663600150000a7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5579946366663600150000a7)
 
 ## Development
 

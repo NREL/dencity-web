@@ -1,6 +1,8 @@
 web:
   build: .
   command: /usr/bin/start-server
+  volumes_from:
+    - filedata
   links:
     - db
     - solr

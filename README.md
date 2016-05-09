@@ -40,6 +40,7 @@ rails s
     ```
     docker run -v /data/db --name mongodata busybox true
     docker run -v /opt/solr/example/solr/dencity/data --name solrdata busybox true
+    docker run -v /srv/data --name filedata busybox true
     ```
 
 1. Run

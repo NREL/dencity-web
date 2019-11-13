@@ -39,10 +39,13 @@ GEM
     apipie-rails (0.3.5)
       json
     arel (6.0.3)
+    autoprefixer-rails (9.7.1)
+      execjs
     bcrypt (3.1.10)
     bcrypt (3.1.10-java)
-    bootstrap-sass (3.1.1.1)
-      sass (~> 3.2)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     bootstrap_form (2.3.0)
     bson (3.2.6)
     bson (3.2.6-java)
@@ -71,6 +74,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
+    ffi (1.11.2)
+    ffi (1.11.2-java)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -165,6 +170,8 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    sassc (2.2.1)
+      ffi (~> 1.9)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -218,7 +225,7 @@ PLATFORMS
 
 DEPENDENCIES
   apipie-rails
-  bootstrap-sass (~> 3.1.1)
+  bootstrap-sass (~> 3.4.1)
   bootstrap_form
   cancancan (~> 1.9)
   capistrano

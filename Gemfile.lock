@@ -115,7 +115,7 @@ GEM
     origin (2.2.0)
     orm_adapter (0.5.0)
     pr_geohash (1.0.0)
-    puma (2.16.0-java)
+    puma (3.12.4-java)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
